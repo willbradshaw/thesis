@@ -299,12 +299,12 @@ supported!}
 \ifpdf
   % Convert eps figures to pdf
   \RequirePackage{epstopdf}
-  \RequirePackage[pdftex]{graphicx}
+  \RequirePackage[pdftex,demo]{graphicx}
   \DeclareGraphicsExtensions{.png, .jpg, .pdf}
   \pdfcompresslevel=9
   \graphicspath{{Figs/Raster/}{Figs/}}
 \else
-  \RequirePackage{graphicx}
+  \RequirePackage[demo]{graphicx}
   \DeclareGraphicsExtensions{.eps, .ps}
   \graphicspath{{Figs/Vector/}{Figs/}}
 \fi

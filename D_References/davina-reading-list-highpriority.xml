@@ -1,0 +1,545 @@
+<b:Source>
+    <b:Tag>rombout-yang-2014-adaptive-immune-responses-at-mucosal-surfaces-of-teleost-fish</b:Tag>
+    <b:SourceType>JournalArticle</b:SourceType>
+    <b:Title>Adaptive immune responses at mucosal surfaces of teleost fish</b:Title>
+    <b:Year>2014</b:Year>
+    <b:RefOrder>1</b:RefOrder>
+    <b:Author>
+      <b:Author>
+        <b:NameList>
+          <b:Person>
+            <b:First>Jan H.W.M.</b:First>
+            <b:Last>Rombout</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Guiwen</b:First>
+            <b:Last>Yang</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Viswanath</b:First>
+            <b:Last>Kiron</b:Last>
+          </b:Person>
+        </b:NameList>
+      </b:Author>
+    </b:Author>
+    <b:JournalName>Fish &amp; Shellfish Immunology</b:JournalName>
+    <b:Pages>634-643</b:Pages>
+    <b:Volume>40</b:Volume>
+    <b:Issue>2</b:Issue>
+    <b:StandardNumber>10.1016/J.FSI.2014.08.020</b:StandardNumber>
+    <b:Publisher>Academic Press</b:Publisher>
+    <b:Month>10</b:Month>
+    <b:Day>1</b:Day>
+  </b:Source>
+  
+<b:Source>
+    <b:Tag>willett-cortes-1999-early-hematopoiesis-and-developing-lymphoid-organs-in-the-zebrafish</b:Tag>
+    <b:SourceType>JournalArticle</b:SourceType>
+    <b:Title>Early hematopoiesis and developing lymphoid organs in the zebrafish</b:Title>
+    <b:Year>1999</b:Year>
+    <b:RefOrder>1</b:RefOrder>
+    <b:Author>
+      <b:Author>
+        <b:NameList>
+          <b:Person>
+            <b:First>Catherine E.</b:First>
+            <b:Last>Willett</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Alfonso</b:First>
+            <b:Last>Cortes</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Adelina</b:First>
+            <b:Last>Zuasti</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Agustin G.</b:First>
+            <b:Last>Zapata</b:Last>
+          </b:Person>
+        </b:NameList>
+      </b:Author>
+    </b:Author>
+    <b:JournalName>Developmental Dynamics</b:JournalName>
+    <b:Pages>323-336</b:Pages>
+    <b:Volume>214</b:Volume>
+    <b:Issue>4</b:Issue>
+    <b:StandardNumber>10.1002/(SICI)1097-0177(199904)214:4&lt;323::AID-AJA5&gt;3.0.CO;2-3</b:StandardNumber>
+    <b:Publisher>John Wiley &amp; Sons, Inc.</b:Publisher>
+    <b:Month>4</b:Month>
+    <b:Day>1</b:Day>
+  </b:Source>
+
+
+<b:Source>
+    <b:Tag>abós-castro-2013-transcriptional-heterogeneity-of-igm+-cells-in-rainbow-trout-(oncorhynchus-mykiss)-tissues</b:Tag>
+    <b:SourceType>JournalArticle</b:SourceType>
+    <b:Title>Transcriptional Heterogeneity of IgM+ Cells in Rainbow Trout (Oncorhynchus mykiss) Tissues</b:Title>
+    <b:Year>2013</b:Year>
+    <b:RefOrder>1</b:RefOrder>
+    <b:Author>
+      <b:Author>
+        <b:NameList>
+          <b:Person>
+            <b:First>Beatriz</b:First>
+            <b:Last>Abós</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Rosario</b:First>
+            <b:Last>Castro</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Jaime</b:First>
+            <b:Last>Pignatelli</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Alfonso</b:First>
+            <b:Last>Luque</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Lucia</b:First>
+            <b:Last>González</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Carolina</b:First>
+            <b:Last>Tafalla</b:Last>
+          </b:Person>
+        </b:NameList>
+      </b:Author>
+      <b:Editor>
+        <b:NameList>
+          <b:Person>
+            <b:First>Patrick</b:First>
+            <b:Last>Prunet</b:Last>
+          </b:Person>
+        </b:NameList>
+      </b:Editor>
+    </b:Author>
+    <b:JournalName>PLoS ONE</b:JournalName>
+    <b:Pages>e82737</b:Pages>
+    <b:Volume>8</b:Volume>
+    <b:Issue>12</b:Issue>
+    <b:StandardNumber>10.1371/journal.pone.0082737</b:StandardNumber>
+    <b:Publisher>Public Library of Science</b:Publisher>
+    <b:Month>12</b:Month>
+    <b:Day>6</b:Day>
+  </b:Source>
+
+
+<b:Source>
+    <b:Tag>castillo-sánchez-1993-ontogeny-of-igm-and-igm-bearing-cells-in-rainbow-trout</b:Tag>
+    <b:SourceType>JournalArticle</b:SourceType>
+    <b:Title>Ontogeny of IgM and IgM-bearing cells in rainbow trout</b:Title>
+    <b:Year>1993</b:Year>
+    <b:RefOrder>1</b:RefOrder>
+    <b:Author>
+      <b:Author>
+        <b:NameList>
+          <b:Person>
+            <b:First>Ana</b:First>
+            <b:Last>Castillo</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Carmen</b:First>
+            <b:Last>Sánchez</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Javier</b:First>
+            <b:Last>Dominguez</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Stephen L.</b:First>
+            <b:Last>Kaattari</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Alberto J.</b:First>
+            <b:Last>Villena</b:Last>
+          </b:Person>
+        </b:NameList>
+      </b:Author>
+    </b:Author>
+    <b:JournalName>Developmental &amp; Comparative Immunology</b:JournalName>
+    <b:Pages>419-424</b:Pages>
+    <b:Volume>17</b:Volume>
+    <b:Issue>5</b:Issue>
+    <b:StandardNumber>10.1016/0145-305X(93)90033-M</b:StandardNumber>
+    <b:Publisher>Pergamon</b:Publisher>
+    <b:Month>9</b:Month>
+    <b:Day>1</b:Day>
+  </b:Source>
+  
+<b:Source>
+    <b:Tag>uribe-folch-innate-and-adaptive-immunity-in-teleost-fish:-a-review</b:Tag>
+    <b:SourceType>JournalArticle</b:SourceType>
+    <b:Title>Innate and adaptive immunity in teleost fish: a review</b:Title>
+    <b:RefOrder>1</b:RefOrder>
+    <b:Author>
+      <b:Author>
+        <b:NameList>
+          <b:Person>
+            <b:First>C</b:First>
+            <b:Last>Uribe</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>H</b:First>
+            <b:Last>Folch</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>R</b:First>
+            <b:Last>Enriquez</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>G</b:First>
+            <b:Last>Moran</b:Last>
+          </b:Person>
+        </b:NameList>
+      </b:Author>
+    </b:Author>
+    <b:JournalName>Veterinarni Medicina</b:JournalName>
+    <b:Pages>2011-486</b:Pages>
+    <b:Volume>56</b:Volume>
+    <b:Issue>10</b:Issue>
+  </b:Source>
+  
+<b:Source>
+    <b:Tag>zwollo-cole-2005-b-cell-heterogeneity-in-the-teleost-kidney:-evidence-for-a-maturation-gradient-from-anterior-to-posterior-kidney.</b:Tag>
+    <b:SourceType>JournalArticle</b:SourceType>
+    <b:Title>B cell heterogeneity in the teleost kidney: evidence for a maturation gradient from anterior to posterior kidney.</b:Title>
+    <b:Year>2005</b:Year>
+    <b:RefOrder>1</b:RefOrder>
+    <b:Author>
+      <b:Author>
+        <b:NameList>
+          <b:Person>
+            <b:First>Patty</b:First>
+            <b:Last>Zwollo</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Suzanne</b:First>
+            <b:Last>Cole</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Erin</b:First>
+            <b:Last>Bromage</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Stephen</b:First>
+            <b:Last>Kaattari</b:Last>
+          </b:Person>
+        </b:NameList>
+      </b:Author>
+    </b:Author>
+    <b:JournalName>Journal of immunology (Baltimore, Md. : 1950)</b:JournalName>
+    <b:Pages>6608-16</b:Pages>
+    <b:Volume>174</b:Volume>
+    <b:Issue>11</b:Issue>
+    <b:StandardNumber>10.4049/JIMMUNOL.174.11.6608</b:StandardNumber>
+    <b:Publisher>American Association of Immunologists</b:Publisher>
+    <b:Month>6</b:Month>
+    <b:Day>1</b:Day>
+  </b:Source>
+  
+<b:Source>
+    <b:Tag>zwollo-mott-2010-comparative-analyses-of-b-cell-populations-in-trout-kidney-and-mouse-bone-marrow:-establishing-“b-cell-signatures”</b:Tag>
+    <b:SourceType>JournalArticle</b:SourceType>
+    <b:Title>Comparative analyses of B cell populations in trout kidney and mouse bone marrow: Establishing “B cell signatures”</b:Title>
+    <b:Year>2010</b:Year>
+    <b:RefOrder>1</b:RefOrder>
+    <b:Author>
+      <b:Author>
+        <b:NameList>
+          <b:Person>
+            <b:First>Patty</b:First>
+            <b:Last>Zwollo</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Katrina</b:First>
+            <b:Last>Mott</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Maggie</b:First>
+            <b:Last>Barr</b:Last>
+          </b:Person>
+        </b:NameList>
+      </b:Author>
+    </b:Author>
+    <b:JournalName>Developmental &amp; Comparative Immunology</b:JournalName>
+    <b:Pages>1291-1299</b:Pages>
+    <b:Volume>34</b:Volume>
+    <b:Issue>12</b:Issue>
+    <b:StandardNumber>10.1016/J.DCI.2010.08.003</b:StandardNumber>
+    <b:Publisher>Pergamon</b:Publisher>
+    <b:Month>12</b:Month>
+    <b:Day>1</b:Day>
+  </b:Source>
+
+
+<b:Source>
+    <b:Tag>zwollo-2011-dissecting-teleost-b-cell-differentiation-using-transcription-factors</b:Tag>
+    <b:SourceType>Misc</b:SourceType>
+    <b:Title>Dissecting teleost B cell differentiation using transcription factors</b:Title>
+    <b:Year>2011</b:Year>
+    <b:RefOrder>1</b:RefOrder>
+    <b:Author>
+      <b:Author>
+        <b:NameList>
+          <b:Person>
+            <b:First>Patty</b:First>
+            <b:Last>Zwollo</b:Last>
+          </b:Person>
+        </b:NameList>
+      </b:Author>
+    </b:Author>
+    <b:PublicationTitle>Developmental and Comparative Immunology</b:PublicationTitle>
+    <b:StandardNumber>10.1016/j.dci.2011.01.009</b:StandardNumber>
+  </b:Source>
+  
+
+<b:Source>
+    <b:Tag>ramírez-lukin-2010-from-hematopoietic-progenitors-to-b-cells:-mechanisms-of-lineage-restriction-and-commitment</b:Tag>
+    <b:SourceType>Misc</b:SourceType>
+    <b:Title>From hematopoietic progenitors to B cells: Mechanisms of lineage restriction and commitment</b:Title>
+    <b:Year>2010</b:Year>
+    <b:RefOrder>1</b:RefOrder>
+    <b:Author>
+      <b:Author>
+        <b:NameList>
+          <b:Person>
+            <b:First>Julita</b:First>
+            <b:Last>Ramírez</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Kara</b:First>
+            <b:Last>Lukin</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>James</b:First>
+            <b:Last>Hagman</b:Last>
+          </b:Person>
+        </b:NameList>
+      </b:Author>
+    </b:Author>
+    <b:PublicationTitle>Current Opinion in Immunology</b:PublicationTitle>
+    <b:StandardNumber>10.1016/j.coi.2010.02.003</b:StandardNumber>
+  </b:Source>
+  
+<b:Source>
+    <b:Tag>dos-santos-romano-2000-ontogeny-of-b-and-t-cells-in-sea-bass-(dicentrarchus-labrax,-l.)</b:Tag>
+    <b:SourceType>JournalArticle</b:SourceType>
+    <b:Title>Ontogeny of B and T cells in sea bass (Dicentrarchus labrax, L.)</b:Title>
+    <b:Year>2000</b:Year>
+    <b:RefOrder>1</b:RefOrder>
+    <b:Author>
+      <b:Author>
+        <b:NameList>
+          <b:Person>
+            <b:First>Nuno M.S</b:First>
+            <b:Last>dos Santos</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Nicla</b:First>
+            <b:Last>Romano</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Maria</b:First>
+            <b:Last>de Sousa</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Anthony E</b:First>
+            <b:Last>Ellis</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Jan H.W.M</b:First>
+            <b:Last>Rombout</b:Last>
+          </b:Person>
+        </b:NameList>
+      </b:Author>
+    </b:Author>
+    <b:JournalName>Fish &amp; Shellfish Immunology</b:JournalName>
+    <b:StandardNumber>10.1006/fsim.2000.0273</b:StandardNumber>
+  </b:Source>
+
+
+<b:Source>
+    <b:Tag>lam-chua-2004-development-and-maturation-of-the-immune-system-in-zebrafish,-danio-rerio:-a-gene-expression-profiling,-in-situ-hybridization-and-immunological-study</b:Tag>
+    <b:SourceType>JournalArticle</b:SourceType>
+    <b:Title>Development and maturation of the immune system in zebrafish, Danio rerio: a gene expression profiling, in situ hybridization and immunological study</b:Title>
+    <b:Year>2004</b:Year>
+    <b:Comments>Protocol for RT-qpcr&lt;br&gt;</b:Comments>
+    <b:RefOrder>1</b:RefOrder>
+    <b:Author>
+      <b:Author>
+        <b:NameList>
+          <b:Person>
+            <b:First>S.H</b:First>
+            <b:Last>Lam</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>H.L</b:First>
+            <b:Last>Chua</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Z</b:First>
+            <b:Last>Gong</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>T.J</b:First>
+            <b:Last>Lam</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Y.M</b:First>
+            <b:Last>Sin</b:Last>
+          </b:Person>
+        </b:NameList>
+      </b:Author>
+    </b:Author>
+    <b:JournalName>Developmental &amp; Comparative Immunology</b:JournalName>
+    <b:Pages>9-28</b:Pages>
+    <b:Volume>28</b:Volume>
+    <b:Issue>1</b:Issue>
+    <b:StandardNumber>10.1016/S0145-305X(03)00103-4</b:StandardNumber>
+    <b:Publisher>Pergamon</b:Publisher>
+    <b:Month>1</b:Month>
+    <b:Day>1</b:Day>
+  </b:Source>
+
+
+<b:Source>
+    <b:Tag>rauta-nayak-2012-immune-system-and-immune-responses-in-fish-and-their-role-in-comparative-immunity-study:-a-model-for-higher-organisms</b:Tag>
+    <b:SourceType>Misc</b:SourceType>
+    <b:Title>Immune system and immune responses in fish and their role in comparative immunity study: A model for higher organisms</b:Title>
+    <b:Year>2012</b:Year>
+    <b:RefOrder>1</b:RefOrder>
+    <b:Author>
+      <b:Author>
+        <b:NameList>
+          <b:Person>
+            <b:First>Pradipta R.</b:First>
+            <b:Last>Rauta</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Bismita</b:First>
+            <b:Last>Nayak</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Surajit</b:First>
+            <b:Last>Das</b:Last>
+          </b:Person>
+        </b:NameList>
+      </b:Author>
+    </b:Author>
+    <b:PublicationTitle>Immunology Letters</b:PublicationTitle>
+    <b:StandardNumber>10.1016/j.imlet.2012.08.003</b:StandardNumber>
+  </b:Source>
+  
+
+<b:Source>
+    <b:Tag>hunt-rice-lymphoid-tissue-ontogeny-in-the-mummichog,-fundulus-heteroclitus</b:Tag>
+    <b:SourceType>JournalArticle</b:SourceType>
+    <b:Title>Lymphoid Tissue Ontogeny in the Mummichog, Fundulus heteroclitus</b:Title>
+    <b:RefOrder>1</b:RefOrder>
+    <b:Author>
+      <b:Author>
+        <b:NameList>
+          <b:Person>
+            <b:First>Laura R</b:First>
+            <b:Last>Hunt</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Charles D</b:First>
+            <b:Last>Rice</b:Last>
+          </b:Person>
+        </b:NameList>
+      </b:Author>
+    </b:Author>
+    <b:StandardNumber>10.1002/ar.20740</b:StandardNumber>
+  </b:Source>
+  
+<b:Source>
+    <b:Tag>boehm-swann-2014-origin-and-evolution-of-adaptive-immunity</b:Tag>
+    <b:SourceType>JournalArticle</b:SourceType>
+    <b:Title>Origin and Evolution of Adaptive Immunity</b:Title>
+    <b:Year>2014</b:Year>
+    <b:RefOrder>1</b:RefOrder>
+    <b:Author>
+      <b:Author>
+        <b:NameList>
+          <b:Person>
+            <b:First>Thomas</b:First>
+            <b:Last>Boehm</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Jeremy B.</b:First>
+            <b:Last>Swann</b:Last>
+          </b:Person>
+        </b:NameList>
+      </b:Author>
+    </b:Author>
+    <b:JournalName>Annual Review of Animal Biosciences</b:JournalName>
+    <b:Pages>259-283</b:Pages>
+    <b:Volume>2</b:Volume>
+    <b:Issue>1</b:Issue>
+    <b:StandardNumber>10.1146/annurev-animal-022513-114201</b:StandardNumber>
+    <b:Month>2</b:Month>
+  </b:Source>
+  
+  <b:Source>
+    <b:Tag>schro-villena-ontogeny-of-lymphoid-organs-and-immunoglobulin-producing-cells-in-atlantic-cod-(gadus-morhua-l.)</b:Tag>
+    <b:SourceType>JournalArticle</b:SourceType>
+    <b:Title>ONTOGENY OF LYMPHOID ORGANS AND IMMUNOGLOBULIN PRODUCING CELLS IN ATLANTIC COD (Gadus morhua L.)</b:Title>
+    <b:RefOrder>1</b:RefOrder>
+    <b:Author>
+      <b:Author>
+        <b:NameList>
+          <b:Person>
+            <b:First>Merete B</b:First>
+            <b:Last>Schro</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>Alberto J</b:First>
+            <b:Last>Villena</b:Last>
+          </b:Person>
+        </b:NameList>
+      </b:Author>
+    </b:Author>
+    <b:JournalName>Developmental + Comparative Immunology\</b:JournalName>
+    <b:Volume>11</b:Volume>
+    <b:Issue>4</b:Issue>
+  </b:Source>
+  
+<b:Source>
+    <b:Tag>zapata-diez-2006-ontogeny-of-the-immune-system-of-fish</b:Tag>
+    <b:SourceType>ConferenceProceedings</b:SourceType>
+    <b:Title>Ontogeny of the immune system of fish</b:Title>
+    <b:Year>2006</b:Year>
+    <b:RefOrder>1</b:RefOrder>
+    <b:Author>
+      <b:Author>
+        <b:NameList>
+          <b:Person>
+            <b:First>A.</b:First>
+            <b:Last>Zapata</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>B.</b:First>
+            <b:Last>Diez</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>T.</b:First>
+            <b:Last>Cejalvo</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>C.</b:First>
+            <b:Last>Gutiérrez-De Frías</b:Last>
+          </b:Person>
+          <b:Person>
+            <b:First>A.</b:First>
+            <b:Last>Cortés</b:Last>
+          </b:Person>
+        </b:NameList>
+      </b:Author>
+    </b:Author>
+    <b:ConferenceName>Fish and Shellfish Immunology</b:ConferenceName>
+    <b:StandardNumber>10.1016/j.fsi.2004.09.005</b:StandardNumber>
+  </b:Source>
+</b:Sources>

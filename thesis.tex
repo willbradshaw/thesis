@@ -60,9 +60,11 @@
 %\printnomenclature
 %
 %% ******************************** Main Matter *********************************
-\mainmatter
+\mainmatter\onehalfspacing
 %
-\include{B_Chapters/chapter1}
+\include{B_Chapters/1_Introduction/Introduction}
+\include{B_Chapters/2_Methods/Methods}
+
 %\include{B_Chapters/Chapter2/chapter2}
 %\include{B_Chapters/Chapter3/chapter3}
 %\include{B_Chapters/Chapter4/chapter4}
@@ -88,7 +90,7 @@
 \bibliographystyle{unsrt} % Use for unsorted references  
 %\bibliographystyle{plainnat} % use this to have URLs listed in References
 %\cleardoublepage
-\bibliography{C_Backmatter/references} % Path to your References.bib file
+\bibliography{D_References/igh-loci,} % Path to your References.bib file
 %
 
 % If you would like to use BibLaTeX for your references, pass `custombib' as
@@ -103,9 +105,12 @@
 
 % ********************************** Appendices ********************************
 
-%\begin{appendices} % Using appendices environment for more functunality
-%\include{Appendix1/appendix1}
-%\end{appendices}
+\begin{appendices} % Using appendices environment for more functionality
+\appendix
+\include{C_Backmatter/appendix_solutions}
+\include{C_Backmatter/appendix_primers}
+\include{C_Backmatter/appendix2}
+\end{appendices}
 
 % *************************************** Index ********************************
 %\printthesisindex % If index is present

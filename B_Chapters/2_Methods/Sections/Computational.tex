@@ -1,0 +1,179 @@
+\section{Computational and analytic methods}
+
+\subsection{Pre-processing of Ig-Seq sequencing data}
+
+Pre-processing of Illumina sequencing data from Ig-Seq libraries was performed primarily using pRESTO, a suite of tools for converting raw immunoglobulin sequencing reads into unique repertoire sequencing.
+
+ % TODO: Specify where to look for more information on command functionality, and where to find scripts.
+
+\subsubsection{Read quality control}
+
+After rarefaction, the raw read set underwent quality control, discarding any read with an average Phred score of less than 20 (\texttt{FilterSeq quality}). The number of reads passing the filter was recorded for each sample.
+
+The \texttt{pRESTO} command for the filtering operation is as follows:
+
+\texttt{FilterSeq quality -q 20 -s <raw-reads-file>}
+
+\subsubsection{Primer masking and UMI extraction}
+
+Following quality filtering, the reads underwent primer masking, during which fixed primer sequences were identified and removed from each read (\texttt{MaskPrimers score --mode cut}). Starting from a specified start site, % describe primer masking algorithm from fixed start
+
+In this case, the 5' reads (containing the UMI) were initially masked for the invariant M1s primer sequence 5' of the UMI region, while the sequence of the constant-region primer CC was removed from the 3' reads (see \Cref{app:oligos_tsa} for primer sequence details). The 5' reads then underwent a second round of masking, in which the first 16 bases of the read were extracted and recorded as that read's UMI, and the 3' invariant part of the TSA sequence (CTTGGGG) was removed. The \texttt{pRESTO} commands for these masking operations are as follows:
+
+\texttt{MaskPrimers score --mode cut --start 0 -s <5prime-read-file> -p <M1s-primer-file>}
+\texttt{MaskPrimers score --mode cut --start 0 -s <3prime-read-file> -p <CC-primer-file>}
+\texttt{MaskPrimers score --mode cut --barcode --start 16 --maxerror [MAX ERROR HERE] -s <5primer-read-file-masked> -p <TSA-3prime-sequence-file>}
+
+\subsubsection{Barcode error handling}
+
+The use of UMI sequences enables biases and errors in library insert sequences to be corrected by taking the consensus sequence of all reads sharing a given UMI (a molecular identifier group, or MIG). However, PCR and sequencing errors can also affect the sequence of the UMI itself, in which case reads that in fact belong to a single MIG will be spuriously separated during pre-processing; this can result in spuriously low MIG read counts, spuriously high numbers of unique sequences, and avoidable loss of sequencing data due to reads with erroneous barcodes being discarded (as low-quality, low-read-count unique sequences) at various points in the pre-processing pipeline.
+
+In addition to these barcode errors, barcode collisions can occur, in which multiple distinct sequences are labelled with the same UMI sequence and spuriously grouped together during UMI grouping. This can lead to spuriously large MIGs and spuriously low numbers of unique sequences, and in extreme cases lead to the rejection and loss of entire MIGs due to an insufficiently high level of sequence identity during consensus generation (see below). 
+
+The level of barcode errors in a dataset can be reduced by clustering reads with highly similar barcodes together before consensus read generation, while barcode collisions can be reduced by splitting sequences within an MIG that differ in sequence by more than a threshold amount. In \texttt{pRESTO}, these error handling steps are achieved by %describe clustering and splitting steps in pRESTO pipeline
+
+The \texttt{pRESTO} commands used to perform these operations are as follows; the third command concatenates the cluster annotations from the first two to label each read with a single cluster assignment, while the fourth copies cluster and barcode annotations from the 5' reads to their 3' pairs and discards reads whose pair was dropped during quality filtering or subsequent processing steps:
+
+\texttt{ClusterSets barcode -f BARCODE -k CLUSTER --cluster cd-hit-est --prefix B --ident [IDENT PARAM HERE] -s <umi-tagged-5prime-reads>}
+\texttt{ClusterSets set -f CLUSTER -k CLUSTER --cluster vsearch --prefix S --ident [IDENT PARAM HERE] -s <barcode-clustered-5prime-reads>}
+\texttt{ParseHearders collapse -f CLUSTER --act cat -s <split-clustered-5prime-reads>}
+\texttt{PairSeq -1 <cluster-collapsed-5prime-reads> -2 <masked-3prime-reads> --1f BARCODE CLUSTER --coord illumina}
+
+\subsubsection{Consensus-read generation}
+
+Following the clustering and unification steps described in the previous subsection, the 5' and 3' reads files underwent UMI aggregation and consensus building. In this process... % describe algorithm for BuildConsensus
+
+The output of consensus-read aggregation is a FASTQ file containing a single consensus entry for each cluster annotation, labelled with its CONSCOUNT (the number of reads contributing to that consensus sequence) and the number of reads allocated to each barcode in the cluster. This file is typically much smaller than the preceding, uncollapsed reads files, enabling subsequent steps in the analysis to be performed substantially more quickly.
+
+The \texttt{pRESTO} commands for consensus-read generation are as follows; as before, \texttt{PairSeq} is used to unify the two sequence files by dropping consensus sequences for which no pair is present with that cluster assignment:
+
+\texttt{BuildConsensus --bf CLUSTER --bf CLUSTER BARCODE --act set set --maxerror [ERROR PARAM HERE] --maxgap [GAP PARAM HERE] -s <post-pairseq-reads-file>}
+\texttt{PairSeq -1 <5prime-reads-consensus> -2 <3prime-reads-consensus> --coord presto}
+
+\subsubsection{Merging paired consensus reads into a single IgH sequence}
+
+After consensus-read generation, the next step in the pre-processing pipeline is to merge paired forward and reverse consensus reads into a single contiguous variable-region sequence. 
+
+...The reverse sequence is reverse-complemented and an overlapping alignment between the two sequences is found using \texttt{blastn}... % Describe sequential algorithm
+
+The cluster, barcode and CONSCOUNT annotations, which were unified between paired sequences at the end of the previous step, are copied from the forward read to the new merged sequence.
+
+\texttt{AssemblePairs sequentian --coord presto --aligner blastn --scanrev --rc tail --1f CONSCOUNT~CLUSTER~BARCODE~BARCODE\_COUNT -1 <forward-sequence-file> -2 <reverse-sequence-file> -r <V-segment-file>}
+
+\subsubsection{Collapsing identical sequences and}
+
+Each consensus sequence in the data set is now expected to represent a unique RNA molecule in the original sample. To group and quantify the abundance of each sequence present in the sample, consensus sequences with identical insert sequences are now collapsed together. 
+
+During this collapsing process, the number of instances of each unique sequences are counted and added to the sequence file as a new DUPCOUNT annotation. In addition, the cluster, barcode and CONSCOUNT annotations from the collapsed sequences are copied to the new unique entry, with the new cluster and barcode lists being the union of the contributing entries and the new CONSCOUNT being the sum. The DUPCOUNT annotation of each new unique sequence is therefore equal to the number of entries in its CLUSTER annotation.
+
+\texttt{CollapseSeq --inner --cf CONSCOUNT CLUSTER BARCODE BARCODE\_COUNT --act sum set set set -n [GAP PARAM HERE] -s <merged-pair-file>}
+
+% TODO: Describe role of --inner and gap parameter
+
+\subsubsection{Removing singleton sequences and conversion to FASTA}
+
+In the final step in the pRESTO pre-processing pipeline, unique sequences with a CONSCOUNT of no greater than 1 (i.e. sequences represented by only one barcode with only one associated read) are discarded from the data set; these sequences, which were unable to undergo UMI-associated read correction, cannot be considered reliable and are excluded from downstream analysis. % Unfortunately, this will also exclude many genuine, but rare, sequences
+
+% TODO: Add stuff about grouping by replicate where appropriate
+
+The \texttt{pRESTO} command for separating singletons (i.e. entries with a CONSCOUNT annotation of less than 2) from non-singletons is as follows:
+
+\texttt{SplitSeq.py group -f CONSCOUNT --num 2 -s <collapsed-sequence-file>}
+
+After separating singletons, the remaining sequences are converted from FASTQ to FASTA format for downstream processing using \texttt{seqtk seq -a}.
+
+\subsubsection{V/D/J identity assignment}
+
+
+
+\subsection{PCR}
+\label{sec:methods_pcr}
+
+% TODO: Brief explanation of PCR and link to good summary reference.
+
+Unless otherwise specified, all PCRs were performed using \x{2} KAPA HiFi HotStart ReadyMix PCR Kit (see \Cref{app:solutions_enzymes}) according to the manufacturer's instructions. Briefly, for a \ul{25} reaction, \ul{12.5} KAPA ReadyMix was combined with \ul{12.5} total of template, nuclease-free water, and primers; these volumes were scaled linearly for reactions of different volumes. The mixture was then heated in a thermocycler as follows:
+
+\begin{center}
+\begin{threeparttable}
+\begin{tabular}{cccc}\toprule
+\textbf{Step} & \textbf{Temperature [\degC{}]} & \textbf{Duration [\secs{}]} & \textbf{Cycles}\\\midrule
+Initial denaturation & 95 & 180 & 1 \\\midrule
+Denaturation & 98 & 20 & \multirow{3}{*}{$n_c$\tnote{1}}\\
+Annealing & $T_a$\tnote{1} \tnote{} & 15 & \\
+Extension & 72 & $t_{ext}$\tnote{1} & \\\midrule
+Final extension & 72 & $t_{ext} \times 4$\tnote{1} & 1\\
+\end{tabular}
+\begin{tablenotes}
+\item[1] Annealing temperature ($T_a$), extension time ($t_{ext}$) and cycle number ($n_c$) determined separately for each reaction.
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+
+\subsection{Reverse-transcription}
+\label{sec:methods_rt}
+
+Reverse transcription of total RNA for Ig-seq library preparation was performed using SMARTScribe Reverse Transcriptase, a reverse-transcriptase enzyme specialised for terminal-transferase activity and template switching. % Citation needed
+
+The reaction was performed according to the protocol specified in REFERENCE (Procedure, steps 5-9). Briefly, \ng{750} killifish total RNA was combined with \ul{2} \umol{10} gene-specific primer (GSP), along with nuclease-free water to a total volume of \ul{8}. The RNA-primer mixture was incubated for 2 minutes at \degC{70} to denature the RNA % TODO: Check this
+, then cooled to \degC{42} to anneal the GSP. This annealed RNA-primer mixture was combined with \ul{12} of reverse-transcription master-mix (\Cref{tab:methods_rt_mm}), including the reverse-transcriptase enzyme and template-switch adapter (\Cref{app:oligos}, \Cref{fig:tsa}). The complete reaction mixture was incubated at for \hr{1} at \degC{42} for the reverse-transcription reaction, then mixed with \ul{1} of uracil DNA glycosylase and incubated for a further \mins{40} at \degC{37} to digest the TSA.  
+
+% TODO: Get UDG enzyme details from lab
+% TODO: Get sequence details for 
+
+\begin{table}[h]
+\begin{center}
+\begin{threeparttable}
+\caption{Master-mix components for SMARTScribe reverse transcription, per sample}
+\begin{tabular}{llll}\toprule
+\textbf{Volume [\ul{}]} & \textbf{Component} & \textbf{Concentration} & \textbf{Reference}\\\midrule
+2 & SMARTScribe reverse transcriptase & \unitsul{100} & \Cref{app:solutions_enzymes} \\
+4 & SMARTScribe first-strand buffer & \x{5} & \Cref{app:solutions_reagents} \\
+2 & SmartNNNa barcoded TSA & \umol{10} & \Cref{app:oligos_tsa}\\
+2 & DTT & \mmol{20} & \Cref{app:solutions_reagents}\\ % More information here
+2 & dNTP mix & \umol{10} per nucleotide & \Cref{app:solutions_reagents}\\
+0.5 & RNasin RNase inhibitor & \unitsul{40} & \Cref{app:solutions_enzymes}\\\bottomrule
+\end{tabular}
+\label{tab:methods_rt_mm}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+\begin{figure}
+\begin{center}
+\LARGE
+\textcolor{Fuchsia}{AAGCAGUGGTAUCAACGCAGAG}U\textcolor{ForestGreen}{NNNN}--\\--U\textcolor{ForestGreen}{NNNN}U\textcolor{ForestGreen}{NNNN}UCTT\textcolor{BurntOrange}{rGrGrGrG}
+\end{center}
+\caption{Annotated sequence of the SmartNNNa barcoded template-switch adapter (TSA) used in template-switch reverse-transcription for 5'-RACE-PCR. The green N characters represent the random nucleotides used in the unique molecular identifier (UMI), each of which could take any value from A, C, G or T. The U residues represent deoxyuridine, which is specifically targeted by UDG during the last stage of the reverse-transcription protocol (\Cref{sec:methods_rt}). The orange, 3'-termial \textit{rG}'s indicate riboguanosine residues, which are required to pair with the RNA template during template switching.}
+\label{fig:tsa}
+\end{figure}
+
+% TODO: Explain composition and functionality of TSA
+
+\subsection{RNA isolation from killifish samples}
+
+\subsection{Nucleic-acid quantitation and quality control}
+
+\subsection{Library size-selection with the BluePippin}
+
+\subsection{Nucleic-acid purification with SeraSure magnetic beads}
+% TODO: What's the technical term for these beads? R-something?
+% TODO: Read and cite protocol from Ray
+
+\subsubsection{Preparation of SeraSure magnetic bead suspension}
+
+\subsubsection{Purification of nucleic-acid samples}
+
+\subsection{Immunoglobulin sequencing: library prep} 
+The prepared reverse-transcription mixture was incubated  (\uul{5}, DETAILS) and incubated for a further \min{40} at \degC{37} to digest residual TSA oligonucleotides. The reaction product was purified using SeraSure beads at \x{0.7} concentration, eluting in \ul{16.5} clean elution buffer. % Solutions and buffers section?
+
+Following cleanup, the cDNA sequences were made double-stranded and amplified using nested PCR with Kapa DNA polymerase, % HotStart PCR ReadyMix?
+(TABLE, PCR 1; primer details in TABLE and FIGURE), then re-purified with SeraSure beads (\x{0.7} input, resuspend in \ul{25} EB, \mins{5} elution). Partial Illumina adaptors (without indices for multiplexing) were added in a second PCR (TABLE, PCR 2; primer details in TABLE and FIGURE), followed by a further SeraSure bead cleanup (0.7x = 17.5uL input, resuspend in 15uL EB, 5 mins elution). Finally, a third PCR with Illumina TruSeq adaptor primers (...) was used to add a unique index combination to each library in a given experiment (see TABLE for index data for ...); this was followed by a further bead cleanup (...) prior to library quality control.
+
+After the final bead cleanup, the concentration of each library was tested with the Qubit (details), while the size distribution was examined using the Agilent TapeStation 4200; this information together enabled the estimation of the concentration of the desired library band (at LENGTHS) for each sample. The samples from each experiment were pooled together according to these estimates, such that every library had the same estimated concentration in the pooled sample. 
+
+
+\subsection{Quality-control of prepared Illumina libraries}
+% TODO: Say this was done by CCG
+
+\subsection{Sequencing of prepared Illumina libraries}
+% TODO: Say this was done by CCG

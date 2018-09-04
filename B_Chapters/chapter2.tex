@@ -1,0 +1,101 @@
+%!TEX root = ../thesis.tex
+
+\chapter{Materials and Methods}
+%s\doublespacing
+\onehalfspacing
+
+
+%
+%\ifpdf
+%    \graphicspath{{Chapter1/Figs/Raster/}{Chapter1/Figs/PDF/}{Chapter1/Figs/}}
+%\else
+%    \graphicspath{{Chapter1/Figs/Vector/}{Chapter1/Figs/}}
+%\fi
+
+\section*{Summary} % Fits one one page if 1.5-spaced, but not at double spacing
+
+% ...
+\pagebreak
+
+%...
+
+\section{Characterising the killifish \textit{IgH} locus}
+
+% ...
+
+\subsection{Assembling BAC inserts from Illumina reads}
+
+The data from the BAC sequencing runs were trimmed of adaptor sequences by the sequence provider and uploaded to Illumina Basespace %trademark? citation
+for online storage and sharing. These data were downloaded from BaseSpace to our institute file server with Illumina BaseMount % trademark? citation?
+and uploaded to the institute computing cluster with SCP. % citation
+Information about these raw sequencing libraries can be found in Table\dots %TODO: Add BAC info table
+. 
+
+The general outline of the BAC assembly pipeline used in this work is shown in Figure\dots %TODO: Make BAP flowchart figure
+. In brief, the input reads were trimmed to remove low-quality bases using Trimmomatic; filtered using Bowtie2 to remove contaminant sequences; assembled into contigs using the SPAdes genome assembler; then scaffolded using BESST and long-insert libraries from the killifish genome project. % Citations for all of this
+Each of these stages is described in more detail below; the complete pipeline is available at \dots .
+
+\subsubsection{Quality-trimming with Trimmomatic}
+
+Quality trimming to remove low-quality and adaptor sequences is important for the performance of \textit{de novo} sequence assembly applications \citep{bolger2014trimmomatic}, potentially yielding large gains in assembly quality. In this project, the widely-used quality-trimming tool Trimmomatic \citep{bolger2014trimmomatic} was used to process all BAC reads prior to filtering and assembly. Trimmomatic is capable of processing single- or paired-end read data, but its adaptor-removal performance is substantially higher when pairing information is available; it was therefore run on paired read data, before the files were split for contamination filtering (see below). The command used ((for Illumina data)) was:
+
+ILLUMINACLIP:<path_to_adapters>:2:30:10:5:true LEADING:20 TRAILING:20 SLIDINGWINDOW:4:30 MINLEN:36 % TODO: Format this properly
+
+Which applies the following operations (in order):
+
+\begin{itemize}
+\item ILLUMINACLIP: Scan reads for Illumina adapter sequences (using both simple and palindromic search modes \citep{bolger2014trimmomatic}) and remove them. The "true" option instructs Trimmomatic to retain both reads in the event that they are identical after adapter-trimming.
+\item LEADING: Remove bases below the stated quality threshold from the start of the read.
+\item TRAILING: Remove bases below the stated quality threshold from the end of the read.
+\item SLIDINGWINDOW: Trim reads if the average quality score across a sliding window drops below a threshold value
+\item MINLEN: Discard reads below some threshold length (post-trimming)
+\end{itemize}
+
+% Talk about TruSeq vs NextEra adaptor selection (if both, then why?)
+
+\subsubsection{Contaminant-filtering with Bowtie2}
+
+The presence of contaminating sequences in the read set can significantly impair \textit{de novo} sequence assembly, resulting in both contamination of the resulting assembly and a reduction in the length and reliability of true contigs %citation needed
+. To avoid this, stringent filtering is required to remove reads aligning to expected contaminant sequences. In this case, observed contaminants included:
+
+\begin{itemize}
+\item Genomic DNA \textit{Escherichia coli} strain K12/DH10B (the strain of \textit{E. coli} used in the BAC library) % Other strains?
+\item Fragments of genomic DNA from \textit{Amycolatopsis lurida} % More info - what gene if any, why is it there
+\item Low levels of \textit{Homo sapiens} sequences
+\end{itemize}
+
+To remove these, the relevant sequences (see Table ((?)) ) were used to construct an index for the widely-used read-mapping program Bowtie2 \citep{langmead2012bowtie2},
+, and the trimmed reads were aligned against this index. 
+
+
+To maximise stringency, the forward and reverse reads files were each aligned separately, with reads that failed to align (i.e. that did not contain contaminating sequence) output to a new file with Bowtie2's --un argument; reads that did align to the contaminating sequences were discarded % Insert command here
+
+Among those reads showing significant alignment to the reference sequence, some aligned concordantly (with both reads aligning to the contaminating sequence in a consistent manner) and others discordantly (with only one read aligning or the two reads aligning in a manner inconsistent with the sequencing format). In order to maximise stringency, any read pair in which at least one read aligned to a contamination sequence was deemed to be contaminated and removed from the read set prior to sequence assembly. To achieve this, the forward and reverse reads files were each aligned to the contamination index separately, with reads that failed to align (i.e. that did not contain contaminating sequence) output to a new file with Bowtie2's --un argument; reads that did show significant alignment to the reference sequence were discarded. % Insert command here
+
+The forward and reverse read files were then re-synchronised using the re-pairing tool `rpair.sh` from the BBTools suite % no citation - link to website?
+, which identifies paired reads using standard Illumina formatting conventions, discards reads with no pair in the other file and reorders the files so that paired reads are at corresponding positions. As a result of this last pre-processing step, only read pairs in which both partners failed to align to the contamination index were retained for sequence assembly.
+
+\subsubsection{BAC sequence assembly with SPAdes}
+
+Following quality-trimming and filtering of contaminating sequences, the remaining BAC reads underwent \textit{de novo} genome assembly using the de-Bruijn-graph-based assembly software SPAdes \citep{bankevich2012spades}. SPAdes is specialised for assembling small genomes and utilises... %Re-read the paper
+including sophisticated error correction with the built-in correction utility BayesHammer \citep{nikolenko2013bayeshammer}. Standard parameters for assembling 250+bp MiSeq reads were used as recommended by the developers % cite website
+; in particular, k-mer sizes of %...
+were used in the iterated assembly.
+
+% Command here
+
+Following conclusion of the SPAdes pipeline, the initial BAC assemblies were assessed  (both individually and all together) using the widely-used quality-assessment tool QUAST % Citation here...
+
+\subsubsection{Scaffold assembly with BESST}
+
+As the insert sequences of the killifish BAC library were drawn from the killifish genome, long-insert read libraries used in the killifish genome project could be used to improve the quality of the BAC assemblies.
+
+To achieve this, the SPAdes assemblies
+with the scaffolding program BESST \citep{sahlin2014besst}.
+
+\section{Analysis of IgSeq data}
+
+\subsection{Pre-processing with pRESTO}
+
+\subsection{
+
