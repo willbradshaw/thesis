@@ -1,0 +1,295 @@
+%!TEX root = ../thesis.tex
+% TODO: Change this?
+
+\chapter*{Investigating the adaptive immune system in the turquoise killifish: a dialogue}  
+\onehalfspacing
+
+% Chapter summary (should fit on title page)
+
+%\input{B_Chapters/3_Locus/Sections/_Summary}
+
+%\pagebreak
+
+\section{First questions}
+
+\q{Let's start with the basics. What is your thesis about?}
+
+I think you can divide my thesis work into three main parts. First, the characterisation of the killifish immunoglobulin heavy chain locus. Second, the establishment of immunoglobulin sequencing in the killifish. And third, the use of those first two things to investigate how the killifish repertoire changes with age and (hopefully) with microbiota transfer. 
+
+\q{Step back a second. Why did you do this? What was the point?}
+
+The adaptive immune system is an extremely important part of vertebrate biology, and one whose performance declines dramatically with age. We wanted to find out more about why and how this happens and how it interacts with the ageing of other important systems we investigate in our lab, like the gut microbiota. In our lab we use the turquoise killifish as a model for vertebrate ageing -- it's the shortest lived vertebrate that lives in captivity and is therefore very convenient for investigating ageing, especially of vertebrate-specific systems that can't be studied in worms or flies. However, before this project very little immunological work had been done in this system. So it seemed to us that establishing the TK as a model organism for immunology, and especially immunosenescence, could be very valuable.
+
+\q{That explains the killifish -- we'll talk more about the details of the model later. But why does that lead to the specific research questions you mentioned?}
+
+The adaptive immune system is an example of a vertebrate-specific system whose ageing can't be studied in short-lived invertebrate systems. Both B- and T-cell-based adaptive immunity are very important and sophisticated, and both seem to undergo complex and profound ageing in humans. Both also seem to have important interactions with the microbiome. B-cells are unique in their ability to target unprocessed antigens, the diversity of the antigens they can respond to, and the ability of their antigen-receptor proteins -- antibodies -- to bind antigen and act in the immune system independently of the cell that produced them, through the production of secreted antibodies that bind antigen in serum or mucosal environments. All of this makes antibody immunity extremely important for host-microbiota interactions, as well as playing a key role in the adaptive immune system more generally. In the end, though, I could come up with equally good arguments for focusing on T-cells, and I'm not sure how much microbiota work there will be in this thesis at all, so the final answer is: I had to pick one or the other, and I picked B-cells.
+
+\q{We'll talk more about B-cell immunity and repertoires later -- you've discussed them substantially elsewhere so we don't really need to cover them now. Let's take it as read that we agree immune-repertoire sequencing is interesting and relevant, and that establishing it in the TK is a worthwhile goal. The question remains: why did you spend so much time and energy characterising the IgH locus in killifish?}
+
+The structure of the IgH locus provides the fundamental substrate of antibody diversification in a species, defining the space of possible sequences arising from the VDJ recombination process, the functional antibody classes available via the constant-region exons, and the possible splicing behaviour of those exons. The IgH CDR3 junctional region is by far the most diverse part of an antibody complex, and displays far more sequence diversity than any part of the immunoglobulin light chain. In order to understand anything about IgH diversity in the killifish, it is necessary to have a good baseline of possible variable segments that can be selected from; many tools depend on this for their performance. The structure and sequence of the constant regions is also important to define primer sequences for immunoglobulin sequencing, as well as interesting in its own right as being fundamental to antibody functionality in the species.
+
+There is also an important comparative and evolutionary aspect to the IgH locus structure that isn't directly relevant to immunoglobulin sequencing and may or may not be relevant for ageing, but is interesting in its own right. Only a few (on the order of 10) teleost IgH loci have been previously characterised, but that is enough to reveal a very high level of sequence, structural and splicing diversity. Some teleost loci are highly simple, while others are highly complex and repetitive. There is also variation in which isotypes (antibody classes) are present among teleosts, with potentially important implications for their immune function. On a high level, this isn't very surprising given the vast diversity of teleost fish -- it's like saying that the immune systems of mammals, birds and frogs are all importantly different. However, we know very little about the patterns or rate of locus structure evolution.
+
+When so few loci have been characterised from such a vast group of animals, adding one more from a new clade is useful enough in itself. However, I also had access to high-quality genome assemblies from a number of related killifish and non-killifish species, and was able to characterise the IgH loci in these species as well (though not to the same quality or completeness as for TK). This enabled me to compare the loci of a group of related species, which isn't something that had ever been done previously. And it let to some surprising findings.
+
+So characterising the IgH locus was an important step on the road to establishing TK as an immunological model system and setting up IgSeq in that species, as well as raising interesting research questions in its own right.
+
+\q{There's a lot to unpack there, and a lot of background we're going to need to talk about at some point. One more question before we move on to the details of the locus work: even if you didn't want to look at the TCR, why didn't you apply this to the light chains as well?}
+
+Two reasons: time and relevance. I'm pretty sure I have everything I'd need to characterise the light chain loci in TK, and possibly in the other species too, but I doubt I'll have time to do it in time for my thesis submission. It's also much less relevant and important than the heavy chain, since light chain sequences aren't included in my IgSeq pipeline or data, and the light chain is much less important for antigen specificity than the heavy chain. It's still important, though, and someone will need to do it eventually, especially if IgSeq in the killifish progresses to more sophisticated methods that obtain heavy-light pairing information. 
+
+There are also highly likely to be multiple light-chain loci in each genome, and if they are like other teleosts the structure will be much more of a cluster configuration than the semi-translocon configuration seen in the IgH loci. So in addition to being a lower priority, it's also likely to be a very slow and fiddly task, which doesn't fit neatly into the thesis. So it just wasn't a priority task compared to everything else I needed to do. In an ideal world, I'd have done it.
+
+\q{Fair enough, though you probably want to smoothen that up for the actual thesis. Let's move on to the details of the locus characterisation and results, okay?}
+
+Okay, sure.
+
+\section{The turquoise killifish IgH locus}
+
+\q{So how did you go about characterising the locus? We don't need the extreme details here, that can wait for the methods section, but we'd like to know the principles of how you did it.}
+
+The characterisation of the TK IgH locus  involved the collection and interrelation of three sets of data. The first was information about V, D, J and constant-region sequences from other species whose loci had already been characterised, and for which reasonably informative public data was available. I tried a range of different species but eventually settled on zebrafish, stickleback as being most amenable to this task; all three provided enough sequence data and other information to infer most of the information I needed, which was not the case for many other published loci; conveniently, medaka and stickleback are also relatively closely related to TK, especially medaka. Even so, extracting good databases of locus segment sequences was not a quick or easy task; but you said not to get too into the nitty-gritty here.
+
+\q{Yes, save that for later. So you obtained sequence databases from other species; why is this useful?}
+
+Two reasons. Firstly, it allowed me to identify potential locus scaffolds from the killifish genome on the basis of alignments to those reference DBs. Secondly, once I had a locus sequence, they formed the basis of my pipeline for finding gene segments in the killifish locus.
+
+\q{Okay, makes sense. By the way, you said medaka and stickleback are closely related to TK; is zebrafish not?}
+
+Within the teleosts, zebrafish is very distantly related to any of medaka, stickleback and killifish. There are two major radiations within the teleosts, and zebrafish falls into one while the others fall into the other. I don't know the divergence time off the top of my head, but it's large.
+
+\q{We'll want to see a tree for that.}
+
+I'll make one. I'll need it for the evolutionary part of the locus chapter anyway.
+
+\q{Alright. Moving on. What where the other sources of data you used?}
+
+The second, of course, was the killifish genome. Several versions of the TK genome have been promulgated, and I used all of them at different points in my thesis, but the final locus is based on the best and most recent version, which doesn't currently have an official release designation, but will be published soon. I was fortunate in that the IgH locus in this version is relatively intact; in previous versions it was extremely fragmented, as is usually the case for antigen-receptor loci in \textit{de novo} assembled genomes. Though that's probably jumping ahead a bit.
+
+Given a good-quality genome assembly and sets of reference sequences, I could align the latter to the former to identify genome scaffolds I thought might contain parts of the locus. This process identified one chromosome (chr6) which appeared to contain a relatively intact locus structure, plus several promising smaller scaffolds.
+
+\q{Let's start with the chromosome. What does it mean to say that it appeared to contain a relatively intact locus?}
+
+It contained extended V-, J- and C-regions, in the expected order (V-D-J-CM-CD) and with a common orientation (on the sense strand). The V- and J-region each consisted of multiple aligned segments. The C-region contained complete sets of \cm{} and \cd{} exons, in order. It also contained a single VH in antisense some distance downstream of this group of sequences, suggesting a potential second sublocus in antisense that was missing from the chromosome assembly. Multiple complete or semi-complete subloci in tandem is a common feature of teleost IgH loci, and the final sublocus of the medaka locus also appears to be in antisense, so this would make sense as a proposed locus structure.
+
+\q{What would constitute ``complete sets of \cm{} and \cd{} exons"?}
+
+Teleost IgM nearly always consists of six exons, four constant exons (\cm{1} to \cm{4}) and two transmembrane exons. Teleost IgD is more variable but typically consists of seven or more \cd{} exons and two TM exons. The reference alignments to chromosome 6 matched this structure. However, I didn't go into more detail about that at this stage; this was just to identify scaffolds, the detailed locus annotation came later.
+
+\q{You mentioned extended V- and J-regions. What about the D-segments?}
+
+D-segments are very short -- typically only 10bp or so. Not long enough to identify reliably using cross-species sequence alignment.
+
+\q{Speaking of alignment, how did you map the reference species segments to the TK genome?}
+
+I used BLAST. BLASTN for aligning reference nucleotide sequences, TBLASTN for aligning reference protein sequences. Then I filtered out low-scoring alignments and collapsed overlapping alignments together into a single annotation per sequence region. I can go into more detail; the complete process was quite involved.
+
+\q{No, that's alright. Do you think that was a defensible course of action?}
+
+BLAST is still the standard heuristic alignment tool used for these sorts of processes. Later on in the pipeline I used a mixture of BLAST and other aligners depending on the situation, but I think for this purpose it's more than adequate. I always checked the exact segment boundaries manually anyway, so I didn't rely too much on the exact alignment co-ordinates.
+
+By the way, do you want me to explain how BLAST works?
+
+\q{Let's save that for later. What did you mean when you said several other scaffolds were ``promising"?}
+
+In order for genome scaffolds to be included for downstream consideration by the pipeline I wrote, they needed to either contain alignments to multiple different types of sequence (for example, different constant exons, or both V- and J-alignments) or have alignments to one sequence type covering more than a threshold proportion (1\%) of the scaffold length. This excluded most scaffolds containing one or two promising V-like segments isolated within a long stretch of non-IgH sequence, while keeping those scaffolds most likely to form part of the locus.
+
+\q{How many scaffolds were ``promising" by this definition?}
+
+Six:
+
+\begin{threeparttable}
+\begin{tabular}{ccccccc}\toprule
+Scaffold & Total length (kb) & V & J & \cm{} & \cd{} & \cz{} & Included in locus?\\
+chr6 & 6195.6 & 15 & 7 & 5 & 11 & 0 & Yes\\
+scf10901 & 1.4 & 0 & 0 & 0 & 3 & 0 & Yes\\
+scf21863 & 13.5 & 1 & 0 & 0 & 0 & 0 & No\\
+scf35954 & 16.3 & 3 & 0 & 0 & 0 & 0 & No\\
+scf36277 & 18.9 & 2 & 1 & 0 & 0 & 0 & No\\
+scf37083 & 17.7 & 1 & 0 & 0 & 0 & 0 & No\\
+scf9157 & 7.2 & 0 & 7 & 4 & 0 & 0 & Yes\\
+\end{tabular}
+\caption{Summary of genome scaffolds containing putative \textit{IgH} locus fragments}
+\end{threeparttable}
+
+\q{Impressive that you can speak in tables like that. It looks like you still have a few scaffolds with one or two V's and nothing else.}
+
+Yes, and I excluded these \textit{a priori} for non-TK species. But in this case it wasn't an issue.
+
+\q{Why not?}
+
+Because I had other sources of information I could use to produce a contiguous locus sequence, and decide whether or not a given scaffold fell within the locus or not.
+
+\q{What information was that?}
+
+The third source of data I mentioned at the start of this section: bacterial artificial chromosome inserts covering parts of the killifish locus.
+
+\q{Tell us about those}
+
+Bacterial artificial chromosomes are long-insert \textit{E. coli} plasmids commonly used to hold extended stretches of eukaryotic DNA during genome assembly projects. In this context, they provide both long-range physical mapping information and the option to sequence specific contiguous stretches of the genome at elevated coverage. Since you know that the BAC insert represents a contiguous stretch of genomic DNA, assembling the insert sequence provides a high-confidence assembly of that part of the genome -- which you can then align to other BAC inserts to obtain a longer contiguous sequence.
+
+When I started this project, there was no good genome assembly of the IgH locus available, so we adopted an alternative approach of identifying BACs containing part of the locus, sequencing them and characterising locus sequence from those. That gave us part of the locus; once the new genome was available, it proved sufficient to generate a complete locus assembly when combined with the scaffolds identified above.
+
+\q{How did you identify candidate BACs?}
+
+That's a complicated question. We identified the first group of BACs based on the small fragments of the locus available on the existing genome assemblies, combined with synteny. Those inserts gave us part of the locus, which we used to identify new BACs we thought would give us the rest. Those gave us more; the new genome assembly gave us the rest.
+
+\q{Wait, wait. That's not an adequate answer. What do you mean, "based on small fragments of the locus"? What do you mean, "combined with synteny"? How did you use the first set of BACs to identify the second.}
+
+As part of one of the killifish genome assembly projects, a BAC library of the killifish genome was generated, and the ends of a subset of those BACs were sequenced. That meant that it was possible to identify BACs whose ends aligned within or close to a particular sequence region, scaffold or locus. In the first case, an external collaborator identified BACs whose ends fell in scaffolds that either contained part of the locus, or were suspected on the basis of synteny to be immediately up- or downstream of it. In the second case, the BAC end alignment database had been made available, and it was possible for me to manually identify BACs whose inserts, based on their end alignments, should contain parts of the locus we were missing. For example, many BACs had ends aligning upstream of the 5' part of the locus, pointing into a large gap in the then-available genome assembly. Sequencing those BACs enabled me to extend that 5' part of the locus further, and identify more segments.
+
+\q{You still need to develop this a lot more. How did you get the sequences you used for the first set of BACs? How did you identify BACs "on the basis of synteny"?}
+
+I know I need to develop this more, but I don't have that information to hand. Let me get back to you about this.
+
+\q{Mhm. This is pretty fundamental. How can we trust your conclusions if we don't know where the sequences came from?}
+
+I know, I need to expand on this. But I'd rather focus on downstream areas right now.
+
+\q{Okay, so you got the BACs somehow. How did you get the sequences?}
+
+I isolated the BACs using alkaline lysis of the appropriate \textit{E. coli} clones; more details to follow. Then I sequenced them in collaboration with the Cologne Centre for Genomics on the Illumina MiSeq platform, 2x300bp. I should probably put a table of read numbers here.
+
+Anyway, after getting the reads back, I trimmed them based on quality with Trimmomatic, filtered out reads aligning to \textit{E. coli} or \textit{H. sapiens} with Bowtie2, and assembled them with SPAdes. The resulting assemblies were scaffolded using SSPACE, and further assembly was performed by (a) aligning BAC scaffolds to each other and existing genome scaffolds, and (b) manual assembly using PCR and Sanger sequencing. In the end, I achieved complete or almost complete insert assemblies for a number of BACs I don't have immediately to hand. I then aligned these inserts together with BLAST to produce two larger sublocus sequences, corresponding to the 5' and 3' regions of the IgH locus, respectively. These were aligned to and integrated with the genome scaffolds identified earlier to produce a continuous locus sequence. 
+
+\p{How did you integrate the genome scaffolds with the BAC-derived locus regions?}
+
+I started by aligning the scaffolds to the BAC-derived regions and identifying extended regions of agreement, with a particular focus on the relationship between the chr6 locus region and the BAC regions. Several low-confidence scaffold candidates were not found to align with either the chr6 locus sequence or the BAC-derived locus regions, and were discarded; two non-chromosome candidate scaffolds were found to align well with the BAC regions and were retained. The remaining sequences were aligned and assembled together manually, with priority given to the genome assembly over the BAC assemblies in most cases.
+
+\q{Why did you give priority to the genome assembly over the BAC sequences? And what do you mean by "most cases"?}
+
+The genome assembly was made using a great deal more data than the BAC assemblies, including many more jumping libraries and more sophisticated methods of sequence validation. In general, I have higher confidence in the former than the latter. I made an exception where the BAC assemblies were found to contain locus segments not present in the genome assembly, as (a) the BAC assemblies are dramatically higher-coverage than the genome assembly and may be expected to better disambiguate between similar locus segments in close proximity, (b) I didn't want to risk losing potentially functional locus segments. I'm aware I need to develop this into something more rigorous for the final draft.
+
+\q{What \textit{was} the coverage of the BAC assemblies and genome assembly? What was the N50, L50, etc? Do you have any measures of sequence quality for all these sequences?}
+
+The genome assembly was performed by other people and quality statistics are available; I should ask them to provide something. As for the BACs, I should make a table of insert size, coverage, number of scaffolds, et cetera.
+
+\q{Okay, moving on. You have your locus sequence, in a single contiguous form. How did you go about characterising the locus structure?}
+
+The answer to that differs depending on the locus segment you're interested in.
+
+For the V segments, I used PRANK to build a multiple sequence alignment of the reference V-segments from stickleback, medaka and zebrafish. I used this alignment as an input to NHMMER, a Hidden-Markov-Model-based aligner that searches for sequences matching a probabilistic sequence pattern. NHMMER works by first building a Hidden Markov Model based on a multiple sequence alignment, then using that model to search for candidate sequences in the input sequences. I need to read up on NHMMER (and PRANK) so I can write about this in more detail.
+
+In any case, I used NHMMER to search for V-segments in my locus in a probabilistic manner that puts more weight on more-conserved sequence regions. I extracted these candidate sequences from the locus, extended by 10 (?) bases on either side to account for boundary errors. Preliminary amino-acid sequences were derived by choosing the translation frame for each sequence that minimised the number of STOP codons occurring; in cases where this failed to give rise to a functional V-sequence, the other forward translation frames were also attempted. The 3'-ends of both the nucleotide and amino-acid sequences were refined by searching for the start of recombination signal sequence (RSS), which denotes the end of the coding V-segment. 5'-ends of the V-segments, as well as FR/CDR boundaries and standard residue numbering, were inferred using IMGT-DomainGapAlign for the amino-acid sequences and copied back to the nucleotide sequences. V-leader and V-exons co-ordinates were determined using pre-existing RNA-seq data from killifish guts, which I'll discuss in more detail when I talk about constant exons. I should probably make a flowchart for all this. I should also explain what an FR, CDR, and RSS are, but since those are well-defined standard terms let's take them as read for now.
+
+\q{Okay, we'll leave those terms for now, but make sure you explain them later. What about D and J sequences?}
+
+J-segment extraction was performed in a similar way to V-segments, using PRANK to generate reference alignments and NHMMER to identify candidate sequences in the locus. 5' ends were identified by finding the start of the RSS heptamer sequence, while 3' ends were determined by searching for the conserved "GTA" splice site sequence for joining the J sequence to the constant region following transcription. Translation frames were determined based on the location of the conserved tryptophan residue marking the end of CDR3.
+
+Unlike V- and J-segments, D-segments are too short to identify using an HMM-based search method. Instead, putative D's were identified by the presence of two opposite-sense RSS sequences less than 25 (?) nucleotides apart. Candidate sequences were found using the FUZZNUC fuzzy nucleotide search tool from EMBOSS, which enables pattern matching with a certain number of permitted errors. In this case, the search pattern was
+
+\texttt{GGTTTTTGTN(10,14)CACTGTGN(1,25)CACAGTGN(10,14)ACAAAAACC}
+
+and the maximum number of mismatches was 8. Since this is more permissive than searching for two opposite-sense RSS sequences with a maximum mismatch count of 4 (because more than 4 of these mismatches could accrue to one of the RSSs), a second gate was applied in which only sequences containing the highly conserved "CA" sequence at the start of each heptamer were retained. The candidates were then vetted manually, and the RSS sequences were trimmed to yield the final DH sequence. Since DH sequences have no defined frame in the absence of a specific VDJ recombination, only nucleotide DH sequences were derived at this stage.
+
+\q{And the constant-region exons?}
+
+Compared to V and J regions, I had far fewer reference sequences available for each specific constant exon type with which to build an HMM, and expected far fewer sequence matches in the new locus. Rather than using an HMM-based method, therefore, I used a refinement of the BLAST-based search method discussed above for identifying locus scaffolds. Reference exon sequences were mapped to the locus sequence, and overlapping alignments were collapsed, with cases of conflicting alignment (i.e. two different exon types aligning to the same position) decided in favour of the highest-scoring alignment unless the two E-values were within a defined range (in which case both were retained and the identify of the exon was determined manually based on sequence context). The sequence ranges identified in this way were extended at either end to account for boundary issues, and extracted into FASTA format.
+
+In order to identify intron/exon boundaries and splicing patterns in the constant regions, as well as the V-intron boundaries in the V-leader sequences, I used RNA-seq data generated from gut total RNA of eight GRZ-Bellemans turquoise killifish (four six-week-old fish and four sixteen-week-old) for a previous study in the lab. I used this dataset because B-cells are abundant in the teleost gut, and I expected it to be more enriched for B-cell RNA than other datasets from non-immune organs like the brain or liver. I used RepeatMasker to mask repetitive sequences in the locus and STAR to map these RNA-seq reads to the masked locus, with a maximum multimapping frequency of five and maximum intron length of 5 (? possibly 10) kilobases. I inspected the results visually using Integrated Genome Viewer and used the splice positions of cross-exon reads to refine the boundaries of the constant region exons. For the V-segments, I directly searched for reads containing V-exon sequences and identified L-PART1 and L-PART2 sequences manually. (This should be in the V-section)
+
+Finally, most teleost constant regions have two transmembrane exons, but of these only the first (TM1) is typically long enough in its coding region to successfully identify homologous sequences using BLAST; the coding part of the second exon is typically only two or three amino-acid residues long, and the non-coding part (i.e. the 3' UTR) is not always included. The RNA-seq data also allowed me to identify the second transmembrane exons for every constant region in the locus.
+
+\q{Anything else before we move on to the results?}
+
+Not right now. I vaguely intended to look for the Emu3' enhancer in the locus at some point, but it hasn't been a priority. I'll let you know if I get around to it.
+
+\q{Okay. So, what did you find?}
+
+The complete TK IgH locus occupies approximately 305 kilobases on chromosome 6. As is the case in most teleosts, but unlike in salmonids, only a single IgH locus could be identified; the genome scaffolds that could not be integrated into the locus sequence contained either VH and JH or VH sequences only, and appear to represent orphaned variable-region segments rather than a functional second locus. No other chromosome was found to contain a multi-part, contiguous sequence resembling that found on chromosome 6. 
+
+The TK locus contains two structurally-complete subloci, each with V, D, J, CM and CD segments present in order on the same strand. However, the two subloci are on opposite strands, with V-regions forming the 5' and 3' ends of the locus and the constant regions extending towards the middle. This is interesting because, while tandem subloci  are common in teleost IgH loci, very few teleost loci have been found to contain antisense regions. The exception is the medaka locus, whose zone 5 appears to be in antisense relative to the rest of the locus; given that medaka is the closest relative of TK to have its locus characterised, it is possible that this is a homologous feature of the two loci.
+
+Other than that, the killifish locus (305 kb, 2 subloci, 4 constant regions) is relatively simple compared to medaka (450 kb, 5 subloci, c. 10 constant regions) or stickleback (175 kb, 3 subloci, 10 constant regions). However, as the comparison with stickleback and other species shows, it is also relatively large for its complexity level, with large stretches of non-coding DNA between its functional regions.
+
+\q{Can you go into more detail on that? What's causing the locus to be so big?}
+
+I haven't looked into the repeat profile / non-coding DNA content of the locus yet. I'll go into it in more detail if I have time. I know the killifish genome in general is highly repetitive (I can cite Ray or David for this) so it's not necessarily very surprising that the IgH locus is rather padded.
+
+\q{Mm, okay. So that's the gross characterisation of the locus. What about the details? What do the constant regions look like?}
+
+Killifish IgM exon structure closely resembles that of other teleosts (and indeed other non-teleost species), with four \cm{} exons and two transmembrane domains. I need to do an amino-acid sequence alignment to reference species here so I can actually get percentage identity numbers (plus it will make a nice figure), but the identity with other teleost species at each exon seems quite high. As with other species, both secreted and transmembrane isoforms of IgM are present, with secreted IgM consisting of \cm{1-4}; however, the exon configuration of transmembrane IgM deviates from both that seen in mammals (in which exon TM1 is spliced to a cryptic splice site within \cm{4}) and most teleosts (in which the canonical splice site following \cm{3} is used and \cm{4} is excised). Rather, TK IgM-TM resembles that of medaka, in which both \cm{3} and \cm{4} are excluded and the canonical splice site at the end of \cm{2} is spliced directly to TM1. The similarity to medaka, which again is the closest relative of TK with a characterised locus, suggests that this unusual behaviour may be a conserved feature of the cyprinodontiformes.
+
+Unlike IgM, IgD has no well-conserved exon structure across the teleosts, ranging from 7-17 exons in length (I think; I don't remember where those numbers come from, or whether they include the transmembrane exons. But it's very variable anyway.) The core structure of IgD comprises seven \cd{} exons (\cd{1-7}) and two transmembrane exons, but some subset of these exons may be missing or duplicated in any given species -- in medaka, for example, \cd{5} is missing in all subloci, while in many species \cd{2-4} are duplicated in two or more tandem blocks. This is the case in zebrafish, in which the IgD constant region in both subloci has a 
+
+\cd{1}-(\cd{2}-\cd{3}-\cd{4})$_2$-\cd{5}-\cd{6}-\cd{7}-TM1-TM2 
+
+configuration. Both IgSeq and RACE data support a configuration in which all of these exons are expressed after splicing; I need to decide how to include and present the RACE data if I'm using it, and to spend some time nailing down the IgD exon configuration in general.
+
+One consistent feature of IgD in teleosts that differs substantially from tetrapods is the presence of a chimeric \cm{1} exon between the J-sequence and \cd{1} in expressed IgD transcripts, indicating a cross-isotype splicing event (I need a figure for this). I have some evidence from RNA-seq and RACE supporting this configuration in killifish as well; however, I need to put some thought into how to nail it down and present it convincingly.
+
+In addition to IgM and IgD, which are homologous with the isotypes of the same name in tetrapods, most characterised loci contain a third class of antibody constant region, IgZ (also known as IgT) which appears to be specialised for mucosal immunity. In loci containing IgZ, it is typically found upstream of IgM, with dedicated D and J segments separate from those used for IgM and IgD (I need a figure for this); the decision between IgZ and IgM/D is made during V(D)J recombination, where the use of a D$_\mu$ segment causes the excision of the entire IgZ constant region. However, other configurations of IgZ constant regions have been found (for example in stickleback IgH sublocus 4). In a small number of previously published cases, IgZ is entirely absent from the IgH locus; notably, the closest relative of TK with a published locus, medaka, does not have IgZ.
+
+Both subloci of the turquoise killifish IgH locus completely lack IgZ, making it to my knowledge the third such locus to do so. Given that IgZ has been found to play an important role in mucosal immunity in other teleost species, the absence of IgZ in this species raises the interesting question of how, and how well, mucosal immunity functions in its absence. Given the close relationship between TK and medaka and the unusual lack of IgZ in both species, the natural hypothesis was that this absence results from a shared loss of the isotype in a common ancestor of both species; however, investigating this in other related species revealed an unexpected pattern.
+
+\q{Before we get into related species, we have some more questions about the TK locus. How similar are the constant regions in the two subloci?}
+
+Extremely similar. I don't have an amino acid identity percentage yet, but definitely over 90 percent. I'll include both subloci when I make that amino acid alignment figure with the reference species.
+
+\q{Given the lack of IgZ in this species, how do you think they carry out mucosal immunity?}
+
+I'd assume using IgM. It's the primitive antibody and is expressed in secreted form in the killifish gut. I haven't investigated the protein expression so it's hard to say for sure, but I'd guess that's the answer. It's also quite possible, lacking a specialised mucosal class, that the answer is ``not very well". It would be very interesting to compare mucosal immune function in species with and without IgZ, especially if those species are closely related.
+
+Given the impressive results indicating the specificity of IgT for mucosal immunity in trout, and the lack of mucosal response of IgM in that species, it would be very interesting to see what mucosal responses look like in a species that lacks that isotype -- is IgM much more responsive and expressed in the gut than in IgT-possessing species, or is the mucosal response just worse?
+
+\q{How big are antibodies in TK then? Number of nucleotides, number of amino acids, kDa?}
+
+That's a very good question. I haven't looked into it in detail. I should make a table, and a figure of the different isotypes side by side.
+
+\q{Okay, that's the constant regions, or lack of them. What about the Vs?}
+
+In total I found 24 VH segments across the two subloci: fifteen in IGH1 (the sense-strand sublocus), seven in IGH2 (the antisense sublocus) and one orphaned segment located in between the two loci. This is an unusually small number of VH segments for an IgH locus; I should make a figure comparing total V-complement in different characterised loci to emphasise this because it seems pretty unusual, especially once you take into account the fact that these Vs are split across two subloci and are each presumably only accessible in a subset of recombinations. I don't know why the number of V segments in TK is so small; perhaps it has something to do with the short lifespan reducing the relative value of a large and complex immune locus?
+
+(Incidentally, it would be great to see whether any B-cells in TK show recombinations in both subloci, vs one or the other. Single-cell DNA sequencing could plausibly do this.)
+
+VH segments in an IgH locus are conventionally clustered into V-families on the basis of nucleotide sequence identity, with thresholds of either 70 or 80\% depending on which paper you read. To construct V-families, I performed Needleman-Wunsch global pairwise alignments between each pair of VH sequences, excluding leader sequences, and computed percentage nucleotide identities, and performed single-linkage clustering as performed in the zebrafish locus paper. This gave rise to a dendrogram I should include here, which I cut at 80\% sequence identity to give rise to families.
+
+In total, the TK locus contains six VH families, of which two, V1 and V2, make up the bulk (42\% and 29\% respectively) of the VH segments in the locus. V2 and V4 are very closely related and could potentially be considered subfamilies. Although the number of VH segments in the TK locus is small, the number of families is in line with other closely related species partitioned at similar nucleotide identiy (four in stickleback, three in fugu, six in medaka); I'm not sure exactly what to make of this but it may suggest that the gross sequence diversity available to TK is not as comparatively low as its low number of VH segments may suggest. However, at least one VH family (V4) is entirely pseudogenised by premature STOP codons, so this may be illusory.
+
+Speaking of pseudogenisation, I need to properly characterise which of the V regions are pseudogenous. There are a lot of ways a VH can be pseudogenised, including STOP codons, frame shifts, loss of important conserved residues, loss of a functional RSS, and loss of a functional promoter. Of these, I can't measure the last one effectively, but I can look at the others and make a figure or table. I'll include it in the overall VH table for this section.
+
+\q{Why did you choose the family-partitioning methods you did? Why single-linkage clustering? Why 80\%?}
+
+Most locus papers don't specify how they did their family identification. One that did was the zebrafish paper, which used single-linkage. Both 70 and 80\% are present in the literature but 80\% is more common, is used by the most closely related species (though I need to check fugu) and was recommended to me by an expert.
+
+\q{What do the DH and JH segments look like?}
+
+It's not possible to say a huge amount about the DH segments, because they're so small and don't have a canonical translation frame or clear structure; you can only really find them using their flanking RSSs. In total, I found 14 likely DH segments (meaning, with good RSS sequences on both sides), 10 in IGH1 and 4 in IGH2. Of the DH segments present in IGH1, 9 are present in a block D-region downstream of the Vs, but one, IGH1D01, is embedded within the V-region. It remains to be seen whether it is actually used; it is substantially longer than any of the other DH in the locus (11-16bp for the others, 26bp for IGH1D01), which may suggest it is not a valid D.
+
+Three of the four DH regions in IGH2 (IGH2D02 to IGH2D04) are identical to a subset of Ds from IGH1 (IGH1D05 to IGH1D07); I don't currently have a good explanation for this. %(Are the intergenic regions the same?)
+
+For the JH, I found 9 segments in IGH1 and 8 in IGH2, for 17 JH segments total in the TK locus. As with DH, one of the IGH1 segments (IGH1J01) is embedded within the V-region, and is in fact a short distance downstream of IGH1D01; this suggests that they may be preferentially used together - I need to check this in the Ig-Seq data. The other eight IGH1 JH segments are highly similar to the eight IGH2 segments, with ???-100\% sequence identity; I should make a dot plot to illustrate this, and check whether the intergenic regions are similarly conserved. Given the high similarity of the CH region, we may be looking at a wholesale duplication in the recent past, followed by loss of some DH regions - though this doesn't explain everything that's going on, and I'm not really qualified to investigate this in detail.
+
+The RSS sequences of the Ds and Js (and also the Vs, which I didn't discuss before) are similar to other species, with the same consensus sequence and spacer lengths; there's nothing unusual there, thankfully. I'll include sequence logos of V, J and D RSSs in my variable-region figures.
+
+\q{You said that the JH, CH and some DH are highly similar between the two subloci; what about the VH?}
+
+I need to look closer into this, because it's confusing. As far as I can tell, the VH regions seem to be much more dissimilar than the rest of the sublocus, though there are still some pairs of highly similar Vs. It's possible I've been looking at it in the wrong way, though, so I'll get back to this when I have time.
+
+\q{Okay, so that's the V/D/J segments and constant regions; is there anything else you think you need to cover for the killifish locus?}
+
+I think I said above that I'd ideally look into the enhancer sequence if I have time. Apart from that, I could potentially characterise the repetitive regions, particular the one separating the two blocks of IGH2D constant exons. But only if I have time.
+
+\q{Alright! So that's the TK IgH locus. What comes next?}
+
+I said before that it looked like the lack of IgZ in medaka and TK suggested a common IgZ deletion in their common ancestor, which I think is close to the root of the Cyprinodontiformes. To investigate this, I performed a less-detailed characterisation of the IgH loci in several other related species, with a particular focus on their constant regions.
+
+\section{Constant-region evolution in the Cyprinodontiformes}
+
+\q{So how did you go about investigating this question?}
+
+As a result of other (soon-to-be-published) work in the lab, I had access to high-quality de novo genome assemblies from several other African killifish species: \textit{Nothobranchius orthonotus}, \textit{Aphyosemion australe}, \textit{Callopanchax todii} and \textit{Pachypanchax playfairii}. I also used the genome of \textit{Xyphophorous maculatus}, another cyprinodontiform with a high-quality, publicly-available genome. Then I ran the same scaffold-extraction and segment-identification pipelines I ran on TK to obtain preliminary segment groups. 
+
+Since I don't have BAC data to fill in missing gaps in these loci, I was unable to get contiguous locus sequences before going ahead with the characterisation, and I can't be confident my V/D/J annotations are complete. Since the purpose here was primarily to characterise the constant-region exons, this wasn't an insuperable problem, but it's important to remember that these loci cannot be assembled to the same quality as TK.
+
+\q{Okay, so what did you find?}
+
+...I haven't actually done the detailed characterisation of the other species yet, it's very time consuming. I could tell you the basic finding?
+
+\q{It's probably better if you just go and do it.}
+
+Okay.
+
+
+
+% Numbers, inter-locus alignment, RSS sequence

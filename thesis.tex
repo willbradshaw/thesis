@@ -3,7 +3,7 @@
 
 % **************************** Formatting & Metadata ***************************
 
-\documentclass[a4paper,12pt,times,numbered,print]{_Meta/thesis}
+\documentclass[a4paper,12pt,times,numbered,print,chapter]{_Meta/thesis}
 % See README.md for option details
 
 \input{_Meta/preamble} %Contains packages and user-defined commands and settings
@@ -29,7 +29,7 @@
 % To use choose `chapter' option in the document class
 
 \ifdefineChapter
- \includeonly{Chapter1/chapter1}
+ \includeonly{B_Chapters/3_Locus/Locus}
 \fi
 
 \begin{document}
@@ -62,8 +62,10 @@
 %% ******************************** Main Matter *********************************
 \mainmatter\onehalfspacing
 %
+\include{B_Chapters/0_Dialogue/Dialogue}
 \include{B_Chapters/1_Introduction/Introduction}
 \include{B_Chapters/2_Methods/Methods}
+\include{B_Chapters/3_Locus/Locus}
 
 %\include{B_Chapters/Chapter2/chapter2}
 %\include{B_Chapters/Chapter3/chapter3}
@@ -90,7 +92,7 @@
 \bibliographystyle{unsrt} % Use for unsorted references  
 %\bibliographystyle{plainnat} % use this to have URLs listed in References
 %\cleardoublepage
-\bibliography{D_References/igh-loci,} % Path to your References.bib file
+\bibliography{D_References/igh-locus} % Path to your References.bib file
 %
 
 % If you would like to use BibLaTeX for your references, pass `custombib' as

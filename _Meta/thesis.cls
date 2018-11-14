@@ -625,9 +625,9 @@ supported!}
 
 \ifsetDVI
   \special{papersize=\the\paperwidth,\the\paperheight}
-  \RequirePackage[unicode=true]{hyperref}  % extra option dvips
+  \RequirePackage[unicode=true, hidelinks]{hyperref}  % extra option dvips
 \else
-  \RequirePackage[unicode=true]{hyperref}
+  \RequirePackage[unicode=true, hidelinks]{hyperref}
   \pdfpagewidth=\the\paperwidth
   \pdfpageheight=\the\paperheight
 \fi

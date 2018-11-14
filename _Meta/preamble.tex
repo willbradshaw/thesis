@@ -43,6 +43,19 @@
 
 % *****************************************************************************
 % **************************** Custom Packages ********************************
+% *****************************************************************************
+% NB: Packages (without options) loaded in thesis class:
+%  lscape, setspace, calc, ifthen, ifpdf, ifxetex, epstopdf, datetime,
+%  everypage, textcomp, mathptmx, fourier, lmodern, amsmath, fontspec,
+%  unicode-math, amsfonts, amssymb, url, breakurl, fancyhdr, makeidx,
+% NB: Packages (with [options]) loaded in thesis class:
+%  tocbibind[nottoc], appendix[title,titletoc], color[usenames, dvipsnames],
+%  lineno[switch,pagewise,mathlines], textpos[absolute], graphicx[pdftex,demo],
+%  biblatex[various options depending on other settings],
+%  natbib[various options depending on other settings],
+%  geometry[various options depending on other settings],
+%  inputenc[utf8], fontenc[T1], microtype[final],
+%  hyperref[unicode=true, hidelinks], nomencl[intoc],
 %\usepackage{fancyvrb}
 %\usepackage{framed}
 \usepackage{subcaption}
@@ -55,8 +68,6 @@
 \usepackage{threeparttable}
 \usepackage{booktabs}
 %\usepackage{subfiles}
-\usepackage[hidelinks]{hyperref}
-\usepackage{appendix}
 % ************************* Algorithms and Pseudocode **************************
 
 %\usepackage{algpseudocode}
@@ -301,3 +312,14 @@
 %\renewcommand*{\chapterautorefname}{Chapter}
 %\newcommand*{\appendixautorefname}{Appendix}
 %\newcommand*{\Appendixautorefname}{Appendix}
+
+% ******************************** Misc. commands **********************************
+
+\newcommand{\cm}[1]{C$_\mu$#1}
+\newcommand{\cd}[1]{C$_\delta$#1}
+\newcommand{\cz}[1]{C$)\zeta$#1}
+
+\newcommand{\question}[1]{\subsection{#1}}
+%\newcommand{\question}[1]{\textit{\Large #1}\\}
+\newcommand{\q}[1]{\question{#1}}
+
