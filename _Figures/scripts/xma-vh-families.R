@@ -18,7 +18,8 @@ source("aux/ggplot2.R")
 vh_nt_path <- "../_Data/segments/xma/xma_vh_nt.fasta"
 
 # Configure output
-filename <- "xma-vh-families"
+filename_tree <- "xma-vh-families-tree"
+filename_map <- "xma-vh-families-map"
 
 # Pairwise identity method
 pid_type <- "PID2"
@@ -109,7 +110,7 @@ vh_families <- vh_families %>%
 vh_tbl_tree_fam <- left_join(vh_tbl_tree_raw,
                              vh_families %>% select(-n, -colour),
                              by = "node")
-for (n in seq(nrow(family_nodes))){
+for (n in seq(nrow(vh_families))){
   family <- vh_families$family[n]
   root <- vh_families$node[n]
   if (!is.na(root)){
@@ -137,11 +138,11 @@ vh_tbl_tree_fam$branch.length <- vh_tbl_tree_fam$branch.length /
 #------------------------------------------------------------------------------
 
 theme_tre <- theme_minimal() + theme_base +
-  theme(legend.position = "bottom",
-        legend.margin = margin(b=0.5,t=0, unit="cm"),
+  theme(legend.position = "top",
+        legend.margin = margin(b=0,t=0.5, unit="cm"),
         plot.margin = margin(t=0, unit="cm"),
         axis.title.x = element_text(margin = margin(t=0, b=0.5, unit="cm")),
-        axis.title.y = element_text(margin = margin(l = 0.5, unit = "cm")))
+        axis.title.y = element_text(margin = margin(l = 2, t = 2, unit = "cm")))
 annotate_y <- length(vh_nt) * 0.95
 annotate_x <- -20 * 1.02
 annotate_size <- fontsize_base/2
@@ -158,87 +159,73 @@ tre <- revts(ggtree(as.treedata(vh_tbl_tree_fam), aes(colour=family),
   #         family = titlefont, size = annotate_size) +
   guides(colour = guide_legend(nrow=1)) +
   theme_tre
-tre
 
-# 
-# #### ORDER IDENTITY MATRIX BY FAMILY ####
-# v_id_nt_ordered <- floor(v_id_nt[v_clust_nt$order,v_clust_nt$order])
-# 
-# # Convert into table for plotting
-# vh_tab <- melt(v_id_nt_ordered, varnames = c("Query", "Subject"), 
-#                value.name = "ID") %>%
-#   mutate(Query = sub("IGHV", "", Query),
-#          Subject = sub("IGHV", "", Subject),
-#          Close = ID >= id_threshold,
-#          Family = ifelse(sub("-.*", "", Query) == sub("-.*", "", Subject),
-#                          sub("-.*", "", Query), "00"))
-# 
-# # Convert names to factors for plotting
-# vh_levels <- sub("IGHV", "", rownames(v_id_nt_ordered))
-# vh_tab <- vh_tab %>%
-#   mutate(Query = factor(Query, levels = vh_levels),
-#          Subject = factor(Subject, levels = rev(vh_levels)))
-# 
-# 
-# # Determine V-family palette
-# palette <- "Set3"
-# family_counts <- vh_tab %>% group_by(Family) %>% count %>% arrange(desc(n)) %>%
-#   mutate(Colour = colours[["GR"]])
-# family_counts_00 <- filter(family_counts, Family == "00")
-# family_counts <- filter(family_counts, Family != "00")
-# n_large <- sum(family_counts$n > 1)
-# family_counts$Colour[1:n_large] <- gg_color_hue(n_large)
-# family_counts <- bind_rows(family_counts,
-#                            family_counts_00 %>% mutate(Colour = "#FFFFFF00")
-# )
-# 
-# # Order families by colour palette
-# vh_tab <- vh_tab %>% mutate(Family = factor(Family, levels = family_counts$Family))
+#------------------------------------------------------------------------------
+# PREPARE DATA FOR HISTOGRAM
+#------------------------------------------------------------------------------
 
-##HEATMAP AND SAVING CODE (STILL NEED TO FIX)
+# Determine order from tree data
+vh_tree_order <- tre$data %>% arrange(y) %>% filter(!is.na(label)) %>% pull(label)
+
+# Generate %identity table for VH segments
+vh_tab <- vh_id_nt %>%
+  melt(varnames = c("Query", "Subject"), value.name = "ID") %>%
+    mutate(Query = sub("IGHV", "", Query),
+           Subject = sub("IGHV", "", Subject),
+           Close = ID >= id_threshold,
+           Family = ifelse(sub("-.*", "", Query) == sub("-.*", "", Subject),
+                           sub("-.*", "", Query), "wh")) %>%
+  mutate(Query = factor(Query, levels = vh_tree_order),
+         Subject = factor(Subject, levels = rev(vh_tree_order)),
+         Family = factor(Family, levels = vh_families %>% filter(family != "gr") %>% pull(family)))
+
+heatmap_label_colours <- levels(vh_tab$Query) %>% 
+  sub("-.*", "", .) %>% 
+  match(vh_families$family) %>%
+  vh_families$colour[.]
+
 #------------------------------------------------------------------------------
 # PLOT VH FAMILY HEATMAP
 #------------------------------------------------------------------------------
-# 
-# # Make identity heatmap
-# fontsize_hm_ticks <- fontsize_base/2
-# theme_hm_vh <- theme_classic() + theme_base + 
-#   theme(axis.text.x = element_text(size=fontsize_hm_ticks, angle = 90),
-#         axis.text.y = element_text(size=fontsize_hm_ticks),
-#         legend.position = "none",
-#         axis.title.x = element_blank(),
-#         axis.title.y = element_blank()
-#   )
-# vh_heatmap <- ggplot(vh_tab) +
-#   geom_tile(aes(x=Query, y=Subject, fill=Family)) + 
-#   geom_point(aes(x=Query, y=Subject, colour=Close)) +
-#   scale_fill_manual(values = family_counts$Colour) +
-#   scale_colour_manual(values = c("#FFFFFF00", "red")) +
-#   theme_hm_vh + coord_fixed()
-# 
-# 
-# #------------------------------------------------------------------------------
-# # SAVE PLOT
-# #------------------------------------------------------------------------------
-# 
-# plt <- plot_grid(vh_dendrogram, vh_heatmap,
-#                  ncol = 1, labels="AUTO", label_fontfamily = titlefont,
-#                  label_fontface = "plain",
-#                  label_size = fontsize_base * fontscale_label)
-# 
-# 
-# 
-# #------------------------------------------------------------------------------
-# # SAVE PLOT
-# #------------------------------------------------------------------------------
-# 
-# plot_height <- 24.3
-# plot_ratio <- 1/1.5
-# 
-# savefig(plot = plt, filename = filename, device = "svg",
-#         height = plot_height, ratio = plot_ratio)
-# savefig(plot = plt, filename = filename, device = "png",
-#         height = plot_height, ratio = plot_ratio)
-# 
-# 
-# 
+
+# Make identity heatmap
+fontsize_hm_ticks <- fontsize_base/2
+theme_hm_vh <- theme_classic() + theme_base +
+  theme(axis.text.x = element_text(size=fontsize_hm_ticks, angle = 90),
+        axis.text.y = element_text(size=fontsize_hm_ticks),
+        legend.position = "top",
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank()
+  )
+
+vh_heatmap <- ggplot(vh_tab) +
+  geom_tile(aes(x=Query, y=Subject, fill=Family)) +
+  geom_point(aes(x=Query, y=Subject, colour=Close), size=0.5) +
+  scale_fill_manual(values = paste0(vh_families %>% filter(family != "gr") %>% 
+                                      pull(colour), "66"),
+                    breaks = vh_families$family[1:n_large],
+                    name = "VH family") +
+  scale_colour_manual(values = c("#FFFFFF00", "red"), guide=FALSE) +
+  guides(fill = guide_legend(nrow=1)) +
+  theme_hm_vh + coord_fixed() +
+  theme(axis.text.x = element_text(colour = heatmap_label_colours),
+        axis.text.y = element_text(colour = rev(heatmap_label_colours)))
+
+
+#------------------------------------------------------------------------------
+# SAVE PLOT
+#------------------------------------------------------------------------------
+
+plot_height = 24.3
+plot_ratio_tree = 1
+plot_ratio_map = 1/1.05
+
+savefig(plot = tre, filename = filename_tree, device = "svg", 
+        height = plot_height, ratio = plot_ratio_tree)
+savefig(plot = tre, filename = filename_tree, device = "png", 
+        height = plot_height, ratio = plot_ratio_tree)
+
+savefig(plot = vh_heatmap, filename = filename_map, device = "svg", 
+        height = plot_height, ratio = plot_ratio_map)
+savefig(plot = vh_heatmap, filename = filename_map, device = "png", 
+        height = plot_height, ratio = plot_ratio_map)

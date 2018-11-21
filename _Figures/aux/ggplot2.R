@@ -27,5 +27,12 @@ theme_base <-   theme(
                             family = titlefont, colour="black",
                             hjust = 0.5, vjust = 0.5,
                             margin = margin(b=5, unit="mm")),
-  plot.margin = margin(t=1.5, l=0.5, r=0.5, b = 0.5, unit="cm")
+  plot.margin = margin(t=1.5, l=0.5, r=0.5, b = 0.5, unit="cm"),
+  strip.background = element_blank(),
+  strip.text.x = element_text(size = fontsize_base * fontscale_title,
+                              family = titlefont, colour = "black",
+                              margin = margin(t = 3, b = 3, unit="mm")),
+  strip.text.y = element_text(size = fontsize_base * fontscale_title,
+                              family = titlefont, colour = "black",
+                              margin = margin(l=3, r=3, unit="mm"))
 )

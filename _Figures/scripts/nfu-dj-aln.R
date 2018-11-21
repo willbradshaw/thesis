@@ -15,9 +15,8 @@ source("aux/io.R")
 source("aux/ggplot2.R")
 
 # Configure input paths
-locus_path <- "/home/will/Documents/data/igh/locus/locus.fa"
-dh_seqs_path <- "/home/will/Documents/data/igh/locus/dsearch/nfu_dh_nt_8.fasta"
-jh_seqs_path <- "/home/will/Documents/data/igh/locus/jsearch/nfu_jh_nt.fasta"
+dh_seqs_path <- "../_Data/segments/nfu/nfu_dh_nt.fasta"
+jh_seqs_path <- "../_Data/segments/nfu/nfu_jh_nt.fasta"
 
 # Configure output
 filename <- "nfu-dj-aln"

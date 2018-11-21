@@ -18,5 +18,6 @@ _Source/*
 thesis.pdf
 thesis.ps
 thesis.dvi
+thesis-log.txt
 .Rhistory
 .Rproj.user

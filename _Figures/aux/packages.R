@@ -8,7 +8,8 @@ if (!("BiocManager" %in% installed.packages())) install.packages("BiocManager")
 if (!("devtools" %in% installed.packages())) install.packages("devtools")
 
 # List desired packages
-packages <- c("Gviz", # Build genome tracks
+packages <- c("xtable", # Export tables to LaTeX
+              "Gviz", # Build genome tracks
               "GenomicRanges", # Sequence range processing
               "Biostrings", # FASTA file reading and manipulation
               "tidyverse", # Tibbles, ggplot2, dplyr etc.

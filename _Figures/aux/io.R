@@ -23,17 +23,46 @@ split_layout <- function(width, height, width_ratios = 1,
 }
 
 # ggsave function for grid objects
-savefig <- function(plot, filename, device, height = NA, 
+savefig <- function(plot, filename, device = c("svg", "png"), height = NA, 
                     width = NA, ratio = NA,
                     units = "cm", dpi = 320){
-  if (!dir.exists(device)) dir.create(device, recursive = TRUE)
-  ggsave(plot = plot,
-         filename = file.path(device, paste0(filename, ".", device)),
-         device = device,
-         height = height,
-         width = ifelse(is.na(width), height * ratio, width),
-         units = units,
-         dpi = dpi
-  )
+  for (d in device){
+    if (!dir.exists(d)) dir.create(d, recursive = TRUE)
+    ggsave(plot = plot,
+           filename = file.path(d, paste0(filename, ".", d)),
+           device = d,
+           height = height,
+           width = ifelse(is.na(width), height * ratio, width),
+           units = units,
+           dpi = dpi
+    )
+  }
 }
 
+# Save tabular object to LaTeX with xtable
+savetab <- function(tab, filename, auto = TRUE, align=NULL, digits = NULL, 
+                    display = NULL, hline.after = NULL, 
+                    include.rownames = FALSE, include.colnames = TRUE,
+                    rotate.colnames = FALSE){
+  # Make xtable object
+  if (auto){
+    xt <- xtable(tab, auto = auto)
+  } else {
+    xt <- xtable(tab, align = align, digits = digits, display = display)
+  }
+
+    # Print to file
+  xtable::print.xtable(xt, 
+                       file = ifelse(is.null(filename), "", 
+                                     file.path("tables", 
+                                               paste0(filename, ".tex"))),
+                       floating = FALSE,
+                       hline.after = hline.after,
+                       include.rownames = include.rownames,
+                       include.colnames = include.colnames,
+                       rotate.colnames = rotate.colnames,
+                       add.to.row = list(pos = list(-1, 0, nrow(xt)),
+                                         command = c('\\toprule ', 
+                                                     '\\midrule ',
+                                                     '\\bottomrule ')))
+}
