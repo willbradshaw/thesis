@@ -28,8 +28,8 @@ filename_nt <- paste0(filename_base, "-nt")
 #------------------------------------------------------------------------------
 
 # Get CH sequences and exclude TM2s
-ch_seqs_nt <- readDNAStringSet(ch_seqs_path_nt)# %>% .[!grepl("TM2", names(.))]
-ch_seqs_aa <- readAAStringSet(ch_seqs_path_aa)# %>% .[!grepl("TM2", names(.))]
+ch_seqs_nt <- readDNAStringSet(ch_seqs_path_nt)
+ch_seqs_aa <- readAAStringSet(ch_seqs_path_aa)
 
 # Split by sublocus and sort ascending
 ch_seqs_igh1_nt <- ch_seqs_nt[grepl("IGH1", names(ch_seqs_nt))]

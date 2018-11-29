@@ -24,10 +24,147 @@ In this chapter, therefore, I present detailed characterisation of the IGH locus
 
 \section{Materials and methods} % Maybe, maybe not, depends on final structure - maybe put relevant stuff here for draft and then move it later?
 
-\dots
-\pagebreak
+\subsection{Assembling the \textit{N. furzeri} and \textit{X. maculatus} \textit{IGH} loci}
 
+\subsection{Characterising locus segments}
 
+To characterise constant and variable gene segments on newly-assembled \textit{IGH} loci, databases of segment sequences from previously-characterised loci were used as reference databases. For \textit{N. furzeri}, the stickleback, medaka and zebrafish loci were used as references; for \textit{X. maculatus}, these three species plus \textit{N. furzeri} were used. In all cases, the analyses were repeated using the newly-characterised additional segments as an additional reference, but no additional segments were discovered.
+
+\subsubsection{VH}
+
+To identify VH segments on newly characterised loci, reference VH segments were used to construct a multiple-sequence alignment with \texttt{PRANK}:
+
+\begin{lstlisting}[language=bash]
+prank -d=<reference_vh_db> -o=<output_path> -gaprate=0.00001 -gapext=0.00001 -F -termgap
+\end{lstlisting}
+
+The resulting alignment was used as an input to \texttt{NHMMER}, which constructs a Hidden Markov Model from a multiple-sequence alignment and uses it to identify matching sequences in a reference sequence:
+
+\begin{lstlisting}[language=bash]
+nhmmer --dna --notextw --tblout <output_path> -T 80 <vh_alignment> <locus_sequence_path>
+\end{lstlisting}
+
+The resulting match table was used to identify candidate ranges in the locus sequence corresponding to VH segments; these ranges were extended by 9bp at either end to account for boundary errors, and the corresponding nucleotide sequences were extracted to a FASTA file. Each sequence was then checked and refined manually: 3' ends were identified by the start of the RSS heptamer sequence (typically \texttt{CACAGTG}), if present, while 5' ends and FR/CDR boundaries were identified using \texttt{IMGT/DomainGapAlign} with the default settings. Where necessary, \texttt{IMGT/DomainGapAlign} was also used to IMGT-gap the VH segments in accordance with the IMGT unique numbering.
+
+An initial amino-acid sequence for each VH segment was produced automatically from the extracted nucleotide sequence by identifying the reading frame which minimised the number of STOP codons in the sequence; this worked well for most segments. VH amino-acid sequences were then refined (and in a few cases re-translated) from the manually-refined nucleotide sequences, including end-refinement and FR/CDR boundary identification.
+
+Following extraction and manual curation, VH segments were grouped into families based on their pairwise sequence identity. In order to assign segments to families, the nucleotide sequence of each VH segment in a locus was aligned to each other segment using Needleman-Wunsch global alignment, as implemented in the \lstinline{pairwiseAlignment} function from the \texttt{R} package \texttt{Biostrings}. The percentage sequence identity was computed using the \lstinline{pid} function from the same package, with percentage identity defined as given in \Cref{eq:pid}; the resulting identity matrix was used to perform single-linkage heirarchical clustering on the VH segments, and the resulting dendrogram was cut at 80\% sequence identity to obtain VH families. These families were then numbered based on the order of the first-occurring VH segment from that family in the first-occurring sublocus in the parent locus, and each VH segment was named based on its parent sublocus, its family, and its order among elements of that family in that sublocus. %TODO: Illustrative figure?
+
+\begin{equation}
+\mathrm{\% sequence identity} = 100 \times \frac{\mathrm{\# identical positions}}{\mathrm{\# total aligned positions}}
+\label{eq:pid}
+\end{equation}
+
+\subsubsection{JH}
+
+As with VH segments, JH segments were identified by building a multiple-sequence alignment with \texttt{PRANK} and using it to construct an HMM with \texttt{nhmmer}; the parameters used were the same as for VH segments, except that there was no minimum score for \texttt{nhmmer} to report a sequence match (\lstinline{-T 0} instead of \lstinline{-T 80}). The resulting sequence ranges were extended by 20bp on either end and extracted into FASTA format. These sequences were then trimmed automatically by identifying the RSS heptamer sequence at the 5' end and the splice junction motif (\texttt{GTA}) at the 3' end. The JH nucleotide sequences were then checked and refined manually.
+
+IgBLAST identifies CDR3 boundaries for recombined IGH VDJ sequences using an AUX file specifying the reading frame of each JH segment, along with the co-ordinate of the conserved \texttt{TGG} codon (corresponding to the conserved W118 residue in the recombined sequence) marking the CDR3/FR4 boundary. An AUX file for the inferred JH segments was generated automatically by searching for the conserved sequence using a series of regular-expression patterns of decreasing stringency (\Cref{tab:jh-aux-patterns}), taking the first match in each sequence as the desired residue; this determined both the reading frame and the W118 sequence co-ordinate. Once generated, the AUX file was then used to determine the reading frame for automatically translated the JH sequences; both the AUX file and amino-acid FASTA file were then edited to incorporate any manual refinements made to the JH nucleotide sequences.
+
+\begin{wraptable}{r}{5.5cm}
+\caption{Regex patterns used to search for conserved W118 residues in JH sequences during AUX file generation}\label{tab:jh-aux-patterns}
+\begin{tabular}{r>{\ttseries}c}\\\toprule  
+\# & Pattern \\\midrule
+1 & TGGGBNNNNGBN\\
+2 & TGGGBNNNGBN\\
+3 & TGGGBNNNNNGBN\\
+4 & TGGGBNNNNNNGBN\\
+5 & TGGGBN\\\bottomrule
+\end{tabular}
+\end{wraptable}
+
+Curated JH sequences were named based on their order within their parent sublocus and, where applicable, on whether they were upstream of IGHZ or IGHM constant regions. 
+
+\subsubsection{DH}
+
+Unlike VH and JH gene segments, DH segments are too short and variable to be found effectively using an HMM-based search strategy. Instead, DH segments in assembled loci were located using their distinctive pattern of flanking recombination signal sequences: an antisense RSS in 5', then a short D-segment, then a sense RSS in 3'. Potential matches to this pattern were searched for using \texttt{FUZZNUC} from the EMBOSS collection of bioinformatics tools, with a high error tolerance to account for deviations from the conserved sequence in either or both of the RSSs:
+
+\begin{lstlisting}[language=bash]
+fuzznuc -pattern 'GGTTTTTGTN(10,14)CACTGTGN(1,25)CACAGTGN(10,14)ACAAAAACC' -pmismatch 8 -rformat gff -outfile <output_path> <locus_sequence_path>
+\end{lstlisting}
+
+This generated a GFF file of permissive matches, representing potential DH segments; these were then grouped by sequence co-ordinate, and higher-mismatch candidates overlapping with a lower-mismatch alternative were discarded.
+
+Orientation of DH segments based on their own sequence is challenging, as the segments themselves have no clear conserved structure and the flanking RSSs are rotationally symmetric. To overcome this problem and orientate the DH segments on the locus, the table of DH candidate ranges was combined with previously-identified (and easier to orientate) VH and JH ranges. Each DH candidate was then orientated based on the orientations of its flanking segments: segments with an oriented segment immediately upstream or downstream adopted the orientation of that segment, while segments with contradictory orientation information were discarded. This process was repeated until all DH segments had either been orientated or discarded.
+
+After orientation, the DH ranges were used to extract DH sequences in FASTA format from the locus sequence; these sequences then underwent a second, more stringent filtering step, in which sequences lacking the most conserved positions in each RSS were discarded:
+
+\begin{lstlisting}[language=bash]
+grep -B 1 '[ACTG]\{{25,27\}}TG[ACTG]\{{1,25\}}CA[ACTG]\{{25,27\}}' <dh_fasta> | sed '/^--$'/d > <output_fasta>
+\end{lstlisting}
+
+Finally, the identified DH candidates were checked manually, candidates without good RSS sequences were discarded, and flanking RSS sequences were trimmed to obtain DH segment sequences. As with JH, these were numbered based on their order within their parent sublocus and, when applicable, on whether they were upstream of IGHZ or IGHM constant regions.
+
+\subsubsection{CH}
+
+To detect and identify constant-region exons in the characterised loci, sequences from reference species were mapped to the locus sequence using BLAST. Nucleotide sequences were aligned to the locus using the relatively permissive \lstinline{blastn} algorithm (as opposed to e.g. \lstinline{megablast} or \lstinline{dc-megablast}):
+
+\begin{lstlisting}[language=bash]
+blastn -tastk blastn -query <reference_exon_fasta> -subject <locus_fasta> -outfmt "<output_format>"
+\end{lstlisting}
+
+Protein sequences, meanwhile, were aligned using the standard \lstinline[columns=fixed]{blastp} algorithm:
+% TODO: Customise lstinline for fixed-column BASH calls
+
+\begin{lstlisting}[language=bash]
+blastp -query <reference_exon_fasta> -subject <locus_fasta> -outfmt "<output_format>"
+\end{lstlisting}
+
+In both cases, the same tabular output format was used, to provide a predictable format for downstream processing of BLAST alignment tables:
+
+\begin{lstlisting}[language=bash]
+6 qseqid sseqid pident qcovhsp length mismatch gapopen gaps sstrand qstart qend sstart send evalue bitscore qlen slen
+\end{lstlisting}
+
+Following alignment of reference sequences, overlapping alignments to reference segments of the same isotype and exon number were collapsed together, keeping track of the number of collapsed alignments and the best E-values and bitscores obtained for each alignment groups. Alignment groups with a very poor maximum E-value ($> 0.001$) were discarded, as were groups overlapping with a much better alignments to a different isotype or exon type, where ``much better" was defined as a bitscore difference of at least 16.5. Where conflicting alignments to different isotypes or exon types co-occurred without a sufficiently large difference in bitscore, both alignment groups were retained for manual resolution of exon identity.
+
+Following resolution of conflicts, alignment groups underwent a second filtering step of increased stringency, requiring a minimum E-value of $10^{-8}$ and at least two aligned reference exons over all reference species to be retained. Each surviving alignment group was then converted to a sequence range, extended by 10bp at each end to account for truncated alignments failing to cover the ends of the exon, and used to extract the corresponding exon sequence into FASTA format. These sequences then underwent manual curation to resolve conflicting exon identities, assign exon names and perform initial end refinement based on putative splice junctions.
+
+In order to validate intron/exon boundaries and investigate splicing behaviour among \textit{IGH} constant-region exons, published RNA-sequencing data was aligned to the annotated locus using STAR. In both cases, reads files from multiple individuals were concatenated and aligned together, in order to make the intron/exon boundary changes in mapping behaviour as clear as possible. % TODO: Table of datasets used for RNA-seq mapping
+
+Before aligning the RNA-seq reads, each locus underwent basic repeat masking, using the built-in zebrafish repeat parameters from the RepeatMasker program:
+
+\begin{lstlisting}[language=bash]
+RepeatMasker -species danio -dir <masked_locus_dir> -s <unmasked_locus_path>
+\end{lstlisting}
+
+after masking, a STAR genome index was generated from each locus:
+
+\begin{lstlisting}[language=bash]
+STAR --runMode genomeGenerate --genomeDir <star_index_directory_path> --genomeFastaFiles <masked_locus_path> --genomeSAindexNbases <sa_index>
+\end{lstlisting}
+
+where the \lstinline{--genomeSAindexNbases} option determines the size of the suffix-array index and is dependent on the length of the reference sequence being indexed (\Cref{tab:sa_index}, \Cref{eq:sa_index}). 
+
+\begin{equation}
+\mathrm{SA index size (bits)} = \frac{\log_2(\mathrm{length of reference sequence})}{2} - 1
+\label{eq:sa_index}
+\end{equation}
+
+\begin{wraptable}{r}{5.5cm}
+\caption{Reference sequences and corresponding SA index sizes used in RNA-seq alignment to \textit{IGH} loci}\label{tab:jh-aux-patterns}
+\begin{tabular}{ccc}\\\toprule 
+Species & Reference & SA index size (bits)\\\midrule
+\textit{X. maculatus} & IGH (whole locus) & 8\\
+\textit{X. maculatus} & IGHZ constant region & 5\\ 
+\textit{X. maculatus} & IGHM/D constant regions & 6\\ 
+\textit{N. furzeri} & IGH (whole locus) & 8\\
+\textit{N. furzeri} & IGHM/D constant regions & 6\\ 
+\end{tabular}
+\label{tab:sa_index}
+\end{wraptable}
+
+Following index generation, the RNA-seq reads were mapped to the generated index as follows:
+
+\begin{lstlisting}[language=bash]
+STAR --genomeDir <star_index_directory_path> --readFilesIn <input_reads> --outFilterMultimapNmax 5 --alignIntronMax 10000 --alignMatesGapMax 10000
+\end{lstlisting}
+
+where the \lstinline{--outFilterMultimapNmax} option excludes read pairs mapping to more than five distinct co-ordinates in the reference sequence and the \lstinline{--alignIntronMax} option excludes read pairs spanning predicted introns of more than 10kb, and the \lstinline{--alignMatesGapMax} option excludes read pairs mapping more than 10kb apart. Following alignment, the resulting SAM files were processed into sorted, indexed BAM files using SAMtools and visualised with Integrated Genome Viewer (IGV) to determine intron/exon boundaries of predicted exons, as well as the major splice isoforms present in each dataset.
+
+In order to reduce time and memory requirements for generating alignment figures and reduce noise caused by mismapping reads, secondary alignments were performed on truncated loci consisting only of the IGHM/D or (where present) IGHZ constant regions, plus a few flanking kilobases on each side. In these cases, the additional parameters constraining multimapping, intron length and mate distance were not necessary due to the much shorter and less repetitive reference sequence.
+
+\subsubsection{Visulising locus structure}
 
 \section{The \textit{IgH} locus in \textit{Nothobranchius furzeri}}
 \label{sec:nfu-locus}
@@ -43,7 +180,6 @@ In this chapter, therefore, I present detailed characterisation of the IGH locus
 	
 	The two subloci in the turquoise killifish locus are generally highly similar in their functional sequence, with a high degree of synteny between their functional regions (\Cref{fig:nfu-locus-synteny}). The greatest degree of divergence occurs in the VH and DH regions, with what appear to be repeated deletion events in IGH2 resulting in a substantially lower number of VH and DH segments compared to IGH1; conversely, the JH and constant regions are almost identical between two subloci. These patterns are discussed in more detail in \Cref{sec:nfu-locus-constant,sec:nfu-locus-variable}.
 	
-	% TODO: How can I distinguish between deletions in IGH2 and insertions in IGH1?
 	% TODO: Can I say anything about the history of the locus? Ask David.
 	
 	\begin{figure}
@@ -90,9 +226,7 @@ In this chapter, therefore, I present detailed characterisation of the IGH locus
 	In the case of both IgM and IgD, the constant regions are present in their expected configuration in each sublocus and are highly similar in sequence between the subloci, with an average of 98.4\% nucleotide sequence identity for corresponding IgM exons and 99.3\% for corresponding IgD exons (\Cref{fig:nfu-ch-aln} and \Cref{tab:nfu-ch-aln}).
 
 	The most striking feature of the constant-region structure of the \textit{IGH} locus in \textit{N. furzeri} is the complete absence in both subloci of IgZ. As discussed above, IgZ constant exons have been found to be present in the great majority of teleost \textit{IgH} loci characterised to date, with the only previous exceptions being channel catfish and medaka. Its absence in turquoise killifish (\Cref{fig:nfu-locus-map-b}) is therefore notable, and immediately raises questions about the nature, kinetics and efficacy of mucosal adaptive immunity in this species. Since medaka, the closest relative of TK with a characterised locus, also lacks IgZ, its absence in TK also raises the question of whether its absence occurred in a common ancestor to both species or is the result of independent deletion events in both lineages; this question is addressed in more depth in subsequent sections of this chapter. % IgZ paragraph at start or end of subsection?	
-	
-	% TODO: I need to do an amino-acid sequence alignment to reference species here so I can actually get percentage identity numbers (plus it will make a nice figure), but the identity with other teleost species at each exon seems quite high.
-	
+		
 
 	% TODO: Table and figure of antibody isoforms in TK: length, molecular weight, number of C-regions, etc. (in appendix)
 	
@@ -125,7 +259,7 @@ In this chapter, therefore, I present detailed characterisation of the IGH locus
 	
 	\begin{figure}
 	\centering
-			    \begin{subfigure}{0em}
+		\begin{subfigure}{0em}
         \phantomsubcaption{}
         \label{fig:nfu-locus-sashimi-a}
     \end{subfigure}
@@ -141,7 +275,7 @@ In this chapter, therefore, I present detailed characterisation of the IGH locus
 	\begin{figure}
 	\centering
 	\includegraphics[width = \textwidth]{_Figures/png/nfu-ch-aln}
-	\caption[Cross-sublocus sequence similarity in constant-region exons in \textit{N. furzeri} \textit{IGH}]{\textbf{Cross-sublocus sequence similarity in constant-region exons in \textit{N. furzeri}:} Heatmap of percentage sequence identity between amino-acid (right) and nucleotide (left) sequences of constant-region exons from the two subloci of \textit{N. furzeri} \textit{IGH}, calculated using pairwise Needleman-Wunsch global alignments. Note the very high similarity between corresponding exons of the two subloci, as well as the substantial similarity between IGHD-3A/3B and IGHD-4A/4B in both subloci.}
+	\caption[Cross-sublocus sequence similarity in constant-region exons in \textit{N. furzeri} \textit{IGH}]{\textbf{Cross-sublocus sequence similarity in constant-region exons in \textit{N. furzeri}:} Heatmap of percentage sequence identity between amino-acid (right) and nucleotide (left) sequences of constant-region exons (excluding IGHM-TM2 and IGHD-TM2) from the two subloci of \textit{N. furzeri} \textit{IGH}, calculated using pairwise Needleman-Wunsch global alignments. Note the very high similarity between corresponding exons of the two subloci, as well as the substantial similarity between IGHD-3A/3B and IGHD-4A/4B in both subloci.}
 	\label{fig:nfu-ch-aln}
 	\end{figure}
 	
@@ -168,7 +302,7 @@ In this chapter, therefore, I present detailed characterisation of the IGH locus
 	Of the VH, DH and JH segments identified, all but one of each type of segment is located within contiguous V-, D-, and J-regions within each sublocus, supporting a modified translocon configuration for killifish \textit{IGH}. The exceptions to this are IGH1D01 and IGH1J01, which are embedded within the IGH1 V-region, and a single VH segment located in between the IGHD contant regions of the two subloci (\Cref{fig:nfu-locus-map-b}). The unusual location of IGH1D01 and IGH1J01 may represent the result of a transposition event within the IGH locus; however, their close colocalisation and 5' position within the IGH1 sublocus, as well as the fact that neither has a close paralogue in IGH2 (\Cref{fig:nfu-dj-alignment-b}), suggest that they may alternatively represent the remnant of a formerly present IGHZ constant region, as these typically have dedicated D/J segments independent of those serving IGHM. Given its forward orientation, meanwhile, the orphaned VH-segment was assigned to the IGH1 sublocus as IGH1V1-07; however, if annotated correctly, it is unlikely to successfully recombine with segments in either sublocus due to its unusual location. % Alternatively, the unusual location of this VH segment could be due to either a misassembly or the presence of an additional sublocus missing from the current assembly; however, given the structurally volatile nature of the IGH locus and the frequency with which isolated VH loci are found in other parts of the genome, the presence of an orphaned locus in between two functional subloci is not implausible.
 		
 	% Segment numbers
-	The total number of functional VH segments in the killifish locus is unusually small in comparison to the total numbers observed in many other teleost species (\Cref{tab:teleost-vh-counts}); however, the number of segments per sublocus is in line with the numbers seen in closely-related species (2 to 12 in medaka, 6 to 18 in stickleback), with the overall difference mainly arising from a difference in the number of subloci per locus. A similar pattern is observed with DH and JH segments, with similar numbers of segments per sublocus in killifish and closely-related species, especially medaka. It therefore appears that the per-sublocus segment diversity available to the turquoise killifish is similar to that of previously characterised species, with any difference in total available diversity at this level arising from differences in the number of functional subloci rather than the size of the V/D/J-regions \textit{per se}. % TODO: Compute total number of possible VDJ combinations compared to other species?
+	The total number of functional VH segments in the killifish locus is unusually small in comparison to the total numbers observed in many other teleost species (\Cref{tab:teleost-vh-counts}); however, the number of segments per sublocus is in line with the numbers seen in closely-related species (2 to 12 in medaka, 6 to 18 in stickleback), with the overall difference mainly arising from a difference in the number of subloci per locus. A similar pattern is observed with DH and JH segments, with similar numbers of segments per sublocus in killifish and closely-related species, especially medaka. It therefore appears that the per-sublocus segment diversity available to the turquoise killifish is similar to that of previously characterised species, with any difference in total available diversity at this level arising from differences in the number of functional subloci rather than the size of the V/D/J-regions \textit{per se}.
 	
 	\begin{table}
 	\begin{threeparttable}
@@ -219,7 +353,6 @@ In this chapter, therefore, I present detailed characterisation of the IGH locus
     \label{fig:nfu-vh-families-b}
     \end{subfigure}
 	\includegraphics[width=0.8\textwidth]{_Figures/png/nfu-vh-families.png}
-	%\includegraphics[width=\textwidth]{/home/will/Documents/code/figures/2018-11-08/nfu-vh-families_small} % TODO: Move to thesis directory, switch to large figure
 	\caption[VH families in the in \textit{N. furzeri} \textit{IgH} locus]{\textbf{VH families in the in \textit{N. furzeri} (\textit{IgH}) locus:} (A) Dendrogram of sequence similarity of VH segments in the \textit{N. furzeri} locus, arranged by single-linkage clustering on nucleotide sequence identity. The red line indicates the 80\% cutoff point for family assignment, while branch colour indicates family membership. (B) Heatmap of family relationships among \textit{N. furzeri} VH segments, with coloured shading indicating families and red dots indicating pairwise nucleotide sequence identity of at least 80\%. In both subfigures, VH families containing multiple segments are coloured, single-segment families are in grey, and segments from the IGH2 sublocus are displayed in \textbf{boldface}.}
 	\label{fig:nfu-vh-families}
 	\end{figure}
@@ -261,12 +394,12 @@ In this chapter, therefore, I present detailed characterisation of the IGH locus
 	
 	\subsection{Discussion}
 	
-	The turquoise killifish IGH locus shares many features with other characterised teleost loci, including a modified tandem-translocon configuration with intact V, D, J and constant regions, six-exon secreted configuration of immunoglobulin M, expanded IgD constant region with tandem \cd{}-exon block repeats, conserved RSS structure, chimeric \cm{1} in IGHD, et cetera. However, it also exhibits many ideosyncratic features that differ from those observed in most characterised teleost loci, including an unusually small number of VH segments, a four-exon \cm{1}-\cm{2}-TM1-TM2 configuration of transmembrane IgM, an inverted sublocus present in antisense, and a complete absence of immunoglobulin Z. 
+	The turquoise killifish IGH locus shares many features with other characterised teleost loci, including a modified tandem-translocon configuration with intact V, D, J and constant regions (\Cref{fig:nfu-locus-map-b}), four-exon secreted configuration of immunoglobulin M (\Cref{fig:nfu-locus-sashimi-a}), expanded IgD constant region with tandem \cd{}-exon block repeats (\Cref{fig:nfu-locus-sashimi-b,fig:nfu-locus-map-b},), a conserved RSS structure (\Cref{fig:nfu-rss-seqlogo-all}), and a chimeric \cm{1} in IGHD \Cref{fig:nfu-locus-sashimi-b}). However, it also exhibits many ideosyncratic features that differ from those observed in most characterised teleost loci, including an unusually small number of VH segments (\Cref{fig:nfu-vh-families} and \Cref{tab:teleost-vh-counts}), a four-exon \cm{1}-\cm{2}-TM1-TM2 configuration of transmembrane IgM (\Cref{fig:nfu-locus-sashimi-a}), an inverted sublocus present in antisense (\Cref{fig:nfu-locus-map-b}), and a complete absence of immunoglobulin Z.
 	
-	Many of these peculiarities, including the unusual IgM-TM splicing pattern, inverted sublocus, and lack of IgZ, are shared with the sublocus of medaka (\textit{Oryzias latipes}), which until the completion of this study was the closest relative of \textit{Nothobranchius furzeri} to have its immunoglobulin heavy chain locus characterised. Given this close relationship between turquoise killifish and medaka, an obvious hypothesis for the evolutionary history of these unusual traits was of a common origin in the common ancestor of the Cyprinodontiformes (the clade that contains the killifishes) and the Beloniformes (the clade that contains medaka). % Tree for this 
+	Many of these peculiarities, including the unusual IgM-TM splicing pattern, inverted sublocus, and lack of IgZ, are shared with the sublocus of medaka (\textit{Oryzias latipes}), which is the closest relative of \textit{Nothobranchius furzeri} to have its immunoglobulin heavy chain locus characterised prior to this work. Given this close relationship between turquoise killifish and medaka, an obvious hypothesis for the evolutionary history of these unusual traits was of a common origin in the common ancestor of the Cyprinodontiformes (the clade that contains the killifishes) and the Beloniformes (the clade that contains medaka). % Tree for this 
 
-	To investigate this hypothesis, I performed a complete characterisation of the \textit{IgH} locus in the platyfish \textit{Xiphophorus maculatus}, another cyprinodontiform species that has seen widespread use as a model organism. Alongside this, I performed a more limited characterisation of the \textit{IgH} constant regions in 9 %?
-	additional cyprinodontiform species, to assess the broader patterns of immunoglobulin heavy chain evolution within this diverse and important teleost clade.
+	To investigate this hypothesis further, I performed a complete characterisation of the \textit{IgH} locus in the platyfish \textit{Xiphophorus maculatus} (\Cref{sec:xma-locus}), another cyprinodontiform species that has seen widespread use as a model organism. Alongside this, I performed a more limited characterisation of the \textit{IgH} constant regions in 9 %?
+	additional cyprinodontiform and beloniform species, to assess the broader patterns of immunoglobulin heavy chain evolution within these groups (\Cref{sec:comparative-loci}). The results of these additional investigations repeatedly called into question the hypothesis of homology in IgH locus ideosyncracies between medaka and turquoise killifish, and suggest a model of rapid locus evolution within this diverse and important teleost clade.
 	
 	% TODO: Relationship between killifish Vs and other species
 	% TODO: Evolution of IGH1 vs 2
@@ -284,76 +417,116 @@ In this chapter, therefore, I present detailed characterisation of the IGH locus
 
 
 \section{The \textit{IgH} locus in \textit{Xiphophorus maculatus}}
+\label{sec:xma-locus}
 
 	\subsection{Overall structure}
 	
-	The \textit{X. maculatus} \textit{IGH} locus occupies roughly 263 kb on chromosome 16, in a region syntenic with chromosome 6 of the \textit{Nothobranchius furzeri} genome. % TODO: Get a synteny plot of this, based on David's data.
-	The \textit{X. maculatus} \textit{IGH} locus differs from the \textit{N. furzeri} locus in several important respects: % List them here first, then arrange them into prose
-	\begin{itemize}
-	\item Unlike the \textit{N. furzeri} locus, the \textit{X. maculatus} locus contains only a single sublocus spanning the entire length of the locus, with no evidence of a second, antisense sublocus as seen in \textit{N. furzeri}.
-	\item The V-region of the \textit{X. maculatus} locus is highly expanded, with 99 identified VH segments -- more than four times the total number seen in \textit{N. furzeri}, and almost six times the number in the largest \textit{N. furzeri} sublocus. At least 74 of these VH segments appear to be fully in-frame and functional and equipped with functional RSS sequences, representing one of the highest numbers of functional VH segments seen in any teleost IGH locus. However, the final four VH segments (of which two are structurally intact) are downstream of the last identified DH segment and inverted relative to the rest of the locus, and may not be able to successfully undergo VDJ recombination. These VH sequences are also much more tightly packed than in the \textit{N. furzeri} locus, consistent with a lower overall prevalence of repetitive regions in the \textit{X. maculatus} genome. % TODO: Citation and number needed
-	\item Unlike the turquoise killifish, the platyfish locus contains a fully intact IGHZ constant region, with a six-exon structure homologous with that seen in most other teleost loci (though not stickleback, in which the exon corresponding to \cz{2} is missing) and a secretory tail produced by a run-on event from \cm{4}. As in most teleost loci, this IGHZ constant region has its own dedicated DH and JH regions, though these are unusually small with only a single IGHDZ01 and IGHJZ01 segment each. % TODO: Compare these to the orphaned D/J segments in TK to test vestigial IGHZ hypothesis
-	Unlike most IGHZ-bearing teleost loci, however, the \textit{X. maculatus} IGHZ constant region is upstream of the great majority of VH segments in the locus, with only one VH segment upstream of the \cz{1} exon. This lone VH segment, IGHV01-01, is distinct in sequence from the other VH segments in the locus, but appears to be functional. It would be interesting to see whether it (a) forms the expected invariant VDJ combination in recombined IGHZ transcripts, (b) can recombine with downstream DH segments to form part of recombined IGHM/D-specific transcripts. % TODO: Characterise IGHZ splicing, secreted vs transmembrane expression, etc.
-	\item Rather than a single, relatively densely-packed D-region, the \textit{X. maculatus} locus contains DH segments interspersed throughout the long stretch of the locus between the end of the \textit{IGHZ} constant region and the start of that of IGHM. Many of these lone DH segments are closely associated with single JH segments, raising the possibility of a more cluster-like behaviour in which each $V_n-D_1-J_1$ group acts as a distinct recombination unit. However, the presence of a dense eight-segment J-region immediately upstream of IGHM, combined with a pair of comparatively closely-packed DH segments downstream of the last forward-oriented VH segments, suggests a more conventional translocon behaviour; it remains to be seen which of these traditional models of antigen-receptor structure more closely matches the in vivo recombination behaviour of this unusually structured IGH locus.
-	% TODO: See if you can get any information on VDJ recombination patterns from Xiphophorus RNA-seq data
-	% TODO: Assess RSS structure in platyfish
-	% TODO: Should the final D_2 pair and J also be regarded as a potential cluster?
-	\end{itemize}
+	The \textit{X. maculatus} \textit{IGH} locus occupies roughly 263 kb on chromosome 16 (\Cref{fig:xma-locus-map-a}), in a region syntenic with the part of \textit{Nothobranchius furzeri} chromosome 6 containing the turquoise-killifish IGH locus. % TODO: Get a synteny plot of this, based on David's data.
+	Unlike in \textit{N. furzeri}, and medaka, only a single ``sublocus" is present, which spans the entire length of the locus region; no evidence of a second, antisense locus could be identified. The overall structure of this locus roughly corresponds to that of simpler that of simpler teleost loci like those of zebrafish and fugu, albeit with some striking ideosyncracies, and it differs from that of \textit{N. furzeri} in several important respects.
 	
-However, in addition to these differences, there are also important similarities between the two loci, including:
-
-\begin{itemize}
-\item A conserved block of eight JH segments immediately upstream of \cm{1}. % TODO: Check the sequence similarity of these blocks.
-\item A six-exon IGM constant region structure.
-\item A twelve-exon IGD costant region structure with a shared \cd{1}-(\cd{2}-\cd{3}-\cd{4})$_2$-\cd{5}-\cd{6}-\cd{7}-TM1-TM2 exon configuration.
-\end{itemize}
-
-% TODO: IGHD and IGHJ splicing behaviour in platy, compare VH families from platy and TK, VH families in platy, align C-exons between TK and platy (and other cyprinodontiforms)
-	
-	
-		\begin{figure}
-		\centering
-	\includegraphics[width=\textwidth]{/home/will/Documents/code/figures/2018-11-07/xma-locus-map} % TODO: Move to thesis directory, switch to large version
+	\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{/home/will/Documents/code/figures/2018-11-07/xma-locus-map}
 	\caption[The immunoglobulin heavy chain (\textit{IGH}) locus in \textit{}]{\textbf{The immunoglobulin heavy chain (\textit{IGH}) locus in \textit{Xiphophorus maculatus}:} (A) Position of the \textit{IGH} locus on chromosome (group) 16 of the \textit{X. maculatus} genome. (B) Arrangement of VH, DH, JH and constant-region gene segments on the \textit{X. maculatus} \textit{IgH} locus. (C) Detailed map of the \textit{IGHZ} and \textit{IGHM/D} constant regions, indicating the position and identity of the constant-region exons and the exon composition of expressed \textit{IgH} isoforms in \textit{X. maculatus}.}
+	\begin{subfigure}{0em}
+        \phantomsubcaption{}
+        \label{fig:xma-locus-map-a}
+    \end{subfigure}
+    \begin{subfigure}{0em}
+        \phantomsubcaption{}
+        \label{fig:xma-locus-map-b}
+    \end{subfigure}
+    \begin{subfigure}{0em}
+        \phantomsubcaption{}
+        \label{fig:xma-locus-map-c}
+    \end{subfigure}
 	\label{fig:xma-locus-map}
-	\end{figure}
-	
-		\begin{figure}
-	\includegraphics[width=\textwidth]{_Figures/png/xma-rss-seqlogo-all}
-	\caption[Recombination signal sequences in the \textit{X. maculatus} \textit{IGH} locus]{\textbf{Recombination signal sequences in the \textit{X. maculatus} \textit{IGH} locus:} (A) Sequence composition of conserved heptamer sequences across all \textit{X. maculatus} heavy-chain RSSs; (B) length distribution of unconserved spacer sequences in \textit{X. maculatus} heavy-chain RSSs; (C) sequence composition of conserved heptamer sequences across all \textit{X. maculatus} heavy-chain RSSs.}
-	\label{fig:xma-rss-seqlogo-all}
-	\end{figure} % TODO: Add in row showing expected consensus sequence with highlighted conserved positions
+\end{figure}
 
 	
-
-
-	\subsection{Variable regions}
-	
-			\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{_Figures/png/xma-vh-families-tree} % TODO: Move to thesis directory, switch to large figure
-	\caption[VH families in the in \textit{X. maculatus} \textit{IgH} locus]{\textbf{VH families in the in \textit{X. maculatus} (\textit{IgH}) locus:} (A) Dendrogram of sequence similarity of VH segments in the \textit{X. maculatus} locus, arranged by single-linkage clustering on nucleotide sequence identity. The red line indicates the 80\% cutoff point for family assignment. (B) Sequence identity table for \textit{X. maculatus} VD segments, with similarity levels exceeding the familial threshold highlighted in red. Grey boxes indicate family relationships among segments. In both subfigures, VH segment names from the IGH1 sublocus are displayed in black, while IGH2 VH segments are displayed in blue.}
-	% TODO: Fix up this figure
-	\label{fig:xma-vh-families-tree}
-	\end{figure}
-	
-				\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{_Figures/png/xma-vh-families-map} % TODO: Move to thesis directory, switch to large figure
-	\caption[VH families in the in \textit{X. maculatus} \textit{IgH} locus]{\textbf{VH families in the in \textit{X. maculatus} (\textit{IgH}) locus:} (A) Dendrogram of sequence similarity of VH segments in the \textit{X. maculatus} locus, arranged by single-linkage clustering on nucleotide sequence identity. The red line indicates the 80\% cutoff point for family assignment. (B) Sequence identity table for \textit{X. maculatus} VD segments, with similarity levels exceeding the familial threshold highlighted in red. Grey boxes indicate family relationships among segments. In both subfigures, VH segment names from the IGH1 sublocus are displayed in black, while IGH2 VH segments are displayed in blue.}
-	% TODO: Fix up this figure
-	\label{fig:xma-vh-families-map}
-	\end{figure}
-
-
-
 	\subsection{Constant regions}
 	
-		\begin{figure}
+	Most strikingly, unlike the turquoise killifish, the platyfish locus contains a fully intact IGHZ constant region, with a six-exon structure homologous with that seen in most other teleost loci (unlike in stickleback, the exon corresponding to \cz{2} is not missing) and a secretory tail produced by a run-on event from \cm{4} (\Cref{fig:xma-locus-map-b,fig:xma-locus-map-c}). Conversely, the genomic configurations of the IGHM and IGHD constant regions were highly similar to those of turquoise killifish, with a {\cm{1}-\cm{2}-\cm{3}-\cm{4}-TM1-TM2} configuration for IGHM and a {\cd{1}-(\cd{2}-\cd{3}-\cd{4})$_2$-\cd{5}-\cd{6}-\cd{7}-TM1-TM2} configuration for IGHD. The evolution of constant-region exon structure in the cyprinodontiforms, including the pattern of (\cd{2}-\cd{3}-\cd{4}) duplications, is discussed more in \dots .
+	
+	In order to investigate the expressed isoforms present in \textit{X. maculatus}, published RNA-sequencing reads from platyfish \dots % Tissues used, reference
+	were aligned to the IGHZ and IGHM/D constant regions with STAR. % TODO: Refer to methods here
+	The results indicate the expected splice patterns for IGHZ and IGHD, including a six-exon configuration for IGHZ-TM (\Cref{fig:xma-locus-sashimi-z}), the use of a \bp{23} secretory tail produced by a run-on event from \cz{4} in IGHZ-S, and the presence of a chimeric \cm{1} exon in IGHD-TM (\Cref{fig:xma-locus-sashimi-d}). However, while secretory IGHM (IGHM-S) in platyfish was found to occupy the expected four-exon configuration seen in turquoise killifish and elsewhere (\Cref{fig:xma-locus-sashimi-m}), the configuration observed for transmembrane IGHM (IGHM-TM) did not correspond to the four-exon structure shared between turquoise killifish and medaka (\Cref{fig:nfu-locus-sashimi-a}). Rather, IGHM-TM in \textit{X. maculatus} occupies the standard five-exon configuration seen in most characterised teleosts (\Cref{fig:teleost-igm-exons-d}). This surprising difference raises not only the question of the evolutionary history of this ideosyncratic splicing configuration, but also that of what, if any, functional difference arises from the presence or absence of \cm{3} in transmembrane IgM in different species. % TODO: Discuss possible experiments?
+
+	The examination of the constant-region structures present in the \textit{X. maculatus} IGH locus therefore reveals three notable features that differ in state between medaka, turquoise killifish, and the southern platyfish. Most strikingly, the absence of IGHM in medaka and killifish, but its presence in platyfish, strongly suggests that the isoform has been lost independently in the two groups. Conversely, the presence of a four-exon IGHM-TM in medaka and killifish, but a five-exon configuration in platyfish, is less clear-cut: it may indicate an independent change in medaka and killifish that is absent in platyfish, but may also plausibly represent a reversion in platyfish to the more-primitive five-exon state. Without a deeper understanding of the currently-unknown physical underpinnings of this observed difference in splicing behaviour, this question can only be addressed through analysis of RNA-seq data from a large number of related species, something beyond the scope of the present investigation. % TODO: Do it anyway?
+	Finally, the presence of a (\cd{2}-\cd{3}-\cd{4}) duplication in both platyfish and killifish, but not in medaka, suggests that this may be a shared primitive feature of the Cyprinodontiforms; however, given the apparent recurrence of this duplication pattern in many different groups across the teleosts, a strong conclusion cannot be drawn without a higher-resolution phylogenetic analysis of a larger number of related species. % TODO: See section ... etc.
+	
+			\begin{figure}
 	\includegraphics[width=\textwidth]{_Figures/png/xma-locus-sashimi}
+	\begin{subfigure}{0em}
+        \phantomsubcaption{}
+        \label{fig:xma-locus-sashimi-m}
+    \end{subfigure}
+    \begin{subfigure}{0em}
+        \phantomsubcaption{}
+        \label{fig:xma-locus-sashimi-d}
+    \end{subfigure}
+    \begin{subfigure}{0em}
+        \phantomsubcaption{}
+        \label{fig:xma-locus-sashimi-z}
+    \end{subfigure}
 	\caption[Constant-region isoforms in \textit{X. maculatus}]{\textbf{Constant-region isoforms in \textit{X. maculatus}:} Coverage and sashimi plots of STAR-aligned RNA-seq reads from \textit{X. maculatus} samples, demonstrating the splicing behaviour of IGH1 constant-region isoforms. (A) IGHM exon splicing, showing alternative splicing patterns of IGHM-TM and IGHM-S; (B) IGHD exon splicing, including splicing of \cm{1} to \cd{1}; (C) IGHZ exon splicing.}
 	\label{fig:xma-locus-sashimi}
 	\end{figure}
+
+	
+	\subsection{Variable regions}
+	
+	In total, 99 VH segments, 9 DH segments and 14 JH segments were identified in the \textit{X. maculatus} IGH locus. In all cases, the great majority of these segments appear to exclusively serve IGHM and IGHD and exclude IGHZ; as in most teleost IGH loci, the IGHZ constant region in \textit{X. maculatus} has its own dedicated DH and JH regions (IGHDZ01 and IGHJZ01) separate from those serving IGHM and IGHD; % TODO: Compare these to the orphaned D/J segments in TK to test vestigial IGHZ hypothesis
+in addition, unlike in most teleost loci, the \textit{X. maculatus} IGHZ constant region is upstream of the majority of VH segments in the locus, with only a single VH segment between the start of the locus and IGHDZ01. This lone VH segment, IGHV01-01, is distinct in sequence from the other VH segments in the locus (\Cref{fig:xma-vh-families-tree,fig:xma-vh-families-map}, second from left), but appears to be functional; its status as the only VH segment upstream of IGHZ indicates that the potential sequence diversity available to this isotype is very limited, with only a single VDJ combination available to the recombination process. In this case, any and all antigen-binding diversity in \textit{Xiphophorus} \textit{IGHZ} must arise from junctional diversity alone. 
+
+	Unlike the IGHZ variable region, the VH region downstream of IGHZ but upstream of IGHM is highly expanded, with 98 identified VH segments -- more than four times the total number seen in \textit{N. furzeri}, and almost six times the number in the largest \textit{N. furzeri} sublocus. At least 74 of these VH segments appear to be fully in-frame and functional and equipped with functional RSS sequences, representing one of the highest numbers of functional VH segments seen in any teleost IGH locus; it remains to be seen whether IGHV01-01 is also capable of recombining with DH segments downstream of the IGHZ constant region, and so constitutes part of the range of VDJ combinations available to IGHM and IGHD. The VH sequences in the \textit{X. maculatus} locus are much more tightly packed than in the \textit{N. furzeri} locus, consistent with a lower overall prevalence of repetitive regions (21\%) in the \textit{X. maculatus} genome. However, the final four VH segments (of which two are structurally intact) are downstream of the last identified DH segment and inverted relative to the rest of the locus, and may not be able to successfully undergo VDJ recombination. 
+	
+	In total, the VH regions in \textit{X. maculatus} \textit{IGH} fall into 22 families, of which six contain multiple segments; strikingly, the single VH segment serving IGHZ (IGHV01-01) represents a distinct family which is distinct from any other segment in the locus \Cref{fig:xma-vh-families-tree}. \dots % TODO: Phylogenetic analysis of VH in xma zs nfu
+	
+	In addition to its highly expanded VH region, the variable region of the \textit{X. maculatus} locus is unusual in the arrangement of its DH and (to a lesser extent) its JH regions. Rather than a single, relatively densely-packed D-region, the \textit{X. maculatus} locus contains DH segments interspersed throughout the long stretch of the locus between the end of the \textit{IGHZ} constant region and the start of that of IGHM. Many of these lone DH segments are closely associated with single JH segments, raising the possibility of a more cluster-like behaviour in which each $V_n-D_{1-2}-J_1$ group acts as a distinct recombination unit. However, the presence of a dense eight-segment J-region immediately upstream of IGHM suggests a more conventional translocon behaviour; it remains to be seen which of these traditional models of antigen-receptor structure more closely matches the \textit{in vivo} recombination behaviour of this locus.
+	
+	% TODO: Discuss here phylogenetic relationship between Nfu and Xma DH and (esp) JH segments (esp. eight segments in main JH block)
+	
+	Finally, as is the case with \textit{N. furzeri}, the recombination signal sequences (RSSs) in \textit{X. maculatus} IGH correspond closely to the standard expectations across the vertebrates, with the expected heptamer and nonamer consensus sequences (\Cref{fig:xma-rss-seqlogo-all-heptamer,fig:xma-rss-seqlogo-all-nonamer}) and spacer length distributions (\Cref{fig:xma-rss-seqlogo-all-spacer}, 95\% of RSS spacers within \bp{1} of the expected conserved length).
+	
+
+% TODO: compare VH families from platy and TK, align C-exons between TK and platy (and other cyprinodontiforms)
+	
+	
+	\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{_Figures/png/xma-vh-families-tree}
+	\caption[Dendrogram of VH families in the in \textit{X. maculatus} \textit{IgH} locus]{\textbf{Dendrogram of VH families in the in \textit{X. maculatus} (\textit{IgH}) locus:} Dendrogram of sequence similarity of VH segments in the \textit{X. maculatus} locus, arranged by single-linkage clustering on nucleotide sequence identity. The red line indicates the 80\% cutoff point for family assignment, while branch colour indicates family membership:  VH families containing multiple segments are uniquely coloured, while single-segment families are in grey.}
+	\label{fig:xma-vh-families-tree}
+	\end{figure}
+	
+	\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{_Figures/png/xma-vh-families-map}
+	\caption[Heatmap of VH families in the in \textit{X. maculatus} \textit{IgH} locus]{\textbf{Heatmap of VH families in the in \textit{X. maculatus} (\textit{IgH}) locus:} Heatmap of family relationships among \textit{X. maculatus} VH segments, with coloured shading indicating families and red dots indicating pairwise nucleotide sequence identity of at least 80\%. VH families containing multiple segments are uniquely coloured, while single-segment families are in grey.}
+	\label{fig:xma-vh-families-map}
+	\end{figure}
+	
+	\begin{figure}
+		\begin{subfigure}{0em}
+        \phantomsubcaption{}
+        \label{fig:xma-rss-seqlogo-all-heptamer}
+    \end{subfigure}
+    \begin{subfigure}{0em}
+        \phantomsubcaption{}
+        \label{fig:xma-rss-seqlogo-all-spacer}
+    \end{subfigure}
+    \begin{subfigure}{0em}
+        \phantomsubcaption{}
+        \label{fig:xma-rss-seqlogo-all-nonamer}
+    \end{subfigure}
+	\includegraphics[width=\textwidth]{_Figures/png/xma-rss-seqlogo-all}
+	\caption[Recombination signal sequences in the \textit{X. maculatus} \textit{IGH} locus]{\textbf{Recombination signal sequences in the \textit{X. maculatus} \textit{IGH} locus:} (A) Sequence composition of conserved heptamer sequences across all \textit{X. maculatus} heavy-chain RSSs; (B) length distribution of unconserved spacer sequences in \textit{X. maculatus} heavy-chain RSSs; (C) sequence composition of conserved heptamer sequences across all \textit{X. maculatus} heavy-chain RSSs.}
+	\label{fig:xma-rss-seqlogo-all}
+	\end{figure}
+	% TODO: Add in supplementary figure of heptamer/nonamer sequences separated by segment type
+
+	%\subsection{Discussion} % Do I need this?	
 
 
 \section{Comparitive analysis of \textit{IgH} constant-region structure in the Cyprinodontiformes}
