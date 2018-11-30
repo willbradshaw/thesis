@@ -1,49 +1,4 @@
-\section{Obtaining locus information from reference species}
-\label{sec:locus_ref}
 
-\subsection{Medaka (\textit{Oryzias latipes})}
-
-Genbank files of the annotated medaka \textit{IgH} locus were downloaded from the supplementary information of the locus characterisation paper for that species (\citep{magadan2011medaka}, additional file 6) and corrected to make them parsable by \texttt{genbankr}. Segment annotations were renamed to match the naming conventions used in the rest of this thesis (see ... for more details). % TODO: Write naming conventions appendix
-
-V, D, J and constant-region exon nucleotide sequences were extracted from each zone of the medaka locus using the sequence and annotations provided in the corresponding GenBank file; with the exception of the D-segments, amino-acid sequences were generated automatically by translating each sequence in whichever forward frame produced the minimum number of STOP codons (usually zero). % and the largest gap between STOP codons among frames with equal number?
-Finally, FASTA files from different zones with matching segment and sequence type were concatenated to produce single V, D, J, IGHM and IGHD nucleic- and amino-acid sequence files for this species.
-
-\subsection{Three-spined stickleback (\textit{Gasterosteus aculeatus})}
-
-Limited sequence information on the IgH locus in stickleback, including V segments and bulk (non-exon-separated) constant regions was provided in a GenBank file in the locus characterisation paper for medaka (\citep{magadan2011medaka}, additional file 6), while additional sequence information (including D and J nucleic-acid sequences and amino-acid sequences of constant-region exons) was extracted manually from \dots % figure numbers
-of \dots% bao paper
-into FASTA files. 
-
-As with medaka, the Genbank reference file was downloaded, corrected and parsed to produce a serialised \texttt{genbankr} object and a FASTA file of the locus sequence. As before, V-sequences were extracted from the annotations of the Genbank file and translated to produce both nucleic- and amino-acid sequence files; in this case, all the V-annotations were in frame 3 so no automatic frame inference was necessary. % TODO: Automatic frame inference in R?
-The nucleic-acid sequences and sequence co-ordinates of bulk (non-exon-differentiated) constant regions were also extracted. 
-
-To obtain nucleic-acid sequences of the constant-region exons, the amino-acid sequences inferred manually from \dots % reference
-were aligned to the locus sequence with \texttt{tblastn}, with a query coverage threshold of 40\% and a maximum of three HSPs per query sequence. To filter out alignments across subloci, any alignment of an exon upstream of the annotated boundaries of its corresponding constant region was discarded; the alignment with the highest score for each exon was then used to extract the corresponding nucleic-acid sequence from the locus. In order to control for any errors during manual extraction of locus sequences, these nucleic-acid sequences were then re-translated (in frame 1) to generate new amino-acid sequences; these sequences were then used in place of the reference files in downstream applications.
-
-Similarly to the constant-regions, the D- and J-segment nucleic-acid sequences from \dots were aligned to the locus sequence with \texttt{BLAST} (see \autoref{tab:stickleback_alignments} for more details) and the resulting alignments used to extract new sequence files from the locus sequence. In the case of the J-segments, only alignments within or upstream of the corresponding constant region annotation were considered; for the D-segments, only alignments upstream of the first corresponding J-segment. J-segments were translated such that the final nucleotide formed the last position of the final codon; D-segments were not translated.
-
-\begin{table}
-\begin{tabular}{>{\textbf}lccc}
-Segment type & C exons & D & J\\
-\texttt{BLAST} algorithm & \texttt{tblastn} & \texttt{blastn} & \texttt{blastn-short}\\
-Minimum query coverage (\%) & 40 & 40 & 0\\
-Maximum HSPs per query & 3 & 3 & 3\\
-\end{tabular}
-\label{tab:stickleback_alignments}
-\end{table}
-
-\subsection{Zebrafish (\textit{Danio rerio})}
-
-Genbank files corresponding to the zebrafish \textit{IgH} locus were provided (without annotations) on Genbank by Danilova et al. (2005) % TODO: add citation and accessions
-; this publication also provided detailed co-ordinates for the V, D and J segments (but not C segments) on these sequences. Aligned amino-acid sequences were provided for the exons of IGHM and IGHZ, but no detailed information about IGHD exons could be found for these sequences; as a result, reference information about C$\delta$ exons was not used from this species.
-
-As with stickleback, the amino-acid sequences provided were aligned to the locus sequences to identify and extract exon nucleic-acid sequences, along with new amino-acid sequences to avoid the impact of any errors incurred during manual sequence extraction. Unlike with stickleback, the translation frame producing the fewest STOP codons (rather than the first frame) was used in generating the new amino-acid sequences. V-sequences were obtained using the ranges provided by Danilova \textit{et al.}, again using the translation frame that produced the fewest STOP codons. D and J nucleotide sequences were obtained directly from Danilova \textit{et al.}, with J-segments translated such that the final nucleotide formed the last position of the final codon. 
-
-% TODO: It would be really nice if we could find D-exon sequences for zebrafish...
-
-\subsection{Atlantic salmon (\textit{Salmo salar})}
-
-\dots
 
 \section{Characterising killifish \textit{IgH} loci using genomic sequence data}
 
