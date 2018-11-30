@@ -27,14 +27,14 @@
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
      inkscape:cx="643.56689"
-     inkscape:cy="475.36228"
+     inkscape:cy="519.35797"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="2560"
-     inkscape:window-height="1545"
-     inkscape:window-x="0"
-     inkscape:window-y="31"
+     inkscape:window-width="3840"
+     inkscape:window-height="2136"
+     inkscape:window-x="2560"
+     inkscape:window-y="0"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
@@ -1103,10 +1103,10 @@
        style="fill:#000000;fill-rule:evenodd;stroke:#00ca1d;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:0" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#00ca1d;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 1437.4471,896.79877 0,-428.30468 -130.2721,-58.04005"
+       d="m 1437.4471,896.79877 c 0,0 51.7036,-239.57206 10.1015,-366.68537 C 1421.4381,450.3341 1307.175,410.45404 1307.175,410.45404"
        id="path4883"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccc" />
+       sodipodi:nodetypes="csc" />
     <rect
        transform="scale(-1,1)"
        style="opacity:1;fill:#000000;fill-opacity:0.26548671;fill-rule:evenodd;stroke:#000000;stroke-width:1.67540836;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
