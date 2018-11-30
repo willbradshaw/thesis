@@ -331,8 +331,37 @@ Cross-locus sequence comparisons between gene segments in \textit{N. furzeri} we
 
 For species other than \textit{N. furzeri} or \textit{X. maculatus} (\Cref{tab:cyprinodontiform_genomes}), genome scaffolds identified as potentially containing \textit{IGH} gene segments (\Cref{sec:locus_scaffolds}) were directly subjected to constant-exon inference as described in the first two paragraphs of \Cref{sec:locus_char_ch}, using \textit{N. furzeri} and \textit{X. maculatus} as additional reference species. Intron/exon boundaries were predicted manually based on BLASTN and BLASTP alignments to closely-related species and the presence of conserved splice-site motifs (\texttt{AG} at the 5' end of the intron, \texttt{GT} at the 3' end \citep{shapiro1987splice}). In cases where no 3' splice site was expected to be present (e.g. for CM4 or TM2 exons), the nucleotide exon sequence was terminated at the first canonical polyadenylation site (\texttt{AATAAA} if present, otherwise one of \texttt{ATTAAA}, \texttt{AGTAAA} or \texttt{TATAAA} \citep{ulitsky2012polya}), while the amino-acid sequence was terminated at the first STOP codon. In many cases, it was not possible to locate a TM2 exon due to its very short (two-amino-acid-residue) conserved coding sequence. % TODO: Move last sentence to results
 
+In addition to running this pipeline on the additional cyprinodontiform species, the same pipeline was run on the medaka and stickleback locus sequence isolated in \Cref{sec:ref_locus_ola,sec:ref_locus_gac}, in order to generate identically-processed CH databases from these reference species for phylogenetic reconstruction. This process successfully re-isolated all constant exons annotated in the published versions of the respective IGH loci, as well as several additional medaka exons that had either not been detected or excluded in the original study.
+
 \subsection{Phylogenetic reconstruction}
 \label{sec:phylo_methods}
+
+\subsubsection{CH exon tree}
+\label{sec:phylo_methods_ch}
+
+
+To build a phylogenetic tree of CH exons, nucleotide and amino-acid constant-exon sequences from fourteen species (the twelve species specified in \Cref{tab:cyprinodontiform_genomes}, plus medaka and stickleback) were renamed to include the three-letter species code of the source species, then concatenated to generate a single sequence database for all species for each sequence type. As identical sequences can cause problems during phylogenetic analysis, exons with completely identical sequences (typically duplicates within a single locus) were collapsed together into a single FASTA sequence, which was relabelled with the names of all its parent sequences. Transmembrane exons and secretory tail annotations were discarded, as were sequences with more than 25\% missing characters; in addition, CM4 nucleotide sequences were trimmed to the coding region, removing the 3'-UTR. Remaining sequences were then aligned with \lstinline{PRANK}:
+% TODO: rework genome table to include species codes and reference species
+
+\begin{lstlisting}
+prank -d=<ch_fasta> -o=<output_prefix> -F -termgap
+\end{lstlisting}
+
+where \lstinline{-F} determines how the program handles predicted indel mutations and \lstinline{-termgap} specifies that terminal gaps should be penalised in the same way as internal ones. The resulting alignments were then passed to the maximum-likelihood phylogenetic inference program \lstinline{RAxML} (\citep{stamatakis2005raxml3,stamatakis2006raxml6,stamatakis2014raxml8}, version 8.2.12), using the SSE3-enabled parallelised version of the software and ..:
+
+\begin{lstlisting}
+raxmlHPC-PTHREADS-SSE3 -f a -m <model> -s <ch_prank_alignment> -w <output_dir> -N 100 -x <bootstrap_seed> -p <parsimony_seed> -n <sequence_type>
+\end{lstlisting}
+
+where \lstinline{-f a} specifies a single-run ML analysis with rapid bootstrapping, \lstinline{-N 100} specifies that 100 bootstrap replicates should be performed, \lstinline{-p} and \lstinline{-x} specify the random seeds for the initial parsimony tree and rapid-bootstrapping process, respectively, and  \lstinline{-n} specifies the output file suffix (here indicating the sequence type, either \lstinline{nt} or \lstinline{aa}). For nucleotide alignments, the standard \lstinline{GTRGAMMA} model was used, while for protein alignments the flexible \lstinline{PROTGAMMAAUTO} model was used, allowing the program to select the substitution model which best fit the initial parsimony tree. After tree inference, \dots % TODO: Tree visualisation and analysis methods here
+
+\subsubsection{VH and JH trees}
+
+To investigate the evolutionary relationships between VH segments (and particularly VH families) in \textit{N. furzeri} and \textit{X. maculatus}, segments from these two species underwent phylogenetic analysis in a similar manner to the CH exons in \Cref{sec:phylo_methods_ch}. Segments from both species were relabelled to include the appropriate three-letter species code, concatenated together, processed to remove identical sequences, and filtered to remove sequences with more than 25\% missing characters. The remaining sequences were aligned together with \lstinline{PRANK}, and the resulting alignment was used to perform phylogenetic analysis with RAxML, in both cases using the same parameters specified in \Cref{sec:phylo_methods_ch}. An identical analysis was performed for JH segments from both species, for a total of four independent trees (VH-NT, VH-AA, JH-NT and JH-AA). \dots % TODO: Tree visualisation and analysis methods here
+
+\subsubsection{Species-tree generation and annotation}
+
+\dots
 
 \subsection{Data visualisation}
 
