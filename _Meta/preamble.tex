@@ -61,12 +61,15 @@
 \usepackage{subcaption}
 \usepackage{wrapfig}
 \usepackage{setspace}
-%\usepackage{subfig}
-%\usepackage{arydshln}
 \usepackage{todonotes}
 \usepackage{tcolorbox}
 \usepackage{threeparttable}
 \usepackage{booktabs}
+\usepackage{xstring}
+\usepackage{mfirstuc}
+\usepackage{xspace}
+\usepackage{afterpage}
+\usepackage{placeins}
 %\usepackage{subfiles}
 % ************************* Algorithms and Pseudocode **************************
 
@@ -139,12 +142,15 @@
 
 % Add `custombib' in the document class option to use this section
 \ifuseCustomBib
-   \RequirePackage[square, sort, numbers, authoryear]{natbib} % CustomBib
+   %\RequirePackage[square, sort, numbers, authoryear]{natbib} % CustomBib
 
 % If you would like to use biblatex for your reference management, as opposed to the default `natbibpackage` pass the option `custombib` in the document class. Comment out the previous line to make sure you don't load the natbib package. Uncomment the following lines and specify the location of references.bib file
 
-%\RequirePackage[backend=biber, style=numeric-comp, citestyle=numeric, sorting=nty, natbib=true]{biblatex}
+\RequirePackage[backend=biber, citestyle=numeric-comp, style=numeric, sorting=none, 
+	natbib=true, maxnames=4, minnames=4, url=false, giveninits=true]{biblatex}
+\renewbibmacro{in:}{\ifentrytype{article}{}{\printtext{\bibstring{in}\intitlepunct}}}
 %\bibliography{References/references} %Location of references.bib only for biblatex
+\bibliography{D_References/Locus}
 
 \fi
 
@@ -324,3 +330,73 @@
 
 \renewcommand\thesubfigure{\Alph{subfigure}}
 \renewcommand\thesubtable{\Alph{subtable}}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstset{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+	basicstyle=\ttfamily,
+	columns=fixed,
+	%frame=single,
+    breaklines=true,
+    breakatwhitespace=true,
+    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}, % TODO: Change linebreak character?
+    language=bash,
+    keepspaces=true,
+    aboveskip=0.6em,
+    belowskip=0.3em,
+    }
+
+% Quick formatting commands
+\newcommand{\gene}[1]{\textit{#1}}
+\newcommand{\igh}[1]{\gene{IGH{#1}}}
+
+% Species names (with and without genus abbreviation)
+\newcommand{\species}[2]{\textit{\capitalisewords{#1} #2}\xspace}
+\newcommand{\nfu}{\species{Nothobranchius}{furzeri}}
+\newcommand{\Nfu}{\species{N.}{furzeri}}
+\newcommand{\xma}{\species{Xiphophorus}{maculatus}}
+\newcommand{\Xma}{\species{X.}{maculatus}}
+
+
+% Program/package names and code snippets
+\newcommand{\program}[2][bash]{\lstinline[language=#1]{#2}} %[]
+\newcommand{\snippet}[2][bash]{\lstinline[language=#1]{#2}} %[]
+
+
+% IGH locus components
+\let\dh\undefined
+\newcommand{\vh}{VH\xspace}
+\newcommand{\dh}{DH\xspace}
+\newcommand{\jh}{JH\xspace}
+\newcommand{\ch}{CH\xspace}
+
+% File formats
+\newcommand{\fmt}[1]{\texttt{\MakeUppercase{#1}}}
+
+% Sequence
+\newcommand{\sequence}[1]{\texttt{\MakeUppercase{#1}}}
+
+%% Start of subappendices environment
+%\AtBeginEnvironment{subappendices}{%
+%\chapter*{Appendices}
+%\addcontentsline{toc}{chapter}{Appendices}
+%\counterwithin{figure}{section}
+%\counterwithin{table}{section}
+%}
+%
+%% End of subappendices environment
+%\AtEndEnvironment{subappendices}{%
+%\counterwithout{figure}{section}
+%\counterwithout{table}{section}
+%}
+
+\makeatletter
+\newcommand\notsotiny{\@setfontsize\notsotiny\@viipt\@viiipt}
+\newcommand\evenlesstiny{\@setfontsize\notsotiny\@viiipt\@ixpt}
+\makeatother
+

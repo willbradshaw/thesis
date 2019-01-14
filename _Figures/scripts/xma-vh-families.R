@@ -15,7 +15,7 @@ source("aux/io.R")
 source("aux/ggplot2.R")
 
 # Path to V sequences
-vh_nt_path <- "../_Data/segments/xma/xma_vh_nt.fasta"
+vh_nt_path <- "../_Data/segments/xma/xma_new_vh_nt.fasta"
 
 # Configure output
 filename_tree <- "xma-vh-families-tree"
@@ -31,7 +31,7 @@ clust_method <- "single"
 id_threshold <- 80
 
 # Small font size for V labels
-fontscale_small_label <- 0.5
+fontscale_small_label <- 0.4
 
 #------------------------------------------------------------------------------
 # PREPARE VH SEQUENCES AND PERFORM CLUSTERING
@@ -80,7 +80,7 @@ gg_color_hue <- function(n) {
 # Convert dendrogram to phylogenetic tree
 vh_phylo <- as.phylo(vh_clust_nt)
 vh_phylo$tip.label <- sub("IGHV", "", vh_phylo$tip.label)
-vh_tbl_tree_raw <- as_data_frame(vh_phylo)
+vh_tbl_tree_raw <- as_tibble(vh_phylo)
 #vh_tbl_tree_raw$family <- sub("-.*", "", vh_tbl_tree_raw$label)
 
 # Group by family and count
@@ -216,7 +216,7 @@ vh_heatmap <- ggplot(vh_tab) +
 # SAVE PLOT
 #------------------------------------------------------------------------------
 
-plot_height = 24.3
+plot_height = 26
 plot_ratio_tree = 1
 plot_ratio_map = 1/1.05
 

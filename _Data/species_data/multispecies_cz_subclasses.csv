@@ -1,0 +1,14 @@
+tree_name,Genus,Species,IGHZA,IGHZB,IGHZC
+NOR,Nothobranchius,orthonotus,0,0,0
+NFU,Nothobranchius,furzeri,0,0,0
+AAU,Aphyosemion,australe,0,0,0
+CTO,Callopanchax,toddi,1,0,3
+PPL,Pachypanchax,playfairii,Unknown¹,1¹,Unknown¹
+ALI,Austrofundulus,limnaeus,0,0,0
+KMA,Kryptolebias,marmoratus,1,0,1
+PRE,Poecilia,reticulata,1,1,0
+PFO,Poecilia,formosa,1,1,1
+XMA,Xiphophorus,maculatus,1,0,1
+FHE,Fundulus,heteroclitus,1,0,1
+CVA,Cyprinodon,variegatus,0,0,1
+OLA,Oryzias,latipes,0,0,0

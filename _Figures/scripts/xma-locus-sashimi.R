@@ -15,17 +15,18 @@ source("aux/io.R")
 source("aux/gviz.R")
 
 # Configure input paths
-ranges_path <- "../_Data/ranges/xma/xma-locus-ranges.tsv"
-bam_path_cmd <- "../_Data/bam/xma/xma-cmd-vs-PRJNA420092.sorted.bam"
-bam_path_cz <- "../_Data/bam/xma/xma-cz-vs-PRJNA420092.sorted.bam"
+ranges_path <- "../_Data/ranges/xma/xma-new-locus-ranges.tsv"
+bam_path_cmd <- "../_Data/bam/xma/xma-new-cmd-vs-PRJNA420092.sorted.bam"
+bam_path_cz1 <- "../_Data/bam/xma/xma-new-cz1-vs-PRJNA420092.sorted.bam"
+bam_path_cz2 <- "../_Data/bam/xma/xma-new-cz2-vs-PRJNA420092.sorted.bam"
 
 # Configure output
-filename <- "xma-locus-sashimi"
+filename <- "xma-new-locus-sashimi"
 
 # Configure locus and cut info
-locus_width <- 262658
-cut_start <- list(CM = 245000, CD = 245000, CZ = 1)
-cut_end <- list(CM = locus_width, CD = locus_width, CZ = 8000)
+locus_width <- 292642
+cut_start <- list(CM = 275000, CD = 275000, CZ1 = 1, CZ2 = 250000)
+cut_end <- list(CM = locus_width, CD = locus_width, CZ1 = 8000, CZ2 = 260000)
 cut_width <- vapply(names(cut_start), USE.NAMES = TRUE, FUN.VALUE = 0,
                     FUN = function(x) cut_end[[x]] - cut_start[[x]] + 1)
 cut_tab <- tibble(feature = names(cut_start), cut_start = as.integer(cut_start),
@@ -50,9 +51,12 @@ isoforms <- list(
   "IGHD-TM" = c("CM-1", "CD-1", "CD-2A", "CD-3A", "CD-4A",
               "CD-2B", "CD-3B", "CD-4B", "CD-5", "CD-6", "CD-7",
               "CD-TM1", "CD-TM2"),
-  "IGHZ-TM" = c("CZ-1", "CZ-2", "CZ-3", "CZ-4", "CZ-TM1", "CZ-TM2"),
-  "IGHZ-S" = c("CZ-1", "CZ-2", "CZ-3", "CZ-4", "CZ-S")
+  "IGHZ1-TM" = c("CZ1-1", "CZ1-2", "CZ1-3", "CZ1-4", "CZ1-TM1", "CZ1-TM2"),
+  "IGHZ1-S" = c("CZ1-1", "CZ1-2", "CZ1-3", "CZ1-4", "CZ1-S"),
+  "IGHZ2-TM" = c("CZ2-1", "CZ2-2", "CZ2-3", "CZ2-4", "CZ2-TM1", "CZ2-TM2"),
+  "IGHZ2-S" = c("CZ2-1", "CZ2-2", "CZ2-3", "CZ2-4", "CZ2-S")
 )
+
 ch_tab_isoforms <- lapply(names(isoforms), function(x)
   ch_tab %>% filter(exon %in% isoforms[[x]]) %>% mutate(transcript = x)
 ) %>% bind_rows %>% inner_join(., cut_tab, by="feature")
@@ -78,23 +82,32 @@ ch_tab_introns <- ch_tab_cut %>%
 
 # "Chromosome" names for tracks
 chr_name <- list(
-  CM = "igh_xma",
-  CD = "igh_xma",
-  CZ = "igh_xma_ighz"
+  CM = "igh_xma_new",
+  CD = "igh_xma_new",
+  CZ1 = "igh_xma_new",
+  CZ2 = "igh_xma_new"
 )
 
 # Greate GenomeAxisTrack
-xtrack_cmd <- GenomeAxisTrack(from=1, to=cut_width[["CM"]], 
+xtrack_cm <- GenomeAxisTrack(from=1, to=cut_width[["CM"]], 
                               chromosome=chr_name[["CM"]], 
                           col=colours[["GR"]], fontcolor=colours[["GR"]],
                           size = 8, add35 = FALSE, add53 = FALSE,
                           scale = 2000, labelPos = "beside")
 
-xtrack_cz <- GenomeAxisTrack(from=1, to=cut_width[["CZ"]], 
-                             chromosome=chr_name[["CZ"]], 
+xtrack_cd <- xtrack_cm
+
+xtrack_cz1 <- GenomeAxisTrack(from=1, to=cut_width[["CZ1"]], 
+                             chromosome=chr_name[["CZ1"]], 
                           col=colours[["GR"]], fontcolor=colours[["GR"]],
                           size = 8, add35 = FALSE, add53 = FALSE,
                           scale = 2000, labelPos = "beside")
+
+xtrack_cz2 <- GenomeAxisTrack(from=1, to=cut_width[["CZ2"]], 
+                             chromosome=chr_name[["CZ2"]], 
+                             col=colours[["GR"]], fontcolor=colours[["GR"]],
+                             size = 8, add35 = FALSE, add53 = FALSE,
+                             scale = 2000, labelPos = "beside")
 
 
 #------------------------------------------------------------------------------
@@ -111,12 +124,22 @@ altrack_cut_cmd <- AlignmentsTrack(bam_path_cmd,
                                size = 0.5
 )
 
-altrack_cut_cz <- AlignmentsTrack(bam_path_cz,
+altrack_cut_cz1 <- AlignmentsTrack(bam_path_cz1,
                                    ispaired = TRUE,
                                    type = c("coverage", "sashimi"),
-                                   chromosome = chr_name[["CZ"]],
+                                   chromosome = chr_name[["CZ1"]],
                                    from = 1,
-                                   to = cut_width[["CZ"]],
+                                   to = cut_width[["CZ1"]],
+                                   name = "Reads",
+                                   size = 0.5
+)
+
+altrack_cut_cz2 <- AlignmentsTrack(bam_path_cz2,
+                                   ispaired = TRUE,
+                                   type = c("coverage", "sashimi"),
+                                   chromosome = chr_name[["CZ2"]],
+                                   from = 1,
+                                   to = cut_width[["CZ2"]],
                                    name = "Reads",
                                    size = 0.5
 )
@@ -125,16 +148,26 @@ altrack_cut_cz <- AlignmentsTrack(bam_path_cz,
 # DEFINE GENE REGION TRACKS
 #------------------------------------------------------------------------------
 
+# Define subfigure order
+subfigure_labels <- LETTERS
+subfigure_order <- seq(length(chr_name))
+names(subfigure_order) <- c("CZ1", "CZ2", "CM", "CD")
+
 # Group isoforms by isotype and edit to match alignment range
 cm_tab_cut <- ch_tab_cut %>% filter(grepl("IGHM", transcript))
 cd_tab_cut <- ch_tab_cut %>% filter(grepl("IGHD", transcript))
-cz_tab_cut <- ch_tab_cut %>% filter(grepl("IGHZ", transcript))
+cz1_tab_cut <- ch_tab_cut %>% filter(grepl("IGHZ1", transcript)) %>%
+  mutate(feature = sub("CZ1", "CZ", feature))
+cz2_tab_cut <- ch_tab_cut %>% filter(grepl("IGHZ2", transcript)) %>%
+  mutate(feature = sub("CZ2", "CZ", feature))
+
+# Propagate CZ colour to CZ1 and CZ2
 
 grtrack_cut_cm <- GeneRegionTrack(cm_tab_cut,
                                   group = cm_tab_cut$transcript,
                                   feature = cm_tab_cut$feature,
                                   transcript = cm_tab_cut$transcript,
-                                  name = "A",
+                                  name = subfigure_labels[subfigure_order[["CM"]]],
                                   rotation.title = 0,
                                   col.title = "black",
                                   chromosome = chr_name[["CM"]],
@@ -152,7 +185,7 @@ grtrack_cut_cd <- GeneRegionTrack(cd_tab_cut,
                                   group = cd_tab_cut$transcript,
                                   feature = cd_tab_cut$feature,
                                   transcript = cd_tab_cut$transcript,
-                                  name = "B",
+                                  name = subfigure_labels[subfigure_order[["CD"]]],
                                   rotation.title = 0,
                                   cex.title = 3.5,
                                   col.title = "black",
@@ -166,22 +199,40 @@ grtrack_cut_cd <- GeneRegionTrack(cd_tab_cut,
                                   transcriptAnnotation = "transcript"
 )
 
-grtrack_cut_cz <- GeneRegionTrack(cz_tab_cut,
-                                  group = cz_tab_cut$transcript,
-                                  feature = cz_tab_cut$feature,
-                                  transcript = cz_tab_cut$transcript,
-                                  name = "C",
+grtrack_cut_cz1 <- GeneRegionTrack(cz1_tab_cut,
+                                  group = cz1_tab_cut$transcript,
+                                  feature = cz1_tab_cut$feature,
+                                  transcript = cz1_tab_cut$transcript,
+                                  name = subfigure_labels[subfigure_order[["CZ1"]]],
                                   rotation.title = 0,
                                   cex.title = 3.5,
                                   col.title = "black",
                                   fontface.title = 1,
-                                  chromosome = chr_name[["CZ"]],
+                                  chromosome = chr_name[["CZ1"]],
                                   stacking = "squish",
                                   from = 1,
-                                  to = cut_width[["CZ"]],
+                                  to = cut_width[["CZ1"]],
                                   size = 10,
                                   background.title="transparent",
                                   transcriptAnnotation = "transcript"
+)
+
+grtrack_cut_cz2 <- GeneRegionTrack(cz2_tab_cut,
+                                   group = cz2_tab_cut$transcript,
+                                   feature = cz2_tab_cut$feature,
+                                   transcript = cz2_tab_cut$transcript,
+                                   name = subfigure_labels[subfigure_order[["CZ2"]]],
+                                   rotation.title = 0,
+                                   cex.title = 3.5,
+                                   col.title = "black",
+                                   fontface.title = 1,
+                                   chromosome = chr_name[["CZ2"]],
+                                   stacking = "squish",
+                                   from = 1,
+                                   to = cut_width[["CZ2"]],
+                                   size = 10,
+                                   background.title="transparent",
+                                   transcriptAnnotation = "transcript"
 )
 
 #------------------------------------------------------------------------------
@@ -189,23 +240,19 @@ grtrack_cut_cz <- GeneRegionTrack(cz_tab_cut,
 #------------------------------------------------------------------------------
 title.width <- 1.3
 
-isotype_min <- list(
-  CM = cm_tab_cut %>% pull(start) %>% min,
-  CD = cd_tab_cut %>% pull(start) %>% min,
-  CZ = cz_tab_cut %>% pull(start) %>% min
-)
+isotype_min <- lapply(tolower(names(subfigure_order)), function(a)
+  get(paste0(a, "_tab_cut")) %>% pull(start) %>% min)
 
-isotype_max <- list(
-  CM = cm_tab_cut %>% pull(end) %>% max,
-  CD = cd_tab_cut %>% pull(end) %>% max,
-  CZ = cz_tab_cut %>% pull(end) %>% max
-)
+isotype_max <- lapply(tolower(names(subfigure_order)), function(a)
+  get(paste0(a, "_tab_cut")) %>% pull(end) %>% max)
 
 splice_score <- list(
   CM = 1,#60,
   CD = 10,#30,
-  CZ = 10#30
+  CZ1 = 10,#30
+  CZ2 = 10
 )
+splice_score <- splice_score[match(names(splice_score), names(subfigure_order))]
 
 plot_unit = "cm"
 
@@ -219,59 +266,59 @@ prepare_introns <- function(isotype){
 
 cd_introns <- prepare_introns("D")
 cm_introns <- prepare_introns("M")
-cz_introns <- prepare_introns("Z")
+cz1_introns <- prepare_introns("Z1")
+cz2_introns <- prepare_introns("Z2")
 
 #------------------------------------------------------------------------------
 # COMBINE AND PLOT TRACKS
 #------------------------------------------------------------------------------
 
+# Define flanking regions for plots
+flank_start <- list(CM = 700, CD = 1500, CZ1 = 400, CZ2 = 400)
+flank_start <- flank_start[match(names(flank_start), names(subfigure_order))]
+flank_end <- list(CM = 500, CD = 500, CZ1 = 500, CZ2 = 500)
+flank_end <- flank_end[match(names(flank_end), names(subfigure_order))]
+filter_tol <- list(CM = 5, CD = 2, CZ1 = 2, CZ2 = 2)
+filter_tol <- filter_tol[match(names(filter_tol), names(subfigure_order))]
+
+
+# Collate and order isotype data
+altrack_cut_cm <- altrack_cut_cmd
+altrack_cut_cd <- altrack_cut_cmd
+grtracks <- lapply(tolower(names(subfigure_order)), function(a)
+  get(paste0("grtrack_cut_", a)))
+altracks <- lapply(tolower(names(subfigure_order)), function(a)
+  get(paste0("altrack_cut_", a)))
+xtracks <- lapply(tolower(names(subfigure_order)), function(a)
+  get(paste0("xtrack_", a)))
+introns <- lapply(tolower(names(subfigure_order)), function(a)
+  get(paste0(a, "_introns")))
+
 # Prepare parent viewport
 plot_height <- 24.3*1.5
 plot_width <- 20.9*1.5
-fig_height_ratios <- c(1,1,1)
+fig_height_ratios <- rep(1, length(grtracks))
 map_layout <- split_layout(plot_width, plot_height, 
                            height_ratios = fig_height_ratios)
 vtop <- viewport(layout = map_layout)
 grid.newpage()
 pushViewport(vtop)
-# Add CM to first row
-pushViewport(viewport(layout.pos.col = 1, layout.pos.row = 1))
-plotTracks(list(grtrack_cut_cm, xtrack, altrack_cut_cmd), 
-           from = isotype_min[["CM"]]-700, to = isotype_max[["CM"]]+500, 
-           sashimiScore = splice_score[["CM"]], add = TRUE,
-           title.width = title.width,
-           sashimiFilter = cm_introns,
-           sashimiFilterTolerance = 5)
-popViewport(1)
-# Add CM1/CD to second row
-pushViewport(viewport(layout.pos.col = 1, layout.pos.row = 2))
-plotTracks(list(grtrack_cut_cd, xtrack, altrack_cut_cmd), 
-           from = isotype_min[["CM"]]-1500, to = isotype_max[["CD"]]+500, 
-           sashimiScore = splice_score[["CD"]], add = TRUE,
-           title.width = title.width,
-           sashimiFilter = cd_introns,
-           sashimiFilterTolerance = 2)
-# plotTracks(list(grtrack_cut_cd, xtrack, altrack_cut_cmd), 
-#            from = cm_min-1800, to = cd_max+500, 
-#            sashimiFilter = cd_introns, add = TRUE,
-#            title.width = title.width)
-popViewport(1)
-# Add CZ to third row
-pushViewport(viewport(layout.pos.col = 1, layout.pos.row = 3))
-plotTracks(list(grtrack_cut_cz, xtrack, altrack_cut_cz), 
-           from = isotype_min[["CZ"]]-400, to = isotype_max[["CZ"]]+500, 
-           sashimiScore = splice_score[["CZ"]], add = TRUE,
-           title.width = title.width,
-           sashimiFilter = cz_introns,
-           sashimiFilterTolerance = 2) # TODO: Modify to include V/D/J?
-popViewport(1)
 
+# Add subfigures to rows in order
+for (n in 1:length(subfigure_order)){
+  pushViewport(viewport(layout.pos.col = 1, layout.pos.row = n))
+  plotTracks(list(grtracks[[n]], xtracks[[n]], altracks[[n]]),
+             from = isotype_min[[n]] - flank_start[[n]],
+             to = isotype_max[[n]] + flank_end[[n]],
+             sashimiScore = splice_score[[n]], add = TRUE,
+             title.width = title.width,
+             sashimiFilter = introns[[n]],
+             sashimiFilterTolerange = filter_tol[[n]])
+  popViewport(1)
+}
 
 # TODO: Refine and expand
 
 plt <- grid.grab()
-savefig(plot = plt, filename = filename, device = "svg", 
+savefig(plot = plt, filename = filename,
         height = plot_height, width = plot_width)
-savefig(plot = plt, filename = filename, device = "png", 
-        height = plot_height, width = plot_width)
-

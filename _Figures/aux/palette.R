@@ -23,8 +23,14 @@ colours <- list(
   X1 = "#FFFF33",
   X2 = "#A65628",
   CZ = "#F781BF",
-  GR = "#444444",
+  GR = "#444444", # Grey
   HL1 = "#e31a1c",
   HL2 = "#1f78b4",
-  WH = "#FFFFFF"
+  WH = "#FFFFFF", # White
+  LG = "#DDDDDD", # Light grey
+  LR = "#FFCCCC", # Light red
+  RD = "#E31919", # Red
+  nfu = "#66c2a5",
+  xma = "#fc8d62",
+  ola = "#8da0cb"
 )

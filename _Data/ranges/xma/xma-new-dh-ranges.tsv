@@ -1,0 +1,15 @@
+start	end	width	strand	seqnames	label	type
+2243	2260	18	+	igh_xma_new	IGHDZ01	DH
+119768	119770	3	+	igh_xma_new	IGHDZ02	DH
+128794	128801	8	+	igh_xma_new	IGHDZ03	DH
+129907	129912	6	+	igh_xma_new	IGHDZ04	DH
+158017	158027	11	+	igh_xma_new	IGHDZ05	DH
+197791	197804	14	+	igh_xma_new	IGHDZ06	DH
+222022	222034	13	+	igh_xma_new	IGHDZ07	DH
+247941	247959	19	+	igh_xma_new	IGHDZ08	DH
+249514	249528	15	+	igh_xma_new	IGHDZ09	DH
+253752	253761	10	+	igh_xma_new	IGHDZ10	DH
+267392	267405	14	+	igh_xma_new	IGHDM01	DH
+268498	268509	12	+	igh_xma_new	IGHDM02	DH
+268836	268847	12	+	igh_xma_new	IGHDM03	DH
+269694	269707	14	+	igh_xma_new	IGHDM04	DH

@@ -25,7 +25,10 @@ packages <- c("xtable", # Export tables to LaTeX
               "ggseqlogo", # Sequence logos with ggplot2
               "ape", # Phylogenetics functionality
               "tidytree", # Tidyverse/phylo integration
-              "ggtree" # Plotting phylo trees with ggplot2
+              "ggtree", # Plotting phylo trees with ggplot2
+              "genoPlotR", # For chromosome synteny plot
+              "DescTools", # For colour mixing
+              "stringi" # String manipulations
               )
 
 # Define auxiliary functions

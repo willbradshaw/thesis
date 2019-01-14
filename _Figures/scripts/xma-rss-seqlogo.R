@@ -7,6 +7,8 @@
 # PREAMBLE
 #------------------------------------------------------------------------------
 
+rm(list = ls())
+
 # Source auxiliary files (packages, fonts, etc.)
 source("aux/packages.R")
 source("aux/fonts.R")
@@ -15,20 +17,21 @@ source("aux/io.R")
 source("aux/ggplot2.R")
 
 # Configure input paths
-vh_rss_path_xma <- "../_Data/rss/xma/xma_vh_rss.fasta"
-dh_rss_path_xma <- "../_Data/rss/xma/xma_dh_rss.fasta"
-jh_rss_path_xma <- "../_Data/rss/xma/xma_jh_rss.fasta"
+vh_rss_path_xma <- "../_Data/rss/xma/xma_new_vh_rss.fasta"
+dh_rss_path_xma <- "../_Data/rss/xma/xma_new_dh_rss.fasta"
+jh_rss_path_xma <- "../_Data/rss/xma/xma_new_jh_rss.fasta"
 
 # Configure output
-filename_xma_all <- "xma-rss-seqlogo-all"
-filename_xma_sep <- "xma-rss-seqlogo-sep"
+filename_xma_all <- "xma-new-rss-seqlogo-all"
+filename_xma_sep <- "xma-new-rss-seqlogo-sep"
 
 #------------------------------------------------------------------------------
 # IMPORT RSS SEQUENCES AND EXTRACT HEPTAMER/NONAMER/SPACER SEQUENCES
 #------------------------------------------------------------------------------
 
 # Get D/J sequences
-vh_rss_xma <- readDNAStringSet(vh_rss_path_xma)
+vh_rss_xma <- readDNAStringSet(vh_rss_path_xma) %>%
+  .[width(.)>0]
 dh_rss_xma <- readDNAStringSet(dh_rss_path_xma)
 jh_rss_xma <- readDNAStringSet(jh_rss_path_xma)
 

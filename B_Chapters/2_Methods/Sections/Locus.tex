@@ -1,0 +1,444 @@
+
+
+\hline
+
+\section{Materials and methods} % Maybe, maybe not, depends on final structure - maybe put relevant stuff here for draft and then move it later?
+
+\subsection{General data processing and pipeline structure}
+
+Unless otherwise specified, processing and analysis of biological data was performed using standard Bioconductor \parencite{huber2015bioconductor} packages: \program[R]{Biostrings} \parencite{pages2017biostrings} and \program[R]{BSgenome} \parencite{pages2018bsgenome} for biological sequence data, \program[R]{GenomicRanges} \parencite{lawrence2013genomicranges} for sequence ranges, and \\program[R]{genbankr} \parencite{becker2018genbankr} and \program[R]{rentrez} \parencite{winter2017rentrez} for GenBank files.
+
+Processing of tabular data was performed using the Tidyverse suite of tools, especially \program[R]{readr} \parencite{wickham2018readr}, \program[R]{dplyr} \parencite{wickham2018dplyr}, \program[R]{tidyr} \parencite{wickham2018tidyr} and \program[R]{stringr} \parencite{wickham2018stringr}. \program{snakemake} \parencite{koster2012snakemake} was used to design and run data-processing pipelines.
+
+\subsection{Collating reference sequences}
+
+In order to identify putative \igh{} loci and gene segments in a new genome, it is important to have well-curated reference datasets from already-characterised species. However, most publications presenting characterisations of \igh{} loci do not provide easy-to-use databases of trimmed and curated gene segments, and the data that is available is often partial and heterogeneous between publications. In order to obtain standardised reference databases, further analysis was performed on publically-available data from three reference species with previously-characterised \igh{} loci: medaka (\species{Oryzias}{latipes}) \parencite{magadan2011medaka}, zebrafish (\species{Danio}{rerio}) \parencite{danilova2005zebrafish} and three-spined stickleback (\species{Gasterosteus}{aculeatus}) \parencite{bao2010stickleback,gambondeza2011stickleback}, as described below. Following automatic sequence extraction, the reference sequences were checked manually for any severely pathological (e.g. out-of-frame) sequences and edited before being used for inference in novel loci.
+
+\subsubsection{Medaka}
+\label{sec:ref_locus_ola}
+
+GenBank files of the annotated medaka \igh{} locus were downloaded from the supplementary information of the medaka locus paper (\parencite{magadan2011medaka}, additional file 6) and corrected to make them parsable by \program[R]{genbankr}. Locus sequence and annotation ranges were extracted from these GenBank files into \fmt{FASTA} and \fmt{TSV} formats, respectively, and segment annotations were renamed to match the naming conventions used in other species. \vh, \dh, \jh and constant-region exon nucleotide sequences were extracted from the locus sequence using these annotations. Amino-acid sequences for \vh, \jh and constant-region sequences were obtained automatically by identifying the reading frames which minimised the number of STOP codons in each sequence.
+
+\subsubsection{Stickleback}
+\label{sec:ref_locus_gac}
+
+Limited sequence information on the \igh{} locus in stickleback, including \vh segments and bulk (non-exon-separated) constant regions was provided in a GenBank file in the locus characterisation paper for medaka (\parencite{magadan2011medaka}, additional file 6), while additional sequence information (including \dh and \jh nucleic-acid sequences and amino-acid sequences of constant-region exons) was extracted manually from one of the stickleback locus papers (\parencite{bao2010stickleback},  Figure S1 to S4) into \fmt{FASTA} files. As with medaka, the GenBank reference file was downloaded, corrected and parsed to yield a \fmt{FASTA} file of the locus sequence and \fmt{TSV} files of annotation ranges. \vh sequences were extracted from the locus sequence using these annotation ranges and translated as specified in \Cref{sec:ref_locus_ola}; \jh sequences provided by \parencite{bao2010stickleback} were translated such that the final nucleotide formed the last position of the final codon.
+
+To obtain nucleic-acid sequences of the constant-region exons, the amino-acid sequences from \parencite{bao2010stickleback} were aligned to the locus sequence with \program{TBLASTN} \parencite{gertz2006tblastn}, with a query coverage threshold of 40\% and a maximum of three HSPs per query sequence:
+
+\begin{lstlisting}
+tblastn -query <ch_aa_fasta> -subject <gac_locus_fasta> -qcov_hsp_perc 40 -max_hsps 3 -outfmt '<output_format>' > <output_path>
+\end{lstlisting}
+
+\noindent with the following standardised tabular output format: 
+
+\begin{lstlisting}
+6 qseqid sseqid pident qcovhsp length mismatch gapopen gaps sstrand qstart qend sstart send evalue bitscore qlen slen
+\end{lstlisting}
+
+To filter out alignments across subloci, any alignment of an exon upstream of the annotated boundaries of its corresponding bulk constant region (whose ranges were specified in the GenBank file) was discarded; the alignment with the highest score for each exon was then used to extract the corresponding nucleic-acid sequence from the locus. In order to control for any errors, either during manual extraction of locus sequences from the paper or in the paper itself, these nucleic-acid sequences were then re-translated to generate new amino-acid sequences, again using the translation frame producing the fewest STOP codons; these sequences were then used in place of the reference files in downstream applications.
+
+\subsubsection{Zebrafish}
+\label{sec:ref_locus_dre}
+
+GenBank files corresponding to the zebrafish \igh{} locus were provided (without segment annotations) on GenBank by \parencite{danilova2005zebrafish}; this publication also provided detailed co-ordinates for the \vh, \dh and \jh segments (but not constant exons) on these sequences. Aligned amino-acid sequences were provided for the exons of \igh{M} and \igh{Z}, but no detailed information about \igh{D} exons could be found for these sequences; as a result, reference information about \igh{D} was not used from this species.
+
+As with stickleback, the amino-acid sequences provided were aligned to the locus sequences  with \program{TBLASTN} to identify and extract exon nucleic-acid sequences, which were then translated using the frame yielding the fewest STOP codons for each sequence. \vh sequences were obtained using the ranges provided in \parencite{danilova2005zebrafish} and translated in the same manner. \dh and \jh nucleotide sequences were obtained directly from \parencite{danilova2005zebrafish}; as with stickleback, \jh amino-acid sequences were obtained by translating the nucleotide sequences in the frame such that the final nucleotide formed the last position of the final codon.
+
+\subsection{Identifying putative locus sequences}
+\label{sec:locus_scaffolds}
+
+In order to identify sequences potentially containing part of an \igh{} locus, reference \vh, \jh and constant-region nucleotide and amino-acid sequences from medaka, stickleback and zebrafish were mapped to genome assemblies from \Nfu, \Xma and ten other cyprinodontiform species (\Cref{tab:cyprinodontiform-genomes}) using BLAST \parencite{altschul1990blast,altschul1997blast}. Nucleotide sequences were aligned to the locus using the relatively permissive \program{blastn} algorithm (as opposed to e.g. \program{megablast} or \program{dc-megablast}):
+
+\begin{lstlisting}
+blastn -tastk blastn -query <reference_exon_fasta> -subject <locus_fasta> -outfmt "<output_format>"
+\end{lstlisting}
+
+Protein sequences, meanwhile, were aligned using the standard \program{blastp} algorithm:
+
+\begin{lstlisting}
+blastp -query <reference_exon_fasta> -subject <locus_fasta> -outfmt '<output_format>'
+\end{lstlisting}
+
+In both cases, the same tabular output format specified in \Cref{sec:ref_locus_gac} was used, to provide a predictable format for downstream processing of \program{BLAST} alignment tables.
+
+Following alignment of reference sequences, overlapping alignments to reference segments of the same segment type, isotype (if applicable) and exon number (if applicable) were collapsed together, keeping track of the number of collapsed alignments and the best E-values and bitscores obtained for each alignment group. Alignment groups with a very poor maximum E-value ($> 0.001$) were discarded, as were groups consisting of fewer than two alignments and groups overlapping with a much better alignments to a different sequence type, where ``much better" was defined as a bitscore difference of at least 33. Following resolution of conflicts, \vh and \ch alignments underwent a second filtering step of increased stringency, requiring a minimum E-value of $10^{-10}$ to be retained. 
+
+Following alignment filtering, scaffolds containing surviving alignments to at least two distinct segment types (where \vh, \jh, and each type of constant-region exon each counted as one segment type), or alignments to one segment type covering at least 1\% of the scaffold's total length were retained as potential locus scaffolds. These candidate scaffolds were subjected to more precise downstream analysis as appropriate to that species: \Nfu and \Xma scaffolds were used as input to a more thorough locus assembly and characterisation process (\Cref{sec:locus_assembly_methods,sec:locus-char-methods}), while scaffolds from other species were searched for constant-region exons without further locus assembly (\Cref{sec:ch_char_crossspecies}).
+
+\begin{table}
+\centering
+\caption{Genome assemblies used to identify putative \textit{IGH} locus sequences in cyprinodontiform fishes}
+\begin{threeparttable}
+\input{_Figures/tables/cyprinodontiform-genomes}
+\begin{tablenotes}
+\item[1] Willemsen \textit{et al.}, unpublished at time of writing
+\item[2] Cui \textit{et al.}, unpublished at time of writing
+\end{tablenotes} % TODO: Update once publication info is available
+\end{threeparttable}
+\label{tab:cyprinodontiform-genomes}
+\end{table}
+
+\subsection{Assembling the \Nfu and \Xma \igh{} loci}
+\label{sec:locus_assembly_methods}
+
+In the case of both \nfu and \xma, a single chromosome (chromosome 6 in \Nfu, chromosome 16 in \Xma) was identified as bearing the \igh{} locus in that species. In the case of \Xma, this was the only segment-bearing scaffold identified in the genome, and the completed locus sequence was obtained by simply trimming the chromosomal sequence at either end of the segment-bearing region. In contrast, six shorter scaffolds from the \Nfu genome were also identified as bearing at least one potential \igh segment, of which two contained at least one constant-region exon (\Cref{tab:nfu-locus-scaffolds}). 
+
+In order to identify which of these scaffolds constituted part of the \Nfu \igh{} locus (as opposed to isolated orphons), integrate them with the main locus sequence on chromosome 6, and discover any sequence missing from the genome, additional sequencing data were needed. These additional data were obtained by sequencing bacterial artificial chromosomes (BACs \parencite{luo2001bac,saski2015bacprotocol}) from the \Nfu genome BAC library developed as part of the killifish genome sequencing project \parencite{reichwald2015genome}.
+
+\subsubsection{Identifying candidate BAC clones}
+\label{sec:bac-methods-ident}
+
+Multiple methods were used to identify clones from the BAC library potentially containing parts of the \textit{IGH} locus. Initial clones were identified by identifying scaffolds in a previous version of the killifish genome (\texttt{NotFur1}, GenBank accession GCA\_000878545.1 \parencite{valenzano2015genome}) that contained either \textit{IGH} gene fragments (\texttt{GapFilledScaffold\_8761}, \texttt{8571}, \texttt{16121}) or genes homologous to those flanking the \textit{IGH} locus in stickleback and medaka (\texttt{GapFilledScaffold\_2443}, \texttt{292}). Using these sequences, four BAC clones with sequenced ends \parencite{reichwald2015genome} were identified as potentially containing part of the locus sequence; after sequencing and assembly (\Cref{sec:bac-methods-isol,sec:bac-methods-assembly}), three of these initial insert sequences were determined to lie in or near the \textit{IGH} locus. Following this, a second, larger group of BAC candidates (\... % table
+) were identified by searching the BAC end database for sequences that aligned in or near the initial candidate sequences and were oriented so as to indicate that the insert sequence might cover parts of the locus that were not yet covered by BAC sequences.
+
+\begin{table}
+\caption{BAC clones used in assembly of \Nfu \textit{IGH}}
+\begin{threeparttable}
+\end{threeparttable}
+\end{table}
+
+\begin{table}
+\centering
+\caption{BAC clones used in assembly of \Nfu \textit{IGH}}
+\begin{threeparttable}
+%\input{_Figures/tables/nfu-locus-bacs}
+\begin{tabular}{...}\toprule
+\# & Jena ID & Clemson ID & Discovery method & Sequencing date & Included in locus? \\\midrule
+1 & 
+\end{tabular}
+\begin{tablenotes}
+%\item[1] Willemsen \textit{et al.}, unpublished at time of writing
+%\item[2] Cui \textit{et al.}, unpublished at time of writing
+\end{tablenotes}
+\end{threeparttable}
+\label{tab:nfu-locus-bacs}
+\end{table}
+
+
+\subsubsection{BAC isolation and sequencing}
+\label{sec:bac-methods-isol}
+% TODO: Check the volumes, speeds etc against old lab book
+
+The identified BAC clones were provided by the FLI institute in Jena as plate or stab cultures of transformed \textit{E. coli}, which were replated and stored at \degC{4} when not in use. Prior to isolation, the clones of interest were cultured overnight in [volume]ml LB medium to produce a large liquid culture. The cultures were then transferred to \ml{50} conical tubes and centrifuged (\mins{5}, \degC{4}, \g{12000}) to pellet the cells. After pelleting, the supernatant was carefully discarded and the cells were resuspended in \ml{10} buffer P1.
+
+After resuspension, the cultures underwent alkaline lysis to release the BAC DNA and precipitate genomic DNA and cellular debris. \ml{10} lysis buffer P2 was added to each tube, which was then mixed gently but thoroughly by inversion and incubated at room temperature for \mins{5}. \ml{10} ice-chilled neutralisation buffer P3 was added and each tube was mixed gently but thoroughly by inversion and incubated on ice for \mins{15}. The tubes were then centrifuged (\mins{20}, \degC{4}, \g{12000}) to pellet cellular debris and the supernatant transferred to new conical tubes. This process was repeated at least two more times, until no more debris was visible in any tube; this repeated pelleting was necessary to minimise contamination in each sample, as the normal column- or paper-based filtering steps used during alkaline lysis protocols result in the loss of the BAC DNA.
+
+Following alkaline lysis, the BAC (and residual genomic) DNA in each sample underwent isopropanol precipitation: 0.6 volumes of room-temperature isopropanol was added to the clean supernatant in each tube, followed by 0.1 volumes of \mol{3} sodium acetate solution. Each tube was mixed well by inversion, incubated for \mins{10} at room temperature, then centrifuged (\mins{30}, \degC{4}, \g{12000}) to pellet the DNA. The supernatant was discarded and the resulting DNA smear was ``resuspended" in \ml{1} \pc{100} ethanol and transferred to a \ml{1.5} tube, which was re-centrifuged (\mins{5}, \degC{4}, \g{20000}) to obtain a concentrated pellet.\dots % TODO: Was this actually what happened
+
+Finally, \dots % This last part differs between BAC groups, so I should check the lab-book for each iteration
+
+%\item Add \x{0.6} room-temperature isopropanol to the clean supernatant, followed my \x{0.1} sodium acetate. Mix well by inversion.
+%\item \Incubate{10}{RT},  then \centrifuge{30}{4}{15000}. Promptly but carefully discard the supernatant.
+%\item ``Resuspend" the pellet in \ml{1} \pc{100} ethanol and transfer to a \ml{1.5} tube, then centrifuge ($\geq$\mins{5}, \degC{4}, top speed). \alert{hint}
+%\item Carefully pour or pipette off the supernatant, then air-dry upside-down for 5-\mins{10}. \alerts{warning}{2}~~\alert{hint}
+%\item Resuspend in 30-\ul{50} of preferred buffer. \alert{pause}
+%\item Assay BAC isolate yield with the \textbf{Qubit} dsDNA BR assay. Dilute samples to a final volume of c. 50-\ngul{150} and re-quantify. \alert{hint}
+%\item Assass BAC isolate quality by running \ul{10} of diluted isolate on a \pc{0.5} \textbf{agarose gel} for 1-\hr{2}, and/or by amplifying the backbone or other query sequence using \textbf{Kapa PCR}. % add figure for QC gel appearance
+%\item Proceed to \textbf{shearase-based Illumina library preparation}.
+%\end{protocol}
+%\end{main}
+
+The resuspended BAC isolates were sent to the Cologne Center for Genomics, where they underwent ... library preparation and were sequenced on an Illumina MiSeq sequencing machine ([read length etc here], 2x300bp reads).
+
+\subsubsection{BAC insert assembly and locus integration}
+\label{sec:bac-methods-assembly}
+
+Prior to sequence assembly, MiSeq reads from each sequenced BAC isolate were trimmed with \lstinline{Trimmomatic} \parencite{bolger2014trimmomatic} to remove adaptor sequences, trim low-quality sequence, and discard any trimmed reads below a minimum lengh:
+
+\begin{lstlisting}
+trimmomatic PE -phred33 <forward_reads_fastq> <reverse_reads_fastq> <output_paths> ILLUMINACLIP:<adaptor_directory>/TruSeq3-PE.fa:2:30:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:4:30 MINLEN:36
+\end{lstlisting}
+
+Following this, the trimmed reads were filtered to remove \textit{E. coli} genomic DNA and other contaminants by aligning them using \lstinline{Bowtie2} \parencite{langmead2012bowtie2} and retaining read pairs that did not align concordantly:
+
+\begin{lstlisting}
+bowtie2 --very-sensitive-local --local --reorder --un-conc <output_prefix> -x <ecoli_genome_index_path> -1 <forward_reads_fastq> -2 <reverse_reads_fastq> -S <sam_file_prefix>
+\end{lstlisting}
+
+% TODO: Note about incomplete filtering?
+
+Before sequence assembly, the filtered reads then underwent correction, to reduce the impact of errors occurring during the library preparation and sequencing process. In order to increase the reliability of the resulting scaffolds and reduce the impact of ideosyncracies of any given correction tool, the reads were corrected in parallel using two different programs; \lstinline{QuorUM}:
+
+\begin{lstlisting}
+quorum -d -q "33" -p <output_path> <interleaved_reads_files>
+\end{lstlisting}
+
+\noindent and \lstinline{BayesHammer} (the built-in correction tool of the SPAdes genome-assembly software):
+
+\begin{lstlisting}
+spades.py -1 <forward_reads_fastq> -2 <reverse_reads_fastq> -o <output_path> --disable-gzip-output --only-error-correction --careful --cov-cutoff auto -k 21,33,55,77,99,127 --phred-offset 33
+\end{lstlisting}
+
+Each pair of independently-corrected reads files was then passed to \lstinline{SPAdes} for \textit{de novo} genome assembly:
+
+\begin{lstlisting}
+spades.py -1 <forward_reads_fastq> -2 <reverse_reads_fastq> -o <output_path> --disable-gzip-output --only-assembler --careful --cov-cutoff auto -k 21,33,55,77,99,127 --phred-offset 33
+\end{lstlisting}
+
+Following assembly, any \textit{E. coli} scaffolds resulting from residual contaminating reads were identified by aligning scaffolds to the \textit{E. coli} genome using BLASTN, and scaffolds containing significant matches were discarded. The remaining scaffolds were then scaffolded using \lstinline{SSPACE} \parencite{boetzer2011sspace}, using jumping libraries from the Stanford and Jena killifish genome assemblies:
+
+\begin{lstlisting}
+SSPACE_Standard_v3.0.pl -x 0 -k 5 -a 0.7 -n 15 -z 200 -g 1 -p 0 -l <jumping_library_config_file> -s <spades_scaffolds_file>
+\end{lstlisting}
+% Scaffolding
+
+In order to guarantee the reliability of the assembled scaffolds, the assemblies produced with BayesHammer- and QuorUM-corrected reads were compared, and scaffolds were broken into segments whose contiguity was agreed on between both assemblies. These segments were then integrated manually using PCR % Explain PCR methods somewhere
+and Sanger sequencing (Eurofins) to produce complete BAC insert sequence assemblies. 
+
+\subsubsection{Integrating BAC inserts and genome scaffolds}
+
+Of the ... BAC inserts sequenced and assembled in the manner described in ..., ... were identified as containing IGH locus segments by the pipeline described in ... . These insert segments were aligned with BLASTN to the genome scaffolds identified in ... and integrated manually into a contiguous sequence. To minimise the probability of losing relevant gene segments to assembly errors, priority in the event of a sequence conflict was given first to any sequence containing a segment missing from the other; if neither the BAC assembly nor the genome scaffolds met this condition, priority was given to the genome scaffold over the BAC assembly. The correspondence between BAC inserts, genome scaffolds and the resulting locus assembly is shown in ...
+% TODO: Fill in missing data; make locus assembly figure
+
+\subsection{Characterising locus segments in \Nfu and \Xma}
+\label{sec:locus-char-methods}
+
+To characterise constant and variable gene segments on newly-assembled \textit{IGH} loci, databases of segment sequences from previously-characterised loci were used as reference databases. For \Nfu, the stickleback, medaka and zebrafish loci were used as references; for \Xma, these three species plus \Nfu were used. In all cases, the analyses were repeated using the newly-characterised additional segments as an additional reference, but no additional segments were discovered.
+
+\subsubsection{\vh}
+
+To identify \vh segments on newly characterised loci, reference \vh segments were used to construct a multiple-sequence alignment with \lstinline{PRANK} \parencite{loytynoja2014prank}:
+
+\begin{lstlisting}[language=bash]
+prank -d=<reference_vh_db> -o=<output_path> -gaprate=0.00001 -gapext=0.00001 -F -termgap
+\end{lstlisting}
+
+The resulting alignment was used as an input to \lstinline{NHMMER} \parencite{wheeler2013nhmmer,eddy2011hmm,eddy2009homology,eddy2008alignment}, which constructs a Hidden Markov Model from a multiple-sequence alignment and uses it to identify matching sequences in a reference sequence:
+
+\begin{lstlisting}[language=bash]
+nhmmer --dna --notextw --tblout <output_path> -T 80 <vh_alignment> <locus_sequence_path>
+\end{lstlisting}
+
+The resulting match table was used to identify candidate ranges in the locus sequence corresponding to \vh segments; these ranges were extended by 9bp at either end to account for boundary errors, and the corresponding nucleotide sequences were extracted to a FASTA file. Each sequence was then checked and refined manually: 3' ends were identified by the start of the RSS heptamer sequence (typically \texttt{CACAGTG}), if present, while 5' ends and FR/CDR boundaries were identified using IMGT/DomainGapAlign \parencite{ehrenmann2011domaingapalign} with the default settings. Where necessary, IMGT/DomainGapAlign was also used to IMGT-gap the \vh segments in accordance with the IMGT unique numbering \parencite{lefranc2003vnumbering}. % TODO: Cite something for RSS consenses; cite standard bioconductor packages for sequence/range manipulation etc 
+
+An initial amino-acid sequence for each \vh segment was produced automatically from the extracted nucleotide sequence by identifying the reading frame which minimised the number of STOP codons in the sequence; this worked well for most segments. \vh amino-acid sequences were then refined (and in a few cases re-translated) from the manually-refined nucleotide sequences, including end-refinement and FR/CDR boundary identification.
+
+Following extraction and manual curation, \vh segments were grouped into families based on their pairwise sequence identity. In order to assign segments to families, the nucleotide sequence of each \vh segment in a locus was aligned to each other segment using Needleman-Wunsch global alignment, as implemented in the \lstinline{pairwiseAlignment} function from the \lstinline{R} package \lstinline{Biostrings}. The percentage sequence identity was computed using the \lstinline{pid} function from the same package, with percentage identity defined as given in \Cref{eq:pid}; the resulting identity matrix was used to perform single-linkage heirarchical clustering on the \vh segments, and the resulting dendrogram was cut at 80\% sequence identity to obtain \vh families. These families were then numbered based on the order of the first-occurring \vh segment from that family in the first-occurring sublocus in the parent locus, and each \vh segment was named based on its parent sublocus, its family, and its order among elements of that family in that sublocus. %TODO: Citation for \vh families
+
+\begin{equation}
+\mathrm{\%~sequence~identity} = 100 \times \frac{\mathrm{\#~identical~positions}}{\mathrm{\#~total~aligned~positions}}
+\label{eq:pid}
+\end{equation}
+
+\subsubsection{\jh}
+
+As with \vh segments, \jh segments were identified by building a multiple-sequence alignment with \texttt{PRANK} and using it to construct an HMM with \lstinline{nhmmer}; the parameters used were the same as for \vh segments, except that there was no minimum score for \lstinline{nhmmer} to report a sequence match (\lstinline{-T 0} instead of \lstinline{-T 80}). The resulting sequence ranges were extended by 20bp on either end and extracted into FASTA format. These sequences were then trimmed automatically by identifying the RSS heptamer sequence at the 5' end and the splice junction motif (\texttt{GTA}) at the 3' end. The \jh nucleotide sequences were then checked and refined manually.
+
+\begin{wraptable}{r}{5.5cm}
+\caption{Regex patterns used to search for conserved W118 residues in \jh sequences during AUX file generation}\label{tab:jh-aux-patterns}
+\begin{tabular}{r>{\ttseries}l}\toprule  
+\# & Pattern \\\midrule
+1 & TGGGBNNNNGBN\\
+2 & TGGGBNNNGBN\\
+3 & TGGGBNNNNNGBN\\
+4 & TGGGBNNNNNNGBN\\
+5 & TGGGBN\\\bottomrule
+\end{tabular}
+\end{wraptable}
+
+\lstinline{IgBLAST} \parencite{ye2013igblast} identifies CDR3 boundaries for recombined IGH VDJ sequences using an AUX file specifying the reading frame of each \jh segment, along with the co-ordinate of the conserved \texttt{TGG} codon (corresponding to the conserved W118 residue in the recombined sequence \parencite{lefranc2014immunoglobulins}) marking the CDR3/FR4 boundary. An AUX file for the inferred \jh segments was generated automatically by searching for the conserved sequence using a series of regular-expression patterns of decreasing stringency (\Cref{tab:jh-aux-patterns}), taking the first match in each sequence as the desired residue; this determined both the reading frame and the W118 sequence co-ordinate. Once generated, the AUX file was then used to determine the reading frame for automatically translated the \jh sequences; both the AUX file and amino-acid FASTA file were then edited to incorporate any manual refinements made to the \jh nucleotide sequences.
+
+Curated \jh sequences were named based on their order within their parent sublocus and, where applicable, on whether they were upstream of IGHZ or IGHM constant regions. 
+
+\subsubsection{\dh}
+
+Unlike \vh and \jh gene segments, \dh segments are too short and variable to be found effectively using an HMM-based search strategy. Instead, \dh segments in assembled loci were located using their distinctive pattern of flanking recombination signal sequences: an antisense RSS in 5', then a short D-segment, then a sense RSS in 3'. Potential matches to this pattern were searched for using \lstinline{FUZZNUC} from the EMBOSS collection of bioinformatics tools \parencite{rice2000emboss}, with a high error tolerance to account for deviations from the conserved sequence in either or both of the RSSs:
+
+\begin{lstlisting}
+fuzznuc -pattern 'GGTTTTTGTN(10,14)CACTGTGN(1,25)CACAGTGN(10,14)ACAAAAACC' -pmismatch 8 -rformat gff -outfile <output_path> <locus_sequence_path>
+\end{lstlisting}
+
+This generated a GFF file \parencite{stein2010generic} of permissive matches, representing potential \dh segments; these were then grouped by sequence co-ordinate, and higher-mismatch candidates overlapping with a lower-mismatch alternative were discarded.
+
+Orientation of \dh segments based on their own sequence is challenging, as the segments themselves have no clear conserved structure and the flanking RSSs are rotationally symmetric. To overcome this problem and orientate the \dh segments on the locus, the table of \dh candidate ranges was combined with previously-identified (and easier to orientate) \vh and \jh ranges. Each \dh candidate was then orientated based on the orientations of its flanking segments: segments with an oriented segment immediately upstream or downstream adopted the orientation of that segment, while segments with contradictory orientation information were discarded. This process was repeated until all \dh segments had either been orientated or discarded.
+
+After orientation, the \dh ranges were used to extract \dh sequences in FASTA format from the locus sequence; these sequences then underwent a second, more stringent filtering step, in which sequences lacking the most conserved positions in each RSS were discarded \parencite{grep}:
+
+\begin{lstlisting}
+grep -B 1 '[ACTG]\{{25,27\}}TG[ACTG]\{{1,25\}}CA[ACTG]\{{25,27\}}' <dh_fasta> | sed '/^--$'/d > <output_fasta>
+\end{lstlisting}
+
+Finally, the identified \dh candidates were checked manually, candidates without good RSS sequences were discarded, and flanking RSS sequences were trimmed to obtain \dh segment sequences. As with \jh, these were numbered based on their order within their parent sublocus and, when applicable, on whether they were upstream of IGHZ or IGHM constant regions.
+
+\subsubsection{CH}
+\label{sec:locus_char_ch}
+
+To detect and identify constant-region exons in the characterised loci, constant-region nucleotide and protein sequences from reference species were mapped to the locus sequence using BLAST \parencite{altschul1990blast,altschul1997blast}, in the same manner described for putative locus scaffolds in \Cref{sec:locus_scaffolds}.
+Following alignment of reference sequences, overlapping alignments to reference segments of the same isotype and exon number were collapsed together, keeping track of the number of collapsed alignments and the best E-values and bitscores obtained for each alignment groups. Alignment groups with a very poor maximum E-value ($> 0.001$) were discarded, as were groups overlapping with a much better alignments to a different isotype or exon type, where ``much better" was defined as a bitscore difference of at least 16.5. Where conflicting alignments to different isotypes or exon types co-occurred without a sufficiently large difference in bitscore, both alignment groups were retained for manual resolution of exon identity.
+
+Following resolution of conflicts, alignment groups underwent a second filtering step of increased stringency, requiring a minimum E-value of $10^{-8}$ and at least two aligned reference exons over all reference species to be retained. Each surviving alignment group was then converted to a sequence range, extended by 10bp at each end to account for truncated alignments failing to cover the ends of the exon, and used to extract the corresponding exon sequence into FASTA format. These sequences then underwent manual curation to resolve conflicting exon identities, assign exon names and perform initial end refinement based on putative splice junctions.
+
+In order to validate intron/exon boundaries and investigate splicing behaviour among \textit{IGH} constant-region exons, published RNA-sequencing data (\Cref{tab:rnaseq-sources}) was aligned to the annotated locus using STAR (\parencite{dobin2013star}, version 2.5.2b). In both cases, reads files from multiple individuals were concatenated and aligned together, in order to make the intron/exon boundary changes in mapping behaviour as clear as possible. % TODO: Add more software versions, or a table at the end
+
+\begin{table}
+\caption{RNA-sequencing datasets used for \textit{IGH} constant-region exon refinement and isoform identification}
+\centering
+\begin{threeparttable}
+\begin{tabular}{>{\bfseries}c|c|c}\toprule
+Species & \Nfu & \Xma \\\midrule
+\multirow{2}{*}{Ages} & 6 weeks (4 individuals) & \multirow{2}{*}{Various\tnote{1}} \\
+& 16 weeks (4 individuals) & \\\midrule
+Tissues & Gut & Various\tnote{2}\\\midrule
+BioProject Accession & PRJNA379208 & PRJNA420092\\\midrule
+\multirow{26}{*}{SRA Run Accessions} & SRR5344350 & SRR6327069\\
+& SRR5344343 & SRR6327070\\
+& SRR5344344 & SRR6327071\\
+& SRR5344345 & SRR6327072\\
+& SRR5344346 & SRR6327073\\
+& SRR5344347 & SRR6327074\\
+& SRR5344348 & SRR6327075\\
+& SRR5344349 & SRR6327076\\
+& SRR5344350 & SRR6327077\\
+&&SRR6327078\\
+&&SRR6327079\\
+&&SRR6327080\\
+&&SRR6327081\\
+&&SRR6327082\\
+&&SRR6327083\\
+&&SRR6327084\\
+&&SRR6327085\\
+&&SRR6327086\\
+&&SRR6327087\\
+&&SRR6327088\\
+&&SRR6327089\\
+&&SRR6327090\\
+&&SRR6327091\\
+&&SRR6327092\\
+&&SRR6327093\\
+&&SRR6327094\\\midrule
+Source & \parencite{smith2017microbiota} & Citation not given\\ % TODO: Contact authors re citation?
+\bottomrule\end{tabular} % TODO: Table notes, sources
+	\begin{tablenotes}
+	\item[1] Ages used for \Xma RNA-sequencing raised from embryonic (\dots) to \dots months; see source for details. % TODO: Specify source and details
+	\item[2] Tissues used for \Xma RNA-sequencing included brain, heart, liver, gut, skin or whole fish; see source for details. % TODO: Specify source
+	\end{tablenotes}
+\end{threeparttable}
+\label{tab:rnaseq-sources}
+\end{table}
+
+Before aligning the RNA-seq reads, each locus underwent basic repeat masking, using the built-in zebrafish repeat parameters from the RepeatMasker program \parencite{smith2016repeatmasker}:
+
+\begin{lstlisting}[language=bash]
+RepeatMasker -species danio -dir <masked_locus_dir> -s <unmasked_locus_path>
+\end{lstlisting}
+
+after masking, a STAR genome index was generated from each locus:
+
+\begin{lstlisting}[language=bash]
+STAR --runMode genomeGenerate --genomeDir <star_index_directory_path> --genomeFastaFiles <masked_locus_path> --genomeSAindexNbases <sa_index>
+\end{lstlisting}
+
+where the \lstinline{--genomeSAindexNbases} option determines the size of the suffix-array index and is dependent on the length of the reference sequence being indexed (\Cref{tab:star_sa_index}, \Cref{eq:sa_index}). 
+
+\begin{equation}
+\mathrm{SA~index~size~(bits)} = \frac{\log_2(\mathrm{length~of~reference~sequence})}{2} - 1
+\label{eq:sa_index}
+\end{equation}
+
+\begin{table}
+\centering
+\caption{Reference sequences and corresponding SA index sizes used in RNA-seq alignment to \textit{IGH} loci}
+\begin{tabular}{clc}\toprule 
+Species & Reference & SA index size (bits)\\\midrule
+\Xma & IGH (whole locus) & 8\\
+\Xma & IGHZ constant region & 5\\ 
+\Xma & IGHM/D constant regions & 6\\ 
+\Nfu & IGH (whole locus) & 8\\
+\Nfu & IGHM/D constant regions & 6\\
+\bottomrule
+\end{tabular}
+\label{tab:star_sa_index}
+\end{table}
+
+Following index generation, the RNA-seq reads were mapped to the generated index as follows:
+
+\begin{lstlisting}[language=bash]
+STAR --genomeDir <star_index_directory_path> --readFilesIn <input_reads> --outFilterMultimapNmax 5 --alignIntronMax 10000 --alignMatesGapMax 10000
+\end{lstlisting}
+
+where the \lstinline{--outFilterMultimapNmax} option excludes read pairs mapping to more than five distinct co-ordinates in the reference sequence and the \lstinline{--alignIntronMax} option excludes read pairs spanning predicted introns of more than 10kb, and the \lstinline{--alignMatesGapMax} option excludes read pairs mapping more than 10kb apart. Following alignment, the resulting SAM files were processed into sorted, indexed BAM files using SAMtools and visualised with Integrated Genome Viewer (IGV) to determine intron/exon boundaries of predicted exons, as well as the major splice isoforms present in each dataset.
+
+In order to reduce time and memory requirements for generating alignment figures and reduce noise caused by reads mapping  across the constant regions, secondary alignments were performed on truncated loci consisting only of the IGHM/D or (where present) IGHZ constant regions, plus a few flanking kilobases on each side. In these cases, the additional parameters constraining multimapping, intron length and mate distance were not necessary due to the much shorter and less repetitive reference sequence.
+
+\subsubsection{Downstream analysis}
+
+% TODO: David's chromosomal synteny analysis here
+
+Synteny between subloci in the \Nfu locus was analysed using \lstinline[language=R]{DECIPHER}'s standard synteny pipeline \parencite{wright2016decipher}, which searches for chains of exact $k$-mer matches within two sequences:
+
+\begin{lstlisting}[language=R]
+DBPath <- tempfile()
+DBConn <- dbConnect(SQLite(), DBPath)
+
+Seqs2DB(seqs = <sublocus_1_sequence>, type = "XStringSet", dbFile = DBConn, identifier = "IGH1", verbose = FALSE)
+Seqs2DB(seqs = <sublocus_2_sequence>, type = "XStringSet", dbFile = DBConn, identifier = "IGH2", verbose = FALSE)
+
+dbDisconnect(DBConn)
+
+SyntenyObject <- FindSynteny(dbFile = DBPath, verbose = FALSE)
+\end{lstlisting}
+
+Cross-locus sequence comparisons between gene segments in \Nfu were performed analogously to the comparisons involved in \vh family assignment, with \lstinline[language=R]{pairwiseAlignment} and \lstinline[language=R]{pid} from \lstinline[language=R]{Biostrings} and the same pairwise-identity metric (\Cref{eq:pid}).
+
+Synteny data for \Nfu chromosome 6 and \Xma chromosome 16 was provided by Willemsen \textit{et al.} (...) and visualised with \lstinline{GenoPlotR} \parencite{guy2010genoplotr}.
+
+\subsection{Constant-region extraction and analysis in other cyprinodontiform species}
+\label{sec:ch_char_crossspecies}
+
+For species other than \Nfu or \Xma (\Cref{tab:cyprinodontiform_genomes}), genome scaffolds identified as potentially containing \textit{IGH} gene segments (\Cref{sec:locus_scaffolds}) were directly subjected to constant-exon inference as described in the first two paragraphs of \Cref{sec:locus_char_ch}, using \Nfu and \Xma as additional reference species. Intron/exon boundaries were predicted manually based on BLASTN and BLASTP alignments to closely-related species and the presence of conserved splice-site motifs (\texttt{AG} at the 5' end of the intron, \texttt{GT} at the 3' end \parencite{shapiro1987splice}). In cases where no 3' splice site was expected to be present (e.g. for CM4 or TM2 exons), the nucleotide exon sequence was terminated at the first canonical polyadenylation site (\texttt{AATAAA} if present, otherwise one of \texttt{ATTAAA}, \texttt{AGTAAA} or \texttt{TATAAA} \parencite{ulitsky2012polya}), while the amino-acid sequence was terminated at the first STOP codon. In many cases, it was not possible to locate a TM2 exon due to its very short (two-amino-acid-residue) conserved coding sequence. % TODO: Move last sentence to results
+
+In addition to running this pipeline on the additional cyprinodontiform species, the same pipeline was run on the medaka and stickleback locus sequence isolated in \Cref{sec:ref_locus_ola,sec:ref_locus_gac}, in order to generate identically-processed CH databases from these reference species for phylogenetic reconstruction. This process successfully re-isolated all constant exons annotated in the published versions of the respective IGH loci, as well as several additional medaka exons that had either not been detected or excluded in the original study.
+
+\subsection{Phylogenetic reconstruction}
+\label{sec:phylo_methods}
+
+\subsubsection{CH exon tree}
+\label{sec:phylo_methods_ch}
+
+
+To build a phylogenetic tree of CH exons, nucleotide and amino-acid constant-exon sequences from fourteen species (the twelve species specified in \Cref{tab:cyprinodontiform_genomes}, plus medaka and stickleback) were renamed to include the three-letter species code of the source species, then concatenated to generate a single sequence database for all species for each sequence type. As identical sequences can cause problems during phylogenetic analysis, exons with completely identical sequences (typically duplicates within a single locus) were collapsed together into a single FASTA sequence, which was relabelled with the names of all its parent sequences. Transmembrane exons and secretory tail annotations were discarded, as were sequences with more than 25\% missing characters; in addition, CM4 nucleotide sequences were trimmed to the coding region, removing the 3'-UTR. Remaining sequences were then aligned with \lstinline{PRANK}:
+% TODO: rework genome table to include species codes and reference species
+
+\begin{lstlisting}
+prank -d=<ch_fasta> -o=<output_prefix> -F -termgap
+\end{lstlisting}
+
+where \lstinline{-F} determines how the program handles predicted indel mutations and \lstinline{-termgap} specifies that terminal gaps should be penalised in the same way as internal ones. The resulting alignments were then passed to the maximum-likelihood phylogenetic inference program \lstinline{RAxML} (\parencite{stamatakis2005raxml3,stamatakis2006raxml6,stamatakis2014raxml8}, version 8.2.12), using the SSE3-enabled parallelised version of the software and ..:
+
+\begin{lstlisting}
+raxmlHPC-PTHREADS-SSE3 -f a -m <model> -s <ch_prank_alignment> -w <output_dir> -N 100 -x <bootstrap_seed> -p <parsimony_seed> -n <sequence_type>
+\end{lstlisting}
+
+where \lstinline{-f a} specifies a single-run ML analysis with rapid bootstrapping, \lstinline{-N 100} specifies that 100 bootstrap replicates should be performed, \lstinline{-p} and \lstinline{-x} specify the random seeds for the initial parsimony tree and rapid-bootstrapping process, respectively, and  \lstinline{-n} specifies the output file suffix (here indicating the sequence type, either \lstinline{nt} or \lstinline{aa}). For nucleotide alignments, the standard \lstinline{GTRGAMMA} model was used, while for protein alignments the flexible \lstinline{PROTGAMMAAUTO} model was used, allowing the program to select the substitution model which best fit the initial parsimony tree. After tree inference, \dots % TODO: Tree visualisation and analysis methods here
+
+\subsubsection{\vh and \jh trees}
+
+To investigate the evolutionary relationships between \vh segments (and particularly \vh families) in \Nfu and \Xma, segments from these two species underwent phylogenetic analysis in a similar manner to the CH exons in \Cref{sec:phylo_methods_ch}. Segments from both species were relabelled to include the appropriate three-letter species code, concatenated together, processed to remove identical sequences, and filtered to remove sequences with more than 25\% missing characters. The remaining sequences were aligned together with \lstinline{PRANK}, and the resulting alignment was used to perform phylogenetic analysis with RAxML, in both cases using the same parameters specified in \Cref{sec:phylo_methods_ch}. To root the tree, ten randomly-selected V-segments from the zebrafish \{TRB} locus were used as an outgroup; the trees were re-rooted in FigTree using this outgroup, then visualised in R (\Cref{sec:viz}).  % TODO: Cite ZF TRB paper; Cite FigTree
+
+An identical analysis was performed for \jh segments from both species, again using randomly selected sequences (this time J-segments) from the zebrafish \textit{TRB} locus as an outgroup to root the tree. In total, four independent trees (VH-NT, VH-AA, JH-NT and JH-AA) were produced, of which two (the nucleotide trees) are displayed in this chapter and two (the amino-acid trees) in \dots  
+
+\subsubsection{Species-tree generation and annotation}
+
+\dots
+
+\subsection{Data visualisation}
+\label{sec:viz}
+
+Unless otherwise specified, data were visualised using \lstinline[language=R]{ggplot2} \parencite{wickham2016ggplot2}. Chromosome ideograms, locus structure visualisations, and sashimi plots were constructed using \lstinline[language=R]{Gviz} \parencite{hahne2016gviz}. Cluster dendrograms and phylogenetic trees were drawn with \lstinline[language=R]{ggtree} \parencite{guangchuang2018ggtree}, using utilities from \lstinline[language=R]{ape} \parencite{paradis2018ape} and \lstinline[language=R]{tidytree} \parencite{guangchuang2018tidytree}. Sequence logos were drawn with \lstinline[language=R]{ggseqlogo} \parencite{wagih2017ggseqlogo}. 
+
+
+
+
+
+	
+	
+	
+\begin{subappendices}
+\section{Supplementary figures}
+\dots
+\section{Supplementary tables}
+
+
+
+\end{subappendices}

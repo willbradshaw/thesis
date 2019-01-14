@@ -6,6 +6,13 @@
 # Source packages
 source("aux/packages.R")
 
+# Auxiliary palette function
+gg_color_hue <- function(n) {
+  # Get default ggplot2 colour palette for n colours as a character vector
+  hues = seq(15, 375, length = n + 1)
+  hcl(h = hues, l = 65, c = 100)[1:n]
+}
+
 # Define base theme
 theme_base <-   theme(
   legend.position = "bottom",

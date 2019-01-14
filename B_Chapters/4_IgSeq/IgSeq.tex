@@ -1,0 +1,220 @@
+%!TEX root = ../thesis.tex
+% TODO: Change this?
+
+\chapter{Immunoglobulin sequencing in \textit{Nothobranchius furzeri}}  
+\onehalfspacing
+
+% Chapter summary (should fit on title page)
+\section*{Summary} 
+
+\dots
+\pagebreak
+
+% Sections
+
+\section{Introduction}
+
+\dots
+
+\section{Materials and methods}
+
+\subsection{Fish cohorts and husbandry}
+
+% Describe fish cohorts used
+% Describe husbandry methods
+% Describe sacrifice methods
+
+\subsection{Sample processing}
+
+% Describe RNA extraction methods
+
+\subsection{IgSeq library preparation}
+
+\subsection{IgSeq data preprocessing}
+
+
+\subsubsection{Sequence uploading and annotation}
+
+Pre-processing of Illumina sequencing data from Ig-Seq libraries was performed primarily using \program{pRESTO}, a suite of tools for converting raw immunoglobulin sequencing reads into unique repertoire sequences... % TODO: Cite pRESTO
+
+Sequencing data were uploaded by the sequencing provider to Illumina BaseSpace, having already been demultiplexed and trimmed of adaptors (see APPENDIX TABLE for indices used in each experiment). In experiment 2, the number of reads mapped to index combinations other than those used in library preparation, as a percentage of total reads, was used to measure the level of contamination produced using library preparation (TABLE, FIGURE). From BaseSpace, the raw data were downloaded to a local file server using \program{basemount}, from which they were uploaded to the high-performance computing cluster of the MPI Age. There, read headers from each library (i.e. each Illumina TruSeq index combination) were annotated with sample information (individual and replicate ID, strain, age at death etc.) using pRESTO's \program{ParseHeaders} utility:
+
+\begin{lstlisting}
+ParseHeaders add -f <field_keys> -u <field_values> -s <input_reads_file>
+\end{lstlisting}
+
+Following annotation, reads from different libraries were pooled and processed together, primarily using other utilities from the \program{pRESTO} workflow.
+
+\subsubsection{Read quality control}
+
+After annotation and pooling, the raw read set underwent quality control, discarding any read with an average Phred score of less than 20:
+
+\begin{lstlisting}
+FilterSeq quality -q 20 -s <input_reads_file>
+\end{lstlisting}
+
+\subsubsection{Primer masking and UMI extraction}
+
+Following quality filtering, the reads underwent processing to identify and remove invariant primer sequences. To do this, known primer sequences were aligned to each read from a fixed starting position, and the best match on each read was identified and trimmed. Initially, the primer sequences from the third PCR step of the library prep protocol were used, trimming off primer sequences corresponding to part of the constant \cm{1} exon and the 5' invariant part of the template-switch adapter:
+
+\begin{lstlisting}
+MaskPrimers score --mode cut --start 0 -s <3prime_read_file> -p <CM1_primer_file>;
+MaskPrimers score --mode cut --start 0 -s <5prime_read_file> -p <TSA_primer_file>
+\end{lstlisting}
+
+Following this, the 5' reads underwent a second round of masking using the 3' invariant part of the TSA sequence (\sequence{CTTGGGG}), and the intervening 16 bases were extracted and recorded in each read header as that read's unique molecular identifier (UMI):
+
+\begin{lstlisting}
+MaskPrimers score --mode cut --barcode --start 16 --maxerror 0.5 -s <masked_5prime_read_file> -p <TSA_3prime_sequence_file>
+\end{lstlisting}
+
+As the match sequence for this second round of masking is shorter and more error-prone than the primer sequences used in the first round, an increased mismatch tolerance was used to increase the number of reads with successfully-extracted UMIs.
+
+\subsubsection{Barcode error handling}
+\label{sec:methods-comp-presto-correct}
+
+The use of UMI sequences enables biases and errors in library insert sequences to be corrected by taking the consensus sequence of all reads sharing a given UMI (a molecular identifier group, or MIG). However, PCR and sequencing errors can also affect the sequence of the UMI itself, in which case reads that in fact belong to a single MIG will be spuriously separated during pre-processing; this can result in spuriously low MIG read counts, spuriously high numbers of unique sequences, and avoidable loss of sequencing data due to reads with erroneous barcodes being discarded (as low-quality, low-read-count unique sequences) at various points in the pre-processing pipeline.
+
+In addition to these barcode \textit{errors}, barcode \textit{collisions} can occur, in which multiple distinct sequences are labelled with the same UMI sequence and spuriously grouped together during UMI grouping. This can lead to spuriously large MIGs and spuriously low numbers of unique sequences, and in extreme cases lead to the rejection and loss of entire MIGs due to an insufficiently high level of sequence identity during consensus generation (see below).
+
+In order to reduce the level of barcode errors in each dataset, primer-masked IgSeq reads in this pipeline underwent barcode clustering, in which reads with the same library identity and highly similar UMI sequences were grouped together into the same MIG. To do this, primer-masked reads were split by replicate identity, then clustered by UMI sequence using \program{CD-HIT-EST} % TODO: Cite CD-HIT-EST
+with a 90\% sequence identity cutoff, with cluster identities being recorded in a new CLUSTER field in each read header:
+
+\begin{lstlisting}
+SplitSeq group -s <masked_reads_file> -f REPLICATE;
+ClusterSets barcode -f BARCODE -k CLUSTER --cluster cd-hit-est --prefix B --ident 0.9 -s <split_reads_file>
+\end{lstlisting}
+
+In order to split any geniunuly distinct MIGs accidentally united by this process, as well as to reduce the level of ``natural" barcode collisions, the 5'-reads then underwent a second round of clustering, this time separately on the read sequences within each barcode cluster using \program{VSEARCH} (an open-source alternative to \program{USEARCH}). % TODO: Cite VSEARCH, USEARCH
+This time, the cluster dendrogram was cut at 75\% total sequence identity, and each subcluster was separated into its own distinct MIG:
+
+\begin{lstlisting}
+ClusterSets set -f CLUSTER -k CLUSTER --cluster vsearch --prefix S --ident 0.75 -s <clustered_reads_file>
+\end{lstlisting}
+
+These clustering thresholds (90\% for barcode clustering, 75\% for barcode splitting) were identified empirically as the values that maximise the number of reads passing downstream quality checks and included in the final preprocessed dataset.
+
+The cluster annotations from the two clustering steps were combined into a single annotation uniquely identifying each MIG in each replicate. These annotations were further modified to designate the replicate identity of each read, giving each MIG a unique annotation across the entire dataset. These annotations were copied to the 3' reads such that each pair had a matching MIG annotation, and reads without a mate (due to differential processing of the two reads files) were discarded:
+
+\begin{lstlisting}
+ParseHeaders collapse -s <clustered_5prime_reads> -f CLUSTER --act cat;
+ParseHeaders merge -f REPLICATE CLUSTER -k RCLUSTER --act set -s <annotated_5prime_reads>;
+PairSeq -1 <reannotated_5prime_reads> -2 <3prime_reads> --1f BARCODE CLUSTER RCLUSTER --coord illumina
+\end{lstlisting}
+
+\subsubsection{Consensus-read generation and pair merging}
+\label{sec:methods-comp-presto-merge}
+
+Following the clustering and unification steps described in \Cref{sec:methods-comp-presto-correct}, the 5' and 3' reads files underwent UMI aggregation and consensus building. In this process, the reads within each MIG were aligned, and a consensus read sequence was generated such that the base value at each position was the one that maximised the consensus quality score (see ... for more details): % TODO: Cite pRESTO SI
+
+ ... % describe algorithm for BuildConsensus
+
+\begin{lstlisting}
+BuildConsensus --bf RCLUSTER --cf <header_fields> --act <copy_actions> --maxerror 0.1 --maxgap 0.5 -s <annotated_reads_file>
+\end{lstlisting}
+
+Positions at which at least half the aligned reads in the MIG had a gap character were deleted from the consensus, while MIGs with a mismatch rate from the consensus of more than 10\% were discarded from the dataset. The resulting \format{FASTQ} file contained a single consensus sequence for each cluster annotation, labelled with its CONSCOUNT (the number of reads contributing to that consensus sequence),  the number of reads allocated to each barcode in the cluster, and various header fields (\snippet{<header_fields>}) propagated from the contributing reads by summing or concatenating the values from each contributing read (\snippet{<copy_actions>}). These annotations were then unified across the forward and reverse consensus reads, and consensus reads without a mate of the same cluster identity were dropped: %This file is typically much smaller than the preceding, uncollapsed reads files, enabling subsequent steps in the analysis to be performed substantially more quickly.
+
+\begin{lstlisting}
+PairSeq -1 <5prime_consensus_reads> -2 <3prime_consensus_reads> -coord presto
+\end{lstlisting}
+
+After this, the forward and reverse consensus reads were aligned and merged into a single contiguous sequence, theoretically representing the variable region of a single mRNA molecule in the original input sample. Consensus-read pairs that could not be confidently aligned (e.g. due to the lack of a significant sequence overlap) were instead aligned with \program{BLASTN} to a reference database of \vh sequences to generate a merged sequence, with \sequence{N} characters used to separate pairs that aligned in a non-overlapping manner on the same \vh segment; if this second approach also failed to produce a consistent alignment, the consensus-read pair was discarded. In either case, annotation fields were copied to the new merged sequence from the forward consensus read, with the fields to be copied specified by \snippet{--1f <header_fields>} This sequential approach was implemented using \program{pRESTO} as follows:
+
+\begin{lstlisting}
+AssemblePairs sequential --coord presto --scanrev --aligner blastn --rc tail --1f <header_fields> -1 <5prime_consensus_reads> -2 <3prime_consensus_reads> -r <vh_fasta_file>
+\end{lstlisting}
+
+\subsubsection{Collapsing identical sequences and singleton removal}
+\label{sec:methods-comp-presto-collapse}
+
+To quantify the abundance of each unique sequence present in each sample, merged consensus sequences with identical insert sequences but distinct MIG assignments were collapsed together into a single FASTQ entry, recording the number, size and UMI makeup of contributing MIGs in each case in the sequence header alongside any annotation information (see \Cref{sec:methods-comp-presto-merge} for more details):
+
+\begin{lstlisting}
+CollapseSeq --inner --cf <header_fields> --act <copy_actions> -n 20 -s <merged_consensus_seqs>
+\end{lstlisting}
+
+The collapsed sequences from each replicate identity in the dataset were then combined for easier downstream processing. Sequences from any replicate that were represented by only one forward read across all contributing MIGs (i.e. so-called \textit{singleton} sequences, with a \snippet{CONSCOUNT} of no more than 1} were then identified and separated from non-singleton sequences:
+
+\begin{lstlisting}
+SplitSeq group -f CONSCOUNT --num 2 -s <collapsed_consensus_seqs>
+\end{lstlisting}
+
+As these singletons are unable to be corrected by MIG grouping and cluster correction, they are disproportionately likely to represent erroneous sequences, and are generally not used in downstream analysis pipelines. They were therefore discarded here, while the file of non-singleton sequences was converted into \format{FASTA} format with \program{seqtk}, for further processing with \program{IgBLAST} and \program{Change-O}: %TODO: Cite Change-O here
+
+\begin{lstlisting}
+seqtk seq -a <non_singleton_consensus_seqs> > <presto_fasta_output>
+\end{lstlisting}
+
+\subsubsection{Assigning VDJ identities with IgBLAST}
+
+The \program{pRESTO} pipeline described in preceding sections converts raw IgSeq reads into corrected, collapsed consensus sequences, with each sequence representing a unique sequence present in the original RNA sample. Before analysing the diversity, structure, or other properties of the sequenced repertoires, further processing is required to assign V/D/J identities, clonotype membership, and germline sequences to each sequence in the dataset. These processing steps were here performed using \program{pRESTO}'s sister program \program{Change-O} and the ... program \program{IgBLAST}. % TODO: Describe and cite IgBLAST; cite Change-O
+
+To assign initial \vh, \dh and \jh identities, sequences in the preprocessed dataset were aligned to reference \vh, \dh and \jh sequence databases from the \nfu \igh{} locus with \program{IgBLAST}. To do this, each reference file was converted into a \program{BLAST} database with \snippet{makeblastdb}, and the output \format{FASTA} file from \Cref{sec:methods-comp-presto-collapse} was aligned to these databases with \snippet{igblastn}:
+
+\begin{lstlisting}
+makeblastdb -parse_seqids -dbtype nucl -in <vh_reference_fasta> -out <vh_db_prefix>;
+makeblastdb -parse_seqids -dbtype nucl -in <dh_reference_fasta> -out <dh_db_prefix>;
+makeblastdb -parse_seqids -dbtype nucl -in <jh_reference_fasta> -out <jh_db_prefix>;
+igblastn -ig_seqtype Ig -domain_system imgt -query <presto_fasta_output> -out <igblast_output> -germline_db_V <vh_db_prefix> -germline_db_D <dh_db_prefix> -germline_db_J <jh_db_prefix> -auxiliary_data <jh_aux_file> -outfmt '7 std qseq sseq btop'
+\end{lstlisting}
+
+This results in... % TODO: Describe IgBLAST output and use of aux file
+
+\subsubsection{Clonotype and germline inference with Change-O}
+
+Following V/D/J assignment, the output \format{FASTA} file from \Cref{sec:methods-comp-presto-collapse}, reference segment databases from ... % TODO: reference locus chapter here
+, and segment assignments from \program{IgBLAST} were used to construct a tab-delimited \program{Change-O} sequence database, constituting the basis for all further processing and analysis with the Immcantation toolset: % TODO: Cite/describe Immcantation
+
+\begin{lstlisting}
+MakeDb igblast --regions --scores --failed --partial --asis-calls --cdr3 -i <igblast_output> -s <presto_fasta_output> -r <vh_reference_fasta> <dh_reference_fasta> <jh_reference_fasta>
+\end{lstlisting}
+
+\noindent where \snippet{--failed} indicates that invalid sequences should be included in a separate database rather than discarded outright, \snippet{--regions} and \snippet{--cdr3} indicate that the database should include FR and CDR annotations, \snippet{--scores} indicates that the database should include alignment score metrics, \snippet{--partial} indicates that sequences with incomplete V/D/J alignments (e.g. those without an unambiguous V- or J-assignment) should not automatically qualify as failed, and \snippet{--asis-calls} instructs the program to accept assignments to V/D/J databases with non-standard name formatting.
+
+Once the database was constructed, the sequences it contained underwent clonotype assignment, with sequences predicted to have arisen from a common na\"{i}ve B-cell ancestor annotated as belonging to the same B-cell clone. To do this, sequences from the same individual with compatible V- and J-assignments and the same CDR3 length were grouped together, and each of these groups underwent single-linkage clustering based on length-normalised pairwise Hamming distances between sequences: % TODO: Citations for various things in here
+
+\begin{lstlisting}
+DefineClones --act set --model ham --sym min --norm len --failed -d <changeo_db> --dist <cluster_distance_threshold> --gf INDIVIDUAL
+\end{lstlisting}
+
+\noindent where \snippet{--act set} tells the program how to handle ambiguous V/D/J assignments, \snippet{--model ham} specifies the clustering metric as the pairwise Hamming distance; \snippet{--norm len} indicates that the Hamming distances should be normalised by sequence length; \snippet{--sym min} specifies that, in the event of asymmetric \texttt{A -> B} and \texttt{B -> A} distances (e.g. arising from length normalisation) the minimum distance should be used; and \snippet{--dist} specifies the distance threshold at which to cut the clustering dendrogram.
+
+In order to compute the appropriate cluster threshold to use in the above command, a nearest-neighbour Hamming distance is computed for each sequence in the dataset and the distribution of nearest-neighbour distances is inferred; this distribution is typically bimodal, with the lower peak representing the distribution of NN distances within clones and the higher peak representing the distribution of NN distances between clones. The optimal cutoff between these distributions was then selected by fitting all four possible combinations of gamma and normal distributions to the two peaks in the NN distribution, selecting the combination yielding the highest maximum likelihood (typically ...), % TODO: Specify distribution here
+and choosing the threshold that maximises the average of sensitivity and specificity for those distributions. These processing steps were implemented in \program{R}, using the \program[R]{SHazaM} and \program[R]{Alakazam} packages from the Immcantation framework: % TODO: Clarify "average of sensititivity and specificity of assignment
+
+\begin{lstlisting}[language=R]
+tab <- readChangeoDb(<changeo_db_path>)
+dist <- distToNearest(tab, model = "ham", normalize = "len", symmetry = "min", fields = "INDIVIDUAL")
+models <- c("gamma-gamma", "gamma-norm", "norm-gamma", "norm-norm")
+thresholds <- numeric(length(models))
+likelihoods <- numeric(length(models))
+for(n in 1:length(models)){
+	obj <- tryCatch(findThreshold(as.numeric(tab$DIST_NEAREST), method = "gmm", model = "hmm", cutoff = "opt"), error = function(e) return(e$message), warning = function(w) return(w$message))
+	thresholds[n] <- ifelse(isS4(obj), obj@threshold, NA)
+	likelihoods[n] <- ifelse(isS4(obj), obj@loglk, NA)
+}
+if (!all(is.na(thresholds))) write(thresholds[last(which(likelihoods == max(likelihoods, na.rm = TRUE))], <threshold_output_path>)
+%\end{lstlisting} 
+% TODO: Get rid of this? (Not actually what the code looks like but describes the functionality)
+
+After threshold determination and clonotyping, the germline sequence... % TODO: describe germline inference after hearing back from Jason
+
+% TODO: Describe clustering by individual AND replicate, or just individual?
+
+\begin{lstlisting}
+CreateGermlines -g dmask --cloned -d <clonotyped_changeo_db> -r <vh_reference_fasta> <dh_reference_fasta> <jh_reference_fasta> --failed
+\end{lstlisting}
+
+Finally, the clonotyped and germline-inferred sequence database was split on the basis of functionality, with nonfunctional (frame-shifted, nonsense-mutated, or lacking V/J assignments) sequences moved into a separate database file before downstream analysis:
+
+\begin{lstlisting}
+ParseDb split -f FUNCTIONAL -d <germlined_changeo_db>
+\end{lstlisting}\textbf{3}
+
+\subsection{Downstream analysis}
+
+\section{Results and discussion}
+
+
+

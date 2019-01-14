@@ -1,0 +1,15 @@
+tree_name,Genus,Species,IGHZ,Highlight,Nothobranchiidae,Cyprinodontiformes,Atherinomorpha
+NOR,Nothobranchius,orthonotus,0,0,1,1,1
+NFU,Nothobranchius,furzeri,0,1,1,1,1
+AAU,Aphyosemion,australe,0,0,1,1,1
+CTO,Callopanchax,toddi,1,0,1,1,1
+PPL,Pachypanchax,playfairii,1,0,0,1,1
+ALI,Austrofundulus,limnaeus,0.6,0,0,1,1
+KMA,Kryptolebias,marmoratus,1,0,0,1,1
+PRE,Poecilia,reticulata,1,0,0,1,1
+PFO,Poecilia,formosa,1,0,0,1,1
+XMA,Xiphophorus,maculatus,1,1,0,1,1
+FHE,Fundulus,heteroclitus,1,0,0,1,1
+CVA,Cyprinodon,variegatus,1,0,0,1,1
+OLA,Oryzias,latipes,0,0,0,0,1
+GAC,Gasterosteus,aculeatus,1,0,0,0,0
