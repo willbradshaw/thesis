@@ -61,7 +61,7 @@ As discussed briefly in \Cref{sec:xma-locus-structure}, the \Xma \igh{} locus co
 	\label{tab:xma-cz-aln}
 \end{table}
 
-\begin{table}\centering % Center table
+\begin{table}\centering
     \caption{Co-ordinate table of constant-region exons in the \xma \igh{} locus}
     	\input{_Figures/tables/xma-new-ch-coords}
     \label{tab:xma-ch-coords}
@@ -69,8 +69,7 @@ As discussed briefly in \Cref{sec:xma-locus-structure}, the \Xma \igh{} locus co
 
 While the state of \igh{Z} constant regions differs markedly between \Xma and \Nfu, the configurations of the \igh{M} and \igh{D} constant regions of the two species are quite similar, with a {\cm{1}-\cm{2}-\cm{3}-\cm{4}-TM1-TM2} configuration for \igh{M} and a {\cd{1}-(\cd{2}-\cd{3}-\cd{4})$_2$-\cd{5}-\cd{6}-\cd{7}-TM1-TM2} configuration for \igh{D} (\Cref{fig:xma-locus-map-b,fig:xma-locus-map-c}, \Cref{tab:xma-ch-coords}). In the \Xma locus, these constant regions and \igh{Z1} adopt the standard configuration seen in comparatively simple teleost \igh{} loci like those of zebrafish and fugu, with a {\vh-\dh-\jh-CZ-\dh-\jh-CM-CD} arrangement that allows the choice between \igh{Z} and \igh{M/D} usage to be made via the choice of \dh segment during VDJ-recombination. However, whether such a mechanism is also responsible for the choice between these constant regions and \igh{Z1}, which lies more than \kb{200} away and upstream of the great majority of \vh segments in the locus (\Cref{sec:xma-locus-variable}) is questionable.
 
-In order to investigate the expressed isoforms present in \Xma, published RNA-sequencing reads from various tissues of \dots individual platyfish (\dots).% TODO: Reference project here
-were aligned together to the \igh{Z} and \igh{M/D} constant regions with \program{STAR}. The results indicate the expected six-exon transmembrane configuration in both \igh{Z1} and \igh{Z2}, as well as a secretory form of \igh{Z1} comprising \cz{1} to \cz{4} plus a \bp{23} secretory tail formed by a transcriptional run-on event from \cz{4} (\Cref{fig:xma-locus-sashimi-z1,fig:xma-locus-sashimi-z2}). However, while an in-frame secretory tail of similar length (\bp{20}) can be found in \igh{Z2}, it does not appear to be expressed in the read sets analysed here, indicating that \igh{Z2} may only be expressed in transmembrane form in the individuals sampled (\Cref{fig:xma-locus-sashimi-z2}).
+In order to investigate the expressed isoforms present in \Xma, published RNA-sequencing reads from various platyfish tissues (BioProject accession PRJNA420092, all libraries). were aligned together to the \igh{Z} and \igh{M/D} constant regions with \program{STAR}. The results indicate the expected six-exon transmembrane configuration in both \igh{Z1} and \igh{Z2}, as well as a secretory form of \igh{Z1} comprising \cz{1} to \cz{4} plus a \bp{23} secretory tail formed by a transcriptional run-on event from \cz{4} (\Cref{fig:xma-locus-sashimi-z1,fig:xma-locus-sashimi-z2}). However, while an in-frame secretory tail of similar length (\bp{20}) can be found in \igh{Z2}, it does not appear to be expressed in the read sets analysed here, indicating that \igh{Z2} may only be expressed in transmembrane form in the individuals sampled (\Cref{fig:xma-locus-sashimi-z2}).
 
 Meanwhile, the results for \igh{D} (\Cref{fig:xma-locus-sashimi-d}) indicate a similar configuration to that observed in turquoise killifish, with a chimeric \cm{1} followed by 10 \cd{} exons and two transmembrane exons; as in \Nfu, neither a dedicated \igh{D} secretory exon nor a post-\cd{7} secretory tail was identified, suggesting that \igh{D} may be produced solely in transmembrane form in this species. However, while secretory \igh{M} (\igh{M-S}) in platyfish was found to occupy the expected four-exon configuration seen in turquoise killifish and elsewhere (\Cref{fig:xma-locus-sashimi-m}), the configuration observed for transmembrane \igh{M} (\igh{M-TM}) did not correspond to the four-exon structure shared between turquoise killifish and medaka (\Cref{fig:nfu-locus-sashimi-a}). Rather, \igh{M-TM} in \Xma occupies the five-exon configuration seen in most characterised teleosts (\Cref{fig:teleost-igm-exons-d}). This surprising difference indicates that two different splice configurations of \igh{M-TM} persist in the cyprinodontiform lineage, and raises the question of what, if any, functional difference arises from the presence or absence of \cm{3} in transmembrane IgM in different species. However, it remains unclear whether this pattern of exon usage (\Cref{fig:species-tree-small}) is the result of independent changes in medaka and turquoise killifish or of a reversion in \Xma to the primitive teleost configuration.
 	
@@ -125,7 +124,7 @@ Finally, as is the case with \Nfu, the recombination signal sequences (RSSs) in 
 	
 	\begin{figure}
 	\centering
-	\includegraphics[width=0.8\textwidth]{_Figures/png/nfu-xma-vh-tree-nt.png} % TODO: Update tree
+	\includegraphics[width=0.8\textwidth]{_Figures/png/nfu-xma-vh-tree-nt.png}
 	\caption[Evolutionary relationships between \vh families in \Xma and \Nfu]{\textbf{Evolutionary relationships between \vh families in \Xma and \Nfu:} Phylogenetic tree of evolutionary relationships between \textit{IGH} \vh segments in \Nfu and \Xma, as inferred from the nucleotide sequences of \vh segments from both loci. Note the close interrelationship between the largest (blue zone) and second-largest (green zone) families in each species. The red diamond indicates the location of the outgroup, which is composed of zebrafish \textit{TRB} V-segments.}
 	\label{fig:nfu-xma-vh-tree-nt}
 	\end{figure}
@@ -159,8 +158,8 @@ Finally, as is the case with \Nfu, the recombination signal sequences (RSSs) in 
 
 	
 \afterpage{%
-    \begin{landscape}% Landscape page
-        \centering % Center table
+    \begin{landscape}
+        \centering
         \vspace*{\fill}
         \scriptsize
 		\input{_Figures/tables/xma-new-vh-coords-1}
@@ -172,8 +171,8 @@ Finally, as is the case with \Nfu, the recombination signal sequences (RSSs) in 
 }
 
 \afterpage{%
-    \begin{landscape}% Landscape page
-        \centering % Center table
+    \begin{landscape}
+        \centering
         \vspace*{\fill}
         \scriptsize
 		\input{_Figures/tables/xma-new-vh-coords-2}
@@ -185,8 +184,8 @@ Finally, as is the case with \Nfu, the recombination signal sequences (RSSs) in 
 }
 
 \afterpage{%
-    \begin{landscape}% Landscape page
-        \centering % Center table
+    \begin{landscape}
+        \centering
         \vspace*{\fill}
         \scriptsize
 		\input{_Figures/tables/xma-new-vh-coords-3}
@@ -198,8 +197,8 @@ Finally, as is the case with \Nfu, the recombination signal sequences (RSSs) in 
 }
 
 \afterpage{%
-    \begin{landscape}% Landscape page
-        \centering % Center table
+    \begin{landscape}
+        \centering
         \vspace*{\fill}
         \scriptsize
 		\input{_Figures/tables/xma-new-vh-coords-4}
@@ -211,8 +210,8 @@ Finally, as is the case with \Nfu, the recombination signal sequences (RSSs) in 
 }
 
 \afterpage{%
-    \begin{landscape}% Landscape page
-        \centering % Center table
+    \begin{landscape}
+        \centering
         \vspace*{\fill}
         \scriptsize
 		\input{_Figures/tables/xma-new-vh-coords-5}
@@ -224,8 +223,7 @@ Finally, as is the case with \Nfu, the recombination signal sequences (RSSs) in 
 }
 
 \afterpage{%
-        \centering % Center table
-        %\vspace*{\fill}
+        \centering
         \captionof{table}{Co-ordinate table of \dh segments in the \xma \igh{} locus}\vspace{-0.3em}
         \label{tab:xma-dh-coords-rss3}
         \scriptsize
@@ -245,8 +243,8 @@ Finally, as is the case with \Nfu, the recombination signal sequences (RSSs) in 
 }
 
 \afterpage{%
-    \begin{landscape}% Landscape page
-        \centering % Center table
+    \begin{landscape}
+        \centering
         \notsotiny
 		\input{_Figures/tables/xma-new-jh-coords-seg}
 		\normalsize\vspace{0.6em}
