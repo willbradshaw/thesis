@@ -15,9 +15,26 @@ In order to locate and characterise the \nfu \igh{} locus, databases of \vh, \jh
 \label{tab:nfu-locus-scaffolds}
 \end{table}
 
-In order to determine which of the putative locus scaffolds were in fact part of the \igh{} locus, integrate these into a contiguous locus sequence, and provide additional information on any missing sequence remaining, bacterial artificial chromosomes from the killifish genome project BAC library were identified, isolated, sequenced, and integrated into the locus assembly. The BAC candidates, whose ends had already been sequenced as part of the genome project, were identified as potentially containing part of the locus sequence on the basis of their ends aligning to promising candidate scaffolds from a previous genome assembly (...) or to the insert sequences of previously sequenced BAC inserts (...). Once identified,  BAC candidates were isolated from culture by alkaline lysis, sequenced on an Illumina MiSeq sequencing machine, and assembled and scaffolded with \program{SPAdes} and \programe{SSPACE}, respectively. Complete BAC insert assemblies were generated from these scaffolds by manual alignment to overlapping genome scaffolds, combined with PCR and Sanger sequencing of intervening sequences. % TODO: Fill in details
+\begin{table}[bh]
+\centering
+\caption{\Nfu BAC-library inserts containing putative \igh{} locus fragments}
+\begin{threeparttable}
+\input{_Figures/tables/nfu-locus-bacs}
+\end{threeparttable}
+\label{tab:nfu-locus-bacs}
+\end{table}
 
-Finally, the assembled BAC inserts were screened for \igh{} locus segments in the same manner described for genome scaffolds, and passing insert sequences were aligned to and integrated with the identified candidate scaffolds to produce a contiguous locus assembly. To minimise the probability of losing relevant gene segments to assembly errors, priority in the event of a sequence conflict between BACs and scaffolds was given first to any sequence containing a segment missing from the other; if neither the BAC assembly nor the genome scaffolds met this condition, priority was given to the genome scaffold over the BAC assembly. In total, 3 candidate scaffolds (including chromosome 6) were included in the final locus assembly, while 4 were excluded as likely representing isolated \igh{} orphon segments elsewhere in the genome. The correspondence between the final locus sequence and the sequences used to construct it is shown in \Cref{fig:...}. % TODO: Correspondence figure
+
+In order to determine which of the putative locus scaffolds were in fact part of the \igh{} locus, integrate these into a contiguous locus sequence, and provide additional information on any missing sequence remaining, bacterial artificial chromosomes from the killifish genome project BAC library were identified, isolated, sequenced, and integrated into the locus assembly. The BAC candidates, whose ends had already been sequenced as part of the genome project, were identified as potentially containing part of the locus sequence on the basis of their ends aligning to promising candidate scaffolds from a previous genome assembly (first round) or to the insert sequences of previously sequenced BAC inserts (second round). Once identified,  BAC candidates were isolated from culture by alkaline lysis, sequenced on an Illumina MiSeq sequencing machine, and assembled and scaffolded with \program{SPAdes} and \programe{SSPACE}, respectively. Complete BAC insert assemblies were generated from these scaffolds by manual alignment to overlapping genome scaffolds, combined with PCR and Sanger sequencing of intervening sequences.
+
+Finally, the assembled BAC inserts were screened for \igh{} locus segments in the same manner described for genome scaffolds, and passing insert sequences (\Cref{tab:nfu-locus-bacs}) were aligned to and integrated with the identified candidate scaffolds to produce a contiguous locus assembly. To minimise the probability of losing relevant gene segments to assembly errors, priority in the event of a sequence conflict between BACs and scaffolds was given first to any sequence containing a segment missing from the other; if neither the BAC assembly nor the genome scaffolds met this condition, priority was given to the genome scaffold over the BAC assembly. In total, 3 candidate scaffolds (including chromosome 6) were included in the final locus assembly, while 4 were excluded as likely representing isolated \igh{} orphon segments elsewhere in the genome. The correspondence between the final locus sequence and the sequences used to construct it is shown in \Cref{fig:nfu-locus-aln}. % TODO: Correspondence figure
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{_Figures/png/nfu-locus-aln}
+\caption[]{\textbf{:} Schematic of genome scaffolds and BAC inserts contributing to the \Nfu \igh{} locus sequence, with their corresponding place within the locus sequence (bottom axis). Internal gaps with dotted lines indicate locus regions with no corresponding locus sequence, as a result of intercalation of BAC or scaffold sequences.}
+\label{fig:nfu-locus-aln}
+\end{figure}
 
 \subsection{Overall locus structure}
 \label{sec:nfu-locus-structure}
