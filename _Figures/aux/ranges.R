@@ -194,7 +194,5 @@ check_annotations <- function(table){
   # Confirm that annotation column has been fully converted to comments
   annots_remaining <- table$annotation[table$annotation != ""]
   if (length(annots_remaining) == 0) return(table %>% select(-annotation))
-  stop(paste0("Not all annotation entries processed into comments. ",
-              "Entries remaining: ",
-              a, "."))
+  stop("Not all annotation entries processed into comments. ")
 }

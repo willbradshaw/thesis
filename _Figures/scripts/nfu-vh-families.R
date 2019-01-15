@@ -80,7 +80,7 @@ gg_color_hue <- function(n) {
 
 # Convert dendrogram to phylogenetic tree
 vh_phylo <- as.phylo(vh_clust_nt)
-vh_tbl_tree_raw <- as_data_frame(vh_phylo)
+vh_tbl_tree_raw <- as_tibble(vh_phylo)
 vh_tbl_tree_raw[["locus"]] <- sub("IGH(\\d)V.*", "\\1", vh_tbl_tree_raw$label) %>%
   as.integer
 

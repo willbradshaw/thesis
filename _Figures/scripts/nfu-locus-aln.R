@@ -147,6 +147,10 @@ sseqid_factor <- factor(summ_tab$sseqid, levels = unique(summ_tab$sseqid))
 summ_tab$sseqid <- sseqid_factor
 level_chr <- which(levels(sseqid_factor) == "chr6")
 
+# Add boldfacing for locus row
+sseqid_face <- rep(1, length(levels(sseqid_factor)))
+sseqid_face[levels(sseqid_factor) == locus_name] <- 2
+
 #------------------------------------------------------------------------------
 # Make plot
 #------------------------------------------------------------------------------
@@ -174,7 +178,9 @@ g <- ggplot(summ_tab) +
                         labels = c("3' → 5'", "5' → 3'")) +
   theme_minimal() + theme_base +
   theme(axis.title.x = element_text(margin = margin(t=3, b=3, unit="mm")),
-        axis.title.x.top = element_text(margin = margin(b=4, unit="mm")))
+        axis.title.x.top = element_text(margin = margin(b=4, unit="mm")),
+        panel.grid = element_line(colour = "#CCCCCC"),
+        axis.text.y = element_text(face = sseqid_face))
 
 #------------------------------------------------------------------------------
 # Save plot

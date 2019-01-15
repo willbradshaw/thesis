@@ -258,7 +258,7 @@ ch_aln_unmatched <- align_mask(ch_nt[ch_unmatched], locus_unmasked)
 # Align and mask matched sequences
 vh_aln_matched <- align_match_groups(vh_matched, vh_nt, vh_aln_unmatched$subject_masked)
 jh_aln_matched <- align_match_groups(jh_matched, jh_nt, dh_aln_unmatched$subject_masked)
-dh_aln_matched <- align_match_groups(dh_matched, dh_nt, jh_aln_unmatched$subject_masked)
+dh_aln_matched <- align_match_groups(dh_matched, dh_plus_rss, jh_aln_unmatched$subject_masked)
 ch_aln_matched <- align_match_groups(ch_matched, ch_nt, ch_aln_unmatched$subject_masked)
 
 # Collate segment ranges
