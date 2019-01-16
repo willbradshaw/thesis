@@ -261,12 +261,12 @@ cz2_tm_tab <- cz2_tab %>%
   filter(exon1 %in% c("CZ-1", "CZ-2", "CZ-3", "CZ-4", "CZ-TM1", "CZ-TM2")) %>%
   mutate(transcript = "IGHZ2-TM")
 
-cz2_s_tab <- cz2_tab %>% 
-  filter(exon1 %in% c("CZ-1", "CZ-2", "CZ-3", "CZ-4", "CZ-S")) %>%
-  mutate(transcript = "IGHZ2-S")
+# cz2_s_tab <- cz2_tab %>% 
+#   filter(exon1 %in% c("CZ-1", "CZ-2", "CZ-3", "CZ-4", "CZ-S")) %>%
+#   mutate(transcript = "IGHZ2-S")
 
 cz2_tab_summary <- bind_rows(cz2_tab, jz2_tab, dz2_tab)
-cz2_tab_grouped <- bind_rows(cz2_tm_tab, cz2_s_tab)
+cz2_tab_grouped <- bind_rows(cz2_tm_tab)#, cz2_s_tab)
 
 # Make overall and transcript-specific tracks
 cz2_summary_track <-
@@ -287,7 +287,7 @@ cz2_grouped_track <-
                   transcript = cz2_tab_grouped$transcript,
                   transcriptAnnotation = "transcript",
                   name = "Isoforms",
-                  size = 1.5)
+                  size = 3)
 
 #------------------------------------------------------------------------------
 # COMBINE AND PLOT TRACKS
