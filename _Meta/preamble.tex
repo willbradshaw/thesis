@@ -151,7 +151,7 @@
 	natbib=true, maxnames=4, minnames=4, url=false, giveninits=true]{biblatex}
 \renewbibmacro{in:}{\ifentrytype{article}{}{\printtext{\bibstring{in}\intitlepunct}}}
 %\bibliography{References/references} %Location of references.bib only for biblatex
-\bibliography{D_References/Locus}
+\bibliography{D_References/Locus,D_References/IgSeq}
 
 \fi
 
@@ -274,6 +274,7 @@
 \newcommand{\ngml}{\cu{\nano\gram\per\milli\litre}} % ng/ml
 \newcommand{\ugml}{\cu{\micro\gram\per\milli\litre}} % ug/ml
 \newcommand{\mgml}{\cu{\milli\gram\per\milli\litre}} % mg/ml
+\newcommand{\gl}{\cu{\gram\per\liter}} % g/L
 % Units per volume (for enzymes)
 \newcommand{\unitsul}{\cu{\Unit\per\micro\litre}} % units/ul, for enzymes
 % Percentages
@@ -285,6 +286,7 @@
 
 %% TEMPERATURE %%
 \newcommand{\degC}[1]{\SI[detect-weight]{#1}{\degreeCelsius}} % degrees celcius
+\newcommand{\degrees}[1]{\SI[detect-weight]{#1}{\degree}}
 
 %% PH %%
 \DeclareSIUnit{\pH}{pH~}
@@ -401,3 +403,4 @@
 \newcommand\evenlesstiny{\@setfontsize\notsotiny\@viiipt\@ixpt}
 \makeatother
 
+\newcommand{\subsubsubsection}[1]{\noindent\textit{#1}\noindent}

@@ -1,10 +1,14 @@
 \section{Biochemistry and molecular biology methods}
 
-\subsection{PCR}
-\label{sec:methods_pcr}
+% TODO: Sanger sequencing with Eurofins
+
+\subsection{Standard methods}
+
+\subsubsection{PCR}
+\label{sec:methods_molec_standard_pcr}
 
 % TODO: Brief explanation of PCR and link to good summary reference.
-
+The polymerase chain reaction is a well-established method for rapid amplification of a DNA sequence through repeated cycles of denaturation, priming and replication by a high-temperature-tolerant DNA polymerase enzyme. % TODO: Citation needed
 Unless otherwise specified, all PCRs were performed using \x{2} KAPA HiFi HotStart ReadyMix PCR Kit (see \Cref{app:solutions_enzymes}) according to the manufacturer's instructions. Briefly, for a \ul{25} reaction, \ul{12.5} KAPA ReadyMix was combined with \ul{12.5} total of template, nuclease-free water, and primers; these volumes were scaled linearly for reactions of different volumes. The mixture was then heated in a thermocycler as follows:
 
 \begin{center}
@@ -16,23 +20,119 @@ Denaturation & 98 & 20 & \multirow{3}{*}{$n_c$\tnote{1}}\\
 Annealing & $T_a$\tnote{1} \tnote{} & 15 & \\
 Extension & 72 & $t_{ext}$\tnote{1} & \\\midrule
 Final extension & 72 & $t_{ext} \times 4$\tnote{1} & 1\\
-\end{tabular}
+\bottomrule\end{tabular}
 \begin{tablenotes}
 \item[1] Annealing temperature ($T_a$), extension time ($t_{ext}$) and cycle number ($n_c$) determined separately for each reaction.
 \end{tablenotes}
 \end{threeparttable}
 \end{center}
 
-\subsection{Reverse-transcription}
-\label{sec:methods_rt}
+\subsubsection{Nucleic-acid purification with SeraSure magnetic beads}
+\label{sec:methods_molec_standard_serasure}
+
+Nucleic-acid isolation, size-selection and concentration in the IgSeq library preparation protocol (and elsewhere where necessary) was performed using SeraSure SPRI (solid phase reversible immobilization) bead preparations. In SPRI, paramagnetic beads bind DNA in the presence of polyethylene glycol (PEG), with the affinity of the beads for DNA depending on the concentration of PEG in the binding buffer. As a result, the range of nucleic-acid sequence lengths retained by SPRI bead purification depends primarily on the concentration of PEG, which in turn depends on the relative volume of SeraSure bead suspension added to a sample; the higher the concentration, the shorter the minimum fragment length retained during the purification process. In combination with a magnetic rack to remove the DNA-bound beads from suspension, this allows DNA of the desired size range to be isolated from a solution and resuspended in the desired volume of fresh buffer.
+
+To prepare \ml{50} of SeraSure bead suspension for DNA (or DNA:RNA heteroduplex) isolation, a stock of SeraMag beads (\Cref{app:solutions_reagents}) was vortexed thoroughly, then \ml{1} was transferred to a new tube. This tube was then transferred to a magnetic rack and incubated at room temperature for \mins{1}, then the supernatant was removed and replaced with \ml{1} TET buffer (\Cref{app:solutions_buffers}) and the tube was removed from the rack and vortexed thoroughly. This washing process was repeated twice more, for a total of three washes in TET. A fourth cycle was used to replace the TET with incomplete SeraBind buffer (iSB, \Cref{app:solutions_buffers}). The vortexed \ml{1} aliquot of beads in iSB was then transferred to a conical tube containing \ml{28} iSB and mixed by inversion. To add the PEG, \ml{20} \pc{50} (w/v) PEG 8000 solution was dispensed slowly down the side of the conical tube, bringing the total volume to \ml{49}. Finally, this was brought to \ml{50} by adding \ul{250} \pc{10} (w/v) Tween 20 solution and \ul{750} autoclaved water to complete the SeraSure bead suspension.
+
+To perform a bead cleanup, an aliquot of prepared SeraBind solution was vortexed thoroughly to completely resuspend the beads, then the appropriate relative volume of SeraSure suspension was added to a sample, mixing thoroughly by gentle pipetting. The sample was incubated at room temperature for \mins{5} to allow the beads to bind the DNA, then transferred to a magnetic rack and incubated for a further \mins{5} to draw as many beads as possible out of suspension. The supernatant was removed and discarded and replaced with \pc{80} ethanol, to a volume sufficient to completely submerge the bead pellet. The sample was incubated for 0.5-\mins{1}, then the ethanol was replaced and incubated for a further 0.5-\mins{1}. The second ethanol wash was removed, and the tube left on the rack until the bead pellet was almost, but not completely, dry, after which it was removed from the rack. The bead pellet was resuspended in a suitable volume of EB, then incubated at room temperature for at least 5 minutes to allow the nucleic-acid molecules to elute from the beads.
+
+Unless otherwise specified, the beads from a cleanup were left in a sample during subsequent applications. To remove beads from a sample, the sample was mixed gently but thoroughly to resuspend the beads, incubated for an extended time period (at least \mins{10}) to maximise nucleic-acid elution, then transferred to a magnetic rack and incubated for 2-\mins{5} to remove the beads from suspension. The supernatant (containing the eluted nucleic-acid molecules) was then transferred to a new tube, and the beads discarded.
+
+\subsubsection{Guanidinium thiocyanate-phenol-chloroform extraction of RNA}
+\label{sec:methods_molec_standard_qiazol}
+
+To isolate total RNA from homogenised killifish tissues, \ml{1} of QIAzol lysis reagent (containing acid phenol and guanidinium thiocyanate) was added to \g{0.1} of tissue, mixed gently but thoroughly by inversion, then incubated at room temperature for \mins{5} for the QIAzol to penetrate the tissue. \vols{0.2} of chloroform was added and the mixture was shaken vigorously for \secs{15}, then incubated at room temperature for \mins{3}. The mixture was then centrifuged (\mins{15}, \degC{4}, \g{12000}). Angling the tube at \degrees{45}, the upper aqueous phase containing the RNA was removed and transferred to a new tube, while the lower organic phase was discarded.
+
+Following phase separation, the RNA was precipitated by adding \vols{0.5} room-temperature isopropanol, mixing gently by inversion and incubating for \mins{5} at room temperature. The suspension was centrifuged (\mins{10}, \degC{4}, \g{12000}) and the supernatant discarded. \vols{1} freshly prepared \pc{75} ethanol was added and the tube was vortexed briefly and centrifuged again (\mins{5}, \degC{4}, \g{7500}). The supernatant was discarded and the RNA pellet allowed to air-dry for 5-\mins{10}, then resuspended \ul{50} EB. The concentration and quality of the resulting total-RNA solution were assayed with the Qubit 2.0 and TapeStation 4200 respectively. % TODO: Reference assay methods, reagent tables.
+
+\subsubsection{Nucleic-acid quantitation with the Nanodrop 2000c} % TODO: Which exact model
+
+The Nanodrop spectrophotometer is a commonly-used piece of laboratory equipment, which quantifies the composition of a sample by assessing its electromagnetic absorption spectrum. It is most commonly used to quantify nucleic-acid concentration in a sample by computing the ratio between its absorption at \nm{260} and its absorption at \nm{280}; its 260/230 absorption ratio can also be used to assess the purity of the samples, as many common contaminants (e.g. phenol, guanidine or carbohydrates) but not nucleic acids, absorb strongly around \nm{230}. See [TABLE] for the ideal absorption-ratio ranges, which were used as benchmarks of sample quality in this study. % Although 260/230 is less important and is typically low after TRIzol, for example
+% TODO: Read Nanodrop operating instructions
+% TODO: Describe protocol
+
+\subsubsection{Nucleic-acid quantitation with the Qubit 2.0} % TODO: Which exact model
+% TODO: Decide how much detail to give for DNA quantitation
+
+The Nanodrop provides a quick and easy method of roughly quantifying nucleic-acid concentrations in a sample, as well as assessing its purity using the 260/280 and 260/230 absorption rations. However, it cannot distinguish effectively between the levels of DNA and RNA in a sample, and therefore typically gives an inflated measure of sample concentration. To obtain more accurate measurements of DNA or RNA concentration in a sample, the Qubit spectrophotometer was used. % TODO: Reference here
+This machine works using a DNA- or RNA-specific dye, which flouresces at a known frequency when bound by the appropriate nucleic acid. % TODO: Specific Qubit mechanism
+By quantifying the level of flourescence (?) by this dye in the sample, rather than by the nucleic acid itself, the Qubit avoids the issues associated with Nanodrop quantitation and produces a much more precise and accurate measure of nucleic-acid concentration. By comparing the flourescence level to that of standards of known concentration, the readings can be converted into measures of nucleic-acid concentration that are much more precise and accurate than those produced by the Nanodrop.
+
+Several different Qubit kits are used in this study, depending on the molecule to be quantified (DNA vs RNA) and its expected concentration range (High-Sensitivity vs Broad-Range). In all cases, the protocol follows the manufaturer's instructions % Citation needed
+and is broadly the same. Firstly, standard samples are retrieved from cold storage and allowed to equilibrate at room temperature. While this is happening, \ul{1} of the appropriate Qubit reagent per sample to be measured (including the standards) is combined with \ul{199} of the appropriate buffer per sample to be measured and mixed gently but thoroughly by inversion. This master-mix is then combined with the samples to be measured in Qubit spectrophotometry tubes: \ul{1} of sample and \ul{199} of reagent for test samples and \ul{10} of sample and \ul{190} of samples for the (now-equilibrated) standards. The prepared samples were vortexed together for \secs{3}, then incubated at room temperature for \mins{2} to... % What is the incubation for actually?
+% TODO: Reference Qubit standards, reagents, buffers and tubes (non-standard lab equipment)
+
+Following the incubation, the appropriate program was selected on the Qubit 2.0 spectrophotometer, and the standards were measured according to the instructions on the machine. The test samples were measured in turn and the raw Qubit readings (in \ngml{}) were recorded. These were converted into \ngul{} concentrations using the following formula:
+
+\begin{equation}
+\mathrm{Concentration~[\ngul{}]} = \frac{\mathrm{Qubit~reading [\ngml{}]} \times 200}{1000} = \frac{\mathrm{Qubit~reading [\ngml{}]}}{5}
+\end{equation}
+
+In some cases, such as for particularly important samples or when confidence in the measurements was low (e.g. due to doubts about complete dissolving of the nucleic acid), a sample was measured by Qubit multiple times independently, typically within a single set of measurements. In these cases, the mean Qubit reading was taken as the concentration measurement, and the coefficient of variation among the measurements (CV, equal to the mean divided by the standard deviation) was used as a measure of the consistency of the measurements; in most cases, measurements with a CV greater than 0.1 % TODO: check this
+were rejected as unreliable, and the sample was diluted further or re-isolated before re-measurement.
+
+\subsection{Library size-selection with the BluePippin}
+\label{sec:methods_molec_standard_bluepippin}
+
+% TODO: Explain BluePippin functionality
+% TODO: Copy BluePippin protocol with parameter values
+
+The BluePippin is a DNA size-selection system based on agarose gel electrophoresis, which uses timed switching between positively-charged electrodes at a forked gel channel in an agarose cassette to redirect DNA of a desired size range into a separate lane from the rest of the sample. % TODO: Cite BluePippin manual here
+The timing of switching is determined based on the size range input by the user and calibrated using flourescent internal standards, which are added to the sample during the sample preparation process and designed to run well ahead of the possible size ranges for that cassette type. The combination of the choice of cassette and the choice of standards determines which fragment lengths can be effectively isolated using the machine.
+
+For the experiments described in this thesis, a \pc{1.5} cassette with R2 markers were used, enabling size selection of targets in the range of 250--\bp{1500}. % Cite protocol here
+Machine calibration and testing, cassette preparation, and protocol design were performed in accordance with the BluePippin documentation and instructions given by the machine software. During this process, the elution wells of the lanes to be used in the size-selection run were emptied and refilled with \ul{40} of electrophoresis buffer, then sealed for the duration of the run. % TODO: Reference this in appendix; % TODO: You need to put the protocol parameters somewhere
+\ul{30} of sample was then combined with \ul{10} of loading solution (including standard markers) and vortexed to mix, then \ul{40} of buffer was removed from the appropriate loading well and replaced, slowly, with the prepared sample mixture. The protocol was started and run until the final elution was complete. Finally, the eluted samples were removed from the elution wells of the appropriate lanes, and the unused lanes of the cassette were re-sealed for future use.
+
+\subsection{BAC isolation and sequencing}
+\label{sec:methods_molec_bacs}
+% TODO: Check the volumes, speeds etc against old lab book
+
+All BAC clones that were sequenced for this research were provided by the FLI institute in Jena as plate or stab cultures of transformed \textit{E. coli}, which were replated and stored at \degC{4} when not in use. Prior to isolation, the clones of interest were cultured overnight in at least \ml{100} LB medium to produce a large liquid culture. The cultures were then transferred to \ml{50} conical tubes and centrifuged (\mins{10}, \degC{4}, \g{3500}) to pellet the cells. After pelleting, the supernatant was carefully discarded and the cells were resuspended in \ml{10} buffer P1.
+
+After resuspension, the cultures underwent alkaline lysis to release the BAC DNA and precipitate genomic DNA and cellular debris. \ml{10} lysis buffer P2 was added to each tube, which was then mixed gently but thoroughly by inversion and incubated at room temperature for \mins{5}. \ml{10} ice-chilled neutralisation buffer P3 was added and each tube was mixed gently but thoroughly by inversion and incubated on ice for \mins{15}. The tubes were then centrifuged (\mins{20}, \degC{4}, \g{12000}) to pellet cellular debris and the supernatant transferred to new conical tubes. This process was repeated at least two more times, until no more debris was visible in any tube; this repeated pelleting was necessary to minimise contamination in each sample, as the normal column- or paper-based filtering steps used during alkaline lysis protocols result in the loss of the BAC DNA.
+
+Following alkaline lysis, the BAC (and residual genomic) DNA in each sample underwent isopropanol precipitation: 0.6 volumes of room-temperature isopropanol was added to the clean supernatant in each tube, followed by 0.1 volumes of \mol{3} sodium acetate solution. Each tube was mixed well by inversion, incubated for \mins{10} at room temperature, then centrifuged (\mins{30}, \degC{4}, \g{12000}) to pellet the DNA. The supernatant was discarded and the resulting DNA smear was ``resuspended" in \ml{1} \pc{100} ethanol and transferred to a \ml{1.5} tube, which was re-centrifuged (\mins{5}, \degC{4}, \g{20000}) to obtain a concentrated pellet.\dots % TODO: Was this actually what happened
+
+Finally, \dots % This last part differs between BAC groups, so I should check the lab-book for each iteration
+
+%\item Add \x{0.6} room-temperature isopropanol to the clean supernatant, followed my \x{0.1} sodium acetate. Mix well by inversion.
+%\item \Incubate{10}{RT},  then \centrifuge{30}{4}{15000}. Promptly but carefully discard the supernatant.
+%\item ``Resuspend" the pellet in \ml{1} \pc{100} ethanol and transfer to a \ml{1.5} tube, then centrifuge ($\geq$\mins{5}, \degC{4}, top speed). \alert{hint}
+%\item Carefully pour or pipette off the supernatant, then air-dry upside-down for 5-\mins{10}. \alerts{warning}{2}~~\alert{hint}
+%\item Resuspend in 30-\ul{50} of preferred buffer. \alert{pause}
+%\item Assay BAC isolate yield with the \textbf{Qubit} dsDNA BR assay. Dilute samples to a final volume of c. 50-\ngul{150} and re-quantify. \alert{hint}
+%\item Assass BAC isolate quality by running \ul{10} of diluted isolate on a \pc{0.5} \textbf{agarose gel} for 1-\hr{2}, and/or by amplifying the backbone or other query sequence using \textbf{Kapa PCR}. % add figure for QC gel appearance
+%\item Proceed to \textbf{shearase-based Illumina library preparation}.
+%\end{protocol}
+%\end{main}
+
+The resuspended BAC isolates were sent to the Cologne Center for Genomics, where they underwent ... library preparation and were sequenced on an Illumina MiSeq sequencing machine ([read length etc here], 2x300bp reads). % TODO: Get details for this
+
+\subsection{RNA isolation from killifish samples}
+
+
+\subsection{Immunoglobulin sequencing of killifish samples}
+\label{sec:methods_molec_igseq}
+
+\subsubsection{RNA template quantification and quality control}
+\label{sec:methods_molec_igseq_template}
+
+Total RNA from whole-body killifish samples was isolated as described in \Cref{sec:methods_molec_standard_qiazol}; gut RNA from microbiota transfer experiments \parencite{smith2017microbiota} was already prepared and available. Quantification of RNA samples was performed with the Qubit 2.0 spectrophotometer RNA BR assay kit, while quality control and integrity measurement was performed using the TapeStation 4200 (RNA tape), both according to the manufacturer's instructions.
+
+\subsection{Reverse-transcription and template switching}
+\label{sec:methods_molec_igseq_rt}
 
 Reverse transcription of total RNA for Ig-seq library preparation was performed using SMARTScribe Reverse Transcriptase, a reverse-transcriptase enzyme specialised for terminal-transferase activity and template switching. % Citation needed
+The reaction was performed in line with the protocol specified in \parencite{turchaninova2016igprep} (Procedure, steps 5-9). Briefly, \ng{750} total RNA from a killifish sample was combined with \ul{2} \umol{10} gene-specific primer (GSP), homologous with the second \ch exon of \Nfu \igh{M}. % TODO: Reference to primer table here
+The reaction volume was brought to a total of \ul{8} with nuclease-free water, and the resulting mixture was incubated for 2 minutes at \degC{70} to denature the RNA, then cooled to \degC{42} to anneal the GSP. 
 
-The reaction was performed according to the protocol specified in REFERENCE (Procedure, steps 5-9). Briefly, \ng{750} killifish total RNA was combined with \ul{2} \umol{10} gene-specific primer (GSP), along with nuclease-free water to a total volume of \ul{8}. The RNA-primer mixture was incubated for 2 minutes at \degC{70} to denature the RNA % TODO: Check this
-, then cooled to \degC{42} to anneal the GSP. This annealed RNA-primer mixture was combined with \ul{12} of reverse-transcription master-mix (\Cref{tab:methods_rt_mm}), including the reverse-transcriptase enzyme and template-switch adapter (\Cref{app:oligos}, \Cref{fig:tsa}). The complete reaction mixture was incubated at for \hr{1} at \degC{42} for the reverse-transcription reaction, then mixed with \ul{1} of uracil DNA glycosylase and incubated for a further \mins{40} at \degC{37} to digest the TSA.  
+Following annealing, the RNA-primer mixture was combined with \ul{12} of reverse-transcription master-mix (\Cref{tab:methods_rt_mm}), including the reverse-transcriptase enzyme and template-switch adapter\Cref{app:oligos}, \Cref{fig:tsa}). % TODO: Update TSA reference and explanation (in results?)
+The complete reaction mixture was incubated at for \hr{1} at \degC{42} for the reverse-transcription reaction, then mixed with \ul{1} of uracil DNA glycosylase and incubated for a further \mins{40} at \degC{37} to digest the template-switch adapter (TSA). Finally, the reaction product was purified using SeraSure beads at \x{0.7} concentration, eluting in \ul{16.5} clean elution buffer. % Solutions and buffers section?
+% Reference SeraSure section here
 
 % TODO: Get UDG enzyme details from lab
-% TODO: Get sequence details for 
+% TODO: Get sequence details for tables
 
 \begin{table}[h]
 \begin{center}
@@ -57,88 +157,57 @@ The reaction was performed according to the protocol specified in REFERENCE (Pro
 \LARGE
 \textcolor{Fuchsia}{AAGCAGUGGTAUCAACGCAGAG}U\textcolor{ForestGreen}{NNNN}--\\--U\textcolor{ForestGreen}{NNNN}U\textcolor{ForestGreen}{NNNN}UCTT\textcolor{BurntOrange}{rGrGrGrG}
 \end{center}
-\caption{Annotated sequence of the SmartNNNa barcoded template-switch adapter (TSA) used in template-switch reverse-transcription for 5'-RACE-PCR. The green N characters represent the random nucleotides used in the unique molecular identifier (UMI), each of which could take any value from A, C, G or T. The U residues represent deoxyuridine, which is specifically targeted by UDG during the last stage of the reverse-transcription protocol (\Cref{sec:methods_rt}). The orange, 3'-termial rG characters indicate riboguanosine residues, which enable template-switching by providing a priming site for the reverse-transcriptase.} %TODO: Is this last one true?
+\caption{Annotated sequence of the SmartNNNa barcoded template-switch adapter (TSA) used in template-switch reverse-transcription for 5'-RACE-PCR. The green N characters represent the random nucleotides used in the unique molecular identifier (UMI), each of which could take any value from A, C, G or T. The U residues represent deoxyuridine, which is specifically targeted by UDG during the last stage of the reverse-transcription protocol (\Cref{sec:methods_molec_igseq_rt}). The orange, 3'-termial rG characters indicate riboguanosine residues.}
 \label{fig:tsa}
 \end{figure}
 
-% TODO: Explain composition and functionality of TSA
+% TODO: Explain composition and functionality of TSA (in results)
 
-\subsection{RNA isolation from killifish samples}
+\subsection{PCR amplification and adaptor addition} 
+\label{sec:methods_molec_igseq_pcr}
 
-\subsection{Nucleic-acid quantitation and quality control}
+Following reverse-transcription, UDG digestion, and cleanup, the reaction mixture underwent three successive rounds of Kapa PCR (\Cref{sec:methods_molec_pcr}) interspersed with further bead cleanups (\dots). % TODO: reference bead section, PCR summary table
+The first of these reactions added a second strand to the reverse-transcribed cDNA and amplified the resulting DNA molecules; the second added partial Illumina sequencing adaptors and further amplified the library, and the third added complete Illumina adaptors (including i5 and i7 indices). ...
 
-\subsubsection{Nucleic-acid quantitation with the Nanodrop} % TODO: Which exact model
+\begin{table}[h]
+\def\arraystretch{1.5}
+\centering\small
+\begin{threeparttable}
+\caption{Details of PCR protocols for \Nfu immunoglobulin sequencing}
+\begin{tabular}{c|ccc|cc|ccccc}\toprule
+\multirow{2}{*}{\textbf{PCR Reaction}} & \multicolumn{3}{c|}{\textbf{Protocol details}} & \multicolumn{2}{c|}{\textbf{Primers}} & \multicolumn{4}{c}{\textbf{Volumes (\ul{})}}\\
+ & \# cycles & $T_m$ (\degC{}) & $t_\mathrm{ext}$ (\secs{}) & F & R & Template & Primers (each) & Kapa & H\textsubscript{2}O & Total \\\midrule
+1 & 18 & 65 & 15 & IgHC-B & M1ss & 10.5 & 1 (\x{}2) & 12.5 & 0 & 25 \\\midrule
+2 & 13 & 65 & 15 & M1s+P2 & IgHC-C+P1 & 1 & 0.5 (\x{}2) & 12.5 & 10.5 & 25 \\\midrule
+%\multirow{2}{*}{2} & \multirow{2}{*}{15} & \multirow{2}{*}{65} & \multirow{2}{*}{15} & IgHC-C+P1 & M1s+P1 & \multirow{2}{*}{11.5} & \multirow{2}{*}{0.25 (\x{}4)} & \multirow{2}{*}{12.5} & \multirow{2}{*}{25} \\
+% & & & & IgHC-C+P2 & M1s+P2 & & & & \\\midrule
+3 & 7 to 9 & \textbf{68} & 15 & i5\tnote{a} & i7\tnote{a} & 2 & \textbf{0.75} (\x{}2) & 12.5 & 9 & 25\tnote{b} \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item[a] As appropriate for each library's assigned indices.
+\item[b] If the number of samples to be sequenced is small, double all volumes for a \ul{50} PCR.
+\end{tablenotes}
+\label{tab:pcr}
+\end{threeparttable}
+\end{table}
 
-The Nanodrop spectrophotometer is a commonly-used piece of laboratory equipment, which quantifies the composition of a sample by assessing its electromagnetic absorption spectrum. It is most commonly used to quantify nucleic-acid concentration in a sample by computing the ratio between its absorption at \nm{260} and its absorption at \nm{280}; its 260/230 absorption ratio can also be used to assess the purity of the samples, as many common contaminants (...), but not nucleic acids, absorb strongly around \nm{230}. See [TABLE] for the ideal absorption-ratio ranges, which were used as benchmarks of sample quality in this study. % Although 260/230 is less important and is typically low after TRIzol, for example
-% TODO: Read Nanodrop operating instructions
-% TODO: Describe protocol
+% TODO: Table of general properties of each PCR round; table of experiment-specific deviations
 
-\subsubsection{Nucleic-acid quantitation with the Qubit 2.0} % TODO: Which exact model
+%(TABLE, PCR 1; primer details in TABLE and FIGURE), then re-purified with SeraSure beads (\x{0.7} input, resuspend in \ul{25} EB, \mins{5} elution). Partial Illumina adaptors (without indices for multiplexing) were added in a second PCR (TABLE, PCR 2; primer details in TABLE and FIGURE), followed by a further SeraSure bead cleanup (0.7x = 17.5uL input, resuspend in 15uL EB, 5 mins elution). Finally, a third PCR with Illumina TruSeq adaptor primers (...) was used to add a unique index combination to each library in a given experiment (see TABLE for index data for ...); this was followed by a further bead cleanup (...) prior to library quality control.
 
-The Nanodrop provides a quick and easy method of roughly quantifying nucleic-acid concentrations in a sample, as well as assessing its purity using the 260/280 and 260/230 absorption rations. However, it cannot distinguish effectively between the levels of DNA and RNA in a sample, and therefore typically gives an inflated measure of sample concentration. To obtain more accurate measurements of DNA or RNA concentration in a sample, the Qubit spectrophotometer was used. % TODO: Reference here
-This machine works using a DNA- or RNA-specific dye, which flouresces at a known frequency when bound by the appropriate nucleic acid. % TODO: Specific Qubit mechanism
-By quantifying the level of flourescence (?) by this dye in the sample, rather than by the nucleic acid itself, the Qubit avoids the issues associated with Nanodrop quantitation and produces a much more precise and accurate measure of nucleic-acid concentration. By comparing the flourescence level to that of standards of known concentration, the readings can be converted into measures of nucleic-acid concentration that are much more precise and accurate than those produced by the Nanodrop.
+\subsection{Library pooling, size selection and sequencing} 
+\label{sec:methods_molec_igseq_seq}
 
-Several different Qubit kits are used in this study, depending on the molecule to be quantified (DNA vs RNA) and its expected concentration range (High-Sensitivity vs Broad-Range). In all cases, the protocol follows the manufaturer's instructions % Citation needed
-and is broadly the same. Firstly, standard samples are retrieved from cold storage and allowed to equilibrate at room temperature. While this is happening, \ul{1} of the appropriate Qubit reagent per sample to be measured (including the standards) is combined with \ul{199} of the appropriate buffer per sample to be measured and mixed gently but thoroughly by inversion. This master-mix is then combined with the samples to be measured in Qubit spectrophotometry tubes: \ul{1} of sample and \ul{199} of reagent for test samples and \ul{10} of sample and \ul{190} of samples for the (now-equilibrated) standards. The prepared samples were vortexed together for \secs{3}, then incubated at room temperature for \mins{2} to... % What is the incubation for actually?
-% TODO: Reference Qubit standards, reagents, buffers and tubes (non-standard lab equipment)
-
-Following the incubation, the appropriate program was selected on the Qubit 2.0 spectrophotometer, and the standards were measured according to the instructions on the machine. The test samples were measured in turn and the raw Qubit readings (in \ngml{}) were recorded. These were converted into \ngul{} concentrations using the following formula:
+Following PCR3 and its attendant bead cleanup, the total concentration of each library was assayed with the Qubit 2.0 (\Cref{sec:?}, DNA HS assay kit, \ul{1} per sample), while the size distribution of each library was obtained using the TapeStation 4200 (\Cref{sec:?}, D1000 tape). To obtain the concentration of complete library molecules in each case (as opposed to primer dimers or other off-target bands), the ratio between the concentration of the desired library band (c. 620-\bp{680}) and the total assayed concentration of the sample was calculated for each TapeStation lane, and the total concentration of each library as measured by the Qubit was multiplied by this number to obtain an estimate of the desired figure (\Cref{eq:library-conc}).
 
 \begin{equation}
-\mathrm{Concentration~[\ngul{}]} = \frac{\mathrm{Qubit~reading [\ngml{}]} \times 200}{1000} = \frac{\mathrm{Qubit~reading [\ngml{}]}}{5}
+\mathrm{Library~concentration} = \mathrm{Qubit~concentration} \times \frac{\mathrm{TapeStation~concentration~[main~band]}}{\mathrm{TapeStation~concentration~[total]}}
+\label{eq:library-conc}
 \end{equation}
 
-In some cases, such as for particularly important samples or when confidence in the measurements was low (e.g. due to doubts about complete dissolving of the nucleic acid), a sample was measured by Qubit multiple times independently, typically within a single set of measurements. In these cases, the mean Qubit reading was taken as the concentration measurement, and the coefficient of variation among the measurements (CV, equal to the mean divided by the standard deviation) was used as a measure of the consistency of the measurements; in most cases, measurements with a CV greater than 0.1 % TODO: check this
-were rejected as unreliable, and the sample was diluted further or re-isolated before re-measurement.
+All the libraries for a given experiment were then pooled, such that the estimated concentration of each library in the final pooled sample was equal and the total mass of nucleic acid in the pooled sample was at least \ng{240}. The pooled sample underwent a final bead cleanup (\Cref{sec:methods_molec_standard_serasure}, \x{2.5} beads, eluted in \ul{35} EB) to concentrate the sample to the volume required by the BluePippin.
 
-\subsection{Library size-selection with the BluePippin}
-% TODO: Explain BluePippin functionality
-% TODO: Copy BluePippin protocol with parameter values
+Following pooling and re-concentration, the pooled libraries underwent size selection with the BluePippin (\Cref{sec:sec:methods_molec_standard_bluepippin}, \pc{1.5} DF Marker R2, broad 400-800bp), and the size-selected pooled samples underwent an additional round of quality control (as above) to confirm their collective concentration (at least \nmol{1.5}) and size distribution (one peak at c. 620-\bp{680}). 
 
-The BluePippin is a DNA size-selection system based on agarose gel electrophoresis, which uses timed switching between positively-charged electrodes at a forked gel channel in an agarose cassette to redirect DNA of a desired size range into a separate lane from the rest of the sample. % TODO: Cite BluePippin manual here
-The timing of switching is determined based on the size range input by the user and calibrated using flourescent internal standards, which are added to the sample during the sample preparation process and designed to run well ahead of the possible size ranges for that cassette type. The combination of the choice of cassette and the choice of standards determines which fragment lengths can be effectively isolated using the machine.
-
-For the experiments described in this thesis, a \pc{1.5} cassette with R2 markers were used, enabling size selection of targets in the range of 250--\bp{1500}. % Cite protocol here
-Machine calibration and testing, cassette preparation, and protocol design were performed in accordance with the BluePippin documentation and instructions given by the machine software. During this process, the elution wells of the lanes to be used in the size-selection run were emptied and refilled with \ul{40} of electrophoresis buffer, then sealed for the duration of the run. % TODO: Reference this in appendix; % TODO: You need to put the protocol parameters somewhere
-\ul{30} of sample was combined with \ul{10} of loading solution (including standard markers) and vortexed to mix, then \ul{40} of buffer was removed from the appropriate loading well and replaced, slowly, with the prepared sample mixture. The protocol was started and run until the final elution was complete. Finally, the eluted samples were removed from the elution wells of the appropriate lanes, and the unused lanes of the cassette were re-sealed for future use.
-
-
-\subsection{Nucleic-acid purification with SeraSure magnetic beads}
-% TODO: Add explanation of SPRI bead purification of DNA
-% TODO: Read and cite protocol from Ray
-% Discuss importance of PEG and effect of Tween
-
-\subsubsection{Preparation of SeraSure magnetic bead suspension}
-
-NB: The protocol described here produces a suspension suitable for use with DNA (or DNA:RNA heteroduplex) samples; for efficient bead cleanup of RNA samples, different buffer compositions are required.
-
-To prepare \ml{50} of SeraSure bead suspension, the stock of SeraMag beads (\Cref{app:solutions_reagents}) was vortexed thoroughly, then \ml{1} was transferred to a new tube. This tube was then transferred to a magnetic rack and incubated at room temperature for \mins{1}, then the supernatant was removed and replaced with \ml{1} TET buffer (\Cref{app:solutions_buffers}) and the tube was removed from the rack and vortexed thoroughly. This washing process was repeated twice more, for a total of three washes in TET. A fourth cycle was used to replace the TET with incomplete SeraBind buffer (iSB, \Cref{app:solutions_buffers}). The vortexed \ml{1} aliquot of beads in iSB was then transferred to a conical tube containing \ml{28} iSB and mixed by inversion. To add the PEG, \ml{20} \pc{50} (w/v) PEG 8000 solution was dispensed slowly down the side of the conical tube, bringing the total volume to \ml{49}. Finally, this was brought to \ml{50} by adding \ul{250} \pc{10} (w/v) Tween 20 solution and \ul{750} autoclaved water to complete the SeraSure bead suspension.
-
-% TODO: Discuss bead testing -- gels etc
-
-\subsubsection{Bead purification of nucleic-acid samples}
-
-The range of nucleic-acid sequence lengths retained by SPRI bead purification depends primarily on the concentration of PEG, which in turn depends on the relative volume of SeraSure bead suspension added to a sample; the higher the concentration, the shorter the minimum fragment length retained during the purification process... % TODO: Read up on and explain mechanics of size selection
-
-To perform a bead cleanup, an aliquot of SeraBind solution was vortexed thoroughly to completely resuspend the beads, then the appropriate relative volume of SeraSure suspension was determined (based on the desired size profile of the output, see above for details) and added to a sample, mixing thoroughly by gentle pipetting. The sample was incubated at room temperature for \mins{5}, to allow the beads to bind the DNA in the sample; it was then transferred to a magnetic rack % TODO: Specify racks for different tube sizes?
-and incubated for a further \mins{5} to draw as many beads as possible out of suspension. The supernatant was removed and discarded and replaced with \pc{80} ethanol, to a volume sufficient to completely submerge the bead pellet. The sample was incubated for 0.5-\mins{1}, then the ethanol was replaced and incubated for a further 0.5-\mins{1}. The second ethanol wash was removed, and the tube left on the rack until the bead pellet was almost, but not completely, dry, after which it was removed from the rack. The bead pellet was then resuspended in a suitable volume of a preferred resuspension buffer: typically nuclease-free water, TE, or EB. The resuspended sample was incubated at room temperature for at least 5 minutes to allow the nucleic-acid molecules to elute from the beads. 
-
-% TODO: Do I ever actually use TE?
-
-Unless otherwise specified, the beads from a cleanup were left in a sample during subsequent applications, as this avoids issues surrounding differential elution rates of different-length fragments and does not interfere with most applications. To remove beads from a sample, the sample was mixed gently but thoroughly to resuspend the beads, incubated for an extended time period (at least \mins{10}) to maximise nucleic-acid elution, then transferred to a magnetic rack and incubated for 2-\mins{5} to remove the beads from suspension. The supernatant (containing the eluted nucleic-acid molecules) was then transferred to a new tube, and the beads discarded.
-
-\subsection{Immunoglobulin sequencing: library prep} 
-The prepared reverse-transcription mixture was incubated  (\ul{5}, DETAILS) and incubated for a further \mins{40} at \degC{37} to digest residual TSA oligonucleotides. The reaction product was purified using SeraSure beads at \x{0.7} concentration, eluting in \ul{16.5} clean elution buffer. % Solutions and buffers section?
-
-Following cleanup, the cDNA sequences were made double-stranded and amplified using nested PCR with Kapa DNA polymerase, % HotStart PCR ReadyMix?
-(TABLE, PCR 1; primer details in TABLE and FIGURE), then re-purified with SeraSure beads (\x{0.7} input, resuspend in \ul{25} EB, \mins{5} elution). Partial Illumina adaptors (without indices for multiplexing) were added in a second PCR (TABLE, PCR 2; primer details in TABLE and FIGURE), followed by a further SeraSure bead cleanup (0.7x = 17.5uL input, resuspend in 15uL EB, 5 mins elution). Finally, a third PCR with Illumina TruSeq adaptor primers (...) was used to add a unique index combination to each library in a given experiment (see TABLE for index data for ...); this was followed by a further bead cleanup (...) prior to library quality control.
-
-After the final bead cleanup, the concentration of each library was tested with the Qubit (details), while the size distribution was examined using the Agilent TapeStation 4200; this information together enabled the estimation of the concentration of the desired library band (at LENGTHS) for each sample. The samples from each experiment were pooled together according to these estimates, such that every library had the same estimated concentration in the pooled sample. 
-
-
-\subsection{Quality-control of prepared Illumina libraries}
-% TODO: Say this was done by CCG
-
-\subsection{Sequencing of prepared Illumina libraries}
-% TODO: Say this was done by CCG
+Samples were sequenced externally on an Illumina Illumina MiSeq System (MiSeq Reagent Kit v3, 2x300bp reads, 30\% PhiX spike-in). As the protocol described here produces a single-amplicon library, a high proportion of PhiX control library spike-in was used to increase library complexity and avoid run failure. % TODO: Specify run number, sequencing facility used.
