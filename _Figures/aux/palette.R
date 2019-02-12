@@ -11,9 +11,7 @@ fontcolour_dark <- "black"
 fontcolour_mid <- "#606060"
 fontcolour_alert <- "red"
 
-
-
-# Specify colour palette
+# Specify colour palette for locus chapter
 colours <- list(
   VH = "#E41A1C",
   DH = "#377EB8",
@@ -33,4 +31,17 @@ colours <- list(
   nfu = "#66c2a5",
   xma = "#fc8d62",
   ola = "#8da0cb"
+)
+
+
+# Specify colour palette for igseq chapter
+colours_igseq <- list(
+  pilot_rep1 = "#999999",
+  pilot_rep2 = "#E69F00",
+  pilot_rep3 = "#56B4E9",
+  pilot_rep4 = "#009E73",
+  ageing_group1 = "#1b9e77",
+  ageing_group2 = "#d95f02",
+  ageing_group3 = "#7570b3",
+  ageing_group4 = "#e7298a"
 )

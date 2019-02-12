@@ -28,7 +28,10 @@ packages <- c("xtable", # Export tables to LaTeX
               "ggtree", # Plotting phylo trees with ggplot2
               "genoPlotR", # For chromosome synteny plot
               "DescTools", # For colour mixing
-              "stringi" # String manipulations
+              "stringi", # String manipulations
+              "alakazam", # Change-O functions 1
+              "shazam", # Change-O functions 2
+              "rdi" # Repertoire Dissimilarity Index
               )
 
 # Define auxiliary functions

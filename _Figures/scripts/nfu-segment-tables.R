@@ -5,6 +5,19 @@
 #------------------------------------------------------------------------------
 # PREAMBLE
 #------------------------------------------------------------------------------
+
+rm(list = ls())
+
+# Source auxiliary files (packages, fonts, etc.)
+source("aux/packages.R")
+source("aux/fonts.R")
+source("aux/palette.R")
+source("aux/io.R")
+source("aux/ggplot2.R")
+
+#------------------------------------------------------------------------------
+# PREAMBLE
+#------------------------------------------------------------------------------
 # 
 # Source auxiliary files (packages, fonts, etc.)
 source("aux/packages.R")

@@ -66,3 +66,14 @@ savetab <- function(tab, filename, auto = TRUE, align=NULL, digits = NULL,
                                                      '\\midrule ',
                                                      '\\bottomrule ')))
 }
+
+# Save a quantity as raw text
+savetxt <- function(x, filename, ncolumns = 1, append = FALSE, sep = ""){
+  write(x, file = file.path("txt", paste0(filename, ".txt")),
+        ncolumns = ncolumns, append = append, sep = sep)
+}
+
+# Import and export Change-O DBs
+import_tsv <- function(path, col = cols(.default = col_character())){
+  suppressMessages(read_tsv(path, col_types = col))
+}

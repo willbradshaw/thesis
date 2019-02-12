@@ -41,5 +41,6 @@ theme_base <-   theme(
                               margin = margin(t = 3, b = 3, unit="mm")),
   strip.text.y = element_text(size = fontsize_base * fontscale_title,
                               family = titlefont, colour = "black",
-                              margin = margin(l=3, r=3, unit="mm"))
+                              margin = margin(l=3, r=3, unit="mm")),
+  legend.justification = "center"
 )
