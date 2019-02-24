@@ -18,7 +18,7 @@ source("aux/ggplot2.R")
 source("aux/changeo.R")
 
 # Input paths
-tab_path <- "../_Data/changeo/ctabs/pilot_clones.tab"
+tab_path <- "../_Data/changeo/ctabs/pilot-final.tab"
 
 # Output paths
 filename_nclones <- "pilot-nclones"
@@ -44,11 +44,13 @@ savetxt(nseq_naclone, "pilot-nseq-assigned-clones")
 
 tab_cl <- tab %>% mutate(REP = sub("\\d-\\d\\d", "", REPLICATE)) %>%
   filter(!is.na(CLONE)) %>%
-  group_by(INDIVIDUAL, REP, CLONE) %>% summarise(CLNCOUNT = n())
+  group_by(INDIVIDUAL, REP, CLONE) %>% 
+  summarise(CLNCOUNT = n(), DUPCOUNT = sum(DUPCOUNT), CONSCOUNT = sum(CONSCOUNT))
 
 tab_cl_counts <- tab_cl %>% group_by(INDIVIDUAL, CLONE) %>% 
-  summarise(CLNCOUNT = sum(CLNCOUNT)) %>%
-  group_by(INDIVIDUAL) %>% summarise(N = n(), CLNCOUNT = sum(CLNCOUNT))
+  summarise(CLNCOUNT = sum(CLNCOUNT), DUPCOUNT = sum(DUPCOUNT), CONSCOUNT = sum(CONSCOUNT)) %>%
+  group_by(INDIVIDUAL) %>% 
+  summarise(N = n(), CLNCOUNT = sum(CLNCOUNT), DUPCOUNT = sum(DUPCOUNT), CONSCOUNT = sum(CONSCOUNT))
 
 # Extract and save text values
 clones_individual_min <- tab_cl_counts %>% pull(N) %>% min %>% 

@@ -8,7 +8,8 @@ if (!("BiocManager" %in% installed.packages())) install.packages("BiocManager")
 if (!("devtools" %in% installed.packages())) install.packages("devtools")
 
 # List desired packages
-packages <- c("xtable", # Export tables to LaTeX
+packages <- c("plyr", # Database manipulation
+              "xtable", # Export tables to LaTeX
               "Gviz", # Build genome tracks
               "GenomicRanges", # Sequence range processing
               "Biostrings", # FASTA file reading and manipulation
@@ -30,8 +31,9 @@ packages <- c("xtable", # Export tables to LaTeX
               "DescTools", # For colour mixing
               "stringi", # String manipulations
               "alakazam", # Change-O functions 1
+              "rdi", # Repertoire Dissimilarity Index
               "shazam", # Change-O functions 2
-              "rdi" # Repertoire Dissimilarity Index
+              "rlang" # := helper
               )
 
 # Define auxiliary functions

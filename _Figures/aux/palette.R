@@ -36,12 +36,23 @@ colours <- list(
 
 # Specify colour palette for igseq chapter
 colours_igseq <- list(
+  exp_pilot = "#1F78B4",
+  exp_ageing = "#E31A1C",
+  exp_gut = "#33A02C",
   pilot_rep1 = "#999999",
   pilot_rep2 = "#E69F00",
   pilot_rep3 = "#56B4E9",
   pilot_rep4 = "#009E73",
-  ageing_group1 = "#1b9e77",
-  ageing_group2 = "#d95f02",
-  ageing_group3 = "#7570b3",
-  ageing_group4 = "#e7298a"
+  ageing_group1 = "#1b9e77", # 39 days
+  ageing_group2 = "#d95f02", # 56 days
+  ageing_group3 = "#7570b3", # 73 days
+  ageing_group4 = "#e7298a", # 128 days
+  gut_group1 = "#e78ac3", # YI_6wk
+  gut_group2 = "#8da0cb", # WT_16wk
+  gut_group3 = "#e5c494", # ABX_16wk
+  gut_group4 = "#fc8d62", # SMT_16wk
+  gut_group5 = "#a6d854", # YMT_16wk
+  #gut_allold = "#b3b3b3" # All 16-week groups
+  gut_allold = "#ffd92f" # All 16-week groups
+  
 )

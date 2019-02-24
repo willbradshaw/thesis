@@ -1,6 +1,6 @@
 ###############################################################################
 ## FIGURES & DATA                                                            ##
-## Visualise RDI for pilot data                                              ##
+## Visualise cross-replicate RDI for pilot data                              ##
 ###############################################################################
 
 #------------------------------------------------------------------------------
@@ -19,6 +19,10 @@ source("aux/changeo.R")
 source("aux/trees.R")
 
 # Set parameters
+rdi_distance <- "euclidean" # or "cor"
+rdi_iterations <- 100
+rdi_constant_scale <- TRUE
+rdi_transform <- TRUE
 clust_method <- "average"
 rootedge_length <- -0.2
 treeline_width <- 1.1
@@ -27,31 +31,58 @@ tiplab_offset <- -0.1
 
 # Configure input
 # TODO: Select input settings to match other spectra in chapter
+tab_path <- "../_Data/changeo/ctabs/pilot-final.tab"
 seqset <- "all" # or "functional"
 segments <- "VDJ" # or "VDJ"
-group <- "REPLICATE" # or "INDIVIDUAL", or something else
-dst_path <- paste0(paste("../_Data/changeo/rdi/pilot", seqset, segments, group, 
-                  sep = "_"), ".csv")
+group <- "REPLICATE"
 
 # Output paths
-filename_base <- paste0("pilot-rdi-", segments)
+filename_base <- paste0("pilot-rdi-", segments, "-", tolower(group))
 
 #------------------------------------------------------------------------------
-# IMPORT RDI DISTANCE MATRIX
+# IMPORT FINAL TABLE (WITH COMBINED CALLS)
 #------------------------------------------------------------------------------
 
-dst <- read_csv(dst_path, col_types = cols(X1 = "c", .default = "d")) %>%
-  select(-X1) %>% as.matrix %>% as.dist
+tab <- import_tab(tab_path)
 
-# tab <- read_csv(tab_path, col_types = cols(X1 = "c", .default = "d")) %>%
-#   melt(id.vars = "X1", variable.name = "REP2", value.name = "RDI") %>%
-#   rename(REP1 = X1)
+#------------------------------------------------------------------------------
+# FILTER AMBIGUOUS SEGMENT CALLS
+#------------------------------------------------------------------------------
+
+has_field <- paste0("HAS_", toupper(segments))
+ambig_field <- paste0(toupper(segments), "_AMBIG")
+
+tab_filtered <- filter(tab, !!as.name(has_field), !(!!as.name(ambig_field)))
+
+if (seqset == "functional") tab_filtered <- filter(tab_filtered, FUNCTIONAL)
+if (seqset == "nonfunctional") tab_filtered <- filter(tab_filtered, !FUNCTIONAL)
+
+#------------------------------------------------------------------------------
+# COMPUTE RDI SEGMENT CALLS
+#------------------------------------------------------------------------------
+
+call_field <- paste0("BEST_", toupper(segments), "_CALL")
+
+genes <- pull(tab_filtered, call_field)
+annots <- as.character(pull(tab_filtered, group))
+
+counts <- calcVDJcounts(genes = genes, seqAnnot = annots,
+                        simplifyNames = TRUE, splitCommas = FALSE)
+
+#------------------------------------------------------------------------------
+# COMPUTE RDI DISTANCE MATRIX
+#------------------------------------------------------------------------------
+
+rdi <- calcRDI(counts, subsample = TRUE,
+               distMethod = rdi_distance, nIter = rdi_iterations,
+               constScale = rdi_constant_scale,
+               units = ifelse(rdi_transform, "lfc", "pct"))
 
 #------------------------------------------------------------------------------
 # PERFORM CLUSTERING AND GENERATE DENDROGRAM
 #------------------------------------------------------------------------------
 
-clust <- hclust(dst, method = clust_method)
+clust <- hclust(rdi, method = clust_method)
 
 #------------------------------------------------------------------------------
 # CONVERT TO PHYLOGENETIC TREE AND VISUALISE
@@ -107,10 +138,10 @@ treeplot <- revts(ggtree(treedata_rdi, aes(colour = individual),
 #------------------------------------------------------------------------------
 
 # Perform PCoA
-pc <- pcoa(dst)
+pc <- pcoa(rdi)
 
 # Extract co-ordinates in first two axes into tibble for plotting
-pc_tab <- tibble(REPLICATE = rownames(as.matrix(dst)),
+pc_tab <- tibble(REPLICATE = rownames(as.matrix(rdi)),
                  PCO1 = pc$vectors[,1],
                  PCO2 = pc$vectors[,2]) %>%
   mutate(INDIVIDUAL = sub("(2-0\\d)(.*)", "\\1", REPLICATE),

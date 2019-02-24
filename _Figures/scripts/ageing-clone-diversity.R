@@ -25,8 +25,8 @@ tab_path_grouped <- paste0("../_Data/changeo/spectra/",
                            "ageing_clone-diversity-grouped_seqs-",
                            seqset, "_copy-", copy, ".tsv")
 tab_path_solo <- paste0("../_Data/changeo/spectra/",
-                           "ageing_clone-diversity-solo_seqs-",
-                           seqset, "_copy-", copy, ".tsv")
+                        "ageing_clone-diversity-solo_seqs-",
+                        seqset, "_copy-", copy, ".tsv")
 
 
 # Output paths

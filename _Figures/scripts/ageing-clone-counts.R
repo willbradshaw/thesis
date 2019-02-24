@@ -7,7 +7,7 @@
 # PREAMBLE
 #------------------------------------------------------------------------------
 
-rm(list = ls())
+#rm(list = ls())
 
 # Source auxiliary files (packages, fonts, etc.)
 source("aux/packages.R")
@@ -18,7 +18,7 @@ source("aux/ggplot2.R")
 source("aux/changeo.R")
 
 # Input paths
-tab_path <- "../_Data/changeo/ctabs/ageing_clones.tab"
+tab_path <- "../_Data/changeo/ctabs/ageing-final.tab"
 
 # Output paths
 filename_nclones <- "ageing-nclones"
@@ -91,8 +91,10 @@ g_nclones <- ggplot(tab_cl_counts) +
 #------------------------------------------------------------------------------
 
 tab_cl_size <- tab_cl %>% group_by(AGE_DAYS, INDIVIDUAL, CLONE) %>% 
-  summarise(CLNCOUNT = sum(CLNCOUNT)) %>% group_by(CLNCOUNT) %>% 
-  summarise(N = n()) %>% mutate(N_PC = N/sum(N) * 100,
+  summarise(CLNCOUNT = sum(CLNCOUNT), DUPCOUNT = sum(DUPCOUNT),
+            CONSCOUNT = sum(CONSCOUNT)) %>% group_by(CLNCOUNT) %>% 
+  summarise(N = n(), CLNCOUNT = sum(CLNCOUNT), DUPCOUNT = sum(DUPCOUNT),
+            CONSCOUNT = sum(CONSCOUNT)) %>% mutate(N_PC = N/sum(N) * 100,
                                 CUM_PC = cumsum(N_PC))
 
 nclones_1count <- tab_cl_size %>% filter(CLNCOUNT == 1) %>% pull(N_PC) %>%

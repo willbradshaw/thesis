@@ -398,6 +398,16 @@
   </clipPath>
 </defs>
 <defs>
+  <clipPath id='cpMHw3MDguNjYxfDQyNS4xOTd8MA=='>
+    <rect x='0.00' y='0.00' width='708.66' height='425.20' />
+  </clipPath>
+</defs>
+<defs>
+  <clipPath id='cpMHw3MDguNjYxfDM5Ni45NTh8MA=='>
+    <rect x='0.00' y='0.00' width='708.66' height='396.96' />
+  </clipPath>
+</defs>
+<defs>
   <clipPath id='cpMHwzNTQuMzMxfDM5Ni45NTh8MA=='>
     <rect x='0.00' y='0.00' width='354.33' height='396.96' />
   </clipPath>
@@ -961,7 +971,7 @@
   </clipPath>
 </defs>
 <rect x='194.63' y='396.96' width='319.40' height='28.24' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' clip-path='url(#cpMHw3MDguNjYxfDQyNS4xOTd8MA==)' />
-<g clip-path='url(#cpMHw3MDguNjYxfDQyNS4xOTd8MA==)'><text x='200.11' y='413.32' style='font-size: 12.00px; font-weight: bold; font-family: CM Sans;' textLength='116.88px' lengthAdjust='spacingAndGlyphs'>Age group (days)</text></g>
+<g clip-path='url(#cpMHw3MDguNjYxfDQyNS4xOTd8MA==)'><text x='200.11' y='415.45' style='font-size: 12.00px; font-weight: bold; font-family: CM Sans;' textLength='116.88px' lengthAdjust='spacingAndGlyphs'>Age group (days)</text></g>
 <line x1='331.82' y1='411.08' x2='345.64' y2='411.08' style='stroke-width: 1.07; stroke: #1B9E77; stroke-linecap: butt;' clip-path='url(#cpMHw3MDguNjYxfDQyNS4xOTd8MA==)' />
 <line x1='376.05' y1='411.08' x2='389.88' y2='411.08' style='stroke-width: 1.07; stroke: #D95F02; stroke-linecap: butt;' clip-path='url(#cpMHw3MDguNjYxfDQyNS4xOTd8MA==)' />
 <line x1='420.29' y1='411.08' x2='434.11' y2='411.08' style='stroke-width: 1.07; stroke: #7570B3; stroke-linecap: butt;' clip-path='url(#cpMHw3MDguNjYxfDQyNS4xOTd8MA==)' />

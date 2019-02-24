@@ -28,7 +28,7 @@ theme_base <-   theme(
                              family = font, colour = "black"),
   legend.title = element_text(size = fontsize_base,
                               family = font, colour = "black",
-                              face = "bold", vjust=0.75, 
+                              face = "bold", vjust=0.5, 
                               margin=margin(r=3, unit="mm")),
   plot.title = element_text(size = fontsize_base * fontscale_main,
                             family = titlefont, colour="black",
@@ -44,3 +44,42 @@ theme_base <-   theme(
                               margin = margin(l=3, r=3, unit="mm")),
   legend.justification = "center"
 )
+
+# Combine plots into a grid with plot_grid
+gplot_grid <- function(..., ncol = 2, nrow = 1, labels = "AUTO"){
+  plot_grid(..., ncol = ncol, nrow = nrow, labels = labels,
+            label_fontfamily = titlefont, label_fontface = "plain",
+            label_size = fontsize_base * fontscale_label)
+}
+
+# Plot two plots side-by-side with a common legend
+gplot_grid_onelegend <- function(..., plot_height, plot_width,
+                                 ncol = 2, nrow = 1, plot_unit = "cm",
+                                 labels = "AUTO"){
+  plotlist <- list(...)
+  # Extract legend
+  g <- ggplotGrob(plotlist[[1]] + theme(legend.position = "bottom"))$grobs
+  legend <- g[[which(sapply(g, function(x) x$name) == "guide-box")]]
+  lheight <- sum(legend$height)
+  lwidth <- sum(legend$width)
+  # Combine plots without legend
+  plotlist <- lapply(plotlist, function(p) p + theme(legend.position = "none"))
+  plt <- gplot_grid(plotlist = plotlist,
+                    ncol = ncol, nrow = nrow, labels = labels)
+  combined <- arrangeGrob(plt, legend, ncol = 1, nrow = 2,
+                          heights = unit.c(unit(1, "npc") - lheight, lheight))
+  
+  # Visualise plot
+  map_layout <- grid.layout(ncol = 1, nrow = 1, 
+                            heights = unit(plot_height, plot_unit), 
+                            widths = unit(plot_width, plot_unit)
+  )
+  vtop <- viewport(layout = map_layout)
+  grid.newpage()
+  pushViewport(vtop)
+  pushViewport(viewport(layout.pos.col = 1, layout.pos.row = 1))
+  grid.draw(combined)
+  popViewport(1)
+  plt_out <- grid.grab()
+  return(plt_out)
+}

@@ -7,7 +7,7 @@
 # PREAMBLE
 #------------------------------------------------------------------------------
 
-rm(list = ls())
+#rm(list = ls())
 
 # Source auxiliary files (packages, fonts, etc.)
 source("aux/packages.R")

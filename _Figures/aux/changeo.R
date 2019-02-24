@@ -87,12 +87,17 @@ countplot_all <- function(counts, colour = "REPLICATE", group = "REPLICATE",
                           x = "STAGE", stage_breaks = changeo_count_stages,
                           stage_names = changeo_count_names,
                           stages_include = changeo_count_stages,
-                          cname = "Replicate", palette = ""){
+                          cname = "Replicate", palette = "", hline_rel = NULL){
   # Make separate absolute and relative read survival plots
   absplot <- countplot_abs(counts, colour, group, x, stage_breaks, stage_names,
                            stages_include, cname, palette)
   relplot <- countplot_rel(counts, colour, group, x, stage_breaks, stage_names,
                            stages_include, cname, palette)
+  # Add abline to relative plot if specified
+  if (!is.null(hline_rel)){
+    relplot <- relplot + geom_hline(yintercept = hline_rel, colour = "red",
+                                    linetype = 2)
+  }
   # Extract legend from absplot
   g <- ggplotGrob(absplot + theme(legend.position = "bottom"))$grobs
   legend <- g[[which(sapply(g, function(x) x$name) == "guide-box")]]
@@ -171,9 +176,10 @@ import_tab <- function(path){
               V_SCORE = "d", V_IDENTITY = "d", V_EVALUE = "d", 
               D_SCORE = "d", D_IDENTITY = "d", D_EVALUE = "d", 
               J_SCORE = "d", J_IDENTITY = "d", J_EVALUE = "d",
-              CONSCOUNT = "i", DUPCOUNT = "i",
-              HAS_V = "l", HAS_D = "l", HAS_J = "l", 
+              CONSCOUNT = "i", DUPCOUNT = "i", HAS_CLONE = "l",
+              HAS_V = "l", HAS_D = "l", HAS_J = "l", HAS_VJ = "l", HAS_VDJ = "l",
               N_V = "i", N_D = "i", N_J = "i", V_AMBIG = "l", D_AMBIG = "l",
+              VJ_AMBIG = "l", VDJ_AMBIG = "l",
               J_AMBIG = "l", MU_FREQ_CDR_R = "d", MU_FREQ_CDR_S = "d",
               MU_FREQ_FWR_R = "d", MU_FREQ_FWR_S = "d",
               .default = col_character())
