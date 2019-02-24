@@ -15,6 +15,7 @@ _Source/*
 *.nlo
 *.nls
 *.bak
+*.swp
 thesis.pdf
 thesis.ps
 thesis.dvi

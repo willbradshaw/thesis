@@ -27,6 +27,7 @@ if [ $1 = $clean ]; then
 	rm -rf *.nls
 	rm -rf *.bcf
 	rm -rf *.run.xml
+	rm -rf *.tex.bak
 	rm -rf $filename.pdf
 	rm -rf $filename.ps
 	rm -rf $filename.dvi
@@ -64,6 +65,7 @@ if [ $1 = $clean ]; then
 	rm -rf *.nls
 	rm -rf *.bcf
 	rm -rf *.run.xml
+	rm -rf *.tex.bak
 	rm -rf $filename.pdf
 	rm -rf $filename.ps
 	rm -rf $filename.dvi
@@ -100,6 +102,7 @@ elif [ $1 = $compile ]; then
 	rm -rf *.nls
 	rm -rf *.bcf
 	rm -rf *.run.xml
+	rm -rf *.tex.bak
 	echo "Success!"
 	exit
 fi

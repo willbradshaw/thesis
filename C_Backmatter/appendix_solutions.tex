@@ -1,91 +1,70 @@
 \chapter{Solutions and buffers}
 \label{app:solutions}
-
+\footnotesize
 \section{Enzymes}
 \label{app:solutions_enzymes}
 
 \begin{threeparttable}
-\begin{tabular}{cccc}\toprule
+\begin{tabular}{lccc}\toprule
 \textbf{Enzyme} & \textbf{Concentration} & \textbf{Manufacturer} & \textbf{Product code} \\\midrule
-KAPA HiFi HotStart ReadyMix PCR Kit & \x{2}\tnote{1} & Kapa Biosystems & KR0370 \\
-SMARTScribe Reverse Transcriptase & \unitsul{100} & Clontech Laboratories & 639537 \\ % TODO: Check order size
-RNasin RNase inhibitor & \unitsul{40} & & \\
-Uracil DNA glycosylase (UDG) & & & \\
-
+KAPA HiFi HotStart ReadyMix PCR Kit & \x{2}\tnote{a} & Kapa Biosystems & KR0370 \\
+SMARTScribe Reverse Transcriptase & \unitsul{100} & Clontech Laboratories & 639537 \\
+RNasin RNase inhibitor & \unitsul{40} & Promega &  N2511 \\
+Uracil DNA glycosylase (UDG) & \unitsul{5} & NEB & M0280S \\
+RNase A & \mgml{100} & QIAGEN & 19101 \\
 \bottomrule \end{tabular}
 \begin{tablenotes}
-\item[1] KAPA HiFi HotStart DNA Polymerase present at \unitsul{0.04}.
+\item[a] KAPA HiFi HotStart DNA Polymerase present at \unitsul{0.04}.
 \end{tablenotes}
 \end{threeparttable}
 
 \section{Non-enzyme reagents and components}
 \label{app:solutions_reagents}
 
+{\renewcommand{\arraystretch}{1.2}
 \begin{threeparttable}
-\begin{tabular}{m{5cm}ccc}\toprule
+\begin{tabular}{lccc}\toprule
 \textbf{Reagent} & \textbf{Concentration} & \textbf{Manufacturer} & \textbf{Product code} \\\midrule
-SMARTScribe first-strand buffer & \x{5} & Clontech Laboratories & 639537\tnote{1}\\
-Dithiothreitol (DTT) & \mmol{20} & Clontech Laboratories & 639537\tnote{1}\\
-dNTP mix & \umol{10} per nucleotide\tnote{2} & & \\
-\um{1} Sera-Mag™ Magnetic SpeedBeads™, carboxylated & \mgml{50} & GE Healthcare & 65152105050250\\
-QIAzol Lysis Reagent & \x{1} & QIAgen & 79306\\
-BluePippin electrophoresis buffer & \x{1} & Sage Science &BDF1510\tnote{2}\\
-BluePippin R2 loading solution / marker mix & \x{1} & Sage Science &BDF1510\tnote{2}\\
+SMARTScribe first-strand buffer & \x{5} & Clontech Laboratories & 639537\tnote{a}\\
+Dithiothreitol (DTT) & \mmol{20} & Clontech Laboratories & 639537\tnote{a}\\
+dNTP mix & \umol{10} each\tnote{b} & NEB & N0447L \\
+\um{1} Sera-Mag™ Magnetic SpeedBeads™ & \mgml{50} & GE Healthcare & 65152105050250\\
+QIAzol Lysis Reagent & \x{1} & QIAGEN & 79306\\
+BluePippin electrophoresis buffer & \x{1} & Sage Science &BDF1510\tnote{c}\\
+BluePippin R2 loading solution / marker mix & \x{1} & Sage Science &BDF1510\tnote{c}\\
+Roti-Phenol/chloroform/isoamyl alcohol & \x{1} & Roth & A156.2\\
 \bottomrule \end{tabular}
 \begin{tablenotes}
-\item[1] Supplied with SMARTScribe Reverse Transcriptase (\Cref{app:solutions_enzymes}).
-\item[2] Supplied with BluePippin \pc{1.5} agarose dye-free cassettes.
+\item[a] Supplied with SMARTScribe Reverse Transcriptase (\Cref{app:solutions_enzymes}).
+\item[b] i.e. \umol{10} each of dATP, dGTP, dCTP and dTTP.
+\item[c] Supplied with BluePippin \pc{1.5} agarose dye-free cassettes.
 \end{tablenotes}
 \end{threeparttable}
-
+}
 
 \section{Prepared buffers}
 \label{app:solutions_buffers}
-\begin{threeparttable} % TODO: Fix formatting of itemize column
-\begin{tabular}{cp{5cm}p{5cm}cc}\toprule
-\textbf{Name} & \textbf{Purpose} & \textbf{Composition} & \textbf{\ph{}} & \textbf{\degC{}}\tnote{1}\\\midrule
-TET & Washing SeraMag beads during SPRI bead preparation & \begin{itemize}
-\item \mmol{10} Tris base
-\item \mmol{1} Na\textsubscript{2}-EDTA
-\item \pc{0.05} (v/v) Tween 20
-\end{itemize}& 8.0\tnote{2} & RT \\\midrule
-iSB & Preparing SeraSure bead suspension & \begin{itemize}
-\item \mol{4.2} NaCl
-\item \mmol{16.8} Tris base
-\item \mmol{1.68} Na\textsubscript{2}-EDTA
-\end{itemize}& 8.0\tnote{2} & RT \\\midrule
-EB & Buffering nucleic-acid solutions & \begin{itemize}
-\item \mmol{10} Tris-HCl
-\end{itemize}& 8.5\tnote{2} & RT \\\midrule
+\begin{threeparttable}
+\begin{tabular}{cllcc}\toprule
+\textbf{Name} & \textbf{Purpose} & \textbf{Composition} & \textbf{\ph{}} & \textbf{Storage (\degC{})}\\\midrule
+TET & Washing SeraMag beads & ~~\llap{\textbullet}~~ \mmol{10} Tris base & 8.0\tnote{a} & RT \\
+& & ~~\llap{\textbullet}~~ \mmol{1} Na\textsubscript{2}-EDTA & & \\
+& & ~~\llap{\textbullet}~~ \pc{0.05} (v/v) Tween 20 & & \\\midrule
+iSB & Preparing SeraSure bead suspension & ~~\llap{\textbullet}~~ \mol{4.2} NaCl & 8.0\tnote{a} & RT \\
+& & ~~\llap{\textbullet}~~ \mmol{16.8} Tris base & & \\
+& & ~~\llap{\textbullet}~~ \mmol{1.68} Na\textsubscript{2}-EDTA & & \\\midrule
+EB & Buffering nucleic-acid solutions & ~~\llap{\textbullet}~~ \mmol{10} Tris-HCl & 8.5\tnote{a} & RT \\\midrule
+P1 & Resuspending cultured \textit{E. coli} cells & ~~\llap{\textbullet}~~ \mmol{50} Tris-HCl}& 8\tnote{a} & 4\tnote{c} \\
+& & ~~\llap{\textbullet}~~ \mmol{10} Na\textsubscript{2}-EDTA & & \\
+& & ~~\llap{\textbullet}~~ \ugml{100} RNase-A\tnote{b} & & \\\midrule
+P2 & Cell lysis & ~~\llap{\textbullet}~~ \mmol{200} Sodium hydroxide & -- & RT \\
+& & ~~\llap{\textbullet}~~ \pc{1} (v/v) Sodium dodecyl sulfate & & \\\midrule
+P3 & Precipitation of cell lysate & ~~\llap{\textbullet}~~ \mol{3} Potassium acetate & 5.5\tnote{d} & RT \\\midrule
 \end{tabular}
 \begin{tablenotes}
-\item[1] Storage temperature
-\item[2] Adjust to the required \ph{} with hydrochloric acid (HCl).
+\item[a] Adjust to the required \ph{} with hydrochloric acid (HCl).
+\item[b] \Cref{app:solutions_enzymes}.
+\item[c] Can be stored at room temperature before addition of RNase-A.
+\item[d] Adjust to the required \ph{} with glacial acetic acid.
 \end{tablenotes}
 \end{threeparttable}
-
-% TODO: Note that buffers of unknown composition are listed in previous section
-
-%\begin{needed}
-%\item \mol{5} NaCl solution \alert{hint}
-%\item \mol{1} Tris base solution \alert{hint}
-%\item \mol{0.1} disodium EDTA solution \alert{hint}
-%\item \pc{10} (w/v) Tween 20 solution \alert{hint} % should be \pcvv but this doesn't work yet
-%\item \pc{50} (w/v) Polyethylene glycol (PEG) 8000 Solution \alert{hint}% This should be \pcwv but ditto
-%\item \mol{1} HCl solution \alert{hint}
-%\item SeraMag bead suspension
-%\item Magnetic rack for \ml{1.5} tubes
-%\item Standard lab equipment
-%\end{needed}
-%
-%\begin{protocol-name}{A - Making preliminary buffers}
-%\item If necessary, prepare TET buffer for DNA by adding the following volumes to \ml{250} autoclaved water: \alerts{hint}{2}
-%\begin{protab}{c|cccc}{1}\toprule
-%\textbf{Component} & Tris base & Na\textsubscript{2}-EDTA & Tween & HCl\\\midrule
-%\textbf{Volume [\ml{}]} & 2.57 & 2.57 & 1.29 & 0.957 \\\bottomrule
-%\end{protab}
-%\item Prepare incomplete SeraBind buffer (iSB) by combining the following volumes in a \ml{250} bottle:
-%\begin{protab}{c|ccccc}{1}\toprule
-%\textbf{Component} & Autoclaved water & NaCl & Tris base & Na\textsubscript{2}-EDTA & HCl\\\midrule
-%\textbf{Volume [\ml{}]} & 30.2 & 210 & 4.2 & 4.2 & 1.4 \\\bottomrule
-%\end{protab}
