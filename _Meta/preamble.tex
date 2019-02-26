@@ -151,7 +151,9 @@
 	natbib=true, maxnames=4, minnames=4, url=false, giveninits=true]{biblatex}
 \renewbibmacro{in:}{\ifentrytype{article}{}{\printtext{\bibstring{in}\intitlepunct}}}
 %\bibliography{References/references} %Location of references.bib only for biblatex
-\bibliography{D_References/Locus,D_References/IgSeq,D_References/Introduction}
+\bibliography{D_References/Locus,D_References/IgSeq,
+	D_References/1_Introduction,
+	D_References/2_Methods}
 %D_References/references.bib}
 
 \fi
@@ -389,6 +391,8 @@
 \newcommand{\Igseq}{immunoglobulin sequencing\xspace}
 \newcommand{\IGSEQ}{Immunoglobulin sequencing\xspace}
 \newcommand{\naive}{na\"{i}ve\xspace}
+\newcommand{\Naive}{Na\"{i}ve\xspace}
+
 
 %% Start of subappendices environment
 %\AtBeginEnvironment{subappendices}{%
@@ -411,4 +415,4 @@
 
 \newcommand{\subsubsubsection}[1]{\noindent\textit{#1}\noindent}
 
-\newcommand{\etc}{\textit{et cetera}}
+\newcommand{\etc}{\textit{et cetera}\xspace}
