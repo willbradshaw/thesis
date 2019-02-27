@@ -213,8 +213,27 @@
   note         = {Accessed: 2018-11-30}
 }
 
-% Exhaustive alignment algorithms
 
+% Snakemake
+
+@article{koster2012snakemake,
+	title = {Snakemake—a scalable bioinformatics workflow engine},
+	volume = {28},
+	issn = {1367-4803},
+	url = {https://academic.oup.com/bioinformatics/article/28/19/2520/290322},
+	doi = {10.1093/bioinformatics/bts480},
+	language = {en},
+	number = {19},
+	urldate = {2018-04-13},
+	journal = {Bioinformatics},
+	author = {Köster, Johannes and Rahmann, Sven},
+	month = oct,
+	year = {2012},
+	keywords = {groupA, Read},
+	pages = {2520--2522},
+}
+
+% Exhaustive alignment algorithms
 
 @article{needleman1970alignment,
 	title = {A general method applicable to the search for similarities in the amino acid sequence of two proteins},
@@ -544,55 +563,6 @@ Logos},
 
 % Obtaining V/D/J/C sequence databases from teleost reference species
 
-@article{magadan2011medaka,
-	title = {Immunoglobulin heavy chains in medaka ({Oryzias} latipes)},
-	volume = {11},
-	copyright = {2011 Magadán-Mompó et al; licensee BioMed Central Ltd.},
-	issn = {1471-2148},
-	url = {http://www.biomedcentral.com/1471-2148/11/165/abstract},
-	doi = {10.1186/1471-2148-11-165},
-	language = {en},
-	number = {1},
-	urldate = {2015-01-19},
-	journal = {BMC Evolutionary Biology},
-	author = {Magadán-Mompó, Susana and Sánchez-Espinel, Christian and Gambón-Deza, Francisco},
-	month = jun,
-	year = {2011},
-	pmid = {21676244},
-	pages = {165},
-}
-
-@article{bao2010stickleback,
-	title = {The immunoglobulin gene loci in the teleost {Gasterosteus} aculeatus},
-	volume = {28},
-	issn = {1050-4648},
-	url = {http://www.sciencedirect.com/science/article/pii/S1050464809003039},
-	doi = {10.1016/j.fsi.2009.09.014},
-	number = {1},
-	urldate = {2015-01-19},
-	journal = {Fish \& Shellfish Immunology},
-	author = {Bao, Yonghua and Wang, Tao and Guo, Yongchen and Zhao, Zhihui and Li, Ning and Zhao, Yaofeng},
-	month = jan,
-	year = {2010},
-	pages = {40--48},
-}
-
-@article{gambondeza2011stickleback,
-	title = {Presence of an unique {IgT} on the {IGH} locus in three-spined stickleback fish ({Gasterosteus} aculeatus) and the very recent generation of a repertoire of {VH} genes},
-	volume = {34},
-	issn = {0145-305X},
-	url = {http://www.sciencedirect.com/science/article/pii/S0145305X09001888},
-	doi = {10.1016/j.dci.2009.08.011},
-	number = {2},
-	urldate = {2018-06-18},
-	journal = {Developmental \& Comparative Immunology},
-	author = {Gambón-Deza, Francisco and Sánchez-Espinel, Christian and Magadán-Mompó, Susana},
-	month = feb,
-	year = {2010},
-	keywords = {Read},
-	pages = {114--122},
-}
-
 @article{danilova2005zebrafish,
 	title = {The immunoglobulin heavy-chain locus in zebrafish: identification and expression of a previously unknown isotype, immunoglobulin {Z}},
 	volume = {6},
@@ -657,7 +627,6 @@ Logos},
 	shorttitle = {nhmmer},
 	url = {https://academic.oup.com/bioinformatics/article/29/19/2487/186765},
 	doi = {10.1093/bioinformatics/btt403},
-	abstract = {Abstract.  Summary: Sequence database searches are an essential part of molecular biology, providing information about the function and evolutionary history of},
 	language = {en},
 	number = {19},
 	urldate = {2018-07-16},
@@ -674,7 +643,6 @@ Logos},
 	issn = {1553-7358},
 	url = {http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002195},
 	doi = {10.1371/journal.pcbi.1002195},
-	abstract = {Profile hidden Markov models (profile HMMs) and probabilistic inference methods have made important contributions to the theory of sequence database homology search. However, practical use of profile HMM methods has been hindered by the computational expense of existing software implementations. Here I describe an acceleration heuristic for profile HMMs, the “multiple segment Viterbi” (MSV) algorithm. The MSV algorithm computes an optimal sum of multiple ungapped local alignment segments using a striped vector-parallel approach previously described for fast Smith/Waterman alignment. MSV scores follow the same statistical distribution as gapped optimal local alignment scores, allowing rapid evaluation of significance of an MSV score and thus facilitating its use as a heuristic filter. I also describe a 20-fold acceleration of the standard profile HMM Forward/Backward algorithms using a method I call “sparse rescaling”. These methods are assembled in a pipeline in which high-scoring MSV hits are passed on for reanalysis with the full HMM Forward/Backward algorithm. This accelerated pipeline is implemented in the freely available HMMER3 software package. Performance benchmarks show that the use of the heuristic MSV filter sacrifices negligible sensitivity compared to unaccelerated profile HMM searches. HMMER3 is substantially more sensitive and 100- to 1000-fold faster than HMMER2. HMMER3 is now about as fast as BLAST for protein searches.},
 	language = {en},
 	number = {10},
 	urldate = {2018-07-16},
@@ -705,7 +673,6 @@ Logos},
 	issn = {1553-7358},
 	url = {https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000069},
 	doi = {10.1371/journal.pcbi.1000069},
-	abstract = {Sequence database searches require accurate estimation of the statistical significance of scores. Optimal local sequence alignment scores follow Gumbel distributions, but determining an important parameter of the distribution (λ) requires time-consuming computational simulation. Moreover, optimal alignment scores are less powerful than probabilistic scores that integrate over alignment uncertainty (“Forward” scores), but the expected distribution of Forward scores remains unknown. Here, I conjecture that both expected score distributions have simple, predictable forms when full probabilistic modeling methods are used. For a probabilistic model of local sequence alignment, optimal alignment bit scores (“Viterbi” scores) are Gumbel-distributed with constant λ = log 2, and the high scoring tail of Forward scores is exponential with the same constant λ. Simulation studies support these conjectures over a wide range of profile/sequence comparisons, using 9,318 profile-hidden Markov models from the Pfam database. This enables efficient and accurate determination of expectation values (E-values) for both Viterbi and Forward scores for probabilistic local alignments.},
 	language = {en},
 	number = {5},
 	urldate = {2018-11-30},
@@ -751,6 +718,25 @@ Logos},
 	pages = {pdb.prot5636},
 }
 
+
+@article{lefranc2014immunoglobulins,
+	title = {Immunoglobulins: 25 {Years} of {Immunoinformatics} and {IMGT}-{ONTOLOGY}},
+	volume = {4},
+	issn = {2218-273X},
+	shorttitle = {Immunoglobulins},
+	url = {https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4279172/},
+	doi = {10.3390/biom4041102},
+	number = {4},
+	urldate = {2018-11-30},
+	journal = {Biomolecules},
+	author = {Lefranc, Marie-Paule},
+	month = dec,
+	year = {2014},
+	pmid = {25521638},
+	pmcid = {PMC4279172},
+	pages = {1102--1139}
+}
+
 % IgBLAST
 
 @misc{ye2013igblast,
@@ -778,4 +764,225 @@ Logos},
 	month = jun,
 	year = {2000},
 	pages = {276--277},
+}
+
+% STAR
+
+@article{dobin2013star,
+	title = {{STAR}: ultrafast universal {RNA}-seq aligner},
+	volume = {29},
+	issn = {1367-4803},
+	shorttitle = {{STAR}},
+	url = {https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3530905/},
+	doi = {10.1093/bioinformatics/bts635},
+	number = {1},
+	urldate = {2018-11-30},
+	journal = {Bioinformatics},
+	author = {Dobin, Alexander and Davis, Carrie A. and Schlesinger, Felix and Drenkow, Jorg and Zaleski, Chris and Jha, Sonali and Batut, Philippe and Chaisson, Mark and Gingeras, Thomas R.},
+	month = jan,
+	year = {2013},
+	pmid = {23104886},
+	pmcid = {PMC3530905},
+	pages = {15--21},
+}
+
+% RepeatMasker
+
+@misc{smith2016repeatmasker,
+  title={RepeatMasker Open-4.0.(2013-2015)},
+  author={Smith, AFA and Hubley, R and Green, P},
+  year={2016}
+}
+
+
+% SAMtools
+
+@article{li2009samtools,
+	title = {The {Sequence} {Alignment}/{Map} format and {SAMtools}},
+	volume = {25},
+	issn = {1367-4811},
+	doi = {10.1093/bioinformatics/btp352},
+	language = {eng},
+	number = {16},
+	journal = {Bioinformatics (Oxford, England)},
+	author = {Li, Heng and Handsaker, Bob and Wysoker, Alec and Fennell, Tim and Ruan, Jue and Homer, Nils and Marth, Gabor and Abecasis, Goncalo and Durbin, Richard and {1000 Genome Project Data Processing Subgroup}},
+	month = aug,
+	year = {2009},
+	pmid = {19505943},
+	pmcid = {PMC2723002},
+	pages = {2078--2079},
+}
+
+
+% IGV
+
+@article{robinson2011igv,
+	title = {Integrative genomics viewer},
+	volume = {29},
+	copyright = {2011 Nature Publishing Group},
+	issn = {1546-1696},
+	url = {https://www.nature.com/articles/nbt.1754},
+	doi = {10.1038/nbt.1754},
+	language = {en},
+	urldate = {2019-01-21},
+	journal = {Nature Biotechnology},
+	author = {Robinson, James T. and Thorvaldsdóttir, Helga and Winckler, Wendy and Guttman, Mitchell and Lander, Eric S. and Getz, Gad and Mesirov, Jill P.},
+	month = jan,
+	year = {2011},
+	pages = {24--26},
+}
+
+@article{thorvaldsdottir2013igv,
+	title = {Integrative {Genomics} {Viewer} ({IGV}): high-performance genomics data visualization and exploration},
+	volume = {14},
+	issn = {1467-5463},
+	shorttitle = {Integrative {Genomics} {Viewer} ({IGV})},
+	url = {https://academic.oup.com/bib/article/14/2/178/208453},
+	doi = {10.1093/bib/bbs017},
+	language = {en},
+	number = {2},
+	urldate = {2019-01-21},
+	journal = {Briefings in Bioinformatics},
+	author = {Thorvaldsdóttir, Helga and Robinson, James T. and Mesirov, Jill P.},
+	month = mar,
+	year = {2013},
+	pages = {178--192},
+}
+
+% Synteny
+
+@article{wright2016decipher,
+    title = {Using DECIPHER v2.0 to Analyze Big Biological Sequence Data in R},
+    author = {Erik S. Wright},
+    journal = {The R Journal},
+    year = {2016},
+    volume = {8},
+    number = {1},
+    pages = {352-359},
+  }
+
+
+% Polyadenylation motifs in teleosts
+
+@article{ulitsky2012polya,
+	title = {Extensive alternative polyadenylation during zebrafish development},
+	issn = {1088-9051, 1549-5469},
+	url = {http://genome.cshlp.org/content/early/2012/06/21/gr.139733.112},
+	doi = {10.1101/gr.139733.112},
+	language = {en},
+	urldate = {2018-11-30},
+	journal = {Genome Research},
+	author = {Ulitsky, Igor and Shkumatava, Alena and Jan, Calvin and Subtelny, Alexander O. and Koppstein, David and Bell, George and Sive, Hazel and Bartel, David},
+	month = jun,
+	year = {2012},
+	pmid = {22722342},
+	pages = {gr.139733.112}
+}
+
+
+%Splice-site motifs
+
+@article{shapiro1987splice,
+	title = {{RNA} splice junctions of different classes of eukaryotes: sequence statistics and functional implications in gene expression.},
+	volume = {15},
+	issn = {0305-1048},
+	shorttitle = {{RNA} splice junctions of different classes of eukaryotes},
+	url = {http://europepmc.org/abstract/MED/3658675},
+	doi = {10.1093/nar/15.17.7155},
+	language = {eng},
+	number = {17},
+	urldate = {2018-11-30},
+	journal = {Nucleic acids research},
+	author = {Shapiro, M. B. and Senapathy, P.},
+	month = sep,
+	year = {1987},
+	pages = {7155--7174},
+}
+
+% Species trees
+
+@article{cui2019annual,
+	author = {Cui, Rongfeng and Medeiros, Tania and Willemsen, David and Iasi, Leonardo and Collier, Glenn E. and Graef, Martin and Reichard, Martin and Valenzano, Dario Riccardo},
+	year = "Submitted",
+}
+
+@article{hughes2018teleostphylo,
+	title = {Comprehensive phylogeny of ray-finned fishes ({Actinopterygii}) based on transcriptomic and genomic data},
+	issn = {0027-8424, 1091-6490},
+	url = {http://www.pnas.org/content/early/2018/05/08/1719358115},
+	doi = {10.1073/pnas.1719358115},
+	language = {en},
+	urldate = {2018-07-16},
+	journal = {Proceedings of the National Academy of Sciences},
+	author = {Hughes, Lily C. and Ortí, Guillermo and Huang, Yu and Sun, Ying and Baldwin, Carole C. and Thompson, Andrew W. and Arcila, Dahiana and Betancur-R, Ricardo and Li, Chenhong and Becker, Leandro and Bellora, Nicolás and Zhao, Xiaomeng and Li, Xiaofeng and Wang, Min and Fang, Chao and Xie, Bing and Zhou, Zhuocheng and Huang, Hai and Chen, Songlin and Venkatesh, Byrappa and Shi, Qiong},
+	month = may,
+	year = {2018},
+	pmid = {29760103},
+	keywords = {Read, groupB},
+	pages = {201719358},
+}
+
+% RAxML
+
+@article{stamatakis2014raxml8,
+	title = {{RAxML} version 8: a tool for phylogenetic analysis and post-analysis of large phylogenies},
+	volume = {30},
+	issn = {1367-4803},
+	shorttitle = {{RAxML} version 8},
+	url = {https://academic.oup.com/bioinformatics/article/30/9/1312/238053},
+	doi = {10.1093/bioinformatics/btu033},
+	language = {en},
+	number = {9},
+	urldate = {2018-11-23},
+	journal = {Bioinformatics},
+	author = {Stamatakis, Alexandros},
+	month = may,
+	year = {2014},
+	keywords = {groupA, Read},
+	pages = {1312--1313},
+}
+
+@article{stamatakis2005raxml3,
+	title = {{RAxML}-{III}: a fast program for maximum likelihood-based inference of large phylogenetic trees},
+	volume = {21},
+	issn = {1367-4803},
+	shorttitle = {{RAxML}-{III}},
+	url = {https://academic.oup.com/bioinformatics/article/21/4/456/203612},
+	doi = {10.1093/bioinformatics/bti191},
+	language = {en},
+	number = {4},
+	urldate = {2018-11-27},
+	journal = {Bioinformatics},
+	author = {Stamatakis, A. and Ludwig, T. and Meier, H.},
+	month = feb,
+	year = {2005},
+	keywords = {Read, groupC},
+	pages = {456--463},
+}
+
+@article{stamatakis2006raxml6,
+	title = {{RAxML}-{VI}-{HPC}: maximum likelihood-based phylogenetic analyses with thousands of taxa and mixed models},
+	volume = {22},
+	issn = {1367-4803},
+	shorttitle = {{RAxML}-{VI}-{HPC}},
+	url = {https://academic.oup.com/bioinformatics/article/22/21/2688/251208},
+	doi = {10.1093/bioinformatics/btl446},
+	language = {en},
+	number = {21},
+	urldate = {2018-11-27},
+	journal = {Bioinformatics},
+	author = {Stamatakis, Alexandros},
+	month = nov,
+	year = {2006},
+	keywords = {Read, groupC},
+	pages = {2688--2690},
+}
+
+
+% FigTree
+
+@misc{rambaut2012figtree,
+  title={FigTree v1. 4},
+  author={Rambaut, Andrew},
+  year={2012}
 }

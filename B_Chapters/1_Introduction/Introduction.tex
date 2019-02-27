@@ -132,6 +132,17 @@ The combination of the primary (\naive) repertoire described in \Cref{sec:intro_
 In addition to the process underlying the diversity of the primary repertoire discussed in \Cref{sec:intro_immunity_primary}, the structure and diversity of the secondary repertoire depends on the degree of clonal expansion and hypermutation exhibited by B-cells in a given organism, the efficacy of clonal selection, and the relative abundance of different B-cell subtypes (which express different types and amounts of antibody) in the body at the time of the sample. Inferring the composition of the primary repertoire from that of the secondary is non-trivial, and requires an attempt to distinguish sequences arising from \naive versus activated B-cells or infer the former from the latter; once obtained, the \naive sequences can be used to infer the parameters of the generative process.
 
 % TODO: Where do plasmablasts fit into this?
+% TODO: Dunn-Walters 2010 has a good B-cell subtype diagram
+
+As a result of these selective processes, the final antibody repertoire is far less diverse than the potential diversity of the generative process \parencite{dunnwalters2010bcellageing}, with ...
+
+%The B cells that are positively selected divide rapidly
+%and form memory cells or long-lived plasma cells
+%whilst those that are negatively selected die. The
+%selection of B cells in the germinal centre requires the
+%help of T cells and follicular dendritic cells that
+%provide survival signals and display antigens to the B
+%cell. \parencite{ademokun2010ageing} <- more good summaries here
 
 \subsection{\igh{} locus structure in teleost fishes}
 
@@ -154,66 +165,138 @@ In some species, such as Atlantic salmon, whole-genome duplication has led to th
 
 \section{Adaptive immunosenescence in mammals and teleosts} % TODO: Section or subsection? Do we actually know anything about teleosts here?
 
-The immune system of aged vertebrates has long been known to undergo a severe and systemic decline with age \parencite{segre1977immunosenescence}. As a result of this decline, older individuals exhibit increased susceptibility to a wide range of bacterial, viral, and fungal infectious diseases, as well as higher rates of complications and mortality from those infections when they occur \parencite{sambhara2009vaccination}. In addition, the effectiveness of vaccination against these infections often declines dramatically in older individuals, with older individuals receiving half or less of the immune protection from vaccination exhibited by younger recipients \parencite{sambhara2009vaccination}. % TODO: More on general functional immunosenescence?
+% Intro
 
-The increases in the incidence and severity of cancer and some autoimmune conditions observed in the elderly are also attributable to this generalised immunosenescent phenotype.
+The immune system of aged vertebrates has long been known to undergo a severe and systemic decline with age \parencite{segre1977immunosenescence}. As a result of this decline, older individuals exhibit increased susceptibility to a wide range of bacterial, viral, and fungal infectious diseases, as well as higher rates of complications and mortality from those infections when they occur \parencite{sambhara2009vaccination}. In addition, the effectiveness of vaccination against these infections often declines dramatically in older individuals, with older individuals often receiving half or less of the immune protection from vaccination exhibited by younger recipients \parencite{sambhara2009vaccination}. The increases in the incidence and severity of cancer and some autoimmune conditions observed in the elderly are also partially attributable to this generalised immunosenescent phenotype, which...
+
+Similar declines in immune functionality are also observed in other aged model organisms, and have been especially well-studied in mice, whose ...
 
 
-Taken together, these functional immunosenescent phenotype represent a major cause of morbidity and death in older individuals, in both humans and other vertebrate species.
+Almost all existing research on the mechanistic underpinnings B-cell immunosenescence has been performed in humans or mice, both mammalian species with highly similar adaptive immune systems. 
 
-Age-related changes in the humoral adaptive immune system are an essential contributor to the decline in immune functionality observed in older individuals. 
+%------------------------------------------------------------------------------
+% B-cell types and numbers
+%------------------------------------------------------------------------------
 
-% Functional changes in B-cell immunity (seroprotection et cetera)
+The changes in the humoral adaptive immune system underlying its impaired functionality in old age begin at the level of B-cell development. In mice, the population of haematopoietic stem cells (HSCs) resident in the bone marrow increases in number but exhibits a decreased propensity to regenerate the pool of developing B-cells \parencite{ademokun2010ageing,kogut2012bcells}; factors contributing to this change include a deteriorating bone marrow niche, changes in blood-borne factors affecting HSC differentiation, and the well-known of older mammalian HSCs towards myeloid (rather than lymphoid) cell lineages \parencite{kogut2012bcells,dunnwalters2010bcellageing}. As a result of this change in HSC behaviour, the number of new B-cell progenitor and precursor cells in the bone marrow declines with age in mice; furthermore, these precursors exhibit decreased proliferation capacity and an increased rate of apoptosis \parencite{montecino2013immunosenescence,kogut2012bcells}. % TODO: discuss impaired VDJ recombination, % citation needed
+The rate of B-cell output from the bone marrow therefore declines significantly in aged mice compared to young adults, falling as low as 10\% of its level in young mice \parencite{kogut2012bcells}. As these \naive cells also have a shorter lifespan than antigen-experienced memory- and long-lived-plasma-cell populations, the net result of this decline in output from the bone marrow is a decrease in the number of \naive cells in the periphery and a progressive increase in the relative prevalence of antigen-experienced memory and plasma cells \parencite{mehr2011reversing,kogut2012bcells}; the pool of circulating immunoglobulins, meanwhile, becomes progressively dominated by hypermutated antibodies specific to previously-encountered antigens \parencite{kogut2012bcells}. As these \naive cells are essential for responding to novel or mutated immune threats not previously encountered by the immune system, this change is thought to lead to a progressive reduction in the capacity of the humoral immune system to respond effectively to novel threats \parencite{kogut2012bcells}.
 
-Diverse cellular and physiological changes have been reported that could underlie these functional changes in humoral immune function with age. 
+Despite the decline in new \naive B-cells produced by the bone marrow, the total number of B-cells in aged mice does not appear to change significantly, reflecting an increase in the absolute number, as well as the relative prevalence, of antigen-experienced B-cell subpopulations. In humans, conversely, the absolute number of total B-cells appears to decline with age \parencite{ademokun2010ageing,montecino2013immunosenescence,aberle2013mechanistic}, with most B-cell subsets showing a significant decline in absolute abundance \parencite{frasca2011age}. Sources differ as to the age-related changes in relative abundance of different B-cell subtypes in humans, with some reporting an increase in the relative prevalence of \naive cells and decrease in that of memory cells\parencite{frasca2011age,blomberg2013age} and others reporting a more mouse-like shift in favour of the memory compartment \parencite{ademokun2010ageing}. These differences may arise from differences in the methods and cell markers used to quantify abundance of different B-cell populations \parencite{ademokun2010ageing}, genuine differences between populations, or the limitations of peripheral blood as a method of sampling the whole-body B-cell population of an individual \parencite{siegrist2009extremes}.
 
-In the bone marrow, aged mice exhibit significant declines in the number of B-cell progenitor and precursor cells, which also show decreases in proliferation capacity and an increase in rates of apoptosis \parencite{montecino2013immunosenescence,kogut2012bcells}. As a result, the rate of \naive B-cell output from the bone marrow is sharply reduced, falling as low as 10\% of its level in young mice \parencite{kogut2012bcells}. Combined with the longer lifespans of existing antigen-experienced cells in the periphery, ...
+%Older mice (?) also exhibit a reduced number and volume of germinal centres \parencite{mehr2011reversing}, a change which is ...
+%Some mouse studies have reported a decrease in the size and number of germinal centres responding to antigenic challenge in aged mice, while others have not observed such a decline \parencite{caruso2009immunosenescence}. In some cases, age-related changes in GC activity appear to differ between different secondary lymphoid organs \parencite{caruso2009immunosenescence}, suggesting these changes may not be detected in human studies of peripheral blood.
+%In addition, the number and size of haematopoietically-active bone-marrow regions declines with age as fat deposits accumulate in the marrow cavity \parencite{siegrist2009extremes}, reducing the size of the primary haematopoietic niche.
 
-In both humans and mice, B-cells from older individuals exhibit impaired class-switch recombination capacity, possibly as a result of decreased AID expression \parencite{montecino2013immunosenescence,blomberg2013age}.
+% TODO: Discuss repertoires here, or at the end?
 
-In humans, the absolute numbers of \naive and unswitched memory cells remain roughly constant in the periphery with age, while the number of class-switched memory cells declines \parencite{blomberg2013age}.
-
-While memory-cell clones established early in life often persist into old age, \naive B-cells in aged humans demonstrate a severely reduced ability to give rise to new antigen-specific memory B-cells following antigenic stimulation, impairing the establishment of functional immune memory for novel threats \parencite{aberle2013mechanistic}.
-
-In mice, the total number of B-cells in the periphery appears to be unchanged by ageing, while in human peripheral blood the number of B-cells declines with age \parencite{montecino2013immunosenescence,aberle2013mechanistic}. 
-
-In mice, while the total number of B-cells does not appear to change with age \parencite{montecino2013immunosenescence}, the number of \naive B-cells resident in germinal centres declines, while the prevalence of antigen-experienced memory and plasma cells increases \parencite{mehr2011reversing,kogut2012bcells}. As these antigen-experienced B-cells have a longer lifespan than naive cells \parencite{kogut2012bcells}, they progressively dominate the B-cell repertoire of aged mice at the expense of \naive cells, while the pool of circulating immunoglobulins becomes progressively dominated by hypermutated antibodies specific to previously-encountered antigens \parencite{kogut2012bcells}. As these \naive cells are essential for responding to novel or mutated immune threats not previously encountered by the immune system, this change is thought to lead to a progressive reduction in the capacity of the humoral immune system to respond effectively to novel threats \parencite{kogut2012bcells}.
 
 
 
 Older human individuals show a decrease in the number of plasmablasts developing as a result of vaccination \parencite{montecino2013immunosenescence}.
 
-Older mice (?) also exhibit a reduced number and volume of germinal centres \parencite{mehr2011reversing}, a change which is ...
 
-The antibodies themselves are also thought to decline in quality with age, with older individuals producing 
 
-In humans, older individuals exhibit a substantially lower increase in antibody titre in response to vaccination \parencite{sasaki2011limited,aberle2013mechanistic}, a difference mainly arising from a decrease in the number of activated plasmablasts \parencite{sasaki2011limited,montecino2013immunosenescence}.
 
+While memory-cell clones established early in life often persist into old age, \naive B-cells in aged humans demonstrate a severely reduced ability to give rise to new antigen-specific memory B-cells following antigenic stimulation, impairing the establishment of functional immune memory for novel threats \parencite{aberle2013mechanistic}.
+
+
+
+
+
+
+
+%------------------------------------------------------------------------------
+% CSR
+%------------------------------------------------------------------------------
+
+In both humans and mice, B-cells from older individuals exhibit impaired class-switch recombination capacity, possibly as a result of decreased AID expression \parencite{montecino2013immunosenescence,blomberg2013age,frasca2011age}. AS CSR enables the generation of antibodies with the same specificity but different effector functions, it is very important for an effective humoral immune response in mammals \parencite{frasca2011age}, and the loss of CSR capacity is an important contributor to humoral immunosenescence in these species; however, as CSR is not present in teleost fishes, ...
+
+
+
+
+
+%------------------------------------------------------------------------------
+% Other cell types
+%------------------------------------------------------------------------------
 At least some of the declines in B-cell functionality with age are likely to be the result of age-related declines in the functionality of CD4\textsuperscript{+} T-cells, which are known to play a critical role in orchestrating the humoral immune response \parencite{montecino2013immunosenescence} and undergo severe age-related changes including reduced proliferation, dysregulated cytokine production and disrupted helper activity \parencite{aberle2013mechanistic}. The reduction in T-cell help in elderly individuals following vaccination 
 has been implicated in the dramatic decline in the ability of these individuals to produce high titres of antigen-specific antibody in response to vaccination and other antigenic challenges \parencite{aberle2013mechanistic}.
 
-In addition to changes in proliferation, differentiation and behaviour exhibited by aged B-cells, the quality of the antibodies they produce has also been reported to decline \parencite{montecino2013immunosenescence}. 
+Follicular dendritic cells, which are responsible for presenting antigen to expanded B-cells during affinity maturation in mammals, show less-effective antigen-trapping and -presentation behaviour and a decreased ability to stimulate B-cell proliferation in older mice \parencite{ademokun2010ageing}.
+
+%------------------------------------------------------------------------------
+% SHM
+%------------------------------------------------------------------------------
+In humans, plasmablasts arising following influenza vaccination exhibit restricted somatic hypermutation, leading to impaired affinity maturation and reduced ability to adapt to changes in viral epitope structure \parencite{henry2019influenza}.
+As a result, older humans are thought to exhibit a greater reliance on immune memory compared to the \naive repertoire, leading to impaired reperoire flexibility in response to novel or mutated antigens \parencite{henry2019influenza}. % Is this in the right section?
+
+The effect of ageing on the somatic hypermutation process has been controversial. B-cells from older human patients exhibit higher levels of SHM-produced mutations; however, ... indicate that SHM occurs at the same rate in older and younger humans, suggesting that the higher rate observed in older patients is the result of accumulation of mutations over a greater number of rounds of affinity maturation rather than a change in the SHM process itself. 
+
+The decreased ability of older individuals to produce high-affinity antigen-specific antibodies \parencite{frasca2011age} suggests a defect in affinity maturation
 
 In mice, levels of somatic hypermutation appear to decline with age \parencite{henry2019influenza}, % More direct citation
 while in humans... % More sources from Henry 2019
 different sources have reported inconsistent trends \parencite{blomberg2013age}...
 
-In humans, plasmablasts arising following influenza vaccination exhibit restricted somatic hypermutation, leading to impaired affinity maturation and reduced ability to adapt to changes in viral epitope structure \parencite{henry2019influenza}.
+While the fundamental mechanism of SHM does not appear to change with age in human
 
-As a result, older humans are thought to exhibit a greater reliance on immune memory compared to the \naive repertoire, leading to impaired reperoire flexibility in response to novel or mutated antigens \parencite{henry2019influenza}.
+%------------------------------------------------------------------------------
+% Antibody quality
+%------------------------------------------------------------------------------
+In addition to changes in proliferation, differentiation and behaviour exhibited by aged B-cells, the quality of the antibodies they produce has also been reported to decline \parencite{montecino2013immunosenescence}. 
+
+Aged humans exhibit progressive accumulation of increasing levels of self-reactive autoantibodies \parencite{kogut2012bcells}, possibly as a result of ...
+
+Conversely, both humans and mice exhibit increased total baseline titres of serum antibody%, though the quality of these antibodies is degraded. % Frasca 2009 or better source
+
+In mice, total baseline titres of serum antibody protein increase with age, suggesting that the problem is with generating specific humoral responses rather than antigen production \textit{per se} \parencite{speziali2009specific}; however, it is worth noting here that IGHM titres were not found to change with age in these mice, suggesting that this finding may not generalise to species lacking class-switch recombination.
+
+The antibodies themselves are also thought to decline in quality with age, with older individuals producing 
+
+Despite this, polyspecific and autoreactive antibodies increase in prevalence in ... with age, suggesting a breakdown in the primary B-cell selection mechanisms discussed in ... . This breakdown may even be a direct result of the decline in the number of surviving B-cell progenitors: as the number of immature B-cells competing for antigen falls, so does the strigency of selection as less-favoured cells can still receive enough growth signals to survive \parencite{ademokun2010ageing}.
+
+
+These new autoantibodies usually do not lead to autoimmune disease in the elderly \parencite{siegrist2009extremes}, possibly due to their generally low antigen-affinity, but are thought to contribute to ...
+
+
+%------------------------------------------------------------------------------
+% Vaccines
+%------------------------------------------------------------------------------
+
+The titre of antigen-specific serum antibodies is a well-established measure of the quality of a humoral immune response to antigen challenge, with a high titre associated with better recovery and more effective vaccination \parencite{dunnwalters2010bcellageing}. 
+
+In addition to being produced at lower titres in response to vaccination, anti-influenza antibodies produced by older human individuals demonstrate reduced ability to effectively neutralise viral haemagglutinin \parencite{sasaki2011limited,kogut2012bcells}, while IGHM antibodies produced by elderly subjects in response to pneumococcal polysaccharide vaccine demonstrate reduced opsonisation ability \parencite{kogut2012bcells}.
+
+In primary responses to previously unseen yellow-fever vaccine, older individuals exhibit a significant delay in upregulation of antibody titres, and exhibit significantly higher levels of viral prevalence in the bloodstream during this delayed seroconversion period \parencite{kogut2012bcells}.
+
+In humans, older individuals exhibit a substantially lower increase in antibody titre in response to vaccination \parencite{sasaki2011limited,aberle2013mechanistic}, a difference mainly arising from a decrease in the number of activated plasmablasts \parencite{sasaki2011limited,montecino2013immunosenescence}.
+
+Blood titres of specific antibody produced in response to a wide range of vaccines decline in elderly human patients \parencite{ademokun2010ageing},
+
+Similar deficiencies have been observed in the response of elderly patients to a wide range of vaccines, including hepititis, tetanus, diphtheria, tick-borne encephalitis and pneumococcus \parencite{dunnwalters2010bcellageing}
+
+
+%------------------------------------------------------------------------------
+% Repertoire diversity
+%------------------------------------------------------------------------------
+
+These various changes have long been thought to give rise to a reduction in the diversity of the overall antibody repertoire...
+
+Aged humans \parencite{siegrist2009extremes} and mice \parencite{dunnwalters2010bcellageing} exhibit increased rates of non-malignant clonal expansions in the memory-cell compartment, which when combined with the apparent maintenance in total B-cell number would lead to a reduction in overall diversity \parencite{dunnwalters2010bcellageing}. % A similar conclusions was supported by humans using CDR3 spectratyping 
 
 At the level of the antibody repertoire, older individuals are believed to exhibit reduced diversity, with ...
 Early techniques that investigated the repertoire by investigating the distribution of CDR3 lengths (CDR3 spetratyping) indicated that older humans frequently exhibit more distorted distributions dominated by CDR3 regions of a particular length, indicative of clonal expansion, and found that older individuals with more distorted spectratypes exhibited greater frailty and worse health and lifespan outcomes than those with more young-like spectratypes. % Cite Gibson here
 
-In addition to being produced at lower titres in response to vaccination, anti-influenza antibodies produced by older human individuals demonstrate reduced ability to effectively neutralise viral haemagglutinin \parencite{sasaki2011limited,kogut2012bcells}, while antibodies produced by elderly subjects in response to pneumococcal polysaccharide vaccine demonstrate reduced opsonisation ability \parencite{kogut2012bcells}.
+Mucosal systems, where antigenic challenge leading to clonal expansion of antigen-experienced cells is more frequent, might be expected to show a particularly strong decline in repertoire diversity with age \parencite{caruso2009immunosenescence}, impairing the ability of the organism to regulate its mucosal microbiotal environments.
 
-In primary responses to previously unseen yellow-fever vaccine, older individuals exhibit a significant delay in upregulation of antibody titres, and exhibit significantly higher levels of viral prevalence in the bloodstream during this delayed seroconversion period \parencite{kogut2012bcells}.
 
-Aged humans exhibit progressive accumulation of increasing levels of self-reactive autoantibodies \parencite{kogut2012bcells}, possibly as a result of ...
+%------------------------------------------------------------------------------
+% Limitations
+%------------------------------------------------------------------------------
 
-% Discuss quality of bone marrow niche, reconstitution ability (Mehr), ability to transplant successfully (Kogut), etc?
+In humans, analysis of B-cell repertoires is typically limited to peripheral blood, which is not a representative sample of the entire B-cell population and may often fail to reflect B-cell population resident in lymphoid organs \parencite{siegrist2009extremes}.
 
-% Role of HSC myeloid bias etc in reducing B-cell output (Kogut)
+Many of the findings reported above are specific to IGHG or IGHA antibodies, which are the dominant serum and mucosal antibodies, respectively, in mice and humans, and may not generalise to species lacking class-switch recombination.
+
 
 
 % Wang et al 2013
