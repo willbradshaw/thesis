@@ -214,49 +214,6 @@ Following resolution of conflicts, alignment groups underwent a second filtering
 
 In order to validate intron/exon boundaries and investigate splicing behaviour among \textit{IGH} constant-region exons in \Nfu and \Xma, published RNA-sequencing data (\Cref{tab:rnaseq-sources}) were aligned to the annotated locus using STAR (\parencite{dobin2013star}, version 2.5.2b). In both cases, reads files from multiple individuals were concatenated and aligned together, in order to make the intron/exon boundary changes in mapping behaviour as clear as possible. % TODO: Add more software versions, or a table at the end
 
-\begin{table}
-\caption{RNA-sequencing datasets used for \textit{IGH} constant-region exon refinement and isoform identification}
-\centering
-\begin{threeparttable}
-\begin{tabular}{>{\bfseries}c|c|c}\toprule
-Species & \Nfu & \Xma \\\midrule
-Tissues & Gut & Various\tnote{2}\\\midrule
-BioProject Accession & PRJNA379208 & PRJNA420092\\\midrule
-\multirow{26}{*}{SRA Run Accessions} & SRR5344350 & SRR6327069\\
-& SRR5344343 & SRR6327070\\
-& SRR5344344 & SRR6327071\\
-& SRR5344345 & SRR6327072\\
-& SRR5344346 & SRR6327073\\
-& SRR5344347 & SRR6327074\\
-& SRR5344348 & SRR6327075\\
-& SRR5344349 & SRR6327076\\
-& SRR5344350 & SRR6327077\\
-&&SRR6327078\\
-&&SRR6327079\\
-&&SRR6327080\\
-&&SRR6327081\\
-&&SRR6327082\\
-&&SRR6327083\\
-&&SRR6327084\\
-&&SRR6327085\\
-&&SRR6327086\\
-&&SRR6327087\\
-&&SRR6327088\\
-&&SRR6327089\\
-&&SRR6327090\\
-&&SRR6327091\\
-&&SRR6327092\\
-&&SRR6327093\\
-&&SRR6327094\\\midrule
-Source & \parencite{smith2017microbiota} & Citation not given\\
-\bottomrule\end{tabular} % TODO: Table notes, sources
-	\begin{tablenotes}
-	\item[1] Tissues used for \Xma RNA-sequencing included brain, heart, liver, gut, skin or whole fish; see BioProject entry for details.
-	\end{tablenotes}
-\end{threeparttable}
-\label{tab:rnaseq-sources}
-\end{table}
-
 Before aligning the RNA-seq reads, each locus underwent basic repeat masking, using the built-in zebrafish repeat parameters from \program{RepeatMasker} \parencite{smith2016repeatmasker}:
 
 \begin{lstlisting}[language=bash]

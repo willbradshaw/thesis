@@ -30,7 +30,8 @@
 
 \ifdefineChapter
 	\includeonly{B_Chapters/1_Introduction/Introduction}
-	%\includeonly{B_Chapters/2_Methods/Methods,C_Backmatter/A_Solutions,C_Backmatter/B_Primers,C_Backmatter/C_Diversity}
+	%\includeonly{B_Chapters/2_Methods/Methods,C_Appendices/Solutions,C_Appendices/Primers,C_Appendices/Diversity,C_Appendices/Tables}
+	%\includeonly{B_Chapters/3_Locus/Locus,C_Appendices/Figures,C_Appendices/Tables}
 \fi
 
 \begin{document}
@@ -100,15 +101,17 @@
 
 \begin{appendices} % Using appendices environment for more functionality
 \appendix
-\include{C_Backmatter/A_Solutions}
-\include{C_Backmatter/B_Primers}
-\include{C_Backmatter/C_Diversity}
+\include{C_Appendices/Solutions}
+\include{C_Appendices/Primers}
+\include{C_Appendices/Diversity}
+\include{C_Appendices/Figures}
+\include{C_Appendices/Tables}
 \end{appendices}
 
 % *************************************** Index ********************************
 %\printthesisindex % If index is present
 %\input{Lebenslauf_Franziska_Metge.pdf}
 \singlespace
-\include{C_Backmatter/declaration}
+\include{C_Appendices/_declaration}
 
 \end{document}
