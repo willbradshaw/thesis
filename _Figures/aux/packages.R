@@ -33,7 +33,9 @@ packages <- c("plyr", # Database manipulation
               "alakazam", # Change-O functions 1
               "rdi", # Repertoire Dissimilarity Index
               "shazam", # Change-O functions 2
-              "rlang" # := helper
+              "rlang", # := helper
+              "survival", # Survival curves for intro
+              "survminer" # More survival curves
               )
 
 # Define auxiliary functions

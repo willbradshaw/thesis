@@ -376,7 +376,7 @@ Following annotations, reads from different libraries were pooled together, then
 SplitSeq.py group -s {input} -f REPLICATE s <pooled_reads_file>
 \end{lstlisting}
 
-This pooling and re-splitting process enables all reads considered to be a single replicate (however defined) to be processed together, maximising the effectiveness of UMI-based pre-processing, while also allowing all replicates to be processed in parallel. % TODO: Move to results chapter?
+This pooling and re-splitting process enables all reads considered to be a single replicate to be processed together even if sequenced separately, maximising the effectiveness of UMI-based pre-processing while also allowing all replicates to be processed in parallel.
 
 \subsubsection{Read quality control}
 \label{sec:methods_comp_igpreproc_filter}
