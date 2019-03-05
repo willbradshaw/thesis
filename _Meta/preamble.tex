@@ -148,7 +148,7 @@
 % If you would like to use biblatex for your reference management, as opposed to the default `natbibpackage` pass the option `custombib` in the document class. Comment out the previous line to make sure you don't load the natbib package. Uncomment the following lines and specify the location of references.bib file
 
 \RequirePackage[backend=biber, citestyle=numeric-comp, style=numeric, sorting=none, 
-	natbib=true, maxnames=4, minnames=4, url=false, giveninits=true]{biblatex}
+	natbib=true, maxnames=4, minnames=4, url=false, giveninits=true, sortcites=true]{biblatex}
 \renewbibmacro{in:}{\ifentrytype{article}{}{\printtext{\bibstring{in}\intitlepunct}}}
 %\bibliography{References/references} %Location of references.bib only for biblatex
 \bibliography{D_References/1_Introduction,
