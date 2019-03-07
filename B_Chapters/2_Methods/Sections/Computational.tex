@@ -64,7 +64,7 @@ Each pair of independently-corrected reads files was then passed to \program{SPA
 spades.py -1 <forward_reads_fastq> -2 <reverse_reads_fastq> -o <output_path> --disable-gzip-output --only-assembler --careful --cov-cutoff auto -k 21,33,55,77,99,127 --phred-offset 33
 \end{lstlisting}
 
-Following assembly, any \textit{E. coli} scaffolds resulting from residual contaminating reads were identified by aligning scaffolds to the \textit{E. coli} genome using \program{BLASTN} \parencite{altschul1990blast,altschul1997blast}, and scaffolds containing significant matches were discarded. The remaining scaffolds were then scaffolded using \program{SSPACE} \parencite{boetzer2011sspace}, using jumping libraries from the Stanford and Jena killifish genome assemblies: % TODO: Get genome accessions
+Following assembly, any \textit{E. coli} scaffolds resulting from residual contaminating reads were identified by aligning scaffolds to the \textit{E. coli} genome using \program{BLASTN} \parencite{altschul1990blast,altschul1997blast}, and scaffolds containing significant matches were discarded. The remaining scaffolds were then scaffolded using \program{SSPACE} \parencite{boetzer2011sspace}, using jumping libraries from the Stanford \parencite{valenzano2015genome} and Jena \parencite{reichwald2015genome} killifish genome assemblies: % TODO: Get genome accessions
 
 \begin{lstlisting}
 SSPACE_Standard_v3.0.pl -x 0 -k 5 -a 0.7 -n 15 -z 200 -g 1 -p 0 -l <jumping_library_config_file> -s <spades_scaffolds_file>
@@ -77,6 +77,8 @@ In order to guarantee the reliability of the assembled scaffolds, the assemblies
 
 \subsubsection{Collating reference sequences}
 \label{sec:methods_comp_locus_reference}
+
+\newabbreviation{HSP}{HSP}{high-scoring segment pair (\program{BLAST})}
 
 Most publications presenting characterisations of \igh{} loci do not provide easy-to-use databases of trimmed and curated gene segments, and the data that is available is often partial and heterogeneous between publications. In order to obtain standardised databases, further analysis was performed on publically-available data from three reference species with previously-characterised \igh{} loci: medaka (\species{Oryzias}{latipes}) \parencite{magadan2011medaka}, zebrafish (\species{Danio}{rerio}) \parencite{danilova2005zebrafish} and three-spined stickleback (\species{Gasterosteus}{aculeatus}) \parencite{bao2010stickleback,gambondeza2011stickleback}, as described below. Following automatic sequence extraction, the reference sequences were checked manually for any severely pathological (e.g. out-of-frame) sequences and edited before being used for inference in novel loci.
 
@@ -111,6 +113,9 @@ As with stickleback, the amino-acid sequences provided were aligned to the locus
 \subsubsection{Identifying putative locus sequences}
 \label{sec:methods_comp_locus_scaffolds}
 
+\newabbreviation{E-value}{E-value}{Expect value (\program{BLAST})}
+\newabbreviation{kb}{kb}{kilobase(s)}
+
 In order to identify sequences in a genome assembly potentially containing part of an \igh{} locus, reference \vh, \jh and constant-region nucleotide and amino-acid sequences were mapped to the assembly using \program{BLAST} \parencite{altschul1990blast,altschul1997blast}. Nucleotide sequences were aligned to the locus using the relatively permissive \program{blastn} algorithm (as opposed to e.g. \program{megablast} or \program{dc-megablast}):
 
 \begin{lstlisting}
@@ -140,6 +145,10 @@ To do this, all assembled BAC inserts were screened for \igh{} locus segments in
 
 \subsubsection{Locus segment characterisation}
 \label{sec:methods_comp_locus_segments}
+
+\newabbreviation{HMM}{HMM}{Hidden Markov Model}
+\newabbreviation[sort=X. maculatus]{xma}{\Xma}{\xma}
+\newabbreviation{SA}{SA}{suffix array}
 
 Detailed characterisation of \igh{} gene segments was performed on finished \igh{} locus sequences for \xma and \nfu, and on isolated candidate scaffolds for other species, using the same reference segment databases used to identify candidate scaffolds for that species in \Cref{sec:methods_comp_locus_scaffolds}. % For Xma they are the same.
 The specific methods used depended on segment type.
@@ -340,6 +349,7 @@ This pooling and re-splitting process enables all reads considered to be a singl
 
 
 After pooling and re-splitting, the raw read set underwent quality control, discarding any read with an average Phred score of less than 20:
+% TODO: Citation needed for Phred score
 
 \begin{lstlisting}
 FilterSeq quality -q 20 -s <input_reads_file>
@@ -347,6 +357,10 @@ FilterSeq quality -q 20 -s <input_reads_file>
 
 \subsubsection{Primer masking and UMI extraction}
 \label{sec:methods_comp_igpreproc_mask}
+
+\newabbreviation{ID}{ID}{identity}
+\newabbreviation{UMI}{UMI}{unique molecular identifier}
+\newabbreviation{MIG}{MIG}{molecular identifier group}
 
 Following quality filtering, the reads underwent processing to identify and remove invariant primer sequences. To do this, known primer sequences were aligned to each read from a fixed starting position, and the best match on each read was identified and trimmed. Initially, the primer sequences from the third PCR step of the library prep protocol were used, trimming off primer sequences corresponding to part of the constant \cm{1} exon and the 5' invariant part of the template-switch adapter:
 
@@ -478,7 +492,7 @@ dist_fail <- tab %>% filter(! ROW %in% dist_pass$ROW) %>%·mutate(DIST_NEAREST =
 writeChangeoDb(bind_rows(dist_pass, dist_fail), <db_output_path>)
 \end{lstlisting}
 
-where \snippet{model = "ham"} indicates that a single-nucleotide Hamming distance metric is to be used, \snippet{normalize = "len"} that distances should be normalised by total sequence length, \snippet{first = FALSE} determines how to handle ambiguous V/J calls, and \snippet{fields = <group_field>} that only distances within an entry group (see below) should be considered.
+\noindent where \snippet{model = "ham"} indicates that a single-nucleotide Hamming distance metric is to be used, \snippet{normalize = "len"} that distances should be normalised by total sequence length, \snippet{first = FALSE} determines how to handle ambiguous V/J calls, and \snippet{fields = <group_field>} that only distances within an entry group (see below) should be considered.
 
 Following assignment of nearest-neighbour distances, a distance threshold for clonotyping was computed by fitting a pair of unimodal distributions to the nearest-neighbour distribution over all sequences and selecting the threshold that minimises the maximises the average of sensitivity and specificity when assigning a point to one of these distributions (for more information, see ... and \parencite{nouri2018threshold}) .% TODO: Describe thresholding in more detail
 As with nearest-neighbour distance assignment, this was done in \program{R} using \program[R]{SHazaM} and \program[R]{Alakazam}; all four possible models (fitting either a normal or gamma distribution to each of the two peaks) were tried, and the one with the highest maximum likelihood was used to compute the threshold value:

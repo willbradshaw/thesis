@@ -6,10 +6,6 @@
  
 \onehalfspacing
 
-% Chapter summary (should fit on title page)
-\section*{Summary} 
-
-\dots
 \pagebreak
 
 % Sections
@@ -108,7 +104,7 @@ In the library-preparation protocol used for \Igseq in the turquoise killifish, 
 
 Following reverse-transcription, the reaction mixture is treated with uracil-DNA glycosylase (UDG) to specifically remove residual TSAs through specific digestion of deoxyuridine residues (which are absent in the template sequence). The library then undergoes three successive rounds of PCR amplification (\Cref{fig:igrace-pipeline}; see\Cref{sec:methods_molec_igseq_pcr} for more details), which respectively serve to amplify the reverse-transcribed cDNA sequence; amplify further while adding partial Illumina TruSeq adaptor sequences; and add complete adaptor sequences including library-specific P1 and P2 index barcode sequences. In the first two cases, the PCR primer sequences are homologous to the invariant part of the TSA sequence and the \cm{1} exon, respectively; as all known forms of \igh{} in turquoise killifish (\igh{M-TM}, \igh{M-S} and \igh{D-TM}) share this exon, the isotype- and isoform-specificity of the library prep can be altered simply by changing the position of the reverse-transcription GSP, with all other primer sequences left unchanged. In all experiments included in this chapter, a GSP on the \cm{2} exon was used, resulting in a library including \igh{M-TM} and \igh{M-S} sequences but excluding \igh{D}. % TODO: Figure summarising constant regions and showing primer placement in LP
 
-Libraries to be sequenced together are then pooled in equimolar ratio and the pooled sample undergoes size-selection to remove residual primer-dimers and other unwanted sequences. The complete library-preparation protocol reliably produces a single peak in the range of 650\bp{680}, consistent with the known lengths of \vh, \dh and \jh gene segments in the \Nfu locus. % TODO: Figure for this
+Libraries to be sequenced together are then pooled in equimolar ratio and the pooled sample undergoes size-selection to remove residual primer-dimers and other unwanted sequences. The complete library-preparation protocol reliably produces a single peak in the range of 650-\bp{680}, consistent with the known lengths of \vh, \dh and \jh gene segments in the \Nfu locus. % TODO: Figure for this
 Following size-selection and quality control, pooled libraries are sequenced on an Illumina MiSeq sequencing machine with 2 × \bp{300} reads; this longer read length is necessary to completely cover the variable region. % TODO: Specify sequencing kit
 
 \subsection{Sequence pre-processing with \program{pRESTO}}
@@ -142,7 +138,7 @@ At the end of the \program{pRESTO} pre-processing pipeline, the raw data has bee
 
 \newcommand{\embed}[1]{\input{#1}\unskip}
 
-In order to validate the library-preparation protocol and processing pipeline described in \Cref{sec:igseq_protocol}, as well as assess the state of the turquoise-killifish antibody repertoire in mature adults, a group of four adult male killifish from the second sample group described in \Cref{sec:igseq_samples} (specifically, fish 2-03, 2-04, 2-05 and 2-06) were selected for a pilot study. In this experiment, total RNA was isolated twice independently from each fish, and independent library preps were performed once on the first RNA isolate and twice on the second, for a total of three replicates per individual (\Cref{fig:igseq-pilot-design}). These twelve replicates were sequenced together in a single MiSeq run, yielding a total of \embed{_Figures/txt/pilot-reads-raw-total.txt} million read pairs (\embed{_Figures/txt/pilot-reads-raw-replicate-min.txt} to \embed{_Figures/txt/pilot-reads-raw-replicate-max.txt} million pairs per replicate, \embed{_Figures/txt/pilot-reads-raw-individual-min.txt} to \embed{_Figures/txt/pilot-reads-raw-individual-max.txt} million pairs per individual).
+In order to refine and functionally validate the library-preparation protocol and processing pipeline described in \Cref{sec:igseq_protocol}, as well as assess the state of the turquoise-killifish antibody repertoire in mature adults, a group of four adult male killifish from the second sample group described in \Cref{sec:igseq_samples} (specifically, fish 2-03, 2-04, 2-05 and 2-06 from \Cref{tab:igseq-cohorts-fish}) were selected for a pilot study. In this experiment, total RNA was isolated twice independently from each fish, and independent library preps were performed once on the first RNA isolate and twice on the second, for a total of three replicates per individual (\Cref{fig:igseq-pilot-design}). These twelve replicates were sequenced together in a single MiSeq run, yielding a total of \embed{_Figures/txt/pilot-reads-raw-total.txt} million read pairs (\embed{_Figures/txt/pilot-reads-raw-replicate-min.txt} to \embed{_Figures/txt/pilot-reads-raw-replicate-max.txt} million pairs per replicate, \embed{_Figures/txt/pilot-reads-raw-individual-min.txt} to \embed{_Figures/txt/pilot-reads-raw-individual-max.txt} million pairs per individual).
 
 \begin{figure}
 \centering
@@ -195,7 +191,7 @@ In total, the pre-processed sequence repertoires of the pilot replicates contain
 \label{fig:igseq-pilot-functional-vscores}
 \end{figure}
 
-As genuinely recombined but nonfunctional sequences would be expected to have undergone V(D)J recombination and so have a complete J-sequence, the lack of assigned J-identities for a significant minority of sequences suggests that this subset of sequences may be artifactual, erroneous or otherwise malformed. Supporting this assumption, sequences without J-assignments overwhelmingly have very low V-alignment scores reported by \program{IgBLAST}, with an average score of \embed{_Figures/txt/pilot-vscore-mean-noj.txt} $\pm$ \embed{_Figures/txt/pilot-vscore-sd-noj.txt} (mean $\pm$ standard deviation), compared to \embed{_Figures/txt/pilot-vscore-mean-other.txt} $\pm$ \embed{_Figures/txt/pilot-vscore-sd-other.txt} for other nonfunctional sequences and \embed{_Figures/txt/pilot-vscore-mean-functional.txt} $\pm$ \embed{_Figures/txt/pilot-vscore-sd-functional.txt} for functional sequences (\Cref{fig:igseq-pilot-functional-vscores}). A simple V-score cut-off of 100, therefore, effectively removes the vast majority of these low-quality sequences, while leaving the population of functional sequences intact (\Cref{fig:igseq-pilot-functional-prop-b}); in total, \embed{_Figures/txt/pilot-nseq-init-dropped-vscore.txt} unique sequences, corresponding to \embed{_Figures/txt/pilot-read-survival-rel-loss-total.txt}\,\% of input reads, were removed in this way.
+As genuinely recombined but nonfunctional sequences would be expected to have undergone V(D)J recombination and so have a complete J-sequence, the lack of assigned J-identities for a significant minority of sequences suggests that this subset of sequences may be artifactual, erroneous or otherwise malformed. Supporting this assumption, sequences without J-assignments overwhelmingly have very low V-alignment scores reported by \program{IgBLAST}, with an average score of \embed{_Figures/txt/pilot-vscore-mean-noj.txt} $\pm$ \embed{_Figures/txt/pilot-vscore-sd-noj.txt} (mean $\pm$ standard deviation), compared to \embed{_Figures/txt/pilot-vscore-mean-other.txt} $\pm$ \embed{_Figures/txt/pilot-vscore-sd-other.txt} for other nonfunctional sequences and \embed{_Figures/txt/pilot-vscore-mean-functional.txt} $\pm$ \embed{_Figures/txt/pilot-vscore-sd-functional.txt} for functional sequences (\Cref{fig:igseq-pilot-functional-vscores}). A simple V-score cut-off of 100, therefore, effectively removes the vast majority of these low-quality sequences, while leaving the population of functional sequences intact (\Cref{fig:igseq-pilot-functional-prop-b}); in total, \embed{_Figures/txt/pilot-nseq-init-dropped-vscore.txt} unique sequences, corresponding to \embed{_Figures/txt/pilot-read-survival-rel-loss-total.txt}\,\% of input reads, were removed in this way (\Cref{fig:igseq-pilot-read-survival-all}).
 
 \begin{figure}
 \centering
@@ -208,11 +204,11 @@ As genuinely recombined but nonfunctional sequences would be expected to have un
 \phantomsubcaption{}
 \label{fig:igseq-pilot-read-survival-all-b}
 \end{subfigure}
-\caption{Absolute (A) and relative (B) read survival during pre-processing of the pilot \igseq dataset, up to and including ....} % TODO: Decide on last step: clonotyping or functionality?
+\caption{Absolute (A) and relative (B) read survival during pre-processing of the pilot \igseq dataset, up to and including clonotyping.}
 \label{fig:igseq-pilot-read-survival-all}
-\end{figure} % TODO: Reference this figure in text
+\end{figure}
 
-\subsection{Clonotyping} % TODO: Better section title
+\subsection{Clonotyping and clonal repertoire diversity}
 \label{sec:igseq_pilot_clones}
 
 Following assignment of VDJ identities and quality filtering, sequences in an antibody repertoire can be assigned to clones: groups of B-cells descended from a single \naive B-cell ancestor, and therefore sharing a single VDJ-recombination event. Sequences in the same clone are said to share a \textit{clonotype}. In \program{Change-O}, clonotyping is performed by dividing sequences into groups sharing a consistent V-assignment, J-assignment and CDR3 length, then each group undergoes single-linkage clustering based on Hamming distance between CDR3 sequences. To identify a distance threshold for cutting the cluster dendrogram, ... % TODO: describe thresholding algorithm.
@@ -226,7 +222,8 @@ One disadvantage of single-linkage clustering in this context is that non-inform
 \input{_Figures/tables/igseq-pilot-filtered-nn}
 \end{table}
 
-In total, \embed{_Figures/txt/pilot-nclones-individual-min.txt} to \embed{_Figures/txt/pilot-nclones-individual-max.txt} clones were identified per individual fish in the pilot dataset. As expected, the clone-size distribution is overwhelmingly dominated by small clones (\Cref{fig:igseq-pilot-clone-sizes-sizes}): across all individuals, \embed{_Figures/txt/pilot-nclones-pc-1count.txt}\,\% of clones are observed as just a single unique sequence across all replicates, while \embed{_Figures/txt/pilot-nclones-pc-small.txt}\,\% contain fewer than five unique sequences. As a result, the great majority of clones (\embed{_Figures/txt/pilot-nclones-pc-1rep.txt}\,\%) are observed in only a single replicate per individual, with \embed{_Figures/txt/pilot-nclones-pc-2rep.txt}\,\% present in two replicates and \embed{_Figures/txt/pilot-nclones-pc-3rep.txt}\,\% shared across all three. Unsurprisingly, however, larger clones are much more likely to be shared across multiple replicates (\Cref{fig:igseq-pilot-clone-sizes-reps}), consistent with a model in which a large number of small clones are sampled only rarely while a much smaller number of large clones is sampled much more often. Overall, the level of agreement between the replicates is high (\Cref{fig:igseq-pilot-clone-sizes-cor-boxplots,fig:igseq-pilot-clone-sizes-cor-scatter}), with an average inter-replicate correlation in clone size of $r=\embed{_Figures/txt/pilot-clone-sizes-cor-avg.txt}$.
+In total, \embed{_Figures/txt/pilot-nclones-individual-min.txt} to \embed{_Figures/txt/pilot-nclones-individual-max.txt} clones were identified per individual fish in the pilot dataset. As expected, the clone-size distribution is overwhelmingly dominated by small clones (\Cref{fig:igseq-pilot-clone-sizes-sizes}): across all individuals, \embed{_Figures/txt/pilot-nclones-pc-1count.txt}\,\% of clones are observed as just a single unique sequence across all replicates, while \embed{_Figures/txt/pilot-nclones-pc-small.txt}\,\% contain fewer than five unique sequences. As a result, the great majority of clones (\embed{_Figures/txt/pilot-nclones-pc-1rep.txt}\,\%) are observed in only a single replicate per individual, with \embed{_Figures/txt/pilot-nclones-pc-2rep.txt}\,\% present in two replicates and only  \embed{_Figures/txt/pilot-nclones-pc-3rep.txt}\,\% shared across all three. Unsurprisingly, however, larger clones are much more likely to be shared across multiple replicates (\Cref{fig:igseq-pilot-clone-sizes-reps}), consistent with a model in which a large number of small clones are sampled only rarely while a much smaller number of large clones is sampled much more often. % TODO: Cite Walczak diversity paper here
+Overall, the level of agreement between the replicates is high (\Cref{fig:igseq-pilot-clone-sizes-cor-boxplots,fig:igseq-pilot-clone-sizes-cor-scatter}), with an average inter-replicate correlation in clone size of $r=\embed{_Figures/txt/pilot-clone-sizes-cor-avg.txt}$.
 
 \begin{figure}
 \centering
@@ -260,13 +257,15 @@ In total, \embed{_Figures/txt/pilot-nclones-individual-min.txt} to \embed{_Figur
 \label{fig:igseq-pilot-clone-sizes-cor-scatter}
 \end{figure}
 
-One of the most startlingly reproducible findings of immune-repertoire-sequencing studies across multiple species has been the rank:frequency distribution of clonotypes, which consistently follows a Zipf distribution; that is, the frequency of the $k$th largest clone in a repertoire dataset containing $N$ total clones is well-predicted by:
+% TODO: Needs a lead-in sentence. Why do you care?
+One of the most startlingly reproducible findings of immune-repertoire-sequencing studies across multiple species has been the rank:frequency distribution of clonotypes, which consistently follows a Zipf distribution; that is, the frequency of the $k$th largest clone in a repertoire dataset containing $N$ total clones  can be predicted by:
 
 \begin{equation}
 f(k | N, s) = \frac{x^{-s}}{H_{N,s}}
 \end{equation}
 
-\noindent for some exponent parameter $s > 0$, where $H_{N,s}$ is the $N$th generalised harmonic number of order $s$. This power-law distribution of clone sizes is inconsistent with clonal expansion under neutral selection and instead suggests that clone sizes evolve within a complex and fluctuating fitness landscape. % TODO: Read Desponds source for this
+\noindent for some exponent parameter $s > 0$, where $H_{N,s}$ is the $N$th generalised harmonic number of order $s$. % Citation for generalised harmonic number, Zipf phenomenon
+This power-law distribution of clone sizes is inconsistent with clonal expansion under neutral selection and instead suggests that clone sizes evolve within a complex and fluctuating fitness landscape. % TODO: Read Desponds source for this
 
 In turquoise killifish repertoires, the vast majority of clones correspond well to a Zipf distribution of clone sizes, consistent with observations from other vertebrate species (\Cref{{fig:igseq-pilot-clones-zipf}}). % TODO: Fit figure for this
 However, the largest two to six clones from each individual are consistently much larger than predicted by the best-fit Zipf distribution for the rest of the dataset, suggesting \dots. % TODO: What exactly is this suggesting.
@@ -278,8 +277,9 @@ However, the largest two to six clones from each individual are consistently muc
 \label{fig:igseq-pilot-clones-zipf}
 \end{figure} % TODO: Describe MLE procedure
 
-... recommend ... % D20, overabundance plots, public clones
+... recommend ... % P20, overabundance plots, public clones
 
+% TODO: Needs a setup sentence. What is the diversity spectrum? Why are we using it?
 \Cref{fig:igseq-pilot-clone-diversity} shows the diversity of clone sizes in each individual in the pilot dataset, as measured using Hill diversity spectra (\Cref{?}). % TODO: Refer to diversity appendix here
 \Cref{fig:igseq-pilot-clone-diversity-alpha} gives the alpha diversity, or average diversity \textit{across} replicates for each individual, while \Cref{fig:igseq-pilot-clone-diversity-beta} shows the beta-diversity, or variation in clone-size distribution \textit{between} replicates. In both cases, each curve represents a single individual and gives the corresponding diversity measure at a range of different diversity orders; roughly speaking, higher diversity orders place proportionately more weight on common over rare species (i.e. clones) when calculating diversity, with zero-order diversity being equivalent to simple species richness. As beta-diversity (unlike alpha-diversity) is sensitive to the number of sub-populations being compared, it has been rescaled here such that 0 represents the minimum possible diversity measure and 1 represents the maximum (\Cref{?}). % TODO: Explain rescaling in diversity appendix
 
@@ -301,6 +301,8 @@ Unlike alpha-diversity, the beta-diversity spectrum of a population does not nec
 \caption{\textbf{Clonal diversity spectra for pilot dataset:} Hill diversity spectra of clone sizes (as measured by number of unique sequences per clone) over replicates for each individual in the pilot dataset. (A) Alpha-diversity across replicates; (B) Beta-diversity across replicates, rescaled to between 0 (minimum) and 1 (maximum) for each individual.}
 \label{fig:igseq-pilot-clone-diversity}
 \end{figure}
+
+% TODO: Significant difference between individuals? (MWU)
 
 \subsection{V(D)J segment usage}
 
@@ -347,7 +349,6 @@ In order to access the original generative process giving rise to recombined \ig
 
 % TODO: Generative models
 
-% TODO: SHM, selection
 
 % 1. Establishing IgSeq in TK
 % - Library prep protocol design
@@ -539,6 +540,7 @@ While the alpha-diversity of the VJ-repertoire (reflecting ...)  does not appear
 % TODO: Summarise ageing results, write segue
 
 % TODO: Summary figure of gut microbiota study
+\newabbreviation{bellemans}{GRZ-Bellemans}{Substrain of GRZ}
 
 Smith \textit{et al.} (2017) \parencite{smith2017microbiota} demonstrated that gut microbiota transfer from young to middle-aged turquoise killifish significantly extends lifespan in this species, as well as significantly altering microbiota composition and gene expression in the gut. As the gut microbiota in vertebrates is well-known to have an intimate relationship with the mucosal adaptive immune system, % TODO: Citation needed
 it would be interesting to find out what effect microbiota transfer would have on the mucosal repertoires in turquoise killifish, and what if any relationship there is between these repertoires and the observed changes in microbiotal composition and lifespan. In particular, we hypothesised that gut microbiotal transfer might significantly ameliorate the ageing of the adaptive-immune repertoire seen in \Cref{sec:igseq_ageing}, either through delaying the decline in diversity observed in older fish or by stimulating a renewal of repertoire diversity in mucosal B-cells. In addition, by providing data on antibody repertoires of guts from young and old fish, such an experiment would provide a second, independent test of the effect of ageing on turquoise killifish repertoires, this time in a specific immune organ.

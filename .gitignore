@@ -22,3 +22,8 @@ thesis.dvi
 thesis-log.txt
 .Rhistory
 .Rproj.user
+*.glg
+*.glo
+*.gls
+*.glsdefs
+*.ist

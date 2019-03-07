@@ -28,6 +28,11 @@ if [ $1 = $clean ]; then
 	rm -rf *.bcf
 	rm -rf *.run.xml
 	rm -rf *.tex.bak
+	rm -rf *.glg
+	rm -rf *.glo
+	rm -rf *.gls
+	rm -rf *.glsdefs
+	rm -rf *.ist
 	rm -rf $filename.pdf
 	rm -rf $filename.ps
 	rm -rf $filename.dvi
@@ -64,6 +69,11 @@ if [ $1 = $clean ]; then
 	rm -rf *.nlo
 	rm -rf *.nls
 	rm -rf *.bcf
+	rm -rf *.glg
+	rm -rf *.glo
+	rm -rf *.gls
+	rm -rf *.glsdefs
+	rm -rf *.ist
 	rm -rf *.run.xml
 	rm -rf *.tex.bak
 	rm -rf $filename.pdf
@@ -75,13 +85,15 @@ if [ $1 = $clean ]; then
 elif [ $1 = $compile ]; then
 	echo "Compiling your PhD Thesis...please wait...!"
 	pdflatex -interaction=nonstopmode $filename.tex
-	biber $filename	
-#	bibtex $filename.aux 	
+	biber $filename
+#	bibtex $filename.aux
+	makeglossaries $filename
 	makeindex $filename.aux
 	makeindex $filename.idx
 	makeindex $filename.nlo -s nomencl.ist -o $filename.nls
 	pdflatex -interaction=nonstopmode $filename.tex
 	makeindex $filename.nlo -s nomencl.ist -o $filename.nls
+	makeglossaries $filename
 	pdflatex -interaction=nonstopmode $filename.tex
     echo "Cleaning auxiliary files..."
 	rm -rf */*.aux
@@ -101,6 +113,11 @@ elif [ $1 = $compile ]; then
 	rm -rf *.nlo
 	rm -rf *.nls
 	rm -rf *.bcf
+	rm -rf *.glg
+	rm -rf *.glo
+	rm -rf *.gls
+	rm -rf *.glsdefs
+	rm -rf *.ist
 	rm -rf *.run.xml
 	rm -rf *.tex.bak
 	echo "Success!"

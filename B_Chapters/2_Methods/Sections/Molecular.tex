@@ -5,6 +5,15 @@
 \subsubsection{PCR}
 \label{sec:methods_molec_standard_pcr}
 
+\newabbreviation{PCR}{PCR}{polymerase chain reaction}
+\newabbreviation{DNA}{DNA}{deoxyribonucleic acid}
+\newabbreviation{HiFi}{HiFi}{hot-start (PCR)}
+\newabbreviation{ul}{\textmu{}l}{microlitre(s)}
+\newabbreviation{s}{s}{second(s)}
+\newabbreviation[sort=T_a]{ta}{$\boldsymbol{T_a}$}{annealing temperature (PCR)}
+\newabbreviation[sort=t_{ext}]{t_ext}{$\boldsymbol{t_{ext}}$}{extension time (PCR)}
+\newabbreviation[sort=n_c]{n_c}{$\boldsymbol{n_c}$}{cycle number (PCR)}
+
 The polymerase chain reaction is a well-established method for rapid amplification of a DNA sequence through repeated cycles of denaturation, priming and replication by a high-temperature-tolerant DNA polymerase enzyme \parencite{paul2010hotstartpcr}. Unless otherwise specified, all PCRs in this chapter were performed using \x{2} Kapa HiFi HotStart ReadyMix PCR Kit (\Cref{app:solutions_enzymes}) according to the manufacturer's instructions. Briefly, for a \ul{25} reaction, \ul{12.5} Kapa ReadyMix was combined with \ul{12.5} total of template, nuclease-free water, and primers; these volumes were scaled linearly for reactions of different volumes. The mixture was then heated in a thermocycler as follows:
 
 \begin{center}
@@ -26,6 +35,17 @@ Final extension & 72 & $t_{ext} \times 4$\tnote{a} & 1\\
 \subsubsection{Nucleic-acid purification with SeraSure magnetic beads}
 \label{sec:methods_molec_standard_serasure}
 
+\newabbreviation{IgSeq}{IgSeq}{immunoglobulin sequencing}
+\newabbreviation{SPRI}{SPRI}{solid-phase reversible immobilisation}
+\newabbreviation{PEG}{PEG}{polyethylene glycol}
+\newabbreviation{ml}{ml}{millilitre(s)}
+\newabbreviation{TET}{TET}{Tris:EDTA:Tween (buffer)}
+\newabbreviation{iSB}{iSB}{incomplete SeraBind (buffer)}
+\newabbreviation{pc}{\%}{percent; per cent}
+\newabbreviation{wv}{w/v}{weight/volume}
+\newabbreviation{min}{min}{minute(s)}
+\newabbreviation{EB}{EB}{elution buffer}
+
 Nucleic-acid isolation, size-selection and concentration in the IgSeq library preparation protocol (and elsewhere where necessary) was performed using SeraSure SPRI (solid phase reversible immobilization) bead preparations \parencite{hawkins1994spri,deangelis1995spri,lennon2010cleanup,fisher2011cleanup}. In SPRI, paramagnetic beads bind DNA in the presence of polyethylene glycol (PEG), with the affinity of the beads for DNA depending on the concentration of PEG in the binding buffer. As a result, the range of nucleic-acid sequence lengths retained by SPRI bead purification depends primarily on the concentration of PEG, which in turn depends on the relative volume of SeraSure bead suspension added to a sample; the higher the concentration, the shorter the minimum fragment length retained during the purification process. In combination with a magnetic rack to remove the DNA-bound beads from suspension, this allows DNA of the desired size range to be isolated from a solution and resuspended in the desired volume of fresh buffer.
 
 To prepare \ml{50} of SeraSure bead suspension for DNA (or DNA:RNA heteroduplex) isolation, a stock of SeraMag beads (\Cref{app:solutions_reagents}) was vortexed thoroughly, then \ml{1} was transferred to a new tube. This tube was then transferred to a magnetic rack and incubated at room temperature for \mins{1}, then the supernatant was removed and replaced with \ml{1} TET buffer (\Cref{app:solutions_buffers}) and the tube was removed from the rack and vortexed thoroughly. This washing process was repeated twice more, for a total of three washes in TET. A fourth cycle was used to replace the TET with incomplete SeraBind buffer (iSB, \Cref{app:solutions_buffers}). The vortexed \ml{1} aliquot of beads in iSB was then transferred to a conical tube containing \ml{28} iSB and mixed by inversion. To add the PEG, \ml{20} \pc{50} (w/v) PEG 8000 solution was dispensed slowly down the side of the conical tube, bringing the total volume to \ml{49}. Finally, this was brought to \ml{50} by adding \ul{250} \pc{10} (w/v) Tween 20 solution and \ul{750} autoclaved water to complete the SeraSure bead suspension.
@@ -37,12 +57,19 @@ Unless otherwise specified, the beads from a cleanup were left in a sample durin
 \subsubsection{Phenol-chloroform extraction and ethanol precipitation of DNA}
 \label{sec:methods_molec_standard_phenol}
 
+\newabbreviation{PCI}{PCI}{phenol:chloroform:isoamyl alcohol mixture}
+\newabbreviation{degrees}{\textdegree{}}{degrees (angle)}
+
 To clean up RNA and protein from isolated DNA samples, each sample was diluted to \ul{500} in nuclease-free water and mixed with \ul{500} of equilibrated phenol:chloroform:isoamyl alcohol (PCI) mixture (\Cref{app:solutions_reagents}) in a fume hood. The sample/PCI mixture was shaken vigorously by had for \secs{15} to thoroughly mix the different components, then centrifuged in a benchtop centrifuge (\mins{5}, room temperature, top speed). Again in a fume hood, the mixed sample was angled at \degrees{45}, and the upper aqueous phase containing the DNA was removed and transferred to a new tube while the lower organic phase was discarded. A second aliquot of \ul{500} PCI was added and the sample was mixed, centrifuged and separated as before. Finally, in order to remove residual phenol in the sample, \ul{500} pure chloroform was added to the newly-separated aqueous phase and the sample was once again mixed, centrifuged and separated. 
 
 Following this final round of separation, the DNA in the aqueous phase was precipitated by addition of 0.1 volumes of \mol{3} sodium acetate solution, followed by 2.5 volumes of fresh \pc{100} ethanol. The mixture was mixed gently by inversion, then incubated for 1-\hr{3} at \degC{-80} or at \degC{-20} overnight. The suspension of precipitated DNA was pelleted through centrifugation in a benchtop centrifuge (\mins{30}, \degC{4}, top speed). The supernatant was discarded and replaced with \ul{500} chilled \pc{70} ethanol, and the sample centrifuged again (\mins{5}, \degC{4}, top speed). After this, the supernatant was again discarded, and the samples allowed to air-dry before being resuspended in 30-\ul{50} EB (\Cref{app:solutions_buffers}). 
 
 \subsubsection{Guanidinium thiocyanate-phenol-chloroform extraction of RNA}
 \label{sec:methods_molec_standard_qiazol}
+
+\newabbreviation[sort=g]{g}{$g$}{relative centrifugal force}
+\newabbreviation{BR}{BR}{broad-range (Qubit assay)}
+\newabbreviation{HS}{HS}{high-sensitivity (Qubit assay)}
 
 To isolate total RNA from homogenised killifish tissues, \ml{1} of QIAzol lysis reagent (containing acid phenol and guanidinium thiocyanate) was added to \g{0.1} of tissue, mixed gently but thoroughly by inversion, then incubated at room temperature for \mins{5} to allow the QIAzol to penetrate the tissue. \vols{0.2} of chloroform was added and the mixture was shaken vigorously for \secs{15}, then incubated at room temperature for \mins{3}. The mixture was then centrifuged (\mins{15}, \degC{4}, \g{12000}). Angling the tube at \degrees{45}, the upper aqueous phase containing the RNA was removed and transferred to a new tube, while the lower organic phase was discarded.
 
@@ -53,6 +80,8 @@ Following phase separation, the RNA was precipitated by adding \vols{0.5} room-t
 \subsection{Library size-selection with the BluePippin}
 \label{sec:methods_molec_standard_bluepippin}
 
+\newabbreviation{bp}{bp}{base pairs}
+
 The BluePippin is a DNA size-selection system based on agarose gel electrophoresis, which uses timed switching between positively-charged electrodes at a forked gel channel in an agarose cassette to redirect DNA of a desired size range into a separate lane from the rest of the sample \parencite{sage2016bluepippin}. The timing of switching is determined based on the size range input by the user and calibrated using flourescent internal standards, which are added to the sample during the sample preparation process and designed to run well ahead of the possible size ranges for that cassette type. The combination of the choice of cassette and the choice of standards determines which fragment lengths can be effectively isolated using the machine.
 
 For the experiments described in this thesis, a \pc{1.5} cassette with R2 markers were used, enabling size selection of targets in the range of 250--\bp{1500} \parencite{sage2016bluepippin}. Machine calibration and testing, cassette preparation, and protocol design were performed in accordance with the BluePippin documentation and instructions given by the machine software. During this process, the elution wells of the lanes to be used in the size-selection run were emptied and refilled with \ul{40} of electrophoresis buffer (\Cref{app:solutions_reagents}), then sealed for the duration of the run, and a broad-range size-selection protocol with a target range of 400 to \bp{800} was specified. \ul{30} of sample was then combined with \ul{10} of loading solution (\Cref{app:solutions_reagents}) and vortexed to mix, then \ul{40} of buffer was removed from the appropriate loading well and replaced, slowly, with the prepared sample mixture. The protocol was started and run until the final elution was complete. Finally, the eluted samples were removed from the elution wells of the appropriate lanes, and the unused lanes of the cassette were re-sealed for future use.
@@ -60,7 +89,14 @@ For the experiments described in this thesis, a \pc{1.5} cassette with R2 marker
 \subsection{BAC isolation and sequencing}
 \label{sec:methods_molec_bacs}
 
-All BAC clones that were sequenced for this research were provided by the FLI institute in Jena as plate or stab cultures of transformed \textit{E. coli}, which were replated and stored at \degC{4} when not in use. Prior to isolation, the clones of interest were cultured overnight in at least \ml{100} LB medium to produce a large liquid culture. The cultures were then transferred to \ml{50} conical tubes and centrifuged (10-\mins{25}, \degC{4}, \g{3500}) to pellet the cells. After pelleting, the supernatant was carefully discarded and the cells were resuspended in \ml{18} buffer P1.
+\newabbreviation{BAC}{BAC}{bacterial artificial chromosome}
+\newabbreviation{FLI}{FLI}{Leibniz Institute on Aging – Fritz Lipmann Institute (Jena, Germany)}
+\newabbreviation[sort=E. coli]{ecoli}{\textit{E. coli}}{\textit{Escherichia coli}}
+\newabbreviation{LB}{LB}{Lysogeny broth}
+\newabbreviation{M}{M}{molar concentration (\cu{\mole\per\liter}{}{})}
+\newabbreviation{mol}{mol}{mole(s) (unit of amount of substance)}
+
+All BAC clones that were sequenced for this research were provided by the FLI in Jena as plate or stab cultures of transformed \textit{E. coli}, which were replated and stored at \degC{4} when not in use. Prior to isolation, the clones of interest were cultured overnight in at least \ml{100} LB medium to produce a large liquid culture. The cultures were then transferred to \ml{50} conical tubes and centrifuged (10-\mins{25}, \degC{4}, \g{3500}) to pellet the cells. After pelleting, the supernatant was carefully discarded and the cells were resuspended in \ml{18} buffer P1.
 
 After resuspension, the cultures underwent alkaline lysis to release the BAC DNA and precipitate genomic DNA and cellular debris. \ml{18} lysis buffer P2 was added to each tube, which was then mixed gently but thoroughly by inversion and incubated at room temperature for \mins{5}. \ml{10} ice-chilled neutralisation buffer P3 was added and each tube was mixed gently but thoroughly by inversion and incubated on ice for \mins{15}. The tubes were then centrifuged (20-\mins{30}, \degC{4}, \g{12000}) to pellet cellular debris and the supernatant transferred to new conical tubes. This process was repeated at least two more times, until no more debris was visible in any tube; this repeated pelleting was necessary to minimise contamination in each sample, as the normal column- or paper-based filtering steps used during alkaline lysis protocols result in the loss of the BAC DNA.
 
@@ -79,9 +115,27 @@ Total RNA from whole-body killifish samples was isolated as described in \Cref{s
 \subsubsection{Reverse-transcription and template switching}
 \label{sec:methods_molec_igseq_rt}
 
-Reverse transcription of total RNA and template switching for Ig-seq library preparation was performed using SMARTScribe Reverse Transcriptase, in line with the protocol specified in \parencite{turchaninova2016igprep} (Procedure, steps 5-9). Briefly, \ng{750} total RNA from a killifish sample was combined with \ul{2} \umol{10} gene-specific primer (GSP), homologous with the second \ch exon of \Nfu \igh{M} (\Cref{app:oligos_primers}). The reaction volume was brought to a total of \ul{8} with nuclease-free water, and the resulting mixture was incubated for 2 minutes at \degC{70} to denature the RNA, then cooled to \degC{42} to anneal the GSP. 
+\newabbreviation{ng}{ng}{nanogram(s)}
+\newabbreviation{uM}{\textmu{}M}{micromolar concentration (\cu{\micro\mole\per\liter}{}{})}
+\newabbreviation{times}{$\times$}{multiples of standard concentration}
+\newabbreviation{GSP}{GSP}{gene-specific primer (for reverse-transcription)}
+\newabbreviation{umol}{\textmu{}mol}{micromole(s)}
+\newabbreviation{TSA}{TSA}{template-switch adaptor}
+\newabbreviation{DTT}{DTT}{dithiothreitol (reducing agent)}
+\newabbreviation{mM}{mM}{millimolar concentration (\cu{\milli\mole\per\liter}{}{})}
+\newabbreviation{mmol}{mmol}{millimole(s)}
+\newabbreviation{U}{U}{unit(s) of enzyme activity}
+\newabbreviation{dNTP}{dNTP}{deoxyribonucleoside triphosphate (mixture of dATP, dGTP, dCTP and dTTP)}
+\newabbreviation{dATP}{dATP}{deoxyadenosine triphosphate}
+\newabbreviation{dGTP}{dGTP}{deoxyguanosine triphosphate}
+\newabbreviation{dCTP}{dCTP}{deoxycytidine triphosphate}
+\newabbreviation{dTTP}{dTTP}{deoxythymidine triphosphate}
+\newabbreviation{UDG}{UDG}{uracil DNA glycosylase}
 
-Following annealing, the RNA-primer mixture was combined with \ul{12} of reverse-transcription master-mix (\Cref{tab:methods_rt_mm}), including the reverse-transcriptase enzyme and template-switch adapter (\Cref{app:oligos_tsa}). The complete reaction mixture was incubated at for \hr{1} at \degC{42} for the reverse-transcription reaction, then mixed with \ul{1} of uracil DNA glycosylase and incubated for a further \mins{40} at \degC{37} to digest the template-switch adapter. Finally, the reaction product was purified using SeraSure beads (\Cref{sec:methods_molec_standard_serasure}) at \x{0.7} concentration, eluting in \ul{16.5} clean elution buffer.
+
+Reverse transcription of total RNA and template switching for \igseq library preparation was performed using SMARTScribe Reverse Transcriptase, in line with the protocol specified in \parencite{turchaninova2016igprep} (Procedure, steps 5-9). Briefly, \ng{750} total RNA from a killifish sample was combined with \ul{2} \umol{10} gene-specific primer (GSP), homologous with the second \ch exon of \Nfu \igh{M} (\Cref{app:oligos_primers}). The reaction volume was brought to a total of \ul{8} with nuclease-free water, and the resulting mixture was incubated for 2 minutes at \degC{70} to denature the RNA, then cooled to \degC{42} to anneal the GSP. 
+
+Following annealing, the RNA-primer mixture was combined with \ul{12} of reverse-transcription master-mix (\Cref{tab:methods_rt_mm}), including the reverse-transcriptase enzyme and template-switch adapter (\Cref{app:oligos_tsa}). The complete reaction mixture was incubated at for \hr{1} at \degC{42} for the reverse-transcription reaction, then mixed with \ul{1} of uracil DNA glycosylase (UDG) and incubated for a further \mins{40} at \degC{37} to digest the template-switch adapter. Finally, the reaction product was purified using SeraSure beads (\Cref{sec:methods_molec_standard_serasure}) at \x{0.7} concentration, eluting in \ul{16.5} clean elution buffer.
 
 \begin{table}[h]
 \begin{center}\small
@@ -104,7 +158,9 @@ Following annealing, the RNA-primer mixture was combined with \ul{12} of reverse
 \subsubsection{PCR amplification and adaptor addition} 
 \label{sec:methods_molec_igseq_pcr}
 
-Following reverse-transcription, UDG digestion, and cleanup, the reaction mixture underwent three successive rounds of Kapa PCR (\Cref{sec:methods_molec_standard_pcr},\Cref{tab:methods_igseq_pcr}) each of which was followed by a further round of bead cleanups (\Cref{sec:methods_molec_standard_serasure},\Cref{tab:methods_igseq_beads}). The first of these PCR reactions added a second strand to the reverse-transcribed cDNA and amplified the resulting DNA molecules; the second added partial Illumina sequencing adaptors and further amplified the library, and the third added complete Illumina adaptors (including i5 and i7 indices \parencite{illumina2018adaptors}).
+\newabbreviation[sort=H2O]{H2O}{H\textsubscript{2}O}{Water}
+
+Following reverse-transcription, UDG digestion, and cleanup, the reaction mixture underwent three successive rounds of Kapa PCR (\Cref{sec:methods_molec_standard_pcr}, \Cref{tab:methods_igseq_pcr}) each of which was followed by a further round of bead cleanups (\Cref{sec:methods_molec_standard_serasure}, \Cref{tab:methods_igseq_beads}). The first of these PCR reactions added a second strand to the reverse-transcribed cDNA and amplified the resulting DNA molecules; the second added partial Illumina sequencing adaptors and further amplified the library, and the third added complete Illumina adaptors (including i5 and i7 indices \parencite{illumina2018adaptors}).
 
 \begin{table}[h]
 \def\arraystretch{1.3}
@@ -155,6 +211,11 @@ Pooling & Varies & Varies & 2.5 & 35\\
 
 \subsubsection{Library pooling, size selection and sequencing} 
 \label{sec:methods_molec_igseq_seq}
+
+\newabbreviation{nM}{nM}{nanomolar concentration (\cu{\nano\mole\per\liter}{}{})}
+\newabbreviation{nmol}{nmol}{nanomole(s)}
+\newabbreviation{PhiX}{PhiX}{PhiX174 (\textPhi{}X174) bacteriophage genome} % TODO: Fix this
+
 
 Following PCR3 and its attendant bead cleanup, the total concentration of each library was assayed with the Qubit 2.0 (DNA HS assay kit), while the size distribution of each library was obtained using the TapeStation 4200 (D1000 tape). To obtain the concentration of complete library molecules in each case (as opposed to primer dimers or other off-target bands), the ratio between the concentration of the desired library band (c. 620-\bp{680}) and the total assayed concentration of the sample was calculated for each TapeStation lane, and the total concentration of each library as measured by the Qubit was multiplied by this number to obtain an estimate of the desired figure:
 
