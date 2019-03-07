@@ -74,13 +74,19 @@ pcreads_surv_init_max <- round(max(pcreads_surv_init * 100), 1)
 savetxt(pcreads_surv_init_min, paste0(filename_init, "-min"))
 savetxt(pcreads_surv_init_max, paste0(filename_init, "-max"))
 
-# Percentage lost during V-score filtering / clonotyping
+# Percentage lost during V-score filtering
 pcreads_surv_all <- tab %>% filter(STAGE == "changeo_filter") %>% pull(NREADS_PC)
 pcreads_surv_rel <- pcreads_surv_init - pcreads_surv_all
 pcreads_surv_rel_min <- round(min(pcreads_surv_rel * 100), 1)
 pcreads_surv_rel_max <- round(max(pcreads_surv_rel * 100), 1)
 savetxt(pcreads_surv_rel_min, paste0(filename_base, "-rel-loss-min"))
 savetxt(pcreads_surv_rel_max, paste0(filename_base, "-rel-loss-max"))
+
+# Absolute number surviving filtering
+pcreads_surv_all_min <- round(min(pcreads_surv_all * 100), 1)
+pcreads_surv_all_max <- round(max(pcreads_surv_all * 100), 1)
+savetxt(pcreads_surv_all_min, paste0(filename_all, "-min"))
+savetxt(pcreads_surv_all_max, paste0(filename_all, "-max"))
 
 # Total lost during V-score filtering
 total_lost_vscore <- tab %>% group_by(STAGE) %>% 
@@ -90,8 +96,28 @@ total_lost_vscore <- tab %>% group_by(STAGE) %>%
 pc_lost_vscore <- round(total_lost_vscore/sum(nreads_raw_replicate)*100, 1)
 savetxt(pc_lost_vscore, paste0(filename_base, "-rel-loss-total"))
 
+# Sequences and reads lost during clonotyping
+tab_clonotype_loss <- tab %>% 
+  filter(STAGE %in% c("changeo_filter", "changeo_clonotyped")) %>% 
+  group_by(REPLICATE) %>% arrange(NREADS) %>% 
+  select(REPLICATE, NSEQS, NREADS, NREADS_RAW, STAGE) %>% 
+  group_by(REPLICATE, NREADS_RAW) %>% 
+  summarise(NSEQS_LOST = diff(NSEQS), NREADS_LOST = diff(NREADS),
+            NSEQS_PRE = last(NSEQS)) %>% ungroup() %>% 
+  summarise(NREADS_RAW = sum(NREADS_RAW), NSEQS_LOST = sum(NSEQS_LOST),
+            NREADS_LOST = sum(NREADS_LOST), NSEQS_PRE = sum(NSEQS_PRE)) %>% 
+  mutate(NREADS_LOST_PC = NREADS_LOST/NREADS_RAW * 100,
+         NSEQS_LOST_PC = NSEQS_LOST/NSEQS_PRE * 100)
+
+nseqs_lost_clonotyping <- tab_clonotype_loss$NSEQS_LOST %>%
+  (function(x) ceiling(x/10^3)*10^3)
+pcreads_lost_clonotyping <- tab_clonotype_loss$NREADS_LOST_PC %>%
+  (function(y)(round(y, 1)))
+savetxt(nseqs_lost_clonotyping, "pilot-nseq-lost-clonotyping")
+savetxt(pcreads_lost_clonotyping, "pilot-pc-reads-lost-clonotyping")
+
 #------------------------------------------------------------------------------
-# PLOT INITIAL (UP TO CHANGEO_MAKE) SURVIVAL CURVES
+# PLOT READ SURVIVAL CURVES
 #------------------------------------------------------------------------------
 
 # Define stages
@@ -142,57 +168,3 @@ plt <- grid.grab()
 savefig(plot = plt, filename = filename_all,
         height = plot_height, 
         width = plot_width)
-
-
-
-# 
-# # Make plots for each experiment
-# plots_replicate_abs <- lapply(counts, function(c) 
-#   readplot_rep(stages) + readline_abs(c) + 
-#     ylim(c(0, max(c$NREADS))) + ylab("# Reads"))
-# plots_replicate_rel <- lapply(counts, function(c) 
-#   readplot_rep(stages) + readline_rel(c) + 
-#     ylim(c(0, 1)) + ylab("% Reads"))
-# plots_experiment_abs <- readplot_exp(stages) + 
-#   readline_abs(bind_rows(counts)) + ylab("# Reads") +
-#   ylim(c(0, max(bind_rows(counts)$NREADS)))
-# plots_experiment_rel <- readplot_exp(stages) + 
-#   readline_rel(bind_rows(counts)) + ylab("% Reads") + ylim(c(0, 1))
-# 
-# # Make boxplots of final read survival for each experiment
-# surv_all <- bind_rows(counts) %>% filter(STAGE == "changeo_split_functional")
-# experiment_boxplots <- surv_all %>% 
-#   filter(EXPERIMENT %in% c("pilot", "ageing", "gut")) %>% ggplot() + 
-#   geom_boxplot(aes(x=EXPERIMENT, y=NREADS_PC, colour = EXPERIMENT)) + 
-#   xlab("Experiment") + ylab("% Read Survival") + theme_classic() +
-#   theme(legend.position = "none") + ylim(c(0,1))
-# experiment_violins <- surv_all %>% 
-#   filter(EXPERIMENT %in% c("pilot", "ageing", "gut")) %>% ggplot() + 
-#   geom_violin(aes(x=EXPERIMENT, y=NREADS_PC, colour = EXPERIMENT)) + 
-#   xlab("Experiment") + ylab("% Read Survival") + theme_classic() +
-#   theme(legend.position = "none") + ylim(c(0,1))
-# 
-# # Repeat boxplotting averaged over individual
-# surv_all_indiv <- surv_all %>% group_by(EXPERIMENT, INDIVIDUAL) %>%
-#   summarise(NSEQS = sum(NSEQS), NREADS = sum(NREADS), NREADS_RAW = sum(NREADS_RAW),
-#             NREADS_PC = NREADS/NREADS_RAW)
-# experiment_boxplots_indiv <- surv_all_indiv %>% 
-#   filter(EXPERIMENT %in% c("pilot", "ageing", "gut")) %>% ggplot() + 
-#   geom_boxplot(aes(x=EXPERIMENT, y=NREADS_PC, colour = EXPERIMENT)) + 
-#   xlab("Experiment") + ylab("% Read Survival") + theme_classic() +
-#   theme(legend.position = "none") + ylim(c(0,1))
-# experiment_violins_indiv <- surv_all_indiv %>% 
-#   filter(EXPERIMENT %in% c("pilot", "ageing", "gut")) %>% ggplot() + 
-#   geom_violin(aes(x=EXPERIMENT, y=NREADS_PC, colour = EXPERIMENT)) + 
-#   xlab("Experiment") + ylab("% Read Survival") + theme_classic() +
-#   theme(legend.position = "none") + ylim(c(0,1))
-# 
-# # Test for a difference in read survival between experiments
-# surv_pilot <- surv_all %>% filter(EXPERIMENT == "pilot") %>% pull(NREADS_PC)
-# surv_ageing <- surv_all %>% filter(EXPERIMENT == "ageing") %>% pull(NREADS_PC)
-# surv_gut <- surv_all %>% filter(EXPERIMENT == "gut") %>% pull(NREADS_PC)
-# 
-# mw_p_g <- wilcox.test(surv_pilot, surv_gut)
-# mw_p_g <- wilcox.test(surv_pilot, surv_ageing)
-# 
-# 

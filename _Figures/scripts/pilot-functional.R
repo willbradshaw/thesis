@@ -18,7 +18,7 @@ source("aux/ggplot2.R")
 source("aux/changeo.R")
 
 # Input path
-tab_path <- "../_Data/changeo/ctabs/pilot_named.tab"
+tab_path <- "../_Data/changeo/ctabs/pilot-named.tab"
 # TODO: Change to a path in the thesis directory
 
 # Configure output
@@ -182,15 +182,18 @@ tab_func_filtered <- tab_func %>%
   filter(V_SCORE >= 100)
 
 # Count functional classes in pooled repertoire
-tab_countfunc_filtered <- tab_func_filtered %>% group_by(FUNC_STATE, FUNC_DESC, SEQUENCE_INPUT) %>% 
+tab_countfunc_filtered <- tab_func_filtered %>% 
+  group_by(FUNC_STATE, FUNC_DESC, SEQUENCE_INPUT, FUNCTIONAL, HAS_J) %>% 
   summarise(CONSCOUNT = sum(CONSCOUNT), DUPCOUNT = sum(DUPCOUNT), 
             V_SCORE = mean(V_SCORE)) # TODO: Include more columns?
 
 tab_countfunc_filtered_melt <- tab_countfunc_filtered %>%
+  group_by(FUNC_STATE, FUNC_DESC) %>%
   summarise(N = n(), CONSCOUNT = sum(CONSCOUNT), DUPCOUNT = sum(DUPCOUNT)) %>%
-  ungroup() %>% 
+  ungroup() %>%
   melt(variable.name = c("VAR"), value.name = "VALUE", 
-       id.var = c("FUNC_STATE", "FUNC_DESC")) %>% group_by(VAR) %>%
+       id.var = c("FUNC_STATE", "FUNC_DESC")) %>% as.tibble() %>%
+  group_by(VAR) %>%
   mutate(PC = VALUE / sum(VALUE) * 100)
 
 plot_proportions_filtered <- ggplot(tab_countfunc_filtered_melt) + 
@@ -204,6 +207,35 @@ plot_proportions_filtered <- ggplot(tab_countfunc_filtered_melt) +
                                                 angle = 45, hjust = 1),
                      legend.justification = "center")
 
+
+# Number and percentage of reads post-filtering
+tab_countfunc_filtered_summ <- tab_countfunc_filtered %>% group_by(FUNCTIONAL, HAS_J) %>%
+  summarise(N = n(), CONSCOUNT = sum(CONSCOUNT), DUPCOUNT = sum(DUPCOUNT),
+            VSCORE_MEAN = mean(V_SCORE), VSCORE_SD = sd(V_SCORE)) %>%
+  ungroup() %>% 
+  mutate(N_PC = N/sum(N)*100,
+         CONSCOUNT_PC = CONSCOUNT/sum(CONSCOUNT)*100,
+         DUPCOUNT_PC = DUPCOUNT/sum(DUPCOUNT)*100)
+
+nseq_filtered_functional <- tab_countfunc_filtered_summ %>% filter(FUNCTIONAL) %>% 
+  pull(N) %>% round(1)
+nseq_filtered_noj <- tab_countfunc_filtered_summ %>% filter(!HAS_J) %>%
+  pull(N) %>% round(1)
+nseq_filtered_other <- tab_countfunc_filtered_summ %>% filter(!FUNCTIONAL, HAS_J) %>%
+  pull(N) %>% round(1)
+nseq_filtered_functional_pc <- tab_countfunc_filtered_summ %>% filter(FUNCTIONAL) %>% 
+  pull(N_PC) %>% round(1)
+nseq_filtered_noj_pc <- tab_countfunc_filtered_summ %>% filter(!HAS_J) %>%
+  pull(N_PC) %>% round(1)
+nseq_filtered_other_pc <- tab_countfunc_filtered_summ %>% filter(!FUNCTIONAL, HAS_J) %>%
+  pull(N_PC) %>% round(1)
+savetxt(nseq_filtered_functional, paste0(filename_nseq, "-functional-filtered"))
+savetxt(nseq_filtered_noj, paste0(filename_nseq, "-noj-filtered"))
+savetxt(nseq_filtered_other, paste0(filename_nseq, "-other-filtered"))
+savetxt(nseq_filtered_functional_pc, paste0(filename_nseq, "-pc-functional-filtered"))
+savetxt(nseq_filtered_noj_pc, paste0(filename_nseq, "-pc-noj-filtered"))
+savetxt(nseq_filtered_other_pc, paste0(filename_nseq, "-pc-other-filtered"))
+
 #------------------------------------------------------------------------------
 # COUNT SEQUENCES REMOVED IN THIS WAY
 #------------------------------------------------------------------------------
@@ -212,7 +244,13 @@ nseq_dropped <- nrow(tab_countfunc) - nrow(tab_countfunc_filtered)
 nreads_dropped <- tab_countfunc_filtered %>% pull(CONSCOUNT) %>% sum %>%
   (function(x) x/(tab_countfunc %>% pull(CONSCOUNT) %>% sum)) %>%
   (function(y) round((1-y)*100, 1))
+nseq_kept <- nrow(tab_countfunc_filtered)
+nreads_kept <- tab_countfunc_filtered %>% pull(CONSCOUNT) %>% sum %>%
+  (function(x) x/(tab_countfunc %>% pull(CONSCOUNT) %>% sum)) %>%
+  (function(y) round(y*100, 1))
 
+savetxt(nseq_kept, paste0(filename_nseq, "-kept-vscore"))
+savetxt(nreads_kept, paste0(filename_nreads, "-pc-kept-vscore"))
 savetxt(nseq_dropped, paste0(filename_nseq, "-dropped-vscore"))
 savetxt(nreads_dropped, paste0(filename_nreads, "-pc-dropped-vscore"))
 

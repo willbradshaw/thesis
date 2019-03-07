@@ -493,8 +493,7 @@ writeChangeoDb(bind_rows(dist_pass, dist_fail), <db_output_path>)
 
 \noindent where \snippet{model = "ham"} indicates that a single-nucleotide Hamming distance metric is to be used, \snippet{normalize = "len"} that distances should be normalised by total sequence length, \snippet{first = FALSE} determines how to handle ambiguous V/J calls, and \snippet{fields = <group_field>} that only distances within an entry group (see below) should be considered.
 
-Following assignment of nearest-neighbour distances, a distance threshold for clonotyping was computed by fitting a pair of unimodal distributions to the nearest-neighbour distribution over all sequences and selecting the threshold that minimises the maximises the average of sensitivity and specificity when assigning a point to one of these distributions (for more information, see ... and \parencite{nouri2018threshold}) .% TODO: Describe thresholding in more detail
-As with nearest-neighbour distance assignment, this was done in \program{R} using \program[R]{SHazaM} and \program[R]{Alakazam}; all four possible models (fitting either a normal or gamma distribution to each of the two peaks) were tried, and the one with the highest maximum likelihood was used to compute the threshold value:
+Following assignment of nearest-neighbour distances, a distance threshold for clonotyping was computed by fitting a pair of unimodal distributions to the nearest-neighbour distribution over all sequences and selecting the threshold that minimises the maximises the average of sensitivity and specificity when assigning a point to one of these distributions (for more information, see \Cref{sec:igseq_pilot_clones} and \parencite{nouri2018threshold}). As with nearest-neighbour distance assignment, this was done in \program{R} using \program[R]{SHazaM} and \program[R]{Alakazam}; all four possible models (fitting either a normal or gamma distribution to each of the two peaks) were tried, and the one with the highest maximum likelihood was used to compute the threshold value:
 
 \begin{lstlisting}[language=R]
 tab <- readChangeoDb(<changeo_db_path_with_distances>)
@@ -531,7 +530,7 @@ After threshold determination and clonotyping, a so-called ``full-length germlin
 CreateGermlines -g dmask --cloned -d <clonotyped_changeo_db> -r <vh_reference_fasta> <dh_reference_fasta> <jh_reference_fasta> --failed
 \end{lstlisting}
 
-where \snippet{-g dmask} indicates that \dh sequences should be masked as well as insert sequences and \snippet{--failed} indicates that sequences that fail germline assignment should be retained in a separate database. Importantly, \snippet{--cloned} indicates that sequences from the same clone should recieve the same germline assignment, based on a simple majority rule among sequences in the clone; this process also enables assignment of unambiguous segment identities to ambiguously-assigned sequences within larger clones.
+where \snippet{-g dmask} indicates that \dh sequences should be masked as well as insert sequences and \snippet{--failed} indicates that sequences that fail germline assignment should be retained in a separate database. Importantly, \snippet{--cloned} indicates that sequences from the same clone should recieve the same germline assignment, based on a simple majority rule among sequences in the clone; this process also enables assignment of unambiguous segment identities to ambiguously-assigned sequences within larger clones, improving segment calls in the dataset.
 
 %Finally, the clonotyped and germline-inferred sequence database was split on the basis of functionality, with nonfunctional (frame-shifted, nonsense-mutated, or lacking V/J assignments) sequences moved into a separate database file before downstream analysis:
 %
