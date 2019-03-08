@@ -25,50 +25,11 @@
 
 %% PILOT CLONOTYPING: ZIPF
 
-% TODO: Needs a lead-in sentence. Why do you care?
-One of the most startlingly reproducible findings of immune-repertoire-sequencing studies across multiple species has been the rank:frequency distribution of clonotypes, which consistently follows a Zipf distribution; that is, the frequency of the $k$th largest clone in a repertoire dataset containing $N$ total clones  can be predicted by:
 
-\begin{equation}
-f(k | N, s) = \frac{x^{-s}}{H_{N,s}}
-\end{equation}
-
-\noindent for some exponent parameter $s > 0$, where $H_{N,s}$ is the $N$th generalised harmonic number of order $s$. % Citation for generalised harmonic number, Zipf phenomenon
-This power-law distribution of clone sizes is inconsistent with clonal expansion under neutral selection and instead suggests that clone sizes evolve within a complex and fluctuating fitness landscape. % TODO: Read Desponds source for this
-
-In turquoise killifish repertoires, the vast majority of clones correspond well to a Zipf distribution of clone sizes, consistent with observations from other vertebrate species (\Cref{{fig:igseq-pilot-clones-zipf}}). % TODO: Fit figure for this
-However, the largest two to six clones from each individual are consistently much larger than predicted by the best-fit Zipf distribution for the rest of the dataset, suggesting \dots. % TODO: What exactly is this suggesting.
-
-\begin{figure}
-\centering
-\includegraphics[width=0.9\textwidth]{_Figures/png/pilot-clones-zipf}
-\caption{Log-log plots of clonal rank versus relative frequency in the repertoire of each individual in the pilot dataset, with both rank and frequency measured in terms of number of unique sequences per clone. The black lines give the expected rank-frequency distribution under the maximim-likelihood estimate Zipf distribution for each individual, with expanded clones obviously deviating from such a distribution (indicated by crosses) excluded from the estimation procedure.}
-\label{fig:igseq-pilot-clones-zipf}
-\end{figure} % TODO: Describe MLE procedure
-
-... recommend ... % P20, overabundance plots, public clones
-
-% TODO: Needs a setup sentence. What is the diversity spectrum? Why are we using it?
-\Cref{fig:igseq-pilot-clone-diversity} shows the diversity of clone sizes in each individual in the pilot dataset, as measured using Hill diversity spectra (\Cref{?}). % TODO: Refer to diversity appendix here
-\Cref{fig:igseq-pilot-clone-diversity-alpha} gives the alpha diversity, or average diversity \textit{across} replicates for each individual, while \Cref{fig:igseq-pilot-clone-diversity-beta} shows the beta-diversity, or variation in clone-size distribution \textit{between} replicates. In both cases, each curve represents a single individual and gives the corresponding diversity measure at a range of different diversity orders; roughly speaking, higher diversity orders place proportionately more weight on common over rare species (i.e. clones) when calculating diversity, with zero-order diversity being equivalent to simple species richness. As beta-diversity (unlike alpha-diversity) is sensitive to the number of sub-populations being compared, it has been rescaled here such that 0 represents the minimum possible diversity measure and 1 represents the maximum (\Cref{?}). % TODO: Explain rescaling in diversity appendix
 
 ... % TODO: Interpret alpha-diversity curve, after deciding how to interpret more meaningful curves from other experiments; give Shannon-entropy scores
 
 Unlike alpha-diversity, the beta-diversity spectrum of a population does not necessarily decline monotonically with increasing diversity order; nevertheless, in \Cref{fig:igseq-pilot-clone-diversity-beta} the between-replicate beta-diversity is much higher at low diversity orders (where it approaches the maximum) than at higher ones (where it is close to the minimum). This indicates that replicates from the same individual are show very different clonal distributions when all clones are included, but that these ditributions become increasingly similar as more and more weight is put on the largest clones in each replicate. This result is highly consistent with the findings in \Cref{fig:igseq-pilot-clone-sizes} that each repertoire contains a small number of large clones (which are shared reproducibly between replicates) and a much larger number of much smaller clones (which are not); the difference in patterns of cross-replicate reproducibility between small and large clones observed in \Cref{fig:igseq-pilot-clone-sizes-reps} gives rise to the patterns of beta-diversity observed in \Cref{fig:igseq-pilot-clone-diversity-beta}.
-
-\begin{figure}
-\centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png/pilot-clone-diversity}
-\begin{subfigure}{0em}
-\phantomsubcaption{}
-\label{fig:igseq-pilot-clone-diversity-alpha}
-\end{subfigure}
-\begin{subfigure}{0em}
-\phantomsubcaption{}
-\label{fig:igseq-pilot-clone-diversity-beta}
-\end{subfigure}
-\caption{\textbf{Clonal diversity spectra for pilot dataset:} Hill diversity spectra of clone sizes (as measured by number of unique sequences per clone) over replicates for each individual in the pilot dataset. (A) Alpha-diversity across replicates; (B) Beta-diversity across replicates, rescaled to between 0 (minimum) and 1 (maximum) for each individual.}
-\label{fig:igseq-pilot-clone-diversity}
-\end{figure}
 
 % TODO: Significant difference between individuals? (MWU)
 

@@ -261,20 +261,6 @@ compute_clntab <- function(tab){
     arrange(CLNRANK)
 }
 
-plot_zipf_fit <- function(clntab){
-  ggplot(clntab, aes(x=CLNRANK)) + 
-    geom_point(aes(y=CLNFREQ, colour = INDIVIDUAL, 
-                   shape = CLNRANK > N_EXCLUDE)) + 
-    geom_line(aes(y=CLNFREQ_EXP)) + 
-    scale_shape_manual(values = c(4, 16)) +
-    scale_x_log10() + scale_y_log10() + 
-    facet_wrap(~INDIVIDUAL, scales = "free") +
-    ylab("Relative clonal frequency") +
-    xlab("Clone rank in repertoire") +
-    theme_classic() + theme_base +
-    theme(legend.position = "none")
-}
-
 plot_zipf_residuals <- function(clntab){
   ggplot(clntab, aes(x=CLNRANK)) + 
     geom_point(aes(y=CLNFREQ/CLNFREQ_EXP, colour = INDIVIDUAL)) + 
@@ -292,6 +278,36 @@ compute_chisq_p <- function(clntab, n_exclude){
     group_by(INDIVIDUAL) %>% summarise(CHI_SQ = sum(CHI_SQ), DF = n() - 1) %>% 
     mutate(P = pchisq(CHI_SQ, DF, lower.tail = FALSE))
 }
+
+zplot_base <- function(clntab, ymax = NA){
+  # Construct plot skeleton from rank:frequency distribution
+  ggplot(clntab, aes(x=CLNRANK, y=CLNFREQ)) +
+    scale_x_log10(name = "Clone rank in repertoire") + 
+    scale_y_log10(name = "Relative clonal frequency", limits = c(NA, ymax)) +
+    theme_classic() + theme_base
+}
+
+zplot_point <- function(clntab, group, palette, shapes = c(4, 16), ymax = NA){
+  # Plot rank-frequency distributions, separated by group and
+  # annotated with expected values from Zipf approximation
+  zplot_base(clntab, ymax = ymax) +
+    geom_point(aes_string(shape = "CLNRANK > N_EXCLUDE", colour = group)) +
+    scale_shape_manual(values = shapes) +
+    scale_colour_manual(values = palette) +
+    geom_line(aes(y=CLNFREQ_EXP)) + 
+    facet_wrap(~INDIVIDUAL, scales = "free") +
+    theme(legend.position = "none")
+}
+
+zplot_line <- function(clntab, group, palette, legend = NULL, ymax = NA){
+  # Plot overlaid rank-frequency distributions
+  zplot_base(clntab, ymax = ymax) +
+    geom_line(aes_string(colour = group)) +
+    scale_colour_manual(values = palette, 
+                        name = ifelse(is.null(legend), group, legend))
+}
+
+
 
 #------------------------------------------------------------------------------
 # DIVERSITY SPECTRA
