@@ -34,14 +34,6 @@
 
 \subsection{V(D)J segment usage}
 
-The clonal repertoire of an organism reflects the history of \naive B-cell production and subsequent clonal expansion in that individual, and as such is unique to each individual repertoire: by definition, clones cannot be shared between individuals. As such, while an important tool for ...
-(and a useful way to assess reproducibility between replicates),
-clonal measures are limited in their ability to meaningfully compare the antibody repertoires of different individuals. 
-
-In contrast, the range of V(D)J-combinations available within an antibody repertoire is defined by the corresponding gene locus (\Cref{?}) % TODO: See locus chapter
-and is therefore largely shared across individuals of a given species. This is particularly true for inbred lines of laboratory model organisms, for which the high level of polymorphism observed in the V-regions of wild populations % TODO: Cite this
-is not an issue. As such, the V(D)J usage distributions of antibody repertoires represent an alternative metric for measuring repertoire composition and diversity, which is more amenable to comparison between individuals (and groups of individuals) of the same species.
-
 The Repertoire Dissimilarity Index (RDI) % TODO: Cite this
 is a method for computing a distance between any two repertoires on the basis of their V(D)J segment composition, based on the Euclidean distance between their respective V(D)J-abundance vectors. As such, it provides a pairwise distance metric which can be used to compare, cluster and visualise the relationship between different antibody repertoires. Two methods for visualising the RDI distances between pilot replicates are shown in \Cref{fig:igseq-pilot-rdi}: in \Cref{fig:igseq-pilot-rdi-dendro}, the replicates are arranged in a dendrogram by average-linkage clustering over their pairwise RDI distances, while for \Cref{fig:igseq-pilot-rdi-pcoa} the same distances were used to compute a principal co-ordinate analysis, % TODO: Cite this
 of which the first two co-ordinates are visualised here. In both cases, replicates from the same individual clearly cluster together compared to replicates from different individuals, demonstrating the inter-replicate reproducibility of the \igseq protocol.

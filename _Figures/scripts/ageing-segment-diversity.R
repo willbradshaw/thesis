@@ -21,7 +21,7 @@ source("aux/changeo.R")
 # TODO: Select input settings to match other spectra in chapter
 seqset <- "all" # or "functional"
 copy <- "NULL" # or "DUPCOUNT"
-segments <- "VJ" # or "VJ"
+segments <- "VDJ" # or "VJ"
 tab_path_grouped <- paste0("../_Data/changeo/spectra/ageing_", segments,
                            "-diversity-grouped_seqs-",
                            seqset, "_copy-", copy, ".tsv")

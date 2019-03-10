@@ -32,12 +32,12 @@ tiplab_offset <- -0.1
 # Configure input
 # TODO: Select input settings to match other spectra in chapter
 tab_path <- "../_Data/changeo/ctabs/pilot-final.tab"
-seqset <- "all" # or "functional"
-segments <- "VDJ" # or "VDJ"
+seqset <- "all"
+segments <- "VJ"
 group <- "REPLICATE"
 
 # Output paths
-filename_base <- paste0("pilot-rdi-", segments, "-", tolower(group))
+filename_base <- paste0("pilot-rdi-", tolower(segments), "-", tolower(group))
 
 #------------------------------------------------------------------------------
 # IMPORT FINAL TABLE (WITH COMBINED CALLS)

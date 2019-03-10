@@ -27,8 +27,8 @@ tab_path_grouped <- paste0("../_Data/changeo/spectra/",
 tab_path_solo <- paste0("../_Data/changeo/spectra/",
                         "pilot_clone-diversity-solo_seqs-",
                         seqset, "_copy-", copy, ".tsv")
-tab_path_stats_indiv <- paste0("../_Data/changeo/pilot-stats-indiv.tsv")
-tab_path_stats_rep <- paste0("../_Data/changeo/pilot-stats-rep.tsv")
+tab_path_stats_indiv <- paste0("../_Data/changeo/pilot-clone-stats-indiv.tsv")
+tab_path_stats_rep <- paste0("../_Data/changeo/pilot-clone-stats-rep.tsv")
 
 # Output paths
 filename_base <- "pilot-clone-diversity"
@@ -74,15 +74,17 @@ g_solo <-  ggplot(tab_solo) +
   geom_line(aes(x=Q, y=D, colour = INDIVIDUAL, group = REPLICATE)) + 
   geom_ribbon(aes(x=Q, ymin = D_LOWER, ymax = D_UPPER, 
                   fill = INDIVIDUAL, group = REPLICATE), alpha = 0.4) +
+  facet_wrap(~INDIVIDUAL, scales = "free") +
   xlab("Diversity order (q)") + 
   ylab(expression(Diversity~(""[q]*D))) +
+  xlim(c(0,4)) + ylim(c(0,2000)) +
   scale_colour_manual(values = palette, name = "Individual") +
   scale_fill_manual(values = palette, name = "Individual") +
   theme_classic() + theme_base
 
 
 #------------------------------------------------------------------------------
-# COMPARE DIVERSITY OF DIFFERENT AGE GROUPS
+# COMPARE DIVERSITY OF DIFFERENT INDIVIDUALS
 #------------------------------------------------------------------------------
 
 # Filter solo-diversity table
@@ -239,6 +241,27 @@ rplot_rep_avg <- plot_rtab(rtab_rep_avg_melt,
 rplot_out <- gplot_grid_onelegend(rplot_rep, rplot_rep_avg, nrow = 1,
                                   plot_height = plot_height, 
                                   plot_width = plot_width)
+
+# Save optimum predictors
+rbest_rep <- rtab_rep_melt %>% filter(r == min(r))
+savetxt(rbest_rep$variable, paste0(filename_base, "-metrics-cor-rep-best-metric"))
+savetxt(rbest_rep$Q, paste0(filename_base, "-metrics-cor-rep-best-q"))
+savetxt(rbest_rep$r %>% round(2), paste0(filename_base, "-metrics-cor-rep-best-r"))
+
+rbest_avg <- rtab_rep_avg_melt %>% filter(r == min(r))
+savetxt(rbest_avg$variable, paste0(filename_base, "-metrics-cor-avg-best-metric"))
+savetxt(rbest_avg$Q, paste0(filename_base, "-metrics-cor-avg-best-q"))
+savetxt(rbest_avg$r %>% round(2), paste0(filename_base, "-metrics-cor-avg-best-r"))
+
+rcross_avg <- rtab_rep_avg %>% filter(abs(R_P20) < abs(R_S_Filtered)) %>%
+  filter(Q == min(Q))
+savetxt(rcross_avg$Q, paste0(filename_base, "-metrics-cor-avg-cross-q"))
+
+rbest_avg_sfilter <- rtab_rep_avg_melt %>% filter(variable == "S_Filtered") %>%
+  filter(r == min(r))
+savetxt(rbest_avg_sfilter$Q, paste0(filename_base, "-metrics-cor-avg-sfilter-best-q"))
+savetxt(rbest_avg_sfilter$r %>% round(2), 
+        paste0(filename_base, "-metrics-cor-avg-sfilter-best-r"))
 
 #------------------------------------------------------------------------------
 # SAVE FIGURES

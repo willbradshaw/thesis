@@ -371,11 +371,3 @@ plot_diversity_beta_scaled <- function(data, group_within){
     plot_diversity_spectra(group_within) + ylim(c(NA,1)) +
     ylab(expression("Rescaled beta-diversity"~(scriptstyle(""[q]*D^beta))))
 }
-
-#------------------------------------------------------------------------------
-# MODELLING SPECIFIC DIVERSITIES
-#------------------------------------------------------------------------------
-
-
-
-

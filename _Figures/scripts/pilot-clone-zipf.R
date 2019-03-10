@@ -177,6 +177,6 @@ stats_rep <- clntab_rep %>% group_by(INDIVIDUAL, S_Filtered = S) %>%
   ungroup() %>% rename(REPLICATE = INDIVIDUAL)
 
 # Save
-write_tsv(stats_indiv, "../_Data/changeo/pilot-stats-indiv.tsv")
-write_tsv(stats_rep, "../_Data/changeo/pilot-stats-rep.tsv")
+write_tsv(stats_indiv, "../_Data/changeo/pilot-clone-stats-indiv.tsv")
+write_tsv(stats_rep, "../_Data/changeo/pilot-clone-stats-rep.tsv")
 
