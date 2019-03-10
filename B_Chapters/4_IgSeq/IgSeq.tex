@@ -311,12 +311,30 @@ A more detailed explanation, including the underlying equations, can be found in
 \phantomsubcaption{}
 \label{fig:igseq-pilot-clone-diversity-beta}
 \end{subfigure}
-\caption{\textbf{Clonal diversity spectra for pilot dataset:} Hill diversity spectra of clone sizes (as measured by number of unique sequences per clone) over replicates for each individual in the pilot dataset. (A) Alpha-diversity across replicates; (B) Beta-diversity across replicates, rescaled to between 0 (minimum) and 1 (maximum) for each individual.}
+\caption{\textbf{Clonal diversity spectra for pilot dataset:} Hill diversity spectra of clone sizes (as measured by number of unique sequences per clone) over replicates for each individual in the pilot dataset. (A) Alpha-diversity across replicates; (B) Beta-diversity across replicates, rescaled to between 0 (minimum) and 1 (maximum) for each individual. Shaded regions in both subfigures represent 95\,\% confidence intervals, estimated using bootstrapping.} % TODO: Parametric or nonparametric?
 \label{fig:igseq-pilot-clone-diversity}
 \end{figure}
 
-% TODO: Test for significant differences between individuals, explain use of MWU/KWT (from ageing section)
-% TODO: Relate to P20, Zipf exponent
+The results from the alpha-diversity spectrum (\Cref{fig:igseq-pilot-clone-diversity-alpha}) suggest there may be significant differences in diversity between individuals in middle-aged killifish: in particular, individual 2-06 appears to be less diverse than the other individuals across the whole range of diversity orders (suggesting that its clonal repertoire both contains fewer clones overall and is more uneven in its clone sizes) while individual 2-05 appears to be more diverse at higher diversity orders (suggesting that its clonal repertoire is of similar richness to the other individuals, but more even). This would accord with previous measures of P20 and Zipf exponent in these repertoires (\Cref{fig:igseq-pilot-clones-zipf-fit-null,fig:igseq-pilot-clones-zipf-p20}), both of which suggest that the clonal repertoire of 2-06 is substantially more expanded than the other individuals in the dataset, and that of 2-05 less so.
+
+However, when comparing alpha-diversities across sample groups, by-eye comparisons of apparent diversities is of course not sufficient for concluding that a significant difference in diversity exists. Ideally, the entire shape of the diversity spectrum would be compared between groups to test for a significant difference in distribution; however, the unusual and non-parametric nature of the Hill spectrum makes such a holistic comparison difficult, and established tests for such a difference do not yet exist to my knowledge. However, it is possible to use established statistical methods to test for a difference in Hill diversity at one or more specific diversity orders, and so to obtain a partial overview of significant differences for particular aspects of each group's diversity profile. 
+
+To that end, I computed the clonal diversity spectra separately for each replicate in the pilot dataset (\Cref{fig:igseq-pilot-clone-diversity-solo-spectra}), and extracted the distribution of diversity values obtained for each individual at each of six diversity orders (0, 1, 1.5, 2, 3 and 4). I compared these distributions pairwise using Mann-Whitney $U$ nonparametric tests, as well as performing a Kruskal-Wallis nonparametric analysis-of-variance test for an effect of source individual on repertoire diversity. Neither of these tests returned a significant result for any of the diversity orders tested (\Cref{fig:igseq-pilot-clone-diversity-solo-box}). From the data available, therefore, it is not possible to conclude that clonal repertoires differ significantly between individuals in middle-aged adult male turquoise killifish, though given the relatively low Kruskal-Wallis $p$-values obtained at higher diversity orders (\Cref{fig:igseq-pilot-clone-diversity-solo-box}) it is possible such a difference would be observed if more replicates per individual were available.
+% TODO: Citations for MWU, KWT
+
+Unlike alpha-diversity, the beta-diversity spectrum of a population does not necessarily decline monotonically with increasing diversity order; nevertheless, in \Cref{fig:igseq-pilot-clone-diversity-beta} the between-replicate beta-diversity is much higher at low diversity orders (where it approaches the maximum) than at higher ones (where it is close to the minimum). This indicates that replicates from the same individual have very different clonal content when all clones are included, but become increasingly similar as more and more weight is put on the largest clones in each replicate. This result is highly consistent with the findings in \Cref{fig:igseq-pilot-clone-sizes} that each repertoire contains a small number of large clones (which are shared reproducibly between replicates) and a much larger number of much smaller clones (which are not); the difference in patterns of cross-replicate reproducibility between small and large clones observed in \Cref{fig:igseq-pilot-clone-sizes-reps} gives rise to the patterns of beta-diversity observed in \Cref{fig:igseq-pilot-clone-diversity-beta}.
+
+Finally, given the apparent correspondence between a high P20 or fitted Zipf exponent and low effective diversity as measured using Hill spectra, I investigated to what extent these measures, which are substantially quicker and easier to compute than full diversity spectra, act as good proxies for properly-estimated Hill diversity. To that end, I fitted Zipf distributions separately to the clonal repertoires of each replicate in the dataset (both including all clones and excluding the five largest in each repertoire, as above) as well as computing the P20 for these repertoires. I then computed Pearson product-moment correlation coefficients % TODO: Citation needed
+at each diversity order, enabling correlation spectra to be plotted for each of the three potential proxy metrics. I did this both for the correlation between per-replicate proxy metrics and per-replicate repertoire diversity (\Cref{fig:igseq-pilot-clone-diversity-metrics-cor-rep}) and between per-individual averaged metrics and per-individual alpha diversity (\Cref{fig:igseq-pilot-clone-diversity-metrics-cor-alpha}). 
+
+At the per-replicate level, the filtered Zipf exponent performed fairly poorly at all diversity orders, while the all-clones Zipf exponent and P20 both performed relatively poorly at very low orders but correlated well with higher-order diversity measures ($q \geq 1$), with P20 consistently outperforming either Zipf exponent as a predictor of Hill diversity; best of all is \embed{_Figures/txt/pilot-clone-diversity-metrics-cor-rep-best-metric.txt} at $q=\embed{_Figures/txt/pilot-clone-diversity-metrics-cor-rep-best-q.txt}$, with a correlation coefficient of \embed{_Figures/txt/pilot-clone-diversity-metrics-cor-rep-best-r.txt}. When comparing averaged metrics with average (alpha) per-individual diversity, the pattern for the all-clones Zipf exponent and P20 is broadly similar, albeit reaching much lower correlation values: at $q=\embed{_Figures/txt/pilot-clone-diversity-metrics-cor-avg-best-q.txt}$, the average \embed{_Figures/txt/pilot-clone-diversity-metrics-cor-avg-best-metric.txt} approaches a near-perfect correlation of \embed{_Figures/txt/pilot-clone-diversity-metrics-cor-avg-best-r.txt}. Conversely, the filtered Zipf exponent behaves very differently in the average case compared to the per-replicate case, with even worse prediction at very low diversity orders but improving greatly at higher orders, to the point where, from $q=\embed{_Figures/txt/pilot-clone-diversity-metrics-cor-avg-cross-q.txt}$ upwards, it actually correlates better with Hill diversity than either P20 nor the all-clones Zipf exponent, with an optimum correlation of \embed{_Figures/txt/pilot-clone-diversity-metrics-cor-avg-sfilter-best-r.txt} at $q=\embed{_Figures/txt/pilot-clone-diversity-metrics-cor-avg-sfilter-best-q.txt}$.
+% TODO: Can I explain this, or is it "surprisingly, however"?
+
+It therefore appears that the diversity of the clonal repertoire can be predicted well by P20 and Zipf proxy metrics across most of the range of diversity orders, the exception being low orders substantially less than 1. These low orders are primarily (or exclusively, in the case of $q=0$) measures of clonal richness which neglect clone size when computing diversity; as P20 and Zipf exponents are both measures of the extent to which the repertoire is dominated by the largest clones, it is perhaps unsurprising that they are less well-equipped to predict the lower-order diversity of the clonal repertoire. % TODO: Citation needed?
+... % TODO: Discuss meaning and usefulness of these correlation results
+
+In conclusion, therefore, adult turquoise killifish express diverse clonal B-cell repertoires, with each fish containing several thousand detected clones. As in other species, this repertoire comprises a few very large expanded clones % TODO: How many unique sequences in very large clones?
+and a much larger number of very small clones, the latter of which are highly vulnerable to undersampling. ... % TODO: Finish overview paragraph
 
 \begin{figure}
 \centering
@@ -327,8 +345,17 @@ A more detailed explanation, including the underlying equations, can be found in
 
 \begin{figure}
 \centering
+\begin{subfigure}{0em}
+\phantomsubcaption{}
+\label{fig:igseq-pilot-clone-diversity-metrics-cor-rep}
+\end{subfigure}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
+\label{fig:igseq-pilot-clone-diversity-metrics-cor-alpha}
+\end{subfigure}
 \includegraphics[width = 0.8\textwidth]{_Figures/png/pilot-clone-diversity-metrics-cor}
-\caption{Correlation between Hill diversity and various proxy diversity metrics (P20, fitted Zipf exponent over all clones, fitted Zipf exponent excluding largest clones) over a range of diversity orders for the \igseq pilot dataset.}
+\caption[Correlation between Hill diversity and proxy metrics of clonal expansion]{\textbf{Correlation between Hill diversity and proxy metrics of clonal expansion:}
+Pearson product-moment correlation coefficients between clonal Hill diversity and various proxy metrics (P20, fitted Zipf exponent over all clones, fitted Zipf exponent excluding largest clones) over a range of diversity orders for the \igseq pilot dataset. (A) Per-replicate correlation between proxy metrics and per-replicate diversity. (B) Per-individual correlation between averaged proxy metrics and alpha-diversity.}
 \label{fig:igseq-pilot-clone-diversity-metrics-cor}
 \end{figure}
 
@@ -338,7 +365,4 @@ A more detailed explanation, including the underlying equations, can be found in
 \caption{\textbf{Per-replicate diversity spectra for pilot dataset:} Hill diversity spectra of clone sizes (as measured by number of unique sequences per clone) for each replicate in the \igseq pilot dataset, coloured by source individual.}
 \label{fig:igseq-pilot-clone-diversity-solo-spectra}
 \end{figure} % TODO: Move to supplementary
-
-% TODO: Write up interepretation of clonal spectrum plots
-
 

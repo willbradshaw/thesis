@@ -332,7 +332,7 @@ plot_diversity_spectra <- function(data, group_within, ...){
     theme_classic() + theme_base
 } # TODO: Add theme, axis titles etc.
 
-plot_evenness_spectra <- function(data, group_within, ...){
+plot_evenness_spectra <- function(data, group_within){
   ggplot(data) + 
     geom_line(aes_string(x="Q", y="E", colour = group_within)) + 
     geom_ribbon(aes_string(x="Q", ymin = "E_LOWER", ymax = "E_UPPER", 

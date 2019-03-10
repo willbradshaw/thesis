@@ -76,6 +76,8 @@ g_solo <-  ggplot(tab_solo) +
                   fill = INDIVIDUAL, group = REPLICATE), alpha = 0.4) +
   xlab("Diversity order (q)") + 
   ylab(expression(Diversity~(""[q]*D))) +
+  scale_colour_manual(values = palette, name = "Individual") +
+  scale_fill_manual(values = palette, name = "Individual") +
   theme_classic() + theme_base
 
 
@@ -187,7 +189,7 @@ g_indiv_alpha <- plot_solo_diversity(tab_solo, qvals, "INDIVIDUAL", "Individual"
 # Not adding MWU data since nothing is significant
 
 #------------------------------------------------------------------------------
-# RELATE
+# RELATE DIVERSITY TO EXPANSION METRICS
 #------------------------------------------------------------------------------
 
 # Compute correlations between D and other metrics at each Q-value
@@ -200,39 +202,52 @@ rtab_rep <- tab_solo %>%
   summarise(R_P20 = cor(D, P20_Observed), R_S_Filtered = cor(D, S_Filtered), 
             R_S_All = cor(D, S_All))
 
+# Compute individual correlations from average over replicates
+rtab_rep_avg <- tab_solo %>% full_join(tab_stats_rep, by = "REPLICATE") %>%
+  group_by(Q, INDIVIDUAL) %>%
+  summarise(D = ifelse(first(Q) != 1,
+                       mean(D^(1-first(Q)))^(1/(1-first(Q))),
+                       exp(mean(log(D)))),
+            S_Filtered = mean(S_Filtered), S_All = mean(S_All), 
+            P20_Observed = mean(P20_Observed)) %>%
+  summarise(R_P20 = cor(D, P20_Observed), R_S_Filtered = cor(D, S_Filtered), 
+            R_S_All = cor(D, S_All))
+
 # Melt for plotting
-rtab_indiv_melt <- rtab_indiv %>% melt(id.vars = "Q", value.name = "r") %>%
+melt_rtab <- function(rtab) rtab %>% melt(id.vars = "Q", value.name = "r") %>%
   mutate(variable = sub("^R_", "", variable))
-rtab_rep_melt <- rtab_rep %>% melt(id.vars = "Q", value.name = "r") %>%
-  mutate(variable = sub("^R_", "", variable))
+rtab_indiv_melt <- melt_rtab(rtab_indiv)
+rtab_rep_melt <- melt_rtab(rtab_rep)
+rtab_rep_avg_melt <- melt_rtab(rtab_rep_avg)
 
 # Make plots
-rplot_indiv <- ggplot(rtab_indiv_melt) + 
-  geom_line(aes(x=Q, y=r, colour = variable)) +
-  xlab("Diversity order (q)") + ylim(c(-1,0)) +
-  ylab(expression("Pearson correlation with"~scriptstyle(""[q]*D^alpha))) +
-  scale_colour_discrete(name = "Metric",
-                        labels = c("P20", "Zipf exponent (all)", 
-                                   "Zipf exponent (filtered)")) +
-  theme_classic() + theme_base
-rplot_rep <- ggplot(rtab_rep_melt) + 
-  geom_line(aes(x=Q, y=r, colour = variable)) +
-  xlab("Diversity order (q)") + ylim(c(-1,0)) + 
-  ylab(expression("Pearson correlation with"~""[q]*D)) +
+plot_rtab <- function(rtab_melt, ylabel) ggplot(rtab_melt) + 
+  geom_line(aes(x=Q, y=r, colour = variable), size = 1.5) +
+  xlab("Diversity order (q)") + ylim(c(-1,0)) + ylab(ylabel) +
   scale_colour_discrete(name = "Metric",
                         labels = c("P20", "Zipf exponent (all)", 
                                    "Zipf exponent (filtered)")) +
   theme_classic() + theme_base
 
+rplot_indiv <- plot_rtab(rtab_indiv_melt,
+  expression("Pearson correlation with"~scriptstyle(""[q]*D^alpha)))
+rplot_rep <- plot_rtab(rtab_rep_melt,
+  expression("Pearson correlation with"~""[q]*D))
+rplot_rep_avg <- plot_rtab(rtab_rep_avg_melt,
+  expression("Pearson correlation with"~scriptstyle(""[q]*D^alpha)))
+                      
+rplot_out <- gplot_grid_onelegend(rplot_rep, rplot_rep_avg, nrow = 1,
+                                  plot_height = plot_height, 
+                                  plot_width = plot_width)
 
 #------------------------------------------------------------------------------
 # SAVE FIGURES
 #------------------------------------------------------------------------------
 
 savefig(spectra, filename_base, height = plot_height, width = plot_width)
+savefig(rplot_out, paste0(filename_base, "-metrics-cor"), 
+        height = plot_height, width = plot_width)
 savefig(g_solo, paste0(filename_base, "-solo-spectra"),
-        height = 15, ratio = 1.3)
+        height = 15, width = 20)
 savefig(g_indiv_alpha, paste0(filename_base, "-solo-box"),
         height = 20, ratio = 1.5)
-savefig(rplot_rep, paste0(filename_base, "-metrics-cor"),
-        height = 15, ratio = 1.3)
