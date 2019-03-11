@@ -59,7 +59,7 @@
 <g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text x='61.46' y='227.45' style='font-size: 18.00px; font-family: CM Sans;' textLength='275.87px' lengthAdjust='spacingAndGlyphs'># Unique sequences per clone</text></g>
 <g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text transform='translate(27.30,165.01) rotate(-90)' style='font-size: 18.00px; font-family: CM Sans;' textLength='103.67px' lengthAdjust='spacingAndGlyphs'>% of clones</text></g>
 <rect x='47.54' y='241.05' width='303.72' height='28.24' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
-<g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text x='53.02' y='257.41' style='font-size: 12.00px; font-weight: bold; font-family: CM Sans;' textLength='66.99px' lengthAdjust='spacingAndGlyphs'>Individual</text></g>
+<g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text x='53.02' y='259.55' style='font-size: 12.00px; font-weight: bold; font-family: CM Sans;' textLength='66.99px' lengthAdjust='spacingAndGlyphs'>Individual</text></g>
 <line x1='127.20' y1='255.17' x2='141.03' y2='255.17' style='stroke-width: 3.20; stroke: #999999; stroke-linecap: butt;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
 <line x1='183.78' y1='255.17' x2='197.60' y2='255.17' style='stroke-width: 3.20; stroke: #E69F00; stroke-linecap: butt;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
 <line x1='240.35' y1='255.17' x2='254.17' y2='255.17' style='stroke-width: 3.20; stroke: #56B4E9; stroke-linecap: butt;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
@@ -119,16 +119,16 @@
 <g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text x='664.43' y='197.52' style='font-size: 12.00px; font-family: CM Sans;' textLength='30.54px' lengthAdjust='spacingAndGlyphs'>1000</text></g>
 <g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text x='421.52' y='227.45' style='font-size: 18.00px; font-family: CM Sans;' textLength='275.87px' lengthAdjust='spacingAndGlyphs'># Unique sequences per clone</text></g>
 <g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text transform='translate(381.63,165.01) rotate(-90)' style='font-size: 18.00px; font-family: CM Sans;' textLength='103.67px' lengthAdjust='spacingAndGlyphs'>% of clones</text></g>
-<rect x='435.85' y='241.05' width='247.20' height='28.24' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
-<g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text x='441.33' y='257.41' style='font-size: 12.00px; font-weight: bold; font-family: CM Sans;' textLength='145.98px' lengthAdjust='spacingAndGlyphs'>Number of Replicates</text></g>
-<rect x='577.85' y='246.53' width='17.28' height='17.28' style='stroke-width: 0.75; stroke: none; fill: #F8766D; fill-opacity: 0.40;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
-<line x1='579.58' y1='255.17' x2='593.40' y2='255.17' style='stroke-width: 2.13; stroke: #F8766D; stroke-linecap: butt;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
-<rect x='613.08' y='246.53' width='17.28' height='17.28' style='stroke-width: 0.75; stroke: none; fill: #00BA38; fill-opacity: 0.40;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
-<line x1='614.81' y1='255.17' x2='628.64' y2='255.17' style='stroke-width: 2.13; stroke: #00BA38; stroke-linecap: butt;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
-<rect x='648.32' y='246.53' width='17.28' height='17.28' style='stroke-width: 0.75; stroke: none; fill: #619CFF; fill-opacity: 0.40;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
-<line x1='650.05' y1='255.17' x2='663.87' y2='255.17' style='stroke-width: 2.13; stroke: #619CFF; stroke-linecap: butt;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
-<g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text x='601.11' y='259.55' style='font-size: 12.00px; font-family: CM Sans;' textLength='7.63px' lengthAdjust='spacingAndGlyphs'>1</text></g>
-<g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text x='636.34' y='259.55' style='font-size: 12.00px; font-family: CM Sans;' textLength='7.63px' lengthAdjust='spacingAndGlyphs'>2</text></g>
-<g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text x='671.58' y='259.55' style='font-size: 12.00px; font-family: CM Sans;' textLength='7.63px' lengthAdjust='spacingAndGlyphs'>3</text></g>
+<rect x='428.77' y='241.05' width='261.37' height='28.24' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
+<g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text x='434.25' y='259.55' style='font-size: 12.00px; font-weight: bold; font-family: CM Sans;' textLength='145.98px' lengthAdjust='spacingAndGlyphs'>Number of Replicates</text></g>
+<rect x='584.94' y='246.53' width='17.28' height='17.28' style='stroke-width: 0.75; stroke: none; fill: #F8766D; fill-opacity: 0.40;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
+<line x1='586.66' y1='255.17' x2='600.49' y2='255.17' style='stroke-width: 2.13; stroke: #F8766D; stroke-linecap: butt;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
+<rect x='620.17' y='246.53' width='17.28' height='17.28' style='stroke-width: 0.75; stroke: none; fill: #00BA38; fill-opacity: 0.40;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
+<line x1='621.90' y1='255.17' x2='635.72' y2='255.17' style='stroke-width: 2.13; stroke: #00BA38; stroke-linecap: butt;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
+<rect x='655.41' y='246.53' width='17.28' height='17.28' style='stroke-width: 0.75; stroke: none; fill: #619CFF; fill-opacity: 0.40;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
+<line x1='657.13' y1='255.17' x2='670.96' y2='255.17' style='stroke-width: 2.13; stroke: #619CFF; stroke-linecap: butt;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
+<g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text x='608.19' y='259.55' style='font-size: 12.00px; font-family: CM Sans;' textLength='7.63px' lengthAdjust='spacingAndGlyphs'>1</text></g>
+<g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text x='643.43' y='259.55' style='font-size: 12.00px; font-family: CM Sans;' textLength='7.63px' lengthAdjust='spacingAndGlyphs'>2</text></g>
+<g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text x='678.66' y='259.55' style='font-size: 12.00px; font-family: CM Sans;' textLength='7.63px' lengthAdjust='spacingAndGlyphs'>3</text></g>
 <g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text x='364.62' y='32.81' style='font-size: 30.00px; font-family: CM Sans;' textLength='20.58px' lengthAdjust='spacingAndGlyphs'>B</text></g>
 </svg>

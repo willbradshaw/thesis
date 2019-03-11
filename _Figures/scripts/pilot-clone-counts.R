@@ -88,6 +88,9 @@ tab_cl_spread <- spread(tab_cl, REP, CLNCOUNT) %>%
   mutate(bio = ifelse(is.na(bio), 0, bio),
          lib = ifelse(is.na(lib), 0, lib),
          orig = ifelse(is.na(orig), 0, orig)) %>%
+  group_by(INDIVIDUAL, CLONE) %>%
+  summarise(DUPCOUNT = sum(DUPCOUNT), CONSCOUNT = sum(CONSCOUNT),
+            bio = sum(bio), lib = sum(lib), orig = sum(orig)) %>%
   mutate(N_ABSENT = ((bio==0) + (lib==0) + (orig == 0)),
          N_PRESENT = 3-N_ABSENT,
          CLNCOUNT = (bio+lib+orig),
@@ -144,7 +147,7 @@ g_nrep <- tab_cl_nrep %>% group_by(CLNCOUNT, N_PRESENT) %>%
   scale_fill_discrete(name = "Number of Replicates") + 
   scale_colour_discrete(name = "Number of Replicates") +
   coord_cartesian(ylim=c(0,1)) + theme_classic() + theme_base +
-  theme(legend.title = element_text(margin = margin(r=0.5, unit = "cm")))
+  theme(legend.title = element_text(margin = margin(r=1, unit = "cm")))
 
 
 #------------------------------------------------------------------------------

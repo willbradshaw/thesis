@@ -29,7 +29,7 @@ filename_all <- paste0(filename_base, "-all")
 filename_rin <- paste0(filename_all, "-rin")
 
 # Parameters
-treatment_groups <- c("YI_6wk", "WT_16wk", "ABX_16wk", "SMT_16wk", "YMT_16wk")
+treatment_groups <- c("YI_6", "WT_16", "ABX_16", "SMT_16", "YMT_16")
 palette <- c(colours_igseq[["gut_group1"]], colours_igseq[["gut_group2"]],
              colours_igseq[["gut_group3"]], colours_igseq[["gut_group4"]],
              colours_igseq[["gut_group5"]])
@@ -45,7 +45,7 @@ rin_colour_bad <- "red"
 # Import counts table
 tab <- import_counts(survival_path) %>% mutate(INDIVIDUAL = REPLICATE) %>%
   full_join(suppressMessages(read_csv(metadata_path)), by = "INDIVIDUAL") %>%
-  mutate(GROUP = factor(GROUP, levels = treatment_groups))
+  mutate(GROUP = factor(sub("wk", "", GROUP), levels = treatment_groups))
 
 #------------------------------------------------------------------------------
 # WRITE READ SURVIVAL COUNTS
