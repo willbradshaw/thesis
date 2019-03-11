@@ -26,6 +26,7 @@ n_repeats <- 20 # Iterations per sample size
 sample_sizes <- seq(100) * 100
 scale <- "DUPCOUNT" # or NULL
 individuals_excluded <- c("1274", "1309")
+p <- 20
 
 # Output paths
 outpath <- "../_Data/changeo/rarefied_clones.tab"
@@ -34,8 +35,8 @@ outpath <- "../_Data/changeo/rarefied_clones.tab"
 # AUXILIARY FUNCTIONS
 #------------------------------------------------------------------------------
 
-get_clonetab <- function(tab, scale = NULL, clone_field = "CLONE",
-                         group_field = "INDIVIDUAL"){
+get_clonetab <- function(tab, scale, clone_field,
+                         group_field){
   tab <- tab %>% filter(!is.na(!!as.name(clone_field)))
   if (is.null(scale)){
     clones <- tab %>% select(!!as.name(group_field), !!as.name(clone_field))
@@ -48,10 +49,9 @@ get_clonetab <- function(tab, scale = NULL, clone_field = "CLONE",
   return(clones)
 }
 
-sample_clones_single <- function(tab, sample_size, scale = NULL,
-                                 clone_field = "CLONE",
-                                 group_field = "INDIVIDUAL",
-                                 replace = FALSE, P = c(5,10,20)){
+sample_clones_single <- function(tab, sample_size, scale,
+                                 clone_field, group_field,
+                                 replace, P){
   # Get individual-labelled vector of clone IDs
   clones <- get_clonetab(tab, scale, clone_field, group_field) %>%
     group_by(!!as.name(group_field)) %>%
@@ -63,20 +63,26 @@ sample_clones_single <- function(tab, sample_size, scale = NULL,
     group_by(!!as.name(group_field), !!as.name(clone_field)) %>%
     summarise(N = n()) %>% 
     group_by(!!as.name(group_field)) %>%
-    mutate(CLNRANK = row_number(desc(N)), CLNFREQ = N/sum(N))
+    mutate(CLNRANK = row_number(desc(N)), CLNFREQ = N/sum(N),
+           SINGLE = N == 1, SMALL = N < 5, LARGE = N >= 5)
   pcounts <- lapply(P, function(p)
     rarefied %>% filter(CLNRANK <= p) %>% 
       summarise(!!as.name(paste0("P", p)) := sum(CLNFREQ))) %>%
     join_all(by = "INDIVIDUAL", type = "full")
-  rarefied_summ <- summarise(rarefied, N_CLONES = n()) %>%
+  rarefied_summ <- summarise(rarefied, N_CLONES = n(), 
+                             N_CLONES_SINGLE = sum(SINGLE),
+                             N_CLONES_SMALL = sum(SMALL),
+                             N_CLONES_LARGE = sum(LARGE)) %>%
+    mutate(PC_CLONES_SMALL = N_CLONES_SMALL/N_CLONES) %>%
     inner_join(pcounts, by = "INDIVIDUAL")
   return(rarefied_summ)
 }
 
-rarefy_clones_single <- function(tab, sample_size, n_repeats = 50,
-                                 scale = NULL, clone_field = "CLONE",
-                                 group_field = "INDIVIDUAL", 
-                                 replace = FALSE, P = c(5,10,20)){
+rarefy_clones_single <- function(tab, sample_size, n_repeats,
+                                 scale, clone_field,
+                                 group_field, replace, P){
+  # Repeatedly downsample and obtain clone counts for a single
+  # sample size
   rarefactions <- lapply(1:n_repeats, function(m)
     sample_clones_single(tab, sample_size, scale, 
                          clone_field, group_field, replace, P) %>%
@@ -90,14 +96,15 @@ rarefy_clones_single <- function(tab, sample_size, n_repeats = 50,
   return(rarefactions_summ)
 }
 
-rarefy_clones <- function(tab, sample_sizes, n_repeats = 50,
-                          scale = NULL,
+rarefy_clones <- function(tab, sample_sizes, n_repeats, scale, P,
                           clone_field = "CLONE",
                           group_field = "INDIVIDUAL",
                           replace = FALSE){
+  # Repeatedly downsample and obtain clone counts for a range
+  # of sample sizes
   bind_rows(lapply(sample_sizes, function(s)
     rarefy_clones_single(tab, s, n_repeats, scale, clone_field, group_field,
-                         replace)))
+                         replace, P)))
 }
 
 #------------------------------------------------------------------------------
@@ -114,11 +121,11 @@ tab_pilot <- import_tab(inpath_pilot)
 # RAREFY CLONAL COUNTS
 #------------------------------------------------------------------------------
 
-r_gut <- rarefy_clones(tab_gut, sample_sizes, n_repeats, scale) %>%
+r_gut <- rarefy_clones(tab_gut, sample_sizes, n_repeats, scale, p) %>%
   mutate(EXPERIMENT = "gut")
-r_age <- rarefy_clones(tab_age, sample_sizes, n_repeats, scale) %>%
+r_age <- rarefy_clones(tab_age, sample_sizes, n_repeats, scale, p) %>%
   mutate(EXPERIMENT = "ageing")
-r_pilot <- rarefy_clones(tab_pilot, sample_sizes, n_repeats, scale) %>%
+r_pilot <- rarefy_clones(tab_pilot, sample_sizes, n_repeats, scale, p) %>%
   mutate(EXPERIMENT = "pilot")
 
 r <- bind_rows(r_gut, r_age, r_pilot)

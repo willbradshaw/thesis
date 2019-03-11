@@ -28,13 +28,17 @@ filename_nclones <- "igseq-gut-nclones"
 filename_base <- "igseq-gut-clone-sizes"
 
 # Parameters
+age_groups = c("6", "16")
+treatment_groups <- c("YI_6", "WT_16", "ABX_16", "SMT_16", "YMT_16")
+# TODO: "wk"?
 palette <- c(colours_igseq[["gut_group1"]], colours_igseq[["gut_group2"]],
              colours_igseq[["gut_group3"]], colours_igseq[["gut_group4"]],
              colours_igseq[["gut_group5"]])
-treatment_groups <- c("ABX_16", "SMT_16", "WT_16", "YI_6", "YMT_16")
+palette_age <- c(colours_igseq[["gut_group1"]], colours_igseq[["gut_allold"]])
 palette_exp <- c(colours_igseq[["exp_pilot"]], colours_igseq[["exp_ageing"]],
                  colours_igseq[["exp_gut"]])
 individuals_excluded <- c("1274", "1309")
+
 
 #------------------------------------------------------------------------------
 # IMPORT DATA
@@ -52,7 +56,7 @@ tab_pilot <- import_tab(inpath_pilot)
 
 nseq_naclone <- tab_gut %>% group_by(SEQUENCE_INPUT, CLONE) %>% summarise() %>% 
   pull(CLONE) %>% is.na %>% mean %>% (function(x) round((1-x)*100, 1))
-#savetxt(nseq_naclone, "gut-nseq-assigned-clones")
+savetxt(nseq_naclone, "gut-nseq-assigned-clones")
 
 #------------------------------------------------------------------------------
 # COMPARE CLONES (AND OTHER METRICS) PER INDIVIDUAL BETWEEN DATASETS
@@ -119,6 +123,52 @@ savetxt(clones_individual_min, paste0(filename_nclones, "-individual-min"))
 savetxt(clones_individual_max, paste0(filename_nclones, "-individual-max"))
 savetxt(clones_individual_med, paste0(filename_nclones, "-individual-med"))
 
+# Test age and treatment effect on clone counts
+tab_cl_counts_num <- tab_cl_gut %>% 
+  group_by(AGE_WEEKS, GROUP, INDIVIDUAL, CLONE) %>%
+  summarise(CLNCOUNT = sum(CLNCOUNT), DUPCOUNT = sum(DUPCOUNT), 
+            CONSCOUNT = sum(CONSCOUNT)) %>%
+  group_by(AGE_WEEKS, GROUP, INDIVIDUAL) %>% 
+  summarise(N = n(), CLNCOUNT = sum(CLNCOUNT), DUPCOUNT = sum(DUPCOUNT), 
+            CONSCOUNT = sum(CONSCOUNT)) %>% ungroup() %>%
+  mutate(AGE_WEEKS = as.numeric(AGE_WEEKS))
+
+cl_counts_kruskal_age <- kruskal.test(formula = N ~ AGE_WEEKS,
+                                      data = tab_cl_counts_num)
+cl_counts_kruskal_group <- kruskal.test(formula = N ~ as.factor(GROUP),
+                                      data = tab_cl_counts_num)
+savetxt(cl_counts_kruskal_age$p.value %>% signif(2), 
+        paste0(filename_nclones, "-kruskal-age-p"))
+savetxt(cl_counts_kruskal_group$p.value %>% signif(2), 
+        paste0(filename_nclones, "-kruskal-group-p"))
+
+# Plot range of clone numbers in different age/treatment groups
+g_nclones_age <- ggplot(tab_cl_counts_num) + 
+  geom_boxplot(aes(x=factor(AGE_WEEKS, levels = age_groups), y=N, 
+                   fill = factor(AGE_WEEKS, levels = age_groups)),
+               outlier.shape = NA) +
+  geom_point(aes(x=factor(AGE_WEEKS, levels = age_groups), y=N), 
+             size = 3, alpha = 0.5) +
+  scale_fill_manual(values = palette_age, name = "Age group (weeks)") +
+  xlab("Age at death (weeks)") +  scale_y_log10(name = "# Clones") +
+  theme_classic() + theme_base + theme(legend.position = "none")
+g_nclones_group <- ggplot(tab_cl_counts_num) + 
+  geom_boxplot(aes(x=factor(GROUP, levels = treatment_groups), y=N, 
+                   fill = factor(GROUP, levels = treatment_groups)),
+               outlier.shape = NA) +
+  geom_point(aes(x=factor(GROUP, levels = treatment_groups), y=N), 
+             size = 3, alpha = 0.5) +
+  scale_fill_manual(values = palette, name = "Treatment group") +
+  scale_x_discrete(name = "Treatment group") +
+  scale_y_log10(name = "# Clones") +
+  theme_classic() + theme_base + theme(
+    legend.position = "none",
+    axis.text.x = element_text(size = fontsize_base * 0.8))
+
+g_nclones <- gplot_grid(g_nclones_age, g_nclones_group)
+
+savefig(g_nclones, filename_nclones, height = 15, width = 25)
+
 #------------------------------------------------------------------------------
 # COMPUTE RELATIVE METRICS AND COMPARE BETWEEN EXPERIMENTS
 #------------------------------------------------------------------------------
@@ -141,44 +191,10 @@ plot_metrics_relative <- ggplot(tab_cl_all_counts_relative_melted) +
   geom_boxplot(aes(x=variable, y=value, fill = EXPERIMENT)) + 
   scale_x_discrete(breaks = c("CLONES_PER_UMI", "CLONES_PER_SEQUENCE"),
                    labels = c("UMI groups", "Unique sequences")) +
-  ylab(expression(Clones ^ -1 )) +
+  ylab("# per clone") +
   scale_fill_manual(values = palette_exp, name = "Experiment") + theme_metrics
 
-#------------------------------------------------------------------------------
-# SAVE FIGURES
-#------------------------------------------------------------------------------
-
-# Save metric boxplots with single shared legend
-
-# Extract legend
-g <- ggplotGrob(plot_metrics)$grobs
-legend <- g[[which(sapply(g, function(x) x$name) == "guide-box")]]
-lheight <- sum(legend$height)
-lwidth <- sum(legend$width)
-# Combine plots without legend
-plt_metrics <- plot_grid(plot_metrics + theme(legend.position = "none"),
-                         plot_metrics_relative + theme(legend.position = "none"), 
-                         ncol = 2, nrow = 1, labels="AUTO",
-                         label_fontfamily = titlefont, label_fontface = "plain",
-                         label_size = fontsize_base * fontscale_label)
-metrics_combined <- arrangeGrob(plt_metrics, legend, ncol = 1, nrow = 2,
-                        heights = unit.c(unit(1, "npc") - lheight, lheight))
-
-# Visualise plot
-plot_height = 15
-plot_width = 25
-plot_unit = "cm"
-map_layout <- grid.layout(ncol = 1, nrow = 1,
-  heights = unit(plot_height, plot_unit), widths = unit(plot_width, plot_unit)
-)
-vtop <- viewport(layout = map_layout)
-grid.newpage()
-pushViewport(vtop)
-pushViewport(viewport(layout.pos.col = 1, layout.pos.row = 1))
-grid.draw(metrics_combined)
-popViewport(1)
-
-plt_metrics <- grid.grab()
-savefig(plt_metrics, filename = paste0(filename_comparative, "-metrics"),
-        height = plot_height, width = plot_width)
-
+g_metrics <- gplot_grid_onelegend(plot_metrics, plot_metrics_relative,
+                                  plot_height = 15, plot_width = 25)
+savefig(g_metrics, filename = paste0(filename_comparative, "-metrics"),
+        height = 15, width = 25)

@@ -161,7 +161,8 @@ g_nseq_abundant <- tab_cl_abundant_age %>% ggplot() +
     legend.margin = margin(b=0.05, unit = "cm"),
     legend.box.margin = margin(t=0.2, unit = "cm")
   )
-savefig(g_nseq_abundant, "ageing-pc-seq-in-small-clones", height = 15, ratio = 1.5)
+savefig(g_nseq_abundant, "ageing-pc-seq-in-small-clones", height = 15, 
+        ratio = 1.5)
 
 #------------------------------------------------------------------------------
 # COUNT CLONES PRESENT IN 1/2/3 replicates

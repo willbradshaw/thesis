@@ -28,18 +28,24 @@ filename_init <- paste0(filename_base, "-init")
 filename_all <- paste0(filename_base, "-all")
 filename_rin <- paste0(filename_all, "-rin")
 
+# Parameters
+treatment_groups <- c("YI_6wk", "WT_16wk", "ABX_16wk", "SMT_16wk", "YMT_16wk")
+palette <- c(colours_igseq[["gut_group1"]], colours_igseq[["gut_group2"]],
+             colours_igseq[["gut_group3"]], colours_igseq[["gut_group4"]],
+             colours_igseq[["gut_group5"]])
+rin_colour_good <- "blue"
+rin_colour_bad <- "red"
+
+
+
 #------------------------------------------------------------------------------
 # IMPORT DATA
 #------------------------------------------------------------------------------
 
 # Import counts table
 tab <- import_counts(survival_path) %>% mutate(INDIVIDUAL = REPLICATE) %>%
-  full_join(suppressMessages(read_csv(metadata_path)), by = "INDIVIDUAL")
-
-# Define palette
-palette <- c(colours_igseq[["gut_group1"]], colours_igseq[["gut_group2"]],
-             colours_igseq[["gut_group3"]], colours_igseq[["gut_group4"]],
-             colours_igseq[["gut_group5"]])
+  full_join(suppressMessages(read_csv(metadata_path)), by = "INDIVIDUAL") %>%
+  mutate(GROUP = factor(GROUP, levels = treatment_groups))
 
 #------------------------------------------------------------------------------
 # WRITE READ SURVIVAL COUNTS
@@ -96,51 +102,12 @@ allplot_init <- countplot_all(tab, colour = "GROUP", stages_include = stages_ini
 allplot_all <- countplot_all(tab, colour = "GROUP", stages_include = stages_all,
                              palette = palette, cname = "Treatment group",
                              hline_rel = 0.3)
-
-# Visualise plot
-plot_unit = "cm"
-plot_height<- 15
-plot_width <- 25
-map_layout <- grid.layout(
-  ncol = 1,
-  nrow = 1,
-  heights = unit(plot_height, plot_unit),
-  widths = unit(plot_width, plot_unit)
-)
-
-vtop <- viewport(layout = map_layout)
-grid.newpage()
-pushViewport(vtop)
-pushViewport(viewport(layout.pos.col = 1, layout.pos.row = 1))
-grid.draw(allplot_init)
-popViewport(1)
-
-# Save figure
-plt <- grid.grab()
-savefig(plot = plt, filename = filename_init,
-        height = plot_height, 
-        width = plot_width)
-
-vtop <- viewport(layout = map_layout)
-grid.newpage()
-pushViewport(vtop)
-pushViewport(viewport(layout.pos.col = 1, layout.pos.row = 1))
-grid.draw(allplot_all)
-popViewport(1)
-
-# Save figure
-plt <- grid.grab()
-savefig(plot = plt, filename = filename_all,
-        height = plot_height, 
-        width = plot_width)
+savefig(allplot_init, filename_init, width = 25, height = 15)
+savefig(allplot_all, filename_all, width = 25, height = 15)
 
 #------------------------------------------------------------------------------
 # RE-PLOT SURVIVAL CURVES, COLOURED BY RIN
 #------------------------------------------------------------------------------
-
-# Specify colour palette
-rin_colour_good <- "lightgray"
-rin_colour_bad <- "black"
 
 # Compute correlation between RIN and read survival
 tab_rin <- tab %>% filter(STAGE == "changeo_clonotyped") %>% 
@@ -175,42 +142,10 @@ relplot_rin <-   countplot_base("RIN") + countline_rel(tab) +
                          name = "RNA integrity number") +
   geom_hline(yintercept = 0.3, colour = "red", linetype = 2)
 
-# Extract legend from absplot
-g <- ggplotGrob(absplot_rin + theme(legend.position = "bottom"))$grobs
-legend <- g[[which(sapply(g, function(x) x$name) == "guide-box")]]
-lheight <- sum(legend$height)
-lwidth <- sum(legend$width)
+# Make and save plot
+plt_rin <- gplot_grid_onelegend(absplot_rin, relplot_rin, scaplot_rin,
+                                nrow = 1, ncol = 3, plot_height = 15,
+                                plot_width = 35)
 
-# Combine plots without legend
-plt_rin <- plot_grid(absplot_rin + theme(legend.position = "none"),
-                 relplot_rin + theme(legend.position = "none"), 
-                 scaplot_rin + theme(legend.position = "none"),
-                 ncol = 3, nrow = 1, labels="AUTO",
-                 label_fontfamily = titlefont, label_fontface = "plain",
-                 label_size = fontsize_base * fontscale_label)
-combined_rin <- arrangeGrob(plt_rin, legend, ncol = 1, nrow = 2,
-                            heights = unit.c(unit(1, "npc") - lheight, lheight))
-
-# Draw and plot as before
-plot_unit = "cm"
-plot_height<- 15
-plot_width <- 35
-map_layout <- grid.layout(
-  ncol = 1,
-  nrow = 1,
-  heights = unit(plot_height, plot_unit),
-  widths = unit(plot_width, plot_unit)
-)
-
-vtop <- viewport(layout = map_layout)
-grid.newpage()
-pushViewport(vtop)
-pushViewport(viewport(layout.pos.col = 1, layout.pos.row = 1))
-grid.draw(combined_rin)
-popViewport(1)
-
-# Save figure
-plt_rin <- grid.grab()
 savefig(plot = plt_rin, filename = filename_rin,
-        height = plot_height, 
-        width = plot_width)
+        height = 15, width = 35)
