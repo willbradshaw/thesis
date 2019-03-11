@@ -42,7 +42,7 @@ antibiotics <- list(
   "WT" = "No"
 )
 transfer <- list(
-  "SMT" = "Yes (9-week-old donor)",
+  "SMT" = "Yes (9.5-week-old donor)",
   "YMT" = "Yes (6-week-old donor)",
   "ABX" = "No",
   "YI" = "No",
@@ -74,7 +74,7 @@ tab_fish <- tab_in %>%
     `Age at death (weeks)` = format(AGE_WEEKS, digits = 0),
     `Treatment group` = GROUP,
     #`Weight at death (g)` = DEATH_WEIGHT,
-    #;qRIN = RIN,
+    `RNA Integrity Number (RIN)` = RIN,
     `Date of library prep` = ifelse(!is.na(LP_DATE), as.character(LP_DATE), "--"),
     `Sequenced?` = ifelse(LP > 0, "Yes", "No"),
     `Reason for exclusion` = ifelse(!is.na(REASON_FOR_EXCLUSION),
