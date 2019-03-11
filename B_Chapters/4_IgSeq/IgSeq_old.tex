@@ -65,59 +65,23 @@
 % - SHM etc
 % - Relate to uBiota?
 
-While the alpha-diversity of the VJ-repertoire (reflecting ...)  does not appear to change with age in the turquoise killifish, the beta-diversity (reflecting inter-individual differences in VJ-expression \textit{within} each group) shows dramatic differences between age groups, especially at higher diversity orders (\Cref{fig:igseq-ageing-VJ-diversity-beta}): while the diversity of the 5.5- and 8-week-old groups is close to the theoretical minimum for that sample size, the 10.5-week-old group exhibits a substantial increase in inter-individual variability across a wide range of diversity orders, and the 18-week old group shows an even more dramatic increase. This increase in inter-individual diversity with age is corroborated by inter-individual RDI distances computed on VJ-repertoires within each age group: both the overall distribution of inter-individual distances (\Cref{fig:igseq-ageing-rdi-VJ-individual-groupdist-all}), and the distribution of nearest-neighbour distances within each age group (\Cref{fig:igseq-ageing-rdi-VJ-individual-groupdist-nn}), increase significantly with age. This tendency for individuals from increasing age groups to become more distinct in their VJ-repertoires can also be observed using principal co-ordinate analysis:  in \Cref{fig:igseq-ageing-rdi-VJ-individual-pcoa-facet}, the great majority of individuals from younger age groups are visibly more tightly clustered than those from older age groups, which drift apart progressively as age-at-death increases.
-
-\begin{figure}
-\centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png/ageing-rdi-VJ-individual-groupdist}
-\begin{subfigure}{0em}
-\phantomsubcaption{}
-\label{fig:igseq-ageing-rdi-VJ-individual-groupdist-all}
-\end{subfigure}
-\begin{subfigure}{0em}
-\phantomsubcaption{}
-\label{fig:igseq-ageing-rdi-VJ-individual-groupdist-nn}
-\end{subfigure}
-\caption{Boxplots of overall (A) and nearest-neighbour (B) inter-individual VJ-RDI distances for each age group in the \igseq ageing dataset. Pairwise $p$-values are computed using nonparametric Mann–Whitney U tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$). $P(KWT)$ indicates the $p$-value of a Kruskal-Wallis analysis of variance test for a difference in RDI distribution with age.}
-\label{fig:igseq-ageing-rdi-VJ-individual-groupdist}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png/ageing-rdi-VJ-individual-pcoa}
-\begin{subfigure}{0em}
-\phantomsubcaption{}
-\label{fig:igseq-ageing-rdi-VJ-individual-pcoa-all}
-\end{subfigure}
-\begin{subfigure}{0em}
-\phantomsubcaption{}
-\label{fig:igseq-ageing-rdi-VJ-individual-pcoa-facet}
-\end{subfigure}
-\caption{Principal co-ordinate analysis (PCoA) of pairwise inter-individual VJ-RDI distances in the \igseq ageing dataset, coloured by age group and displayed together (A) or separately by age group (B).}
-\label{fig:igseq-ageing-rdi-VJ-individual-pcoa}
-\end{figure}
 
 
-\clearpage\newpage
-\section{Gut microbiota transfer and the turquoise killifish mucosal repertoire}
-\label{sec:igseq_gut}
 
-% TODO: Summarise ageing results, write segue
 
-% TODO: Summary figure of gut microbiota study
-\newabbreviation{bellemans}{GRZ-Bellemans}{Substrain of GRZ}
 
-Smith \textit{et al.} (2017) \parencite{smith2017microbiota} demonstrated that gut microbiota transfer from young to middle-aged turquoise killifish significantly extends lifespan in this species, as well as significantly altering microbiota composition and gene expression in the gut. As the gut microbiota in vertebrates is well-known to have an intimate relationship with the mucosal adaptive immune system, % TODO: Citation needed
-it would be interesting to find out what effect microbiota transfer would have on the mucosal repertoires in turquoise killifish, and what if any relationship there is between these repertoires and the observed changes in microbiotal composition and lifespan. In particular, we hypothesised that gut microbiotal transfer might significantly ameliorate the ageing of the adaptive-immune repertoire seen in \Cref{sec:igseq_ageing}, either through delaying the decline in diversity observed in older fish or by stimulating a renewal of repertoire diversity in mucosal B-cells. In addition, by providing data on antibody repertoires of guts from young and old fish, such an experiment would provide a second, independent test of the effect of ageing on turquoise killifish repertoires, this time in a specific immune organ.
+
+ As the gut microbiota in vertebrates is well-known to have an intimate relationship with the mucosal adaptive immune system, % TODO: Citation needed
+it would be interesting to find out what effect microbiota transfer would have on the mucosal repertoires in turquoise killifish, and what if any relationship there is between these repertoires and the observed changes in microbiotal composition and lifespan. 
+
+In particular, we  In addition, by providing data on antibody repertoires of guts from young and old fish, such an experiment would provide a second, independent test of the effect of ageing on turquoise killifish repertoires, this time in a specific immune organ.
 
 In order to investigate these questions, I designed an additional \igseq experiment in the turquoise killifish, using gut total RNA samples already available from the original microbiota-transfer study \parencite{smith2017microbiota}. 
-As part of this study, total RNA was extracted from the isolated guts of twenty male turquoise killifish of the GRZ-Bellemans substrain (a closely-related substrain to the GRZ-AD substrain used in \Cref{sec:igseq_ageing}). These twenty individuals (\Cref{tab:gut-cohorts-summary,tab:gut-cohorts-fish}) were divided into two age cohorts and five treatment groups, with four untreated six-week-old fish (YI\_6wk) and sixteen sixteen-week-old fish in various treatment classes. Of the sixteen-week-old fish, four had undergone no treatment (WT\_16wk), four had undergone antibiotics treatment at nine weeks of age but no microbiota transfer (ABX\_16wk), four had undergone antibiotics treatment followed by microbiota transfer from a young (six-week-old) fish (YMT\_16wk) and the remaining four had received antibiotics at nine weeks of age followed by micriobiota transfer from a fish of the same age (OMT\_16wk).
+As part of this study, total RNA was extracted from the isolated guts of twenty male turquoise killifish of the GRZ-Bellemans substrain (a closely-related substrain to the GRZ-AD substrain used in \Cref{sec:igseq_ageing}). 
 
-\begin{table}[b]
-\input{_Figures/tables/gut-cohorts-summary}
-\caption{Summary of killifish used in \igseq validation and ageing experiment. All fish are GRZ-Bellemans strain and male.}
-\label{tab:gut-cohorts-summary}
-\end{table}
+These twenty individuals (\Cref{tab:gut-cohorts-summary,tab:gut-cohorts-fish}) were divided into two age cohorts and five treatment groups, with four untreated six-week-old fish (YI\_6wk) and sixteen sixteen-week-old fish in various treatment classes. Of the sixteen-week-old fish, four had undergone no treatment (WT\_16wk), four had undergone antibiotics treatment at nine weeks of age but no microbiota transfer (ABX\_16wk), four had undergone antibiotics treatment followed by microbiota transfer from a young (six-week-old) fish (YMT\_16wk) and the remaining four had received antibiotics at nine weeks of age followed by micriobiota transfer from a fish of the same age (OMT\_16wk).
+
+
 
 Of these twenty samples, one (fish 400, from the WT\_16wk group) contained too little RNA to undergo \igseq library preparation, while another (fish 1005, from the OMT\_16wk group) was too degraded for a useful library to be obtained. The remaining 18 samples underwent \igseq library preparation, performed by Aleksandra Placzek and Michael Poeschla using the protocol I designed in \Cref{sec:igseq_protocol_library}. Several of the other samples were also somewhat degraded, with RNA integrity numbers between 5.5 and 7.0, but succeeded in producing useable libraries; these samples were included in the sequencing pool, but the RIN values from each sample were retained for comparison with downstream quality-control measures following \Igseq.
 

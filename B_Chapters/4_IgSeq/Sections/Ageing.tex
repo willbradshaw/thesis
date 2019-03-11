@@ -91,7 +91,7 @@ While a significant decline in clonal diversity was age was found at various div
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png/ageing-VJ-diversity-alpha-beta}
+\includegraphics[width = 0.8\textwidth]{_Figures/png/ageing-VJ-diversity-alpha-beta}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-ageing-VJ-diversity-alpha}
@@ -106,7 +106,48 @@ While a significant decline in clonal diversity was age was found at various div
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png/ageing-VJ-diversity-solo-fit-gamma}
+\includegraphics[width = 0.8\textwidth]{_Figures/png/ageing-VJ-diversity-solo-fit-gamma}
 \caption{Boxplots of Hill diversity values for the VJ repertoires of individuals of each age group in the \igseq ageing dataset at a sample of diversity orders, overlaid with the predictions of the best-fit Gamma-distributed generalised linear model at each order.  Annotated $p$-values indicate the statistical significance of the estimated age effect on diversity under the GLM ($P(GLM)$) and a Kruskal-Wallis test ($P(KWT)$) for each diversity order.}
 \label{fig:igseq-ageing-VJ-diversity-solo-fit-gamma}
 \end{figure}
+
+While the alpha-diversity of the VJ-repertoire (reflecting average diversity within each individual repertoire) does not appear to change with age in the turquoise killifish, the beta-diversity (reflecting inter-individual variability in VJ-expression) shows dramatic differences between age groups, especially at higher diversity orders (\Cref{fig:igseq-ageing-VJ-diversity-beta}): while the diversity of the 5.5- and 8-week-old groups is close to the theoretical minimum for that sample size, the 10.5-week-old group exhibits a substantial increase in inter-individual variability across a wide range of diversity orders, and the 18-week old group shows an even more dramatic increase. This increase in inter-individual diversity with age is corroborated by inter-individual RDI distances computed on VJ-repertoires within each age group: both the overall distribution of inter-individual distances (\Cref{fig:igseq-ageing-rdi-VJ-individual-groupdist-all}), and the distribution of nearest-neighbour distances within each age group (\Cref{fig:igseq-ageing-rdi-VJ-individual-groupdist-nn}), increase significantly with age. This tendency for individuals from increasing age groups to become more distinct in their VJ-repertoires can also be observed using principal co-ordinate analysis:  in \Cref{fig:igseq-ageing-rdi-VJ-individual-pcoa-facet}, the great majority of individuals from younger age groups are visibly more tightly clustered than those from older age groups, which drift apart progressively as age-at-death increases. As in ageing humans (\Cref{sec:intro_immunosenescence}), therefore, the ageing killifish appears to become more individualised and distinct in its antibody repertoire, presumably as the result of ... %TODO: finish this, or move to new paragraph
+
+% TODO: Final explanatory sentence
+
+\begin{figure}
+\centering
+\includegraphics[width = 0.9\textwidth]{_Figures/png/ageing-rdi-VJ-individual-groupdist}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
+\label{fig:igseq-ageing-rdi-VJ-individual-groupdist-all}
+\end{subfigure}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
+\label{fig:igseq-ageing-rdi-VJ-individual-groupdist-nn}
+\end{subfigure}
+\caption{Boxplots of overall (A) and nearest-neighbour (B) inter-individual VJ-RDI distances for each age group in the \igseq ageing dataset. Pairwise $p$-values are computed using nonparametric Mann–Whitney U tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$). $P(KWT)$ indicates the $p$-value of a Kruskal-Wallis analysis of variance test for a difference in RDI distribution with age.}
+\label{fig:igseq-ageing-rdi-VJ-individual-groupdist}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width = 0.9\textwidth]{_Figures/png/ageing-rdi-VJ-individual-pcoa}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
+\label{fig:igseq-ageing-rdi-VJ-individual-pcoa-all}
+\end{subfigure}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
+\label{fig:igseq-ageing-rdi-VJ-individual-pcoa-facet}
+\end{subfigure}
+\caption{Principal co-ordinate analysis (PCoA) of pairwise inter-individual VJ-RDI distances in the \igseq ageing dataset, coloured by age group and displayed together (A) or separately by age group (B).}
+\label{fig:igseq-ageing-rdi-VJ-individual-pcoa}
+\end{figure}
+
+% TODO: IGoR parameters and entropy with age
+
+% TODO: Conclusion: effects of ageing on repertoire composition in TK
+
+\FloatBarrier
+\clearpage
