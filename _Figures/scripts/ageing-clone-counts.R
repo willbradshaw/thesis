@@ -77,14 +77,21 @@ clones_individual_max_pilot <- tab_cl_counts_pilot_indivs %>% pull(N) %>% max %>
 savetxt(clones_individual_min_pilot, paste0(filename_nclones, "-individual-min-pilot"))
 savetxt(clones_individual_max_pilot, paste0(filename_nclones, "-individual-max-pilot"))
 
+# Test age effect on clone counts
+tab_cl_counts_num <- tab_cl_counts %>% ungroup() %>% 
+  mutate(AGE_DAYS = as.numeric(AGE_DAYS))
+cl_counts_kruskal <- kruskal.test(formula = N ~ AGE_DAYS, data = tab_cl_counts_num)
+savetxt(cl_counts_kruskal$p.value %>% signif(2), 
+        paste0(filename_nclones, "-kruskal-p"))
+
 # Plot range of clone numbers in different age groups
 age_groups <- c("39", "56", "73", "128")
-tab_cl_counts <- tab_cl_counts %>% ungroup() %>%
-  mutate(AGE_DAYS = factor(AGE_DAYS, levels = age_groups))
-g_nclones <- ggplot(tab_cl_counts) + 
-  geom_boxplot(aes(x=AGE_DAYS, y=N, fill = AGE_DAYS)) +
-  scale_fill_manual(values = palette, name = "Age group (days)")
-# TODO: Save this plot?
+g_nclones <- ggplot(tab_cl_counts_num) + 
+  geom_boxplot(aes(x=AGE_DAYS, y=N, fill = factor(AGE_DAYS, levels = age_groups))) +
+  scale_fill_manual(values = palette, name = "Age group (days)") +
+  xlab("Age at death (days)") + ylab("# Clones") +
+  theme_classic() + theme_base
+savefig(g_nclones, filename_nclones, height = 15, ratio = 1.5)
 
 #------------------------------------------------------------------------------
 # COUNT CLONES BY SIZE
@@ -93,10 +100,12 @@ g_nclones <- ggplot(tab_cl_counts) +
 tab_cl_size <- tab_cl %>% group_by(AGE_DAYS, INDIVIDUAL, CLONE) %>% 
   summarise(CLNCOUNT = sum(CLNCOUNT), DUPCOUNT = sum(DUPCOUNT),
             CONSCOUNT = sum(CONSCOUNT)) %>% group_by(CLNCOUNT) %>% 
-  summarise(N = n(), CLNCOUNT = sum(CLNCOUNT), DUPCOUNT = sum(DUPCOUNT),
-            CONSCOUNT = sum(CONSCOUNT)) %>% mutate(N_PC = N/sum(N) * 100,
-                                CUM_PC = cumsum(N_PC))
+  summarise(N = n(), DUPCOUNT = sum(DUPCOUNT), CONSCOUNT = sum(CONSCOUNT)) %>% 
+  mutate(N_PC = N/sum(N) * 100, CUM_PC = cumsum(N_PC),
+         CLNCOUNT_TOTAL = CLNCOUNT * N, 
+         CLNCOUNT_PC = CLNCOUNT_TOTAL/sum(CLNCOUNT_TOTAL) * 100)
 
+# Number of small clones
 nclones_1count <- tab_cl_size %>% filter(CLNCOUNT == 1) %>% pull(N_PC) %>%
   round(1)
 nclones_small <- tab_cl_size %>% filter(CLNCOUNT < 5) %>% pull(N_PC) %>%
@@ -105,6 +114,54 @@ nclones_large <- tab_cl_size %>% filter(CLNCOUNT >= 5) %>% pull(N_PC) %>%
   sum %>% round(1)
 savetxt(nclones_1count, paste0(filename_nclones, "-pc-1count"))
 savetxt(nclones_small, paste0(filename_nclones, "-pc-small"))
+
+#------------------------------------------------------------------------------
+# COUNT NUMBER OF SEQUENCES IN EACH SIZE CLONE IN EACH AGE GROUP
+#------------------------------------------------------------------------------
+
+# Get clone-size counts for each individual
+tab_cl_size_age <- tab_cl %>% group_by(AGE_DAYS, INDIVIDUAL, CLONE) %>% 
+  summarise(CLNCOUNT = sum(CLNCOUNT), DUPCOUNT = sum(DUPCOUNT),
+            CONSCOUNT = sum(CONSCOUNT)) %>% group_by(AGE_DAYS, INDIVIDUAL, CLNCOUNT) %>% 
+  summarise(N = n(), DUPCOUNT = sum(DUPCOUNT), CONSCOUNT = sum(CONSCOUNT)) %>% 
+  mutate(N_PC = N/sum(N) * 100, CUM_PC = cumsum(N_PC),
+         CLNCOUNT_TOTAL = CLNCOUNT * N, 
+         CLNCOUNT_PC = CLNCOUNT_TOTAL/sum(CLNCOUNT_TOTAL) * 100)
+
+# Compute average proportion of abundant vs non-abundant by age group
+tab_cl_abundant_indiv <- tab_cl_size_age %>% 
+  group_by(AGE_DAYS, INDIVIDUAL, ABUNDANT = CLNCOUNT >= 5) %>%
+  summarise(N_PC = sum(N_PC), CLNCOUNT_PC = sum(CLNCOUNT_PC))
+tab_cl_abundant_age <- tab_cl_abundant_indiv %>%
+  group_by(AGE_DAYS, ABUNDANT) %>% 
+  summarise(N_PC = mean(N_PC), CLNCOUNT_PC = mean(CLNCOUNT_PC))
+
+# Extract and save proportion of repertoire sequences contained in small clones
+nseq_small_avg <- tab_cl_abundant_indiv %>% filter(!ABUNDANT) %>% 
+  pull(CLNCOUNT_PC) %>% mean %>% round(1)
+savetxt(nseq_small_avg, "ageing-pc-seq-in-small-clones-avg")
+
+# Test age effect on abundance
+nseq_age_kruskal <- tab_cl_abundant_indiv %>% filter(!ABUNDANT) %>%
+  kruskal.test(formula = CLNCOUNT_PC ~ as.numeric(AGE_DAYS), data = .)
+savetxt(nseq_age_kruskal$p.value %>% signif(2), 
+        paste0("ageing-pc-seq-in-small-clones-kruskal-p"))
+
+# Plot change in abundance proportion with age
+g_nseq_abundant <- tab_cl_abundant_age %>% ggplot() +
+  geom_col(aes(x=factor(AGE_DAYS, levels = age_groups), 
+               y=CLNCOUNT_PC, fill=factor(AGE_DAYS, levels = age_groups), 
+               alpha=factor(ABUNDANT, levels = c(TRUE, FALSE)))) +
+  scale_fill_manual(values = palette, name = "Age group (days)") +
+  scale_alpha_manual(values = c(0.3, 1), name = "Sequences in clone",
+                     labels = c("5 or more", "4 or fewer")) +
+  xlab("Age at death (days)") + ylab("Proportion of unique sequences (%)") +
+  theme_classic() + theme_base + theme(
+    legend.box = "vertical",
+    legend.margin = margin(b=0.05, unit = "cm"),
+    legend.box.margin = margin(t=0.2, unit = "cm")
+  )
+savefig(g_nseq_abundant, "ageing-pc-seq-in-small-clones", height = 15, ratio = 1.5)
 
 #------------------------------------------------------------------------------
 # COUNT CLONES PRESENT IN 1/2/3 replicates
@@ -179,49 +236,3 @@ plt <- plot_grid(g_size, g_nrep,
 plot_height<- 10
 plot_width <- 25
 savefig(plt, filename_base, height = plot_height, width = plot_width)
-
-#------------------------------------------------------------------------------
-# GET CORRELATION IN CLONE SIZES
-#------------------------------------------------------------------------------
-
-tab_cl_cor <- tab_cl_spread %>% 
-  summarise(R = cor(A, B), CLNCOUNT_AVG = mean(CLNCOUNT),
-            CLNCOUNT_LRG = sum(CLNCOUNT * (CLNCOUNT >= 5))/sum(CLNCOUNT)) %>%
-  full_join(tab_cl_counts %>% select(-CLNCOUNT), 
-            by = c("AGE_DAYS", "INDIVIDUAL"))
-
-interrep_cor_avg <- tab_cl_cor %>% pull(R) %>% mean %>% round(2)
-# savetxt(interrep_cor_avg, paste0(filename_base, "-cor-avg"))
-
-# Plot distribution of inter-replicate correlation coefficients
-g_cor <- ggplot(tab_cl_cor) + 
-  geom_boxplot(aes(x = factor(AGE_DAYS, levels = age_groups), y=R, 
-                   fill = factor(AGE_DAYS, levels = age_groups))) +
-  scale_x_discrete(breaks = tab_cl_cor %>% pull(AGE_DAYS) %>% as.numeric %>% sort %>% as.character,
-                   name = "Age group(days)") + 
-  scale_y_continuous(breaks = seq(0,1,0.2),
-                   limits = c(NA,1), name = "Correlation coefficient (r)") + 
-  scale_fill_manual(values = palette) +
-  theme_classic() + theme_base +
-  theme(legend.position = "none", 
-        axis.text.x = element_text(size = fontsize_base))
-
-# savefig(g_cor, paste0(filename_base, "-cor-boxplots"), 
-#         height = 10*1.2, width = 15*1.2)
-
-#------------------------------------------------------------------------------
-# PLOT INTER-REPLICATE CORRELATIONS ON SCATTER PLOTS
-#------------------------------------------------------------------------------
-
-g_inter <- ggplot(tab_cl_spread) + 
-  geom_point(aes(x=A, y=B, colour = AGE_DAYS)) +
-  facet_wrap(~AGE_DAYS, scales = "free") +
-  scale_colour_manual(values = palette, name = "Individual") +
-  xlab("Replicate 1 (orig)") + ylab("Replicate 2 (bio)") +
-  scale_x_log10() + scale_y_log10() +
-  theme_classic() + theme_base + theme(legend.position = "none")
-
-# savefig(g_inter, paste0(filename_base, "-cor-scatter"), 
-#         height = 20, width = 20)
-
-  

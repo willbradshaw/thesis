@@ -21,7 +21,7 @@ source("aux/changeo.R")
 # TODO: Select input settings to match other spectra in chapter
 seqset <- "all" # or "functional"
 copy <- "NULL" # or "DUPCOUNT"
-segments <- "VDJ" # or "VJ"
+segments <- "VJ" # or "VJ"
 tab_path_grouped <- paste0("../_Data/changeo/spectra/ageing_", segments,
                            "-diversity-grouped_seqs-",
                            seqset, "_copy-", copy, ".tsv")
@@ -228,12 +228,6 @@ g_solofit_igauss <- plot_solo_diversity(qvals, family = inverse.gaussian()) +
 # SAVE FIGURES
 #------------------------------------------------------------------------------
 
-# savefig(plot = g_alpha, filename = paste0(filename_base, "-alpha"),
-#         height = 20, ratio = 1.5)
-# savefig(plot = g_beta_unscaled, filename = paste0(filename_base, "-beta-unscaled"),
-#         height = 20, ratio = 1.5)
-# savefig(plot = g_beta_scaled, filename = paste0(filename_base, "-beta-scaled"),
-#         height = 20, ratio = 1.5)
 savefig(plot = g_solofit_gamma, height = 20, ratio = 1.5,
         filename = paste0(filename_base, "-solo-fit-gamma"))
 savefig(plot = g_solofit_linear, height = 20, ratio = 1.5,

@@ -61,7 +61,7 @@
 <g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text x='61.46' y='227.45' style='font-size: 18.00px; font-family: CM Sans;' textLength='275.87px' lengthAdjust='spacingAndGlyphs'># Unique sequences per clone</text></g>
 <g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text transform='translate(27.30,165.01) rotate(-90)' style='font-size: 18.00px; font-family: CM Sans;' textLength='103.67px' lengthAdjust='spacingAndGlyphs'>% of clones</text></g>
 <rect x='47.89' y='241.05' width='303.02' height='28.24' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
-<g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text x='53.37' y='257.41' style='font-size: 12.00px; font-weight: bold; font-family: CM Sans;' textLength='116.88px' lengthAdjust='spacingAndGlyphs'>Age group (days)</text></g>
+<g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text x='53.37' y='259.55' style='font-size: 12.00px; font-weight: bold; font-family: CM Sans;' textLength='116.88px' lengthAdjust='spacingAndGlyphs'>Age group (days)</text></g>
 <line x1='182.19' y1='255.17' x2='196.02' y2='255.17' style='stroke-width: 3.20; stroke: #1B9E77; stroke-linecap: butt;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
 <line x1='223.43' y1='255.17' x2='237.25' y2='255.17' style='stroke-width: 3.20; stroke: #D95F02; stroke-linecap: butt;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
 <line x1='264.67' y1='255.17' x2='278.49' y2='255.17' style='stroke-width: 3.20; stroke: #7570B3; stroke-linecap: butt;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
@@ -120,7 +120,7 @@
 <g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text x='421.52' y='227.45' style='font-size: 18.00px; font-family: CM Sans;' textLength='275.87px' lengthAdjust='spacingAndGlyphs'># Unique sequences per clone</text></g>
 <g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text transform='translate(381.63,165.01) rotate(-90)' style='font-size: 18.00px; font-family: CM Sans;' textLength='103.67px' lengthAdjust='spacingAndGlyphs'>% of clones</text></g>
 <rect x='446.39' y='241.05' width='226.14' height='28.24' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
-<g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text x='451.87' y='257.41' style='font-size: 12.00px; font-weight: bold; font-family: CM Sans;' textLength='145.98px' lengthAdjust='spacingAndGlyphs'>Number of Replicates</text></g>
+<g clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)'><text x='451.87' y='259.55' style='font-size: 12.00px; font-weight: bold; font-family: CM Sans;' textLength='145.98px' lengthAdjust='spacingAndGlyphs'>Number of Replicates</text></g>
 <rect x='602.55' y='246.53' width='17.28' height='17.28' style='stroke-width: 0.75; stroke: none; fill: #F8766D; fill-opacity: 0.40;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
 <line x1='604.28' y1='255.17' x2='618.11' y2='255.17' style='stroke-width: 2.13; stroke: #F8766D; stroke-linecap: butt;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
 <rect x='637.79' y='246.53' width='17.28' height='17.28' style='stroke-width: 0.75; stroke: none; fill: #00BFC4; fill-opacity: 0.40;' clip-path='url(#cpMHw3MDguNjYxfDI4My40NjV8MA==)' />
