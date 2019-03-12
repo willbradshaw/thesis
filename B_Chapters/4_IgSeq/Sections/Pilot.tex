@@ -99,9 +99,9 @@ In total, \embed{_Figures/txt/pilot-nclones-individual-min.txt} to \embed{_Figur
 \phantomsubcaption{}
 \label{fig:igseq-pilot-clone-sizes-reps}
 \end{subfigure}
-\caption[Clone size and cross-replicate reproducibility in the \igseq pilot dataset]{\textbf{Clone size and cross-replicate reproducibility in the \igseq pilot dataset:}(A) Proportion of clones of different sizes for each individual in the pilot dataset, measured in unique sequences per clone. (B) LOESS-smoothed curves showing proportion of clones of each size found across one, two or all three replicates of the appropriate individual.}
+\caption[Clone size and cross-replicate reproducibility in the \igseq pilot dataset]{\textbf{Clone size and cross-replicate reproducibility in the \igseq pilot dataset:}(A) Proportion of clones of different sizes for each individual in the pilot dataset, measured in unique sequences per clone. (B) LOESS-smoothed curves \parencite{cleveland1992loess} showing proportion of clones of each size found across one, two or all three replicates of the appropriate individual.}
 \label{fig:igseq-pilot-clone-sizes}
-\end{figure} % TODO: cite LOESS smoothing
+\end{figure}
 
 \begin{figure}
 \centering
@@ -160,7 +160,7 @@ One quick and simple way to measure the extent to which a clonal repertoire is d
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{_Figures/png/pilot-clones-zipf-p20-obs-exp}
-\caption[Clonal P20 values in \Nfu pilot repertoires]{\textbf{Clonal P20 values in \Nfu pilot repertoires}: (A) Boxplots of observed and expected (from the Zipf distributions fitted in \Cref{fig:igseq-pilot-clones-zipf-fit}) P20 distributions of the clonal repertoires from the pilot \igseq dataset. Pairwise $p$-value computed using nonparametric Mann–Whitney U test ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$). (B) Scatter plot comparing observed \textit{versus} expected P20 for each individual, annotated with the correlation ($r$) between the two sets of P20 values.}
+\caption[Clonal P20 values in \Nfu pilot repertoires]{\textbf{Clonal P20 values in \Nfu pilot repertoires}: (A) Boxplots of observed and expected (from the Zipf distributions fitted in \Cref{fig:igseq-pilot-clones-zipf-fit}) P20 distributions of the clonal repertoires from the pilot \igseq dataset. Pairwise $p$-value computed using nonparametric Mann–Whitney U test ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$) . (B) Scatter plot comparing observed \textit{versus} expected P20 for each individual, annotated with the correlation ($r$) between the two sets of P20 values.}
 \label{fig:igseq-pilot-clones-zipf-p20}
 \end{figure}
 
@@ -200,7 +200,7 @@ The results from the alpha-diversity spectrum (\Cref{fig:igseq-pilot-clone-diver
 
 However, when comparing alpha-diversities across sample groups, by-eye comparisons of apparent diversities is of course not sufficient for concluding that a significant difference in diversity exists. Ideally, the entire shape of the diversity spectrum would be compared between groups to test for a significant difference in distribution; however, the unusual and non-parametric nature of the Hill spectrum makes such a holistic comparison difficult, and established tests for such a difference do not yet exist to my knowledge. However, it is possible to use established statistical methods to test for a difference in Hill diversity at one or more specific diversity orders, and so to obtain a partial overview of significant differences for particular aspects of each group's diversity profile. 
 
-To that end, I computed the clonal diversity spectra separately for each replicate in the pilot dataset (\Cref{fig:igseq-pilot-clone-diversity-solo-spectra}), and extracted the distribution of diversity values obtained for each individual at each of six diversity orders (0, 1, 1.5, 2, 3 and 4). I compared these distributions pairwise using Mann-Whitney $U$ nonparametric tests, as well as performing a Kruskal-Wallis nonparametric analysis-of-variance test for an effect of source individual on repertoire diversity. Neither of these tests returned a significant result for any of the diversity orders tested (\Cref{fig:igseq-pilot-clone-diversity-solo-box}). From the data available, therefore, it is not possible to conclude that clonal repertoires differ significantly between individuals in middle-aged adult male turquoise killifish, though given the relatively low Kruskal-Wallis $p$-values obtained at higher diversity orders (\Cref{fig:igseq-pilot-clone-diversity-solo-box}) it is possible such a difference would be observed if more replicates per individual were available.
+To that end, I computed the clonal diversity spectra separately for each replicate in the pilot dataset (\Cref{fig:igseq-pilot-clone-diversity-solo-spectra}), and extracted the distribution of diversity values obtained for each individual at each of six diversity orders (0, 1, 1.5, 2, 3 and 4). I compared these distributions pairwise using Mann-Whitney $U$ nonparametric tests \parencite{hollander1973nonparametric}, as well as performing a Kruskal-Wallis nonparametric analysis-of-variance test \parencite{hollander1973nonparametric} for an effect of source individual on repertoire diversity. Neither of these tests returned a significant result for any of the diversity orders tested (\Cref{fig:igseq-pilot-clone-diversity-solo-box}). From the data available, therefore, it is not possible to conclude that clonal repertoires differ significantly between individuals in middle-aged adult male turquoise killifish, though given the relatively low Kruskal-Wallis $p$-values obtained at higher diversity orders (\Cref{fig:igseq-pilot-clone-diversity-solo-box}) it is possible such a difference would be observed if more replicates per individual were available.
 % TODO: Citations for MWU, KWT
 
 \begin{figure}

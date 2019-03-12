@@ -920,7 +920,7 @@ der Mathematisch-Naturwissenschaftlichen Fakult\"at\\
 der Universit\"at zu K\"oln\\
 vorgelegt von}\\}
 
-\newcommand{\pruefungstext}{Tag der m\"undlichen Pr\"ufung:}
+\newcommand{\pruefungstext}{Tag der m\"undlichen Pr\"ufung: 6. Juni 2019}
 
 % keywords (These keywords will appear in the PDF meta-information
 % called `pdfkeywords`.)

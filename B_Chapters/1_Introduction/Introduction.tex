@@ -7,7 +7,9 @@
 \label{chap:intro}
 \onehalfspacing
 
-{\LARGE First Draft, \today}
+\ifdefineChapter
+	{\LARGE First Draft, \today}
+\fi
 
 \pagebreak
 
@@ -19,7 +21,7 @@
 \newabbreviation{IGH}{IGH}{Immunoglobulin heavy chain}
 \newabbreviation{IgSeq}{IgSeq}{Immunoglobulin sequencing}
 \newabbreviation{e.g.}{e.g.}{\textit{exempli gratia} (for example)}
-%\newabbreviation{i.e.}{i.e.}{\textit{id est} (that is to say)} % TODO: Do I actually use this anywhere?
+\newabbreviation{i.e.}{i.e.}{\textit{id est} (that is to say)}
 
 All organisms exist in a state of intense competition for resources. For many organisms, among the most dangerous competitors are parasites, which attempt to colonise the host's own body and co-opt its internal resources and systems to their own advantage. The evolutionary arms race between parasites and hosts is ancient, and has led to the development of a stunning variety of complex offensive and defensive adaptations on each side \parencite{jack2015evolution}. Immunology has therefore had a profound effect on evolution.
 
@@ -99,7 +101,6 @@ Of the two types of chain comprising the antibody protein, the heavy chain has b
 \caption[Antibody structure and function]{\textbf{Antibody structure and function:} (A) Schematic of a hingeless secreted antibody monomer, with heavy chains depicted in red, light chains in blue, and bound antigen in pink. Immunoglobulin fold domains are depicted as rounded rectangles, with variable-region domains shown with light shading and constant-region domains with dark. Black lines indicate disulfide bonds. (B) Schematic close-up of an immunoglobulin antigen-binding site, indicating the six loop regions (H1-3 and L1-3) making up the antigen-binding region. (C) Schematic close-up of the heavy-chain variable region, indicating the regions corresponding to the variable, diversity and joining gene segments from the unrecombined \igh{} locus. Note the chimeric nature of the third antigen-binding loop (H3, marked), which is formed by parts of all three gene segments. (D) In the context of antibodies, ``monomer'' refers to a single four-chain antibody protein, while ``dimer'', ``tetramer'' \etc refer to multiple antibodies linked together through covalent or noncovalent interactions.}
 \label{fig:intro-antibody-structure}
 \end{figure}
-% TODO: Actual antibody crystal structure here?
 
 \subsection{Antibody sequence diversification and primary repertoire diversity}
 \label{sec:intro_immunity_primary}
@@ -166,7 +167,7 @@ Taken together, the processes of VDJ recombination, junctional diversity and pri
 
 
 %VDJ recombination in the \textit{IGH} locus is highly structured, and occurs in a specific order. First, a D and a J segment are selected and recombined to produce a DJ sequence. Then, a V region is selected and recombined with the DJ to produce a continuous VDJ sequence constituting the variable region of the heavy chain. The complete protein sequence is produced during later transcriptional splicing, which joins this variable-region sequence to downstream constant-region exons to produce a mature \textit{IGH} mRNA. This strict ordering of V/D/J segments, which obtains in the vast majority of recombined sequences observed, is produced through the combination of a variety of regulatory mechanisms. The most basic of these is the structure of the RSSs, which comprise a conserved heptamer and nonamer sequence separated by a relatively unconserved spacer region of either 12 or 23bp \parencite{jung2006vdjr}, corresponding to either one or two turns of the DNA helix. V and J segments in the IGH locus are flanked by RSSs with 23bp spacer regions, while those flanking D-regions have 12bp spacers %citation needed
-%As the RAG recombinase specifically recognises pairs of RSSs with dissimilar spacer lengths (a restriction known as the 12/23 or one-turn/two-turn rule), direct V-to-J recombination events are excluded \parencite{jung2006vdjr}. % Better citation if possible.
+%As the RAG recombinase specifically recognises pairs of RSSs with dissimilar spacer lengths (a restriction known as the 12/23 or one-turn/two-turn rule), direct V-to-J recombination events are excluded \parencite{jung2006vdjr}. % TODO: Better citation if possible.
 %
 %Complete VDJ recombination places the V-region promoter in close proximity to a highly-conserved enhancer element (known as iE$\mu$) lying between the last J segment and the first constant-region exon \parencite{jung2006vdjr}; this enhancer is important for strong expression of the mature IGH mRNA from the pre-B-cell stage onwards. 
 

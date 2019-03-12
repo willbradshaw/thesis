@@ -3,7 +3,7 @@
 
 % **************************** Formatting & Metadata ***************************
 
-\documentclass[a4paper,12pt,times,print,custombib,chapter]{_Meta/thesis}
+\documentclass[a4paper,12pt,times,print,custombib]{_Meta/thesis}
 % See README.md for option details
 
 \input{_Meta/preamble} %Contains packages and user-defined commands and settings
@@ -107,6 +107,7 @@
 
 \begin{appendices} % Using appendices environment for more functionality
 \appendix
+%\addtocontents{toc}{\setcounter{tocdepth}{2}}
 \include{C_Appendices/Solutions}
 \include{C_Appendices/Primers}
 \include{C_Appendices/Diversity}
@@ -115,8 +116,6 @@
 \end{appendices}
 
 % *************************************** Index ********************************
-%\printthesisindex % If index is present
-%\input{Lebenslauf_Franziska_Metge.pdf}
 \singlespace
 \include{C_Appendices/_declaration}
 
