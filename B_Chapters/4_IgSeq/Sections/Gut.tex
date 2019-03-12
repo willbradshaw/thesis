@@ -1,7 +1,7 @@
-%\newabbreviation{bellemans}{GRZ-Bellemans}{Substrain of GRZ}
-
 \section{Gut microbiota transfer and the turquoise killifish mucosal repertoire}
 \label{sec:igseq_gut}
+
+\newabbreviation{bellemans}{GRZ-Bellemans}{Substrain of GRZ}
 
 The results from \Cref{sec:igseq_ageing} demonstrate that the whole-body antibody repertoire of adult male turquoise killifish declines in % (clonal)
 alpha-diversity with age, while increasing in VJ beta-diversity. % TODO: ... other summarised results go here
@@ -16,7 +16,7 @@ I hypothesised that gut microbiotal transfer might significantly ameliorate the 
 \begin{figure}
 \centering
 \includegraphics[width = 0.8\textwidth]{_Figures/png_edited/gut-design}
-\caption{Schematic of the design of the gut-microbiota transfer experiment in Smith \textit{et al.} \parencite{smith2017microbiota}. Groups YI\_6 and WT\_16 were sacrificed without experimental intervention at 6 and 16 weeks, respectively, while the others recieved antibiotic treatment at 9.5 weeks followed by either no further intervention (ABX\_16) or gut-microbiota transfer from a 6-week-old (YMT\_16) or 9.5-week-old (SMT\_16) donor. Adapted from \parencite{smith2017microbiota}, Figure 4.}
+\caption[Experimental design of killifish gut-microbiota transfer study]{\textbf{Experimental design of killifish \gut-microbiota transfer study}: Schematic of the design of the gut-microbiota transfer experiment in Smith \textit{et al.} \parencite{smith2017microbiota}. Groups YI\_6 and WT\_16 were sacrificed without experimental intervention at 6 and 16 weeks, respectively, while the others recieved antibiotic treatment at 9.5 weeks followed by either no further intervention (ABX\_16) or gut-microbiota transfer from a 6-week-old (YMT\_16) or 9.5-week-old (SMT\_16) donor. Adapted from \parencite{smith2017microbiota}, Figure 4.}
 \label{fig:igseq-gut-design}
 \end{figure}
 
@@ -42,7 +42,7 @@ Compared to the datasets in those sections, the gut dataset exhibited highly con
 \phantomsubcaption{}
 \label{fig:igseq-gut-read-survival-all-rel}
 \end{subfigure}
-\caption{Absolute (A) and relative (B) read survival during pre-processing of the \igseq gut-microbiota-transfer dataset, up to and including clonotyping. The dotted red line in (B) indicates the 30\% read-survival cutoff, below which samples are discarded prior to downstream analysis.}
+\caption[Read survival during pre-processing of \igseq gut dataset]{\textbf{Read survival during pre-processing of \igseq gut dataset:} Line graphs of absolute (A) and relative (B) read survival during pre-processing of the \igseq ageing dataset, up to and including clonotyping. The dotted red line in (B) indicates the 30\% read-survival cutoff, below which samples are discarded prior to downstream analysis.}
 \label{fig:igseq-gut-read-survival-all}
 \end{figure}
 
@@ -57,7 +57,7 @@ Compared to the datasets in those sections, the gut dataset exhibited highly con
 \phantomsubcaption{}
 \label{fig:igseq-gut-functional-prop-post}
 \end{subfigure}
-\caption{Proportion of input reads, UMI groups and unique sequences in the \igseq gut-microbiota-transfer dataset belonging to different (non)functional categories, before (A) and after (B) filtering on V-alignment score.}
+\caption[Functional composition and V-score filtering of \igseq ageing dataset]{\textbf{Functional composition and V-score filtering of \igseq ageing dataset:} Proportion of input reads, UMI groups and unique sequences in the \igseq gut-microbiota-transfer dataset belonging to different (non)functional categories, before (A) and after (B) filtering on V-alignment score.}
 \label{fig:igseq-gut-functional-prop}
 \end{figure}
 
@@ -66,7 +66,7 @@ Following V-score filtering and exclusion of high-read-loss individeals, \embed{
 \begin{figure}
 \centering
 \includegraphics[width = 0.8\textwidth]{/home/will/Documents/thesis/_Figures/png/igseq-gut-nclones.png}
-\caption{\textbf{Number of clones in the \igseq gut dataset:} Boxplots of clonal counts for each individual in the \igseq gut dataset, grouped by age at death (A) or treatment group (B). The apparent decline in clonal count with age is not significant (Kruskal-Wallis analysis of variance, $p=\embed{_Figures/txt/igseq-gut-nclones-kruskal-age-p.txt}$), and there is also no significant effect of treatment group on clonal count (Kruskal-Wallis analysis of variance, $p=\embed{_Figures/txt/igseq-gut-nclones-kruskal-group-p.txt}$).}
+\caption[Number of clones in the \igseq gut dataset]{\textbf{Number of clones in the \igseq gut dataset:} Boxplots of clonal counts for each individual in the \igseq gut dataset, grouped by age at death (A) or treatment group (B). The apparent decline in clonal count with age is not significant (Kruskal-Wallis analysis of variance, $p=\embed{_Figures/txt/igseq-gut-nclones-kruskal-age-p.txt}$), and there is also no significant effect of treatment group on clonal count (Kruskal-Wallis analysis of variance, $p=\embed{_Figures/txt/igseq-gut-nclones-kruskal-group-p.txt}$).}
 \label{fig:igseq-gut-nclones}
 \end{figure}
 
@@ -81,7 +81,7 @@ Following V-score filtering and exclusion of high-read-loss individeals, \embed{
 \phantomsubcaption{}
 \label{fig:igseq-comparative-metrics-rel}
 \end{subfigure}
-\caption{Absolute (A) and relative (B) read survival during pre-processing of the \igseq gut-microbiota-transfer dataset, up to and including clonotyping. The dotted red line in (B) indicates the 30\% read-survival cutoff, below which samples are discarded prior to downstream analysis.}
+\caption[Comparison of clonal counts between \igseq experiments]{\textbf{Comparison of clonal counts between \igseq experiments:} Boxplots comparing different count metrics between the \igseq pilot, ageing and gut datasets, demonstrating the reduced absolute and relative clonal counts in the latter. (A) Absolute numbers of UMI groups, unique sequences and clones in each dataset. (B) Relative numbers of UMI groups and unique sequences per clone.}
 \label{fig:igseq-comparative-metrics}
 \end{figure}
 
@@ -98,7 +98,7 @@ In order to determine whether the apparent difference in clonal richness between
 \phantomsubcaption{}
 \label{fig:igseq-rarefied-clone-counts-facets}
 \end{subfigure}
-\caption{Rarefaction analysis of clonal counts in turquoise killifish repertoires from the \igseq pilot, ageing and gut-microbiota-transfer experiments, displayed together (B) and separately by experiment (B). Lines and shaded regions indicate the mean and standard deviation, respectively, over twenty replicates per sample size.}
+\caption[Comparative rarefaction analysis of clonal counts in \igseq experiments]{\textbf{Comparative rarefaction analysis of clonal counts in \igseq experiments:} Rarefaction analysis of clonal counts in turquoise killifish repertoires from the \igseq pilot, ageing and gut-microbiota-transfer experiments, displayed together (B) and separately by experiment (B). Lines and shaded regions indicate the mean and standard deviation, respectively, over twenty replicates per sample size.}
 \label{fig:igseq-rarefied-clone-counts}
 \end{figure}
 
@@ -113,7 +113,7 @@ In order to determine whether the apparent difference in clonal richness between
 \phantomsubcaption{}
 \label{fig:igseq-rarefied-clone-p20-facets}
 \end{subfigure}
-\caption{Rarefaction analysis of the proportion of each turquoise killifish repertoire occupied by the twenty largest clones (P20) in the \igseq pilot, ageing and gut-microbiota-transfer experiments, displayed together (A) and separately by experiment (B). Lines and shaded regions indicate the mean and standard deviation, respectively, over twenty replicates per sample size.}
+\caption[Comparative rarefaction analysis of P20 scores in \igseq experiments]{\textbf{Comparative rarefaction analysis of P20 scores in \igseq experiments:} Rarefaction analysis of the proportion of each turquoise killifish repertoire occupied by the twenty largest clones (P20) in the \igseq pilot, ageing and gut-microbiota-transfer experiments, displayed together (A) and separately by experiment (B). Lines and shaded regions indicate the mean and standard deviation, respectively, over twenty replicates per sample size.}
 \label{fig:igseq-rarefied-clone-p20}
 \end{figure}
 
@@ -134,7 +134,7 @@ The combination of low clonal counts and elevated P20 indicated by \Cref{fig:igs
 \phantomsubcaption{}
 \label{fig:igseq-rarefied-clone-counts-large-pc}
 \end{subfigure}
-\caption[Rarefaction analysis of clonal size composition in \igseq pilot, ageing and gut-microbiota-transfer experiments]{\textbf{Rarefaction analysis of clonal size composition in \igseq pilot, ageing and gut-microbiota-transfer experiments:} Rarefaction curves of (A) the number of small clones ($>5$ unique sequences), (B) the number of large clones ($\geq 5$ unique sequences) and (C) the proportion of clones which are large in each individual, coloured by source experiment. Lines and shaded regions indicate the mean and standard deviation, respectively, over twenty replicates per sample size.}
+\caption[Comparative rarefaction analysis of clonal size composition in \igseq experiments]{\textbf{Comparative rarefaction analysis of clonal size composition in \igseq experiments:} Rarefaction curves of (A) the number of small clones ($>5$ unique sequences), (B) the number of large clones ($\geq 5$ unique sequences) and (C) the proportion of clones which are large in each individual, coloured by source experiment. Lines and shaded regions indicate the mean and standard deviation, respectively, over twenty replicates per sample size.}
 \label{fig:igseq-rarefied-clone-counts-size}
 \end{figure}
 
@@ -151,21 +151,23 @@ The clonal alpha-diversity spectra for the gut dataset are shown in \Cref{fig:ig
 \phantomsubcaption{}
 \label{fig:igseq-gut-clone-diversity-alpha-groups}
 \end{subfigure}
-\caption{Bootstrapped alpha-diversity spectra of clone sizes for each age (A) age group and (B) treatment group in the \igseq gut dataset, as measured by number of unique sequences per clone.}
+\caption[Clonal alpha-diversity spectra for \igseq gut dataset]{\textbf{Clonal alpha-diversity spectra for \igseq gut dataset:} Bootstrapped alpha-diversity spectra of clone sizes for each (A) age group and (B) treatment group in the \igseq ageing dataset, as measured by number of unique sequences per clone. Shaded regions in both subfigures represent 95\,\% confidence intervals, estimated using bootstrapping.}
 \label{fig:igseq-gut-clone-diversity-alpha}
 \end{figure}
+
+% TODO: Per-individual diversity spectra for supplementary
 
 \begin{figure}
 \centering
 \includegraphics[width = 0.9\textwidth]{_Figures/png/igseq-gut-clone-diversity-solo-age}
-\caption{Boxplots of clonal Hill diversity values for the antibody repertoires of individuals of each age group in the \igseq gut dataset at a sample of diversity orders. Pairwise $p$-values are computed using nonparametric Mann–Whitney U tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$).}
+\caption[Comparing clonal alpha-diversities between age groups in the \igseq gut dataset]{\textbf{Comparing clonal alpha-diversities between age groups in the \igseq gut dataset:} Boxplots of clonal Hill diversity values for the antibody repertoires of individuals of each age group in the \igseq gut dataset at a sample of diversity orders. Pairwise $p$-values are computed using nonparametric Mann–Whitney U tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$).}
 \label{fig:igseq-gut-clone-diversity-solo-age}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width = 0.9\textwidth]{_Figures/png/igseq-gut-clone-diversity-solo-groups}
-\caption{Boxplots of clonal Hill diversity values for the antibody repertoires of individuals of each treatment group in the \igseq gut dataset at a sample of diversity orders. Pairwise $p$-values are computed using nonparametric Mann–Whitney U tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$).}
+\caption[Comparing clonal alpha-diversities between treatment groups in the \igseq gut dataset]{\textbf{Comparing clonal alpha-diversities between treatment groups in the \igseq gut dataset:} Boxplots of clonal Hill diversity values for the antibody repertoires of individuals of each treatment group in the \igseq gut dataset at a sample of diversity orders. Pairwise $p$-values are computed using nonparametric Mann–Whitney U tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$).}
 \label{fig:igseq-gut-clone-diversity-solo-groups}
 \end{figure}
 
@@ -180,21 +182,21 @@ The clonal alpha-diversity spectra for the gut dataset are shown in \Cref{fig:ig
 \phantomsubcaption{}
 \label{fig:igseq-gut-VJ-diversity-alpha-groups}
 \end{subfigure}
-\caption{Bootstrapped alpha-diversity spectra of VJ usage for each (A) age group and (B) treatment group in the \igseq gut dataset, as measured by number of unique sequences per unambiguous VJ identity.}
+\caption[VJ alpha-diversity spectra for \igseq gut dataset]{\textbf{VJ alpha-diversity spectra for \igseq gut dataset:} Bootstrapped alpha-diversity spectra of VJ usage for each (A) age group and (B) treatment group in the \igseq ageing dataset, as measured by number of unique sequences per unambiguous VJ identity. Shaded regions in both subfigures represent 95\,\% confidence intervals, estimated using bootstrapping.}
 \label{fig:igseq-gut-VJ-diversity-alpha}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width = 0.9\textwidth]{_Figures/png/igseq-gut-VJ-diversity-solo-age}
-\caption{Boxplots of VJ Hill diversity values for the antibody repertoires of individuals of each age group in the \igseq gut dataset at a sample of diversity orders. Pairwise $p$-values are computed using nonparametric Mann–Whitney U tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$).}
+\caption[Comparing VJ alpha-diversities between age groups in the \igseq gut dataset]{\textbf{Comparing VJ alpha-diversities between age groups in the \igseq gut dataset:}Boxplots of VJ Hill diversity values for the antibody repertoires of individuals of each age group in the \igseq gut dataset at a sample of diversity orders. Pairwise $p$-values are computed using nonparametric Mann–Whitney U tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$).}
 \label{fig:igseq-gut-VJ-diversity-solo-age}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width = 0.9\textwidth]{_Figures/png/igseq-gut-VJ-diversity-solo-groups}
-\caption{Boxplots of VJ Hill diversity values for the antibody repertoires of individuals of each treatment group in the \igseq gut dataset at a sample of diversity orders. Pairwise $p$-values are computed using nonparametric Mann–Whitney U tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$).}
+\caption[Comparing VJ alpha-diversities between treatment groups in the \igseq gut dataset]{\textbf{Comparing VJ alpha-diversities between treatment groups in the \igseq gut dataset:} Boxplots of VJ Hill diversity values for the antibody repertoires of individuals of each treatment group in the \igseq gut dataset at a sample of diversity orders. Pairwise $p$-values are computed using nonparametric Mann–Whitney U tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$).}
 \label{fig:igseq-gut-VJ-diversity-solo-groups}
 \end{figure}
 
@@ -211,7 +213,7 @@ In terms of beta-diversity, the Hill-spectrum results (\Cref{fig:igseq-gut-VJ-di
 \phantomsubcaption{}
 \label{fig:igseq-gut-VJ-diversity-beta-groups}
 \end{subfigure}
-\caption{Bootstrapped beta-diversity spectra of VJ usage, rescaled to between 0 (minimum) and 1 (maximum) for each (A) age group and (B) treatment group in the \igseq gut dataset.}
+\caption[VJ beta-diversity spectra for \igseq gut dataset]{\textbf{VJ beta-diversity spectra for \igseq gut dataset:} Bootstrapped beta-diversity spectra of VJ usage for each (A) age group and (B) treatment group in the \igseq ageing dataset, as measured by number of unique sequences per unambiguous VJ identity. Shaded regions in both subfigures represent 95\,\% confidence intervals, estimated using bootstrapping.}
 \label{fig:igseq-gut-VJ-diversity-beta}
 \end{figure}
 
@@ -234,7 +236,7 @@ In terms of beta-diversity, the Hill-spectrum results (\Cref{fig:igseq-gut-VJ-di
 \phantomsubcaption{}
 \label{fig:igseq-gut-rdi-VJ-individual-age-groupdist-nn}
 \end{subfigure}
-\caption{Intra-age-group variability in VJ expression in the \igseq gut dataset. (A-B) Principal co-ordinate analysis (PCoA) of pairwise inter-individual VJ-RDI distances, coloured by age group and displayed together (A) or separately by age group (B). (C-D) Boxplots of overall (C) and nearest-neighbour (D) inter-individual VJ-RDI distances for each age group in the dataset. Pairwise $p$-values are computed using nonparametric Mann–Whitney U tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$).}
+\caption[Intra-age-group variability in VJ expression in the \igseq gut dataset]{\textbf{Intra-age-group variability in VJ expression in the \igseq gut dataset:} (A-B) Principal co-ordinate analysis (PCoA) of pairwise inter-individual VJ-RDI distances, coloured by age group and displayed together (A) or separately by age group (B). (C-D) Boxplots of overall (C) and nearest-neighbour (D) inter-individual VJ-RDI distances for each age group in the dataset. Pairwise $p$-values are computed using nonparametric Mann–Whitney U tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$).}
 \label{fig:igseq-gut-rdi-VJ-individual-age}
 \end{figure}
 
@@ -257,7 +259,7 @@ In terms of beta-diversity, the Hill-spectrum results (\Cref{fig:igseq-gut-VJ-di
 \phantomsubcaption{}
 \label{fig:igseq-gut-rdi-VJ-individual-group-groupdist-nn}
 \end{subfigure}
-\caption{Intra-treatment-group variability in VJ expression in the \igseq gut dataset. (A-B) Principal co-ordinate analysis (PCoA) of pairwise inter-individual VJ-RDI distances, coloured by treatment group and displayed together (A) or separately by treatment group (B). (C-D) Boxplots of overall (C) and nearest-neighbour (D) inter-individual VJ-RDI distances for each treatment group in the dataset. Pairwise $p$-values are computed using nonparametric Mann–Whitney U tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$).}
+\caption[Intra-treatment-group variability in VJ expression in the \igseq gut dataset]{\textbf{Intra-treatment-group variability in VJ expression in the \igseq gut dataset:} (A-B) Principal co-ordinate analysis (PCoA) of pairwise inter-individual VJ-RDI distances, coloured by treatment group and displayed together (A) or separately by treatment group (B). (C-D) Boxplots of overall (C) and nearest-neighbour (D) inter-individual VJ-RDI distances for each treatment group in the dataset. Pairwise $p$-values are computed using nonparametric Mann–Whitney U tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$).}
 \label{fig:igseq-gut-rdi-VJ-individual-group}
 \end{figure}
 

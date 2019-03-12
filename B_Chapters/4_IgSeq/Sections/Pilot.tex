@@ -6,7 +6,7 @@ In order to refine and functionally validate the library-preparation protocol an
 \begin{figure}
 \centering
 \includegraphics[width = 0.9\textwidth]{_Figures/png_edited/igseq-pilot-design_wide.png}
-\caption{Experimental design of pilot study, showing relationship between replicates for each individual. Colour denotes individual of origin, while shape denotes replicate type.}
+\caption[Experimental design of killifish \igseq pilot study]{\textbf{Experimental design of killifish \igseq pilot study}, showing relationship between replicates for each individual. Colour denotes individual of origin, while shape denotes replicate type.}
 \label{fig:igseq-pilot-design}
 \end{figure}
 
@@ -26,7 +26,7 @@ In order to refine and functionally validate the library-preparation protocol an
 \phantomsubcaption{}
 \label{fig:igseq-pilot-read-survival-init-b}
 \end{subfigure}
-\caption{Absolute (A) and relative (B) read survival during pre-processing of the pilot \igseq dataset, up to VDJ assignment and Change-O table construction.}
+\caption[Read survival during pre-processing of \igseq pilot dataset, part 1]{\textbf{Read survival during pre-processing of \igseq pilot dataset, part 1:} Line graphs of absolute (A) and relative (B) read survival during pre-processing of the pilot \igseq dataset, up to VDJ assignment and Change-O table construction.}
 \label{fig:igseq-pilot-read-survival-init}
 \end{figure}
 
@@ -43,7 +43,7 @@ In total, the pre-processed sequence repertoires of the pilot replicates contain
 \phantomsubcaption{}
 \label{fig:igseq-pilot-functional-prop-b}
 \end{subfigure}
-\caption{Proportion of input reads, UMI groups and unique sequences in the pilot \igseq dataset belonging to different (non)functional categories, before (A) and after (B) filtering on V-alignment score.}
+\caption[Functional composition and V-score filtering of \igseq pilot dataset]{\textbf{Functional composition and V-score filtering of \igseq pilot dataset:} Proportion of input reads, UMI groups and unique sequences in the pilot \igseq dataset belonging to different (non)functional categories, before (A) and after (B) filtering on V-alignment score.}
 \label{fig:igseq-pilot-functional-prop}
 \end{figure}
 
@@ -52,7 +52,7 @@ As genuinely recombined but nonfunctional sequences would be expected to have un
 \begin{figure}
 \centering
 \includegraphics[width = 0.9\textwidth]{_Figures/png/pilot-functional-vscores}
-\caption{Kernel density plots of distributions of V-alignment scores among unique sequences in the pilot \igseq dataset. Vertical axes are not to scale between sequence categories.}
+\caption[V-score distributions of functional and nonfunctional sequences]{\textbf{V-score distributions of functional and nonfunctional sequences:} Kernel density plots of distributions of V-alignment scores among unique sequences in the pilot \igseq dataset. Vertical axes are not to scale between sequence categories.}
 \label{fig:igseq-pilot-functional-vscores}
 \end{figure}
 
@@ -69,7 +69,7 @@ In total, \embed{_Figures/txt/pilot-nseq-init-dropped-vscore.txt} unique sequenc
 \phantomsubcaption{}
 \label{fig:igseq-pilot-read-survival-all-b}
 \end{subfigure}
-\caption{Absolute (A) and relative (B) read survival during pre-processing of the pilot \igseq dataset, up to and including clonotyping.}
+\caption[Read survival during pre-processing of \igseq pilot dataset, part 2]{\textbf{Read survival during pre-processing of \igseq pilot dataset, part 2:} Line graphs of absolute (A) and relative (B) read survival during pre-processing of the pilot \igseq dataset, up to and including clonotyping.}
 \label{fig:igseq-pilot-read-survival-all}
 \end{figure}
 
@@ -106,20 +106,17 @@ In total, \embed{_Figures/txt/pilot-nclones-individual-min.txt} to \embed{_Figur
 \begin{figure}
 \centering
 \includegraphics[width = 0.7\textwidth]{_Figures/png/pilot-clone-sizes-cor-boxplots}
-\caption[Clone-size correlation between pilot replicates]{\textbf{Clone-size correlation between pilot replicates:} Boxplots showing distribution of Pearson's product-moment correlation coefficients of clone sizes for each pair of replicates, as measured by the number of unique sequences per clone in each replicate. Clones absent in a given replicate were given a size of zero.}
-% TODO: Add suitable overall figure title
+\caption[Clone-size correlation between pilot replicates, part 1]{\textbf{Clone-size correlation between pilot replicates, part 1:} Boxplots showing distribution of Pearson's product-moment correlation coefficients of clone sizes for each pair of replicates, as measured by the number of unique sequences per clone in each replicate. Clones absent in a given replicate were given a size of zero.}
 \label{fig:igseq-pilot-clone-sizes-cor-boxplots}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width = 0.7\textwidth]{_Figures/png/pilot-clone-sizes-cor-scatter}
-\caption{Scatter plots comparing clone sizes across biological replicates for each individual in the pilot dataset.}
-% TODO: Add suitable overall figure title
+\caption[Clone-size correlation between pilot replicates, part 2]{\textbf{Clone-size correlation between pilot replicates, part 2:} Scatter plots comparing clone sizes across biological replicates for each individual in the pilot dataset.}
 \label{fig:igseq-pilot-clone-sizes-cor-scatter}
 \end{figure}
 
-% TODO: Needs a lead-in sentence. Why do you care?
 One of the most strikingly reproducible findings of immune-repertoire-sequencing studies has been the approximately power-law distribution of the clonal repertoire, a phenomenon observed in both antibody and TCR repertoires across multiple different species \parencite{desponds2016fluctuating,mora2016diversity}. More precisely, the frequency of the $k$th largest clone in a repertoire dataset containing $N$ total clones can often be roughly predicted by a Zipf distribution \parencite{mora2010mentropy} of the form:
 
 \begin{equation}
@@ -129,13 +126,12 @@ f(k | N, s) = \frac{x^{-s}}{H_{N,s}}
 \noindent for some exponent parameter $s > 0$, where $H_{N,s}$ is the $N$th generalised harmonic number of order $s$ (\Cref{sec:methods_comp_igdownstream_zipf}). This power-law distribution of clone sizes is inconsistent with clonal expansion under neutral selection and instead suggests that clone sizes evolve within a complex and fluctuating fitness landscape \parencite{desponds2016fluctuating}. % TODO: Read Desponds source for this
 Before going on with more detailed investigation of the diversity structure of turquoise killifish antibody repertoires, it would be interesting to test whether the phenomenon of roughly Zipf-distributed clonal frequencies persists in this species as well.
 
-\Cref{fig:igseq-pilot-clones-zipf-lines} shows the rank/frequency distributions of the clonal repertoires of the four individuals from the pilot dataset. From roughly the tenth-largest clone onwards, these distributions appear approximately linear on a log-log plot and can be reasonably approximated by a power-law distribution; % TODO: Stats for this?
-however, the largest clones in each repertoire clearly deviate from this pattern, and are much larger than would be predicted by a power-law approximation. % I'm not sure how to interpret this; TODO: Ask AW about it?
+\Cref{fig:igseq-pilot-clones-zipf-lines} shows the rank/frequency distributions of the clonal repertoires of the four individuals from the pilot dataset. From roughly the tenth-largest clone onwards, these distributions appear approximately linear on a log-log plot and can be reasonably approximated by a power-law distribution; however, the largest clones in each repertoire clearly deviate from this pattern, and are much larger than would be predicted by a power-law approximation. % I'm not sure how to interpret this; TODO: Ask AW about it?
 
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{_Figures/png/pilot-clones-zipf-lines}
-\caption[Rank/frequency distributions of pilot clonal repertoires]{\textbf{Rank/frequency distributions of pilot clonal repertoires:} ...}
+\caption[Rank/frequency distributions of pilot clonal repertoires]{\textbf{Rank/frequency distributions of pilot clonal repertoires:} Log-log line plots of overlaid rank/frequency distributions of the individual clonal repertoires in the \igseq pilot dataset, showing the roughly linear (i.e. power-law-distributed) distribution of smaller clones (roughly rank 10 onwards) and the clear deviation from this distribution in the largest clones.}
 \label{fig:igseq-pilot-clones-zipf-lines}
 \end{figure}
 
@@ -144,16 +140,16 @@ In order to fit power-law curves to these distributions, I performed simple maxi
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{_Figures/png/pilot-clones-zipf-fit}
-\caption[...]{\textbf{...:} Log-log scatter plots of the rank/frequency distributions for each clonal repertoire in the pilot dataset, overlaid with a maximum-likelihood estimate of the underlying Zipf distribution when the five largest clones in each repertoire (plotted as crosses) are excluded.}
+\caption[Best-fit Zipf distributions of pilot clonal repertoires (filtered)]{\textbf{Best-fit Zipf distributions of pilot clonal repertoires (filtered):} Log-log scatter plots of the rank/frequency distributions for each clonal repertoire in the pilot dataset, overlaid with a maximum-likelihood estimate of the underlying Zipf distribution when the five largest clones in each repertoire (plotted as crosses) are excluded.}
 \label{fig:igseq-pilot-clones-zipf-fit}
-\end{figure} % TODO: Add plot title
+\end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{_Figures/png/pilot-clones-zipf-fit-null}
-\caption[...]{\textbf{...:} Log-log scatter plots of the rank/frequency distributions for each clonal repertoire in the pilot dataset, overlaid with a maximum-likelihood estimate of the underlying Zipf distribution when all clones (including the largest in each repertoire) are included in the inference process.}
+\caption[Best-fit Zipf distributions of pilot clonal repertoires (all clones)]{\textbf{Best-fit Zipf distributions of pilot clonal repertoires (all clones):} Log-log scatter plots of the rank/frequency distributions for each clonal repertoire in the pilot dataset, overlaid with a maximum-likelihood estimate of the underlying Zipf distribution when all clones (including the largest in each repertoire) are included in the inference process.}
 \label{fig:igseq-pilot-clones-zipf-fit-null}
-\end{figure} % TODO: Add plot title
+\end{figure}
 
 ...
 % TODO: Final paragraph on Zipf data, interpreting and wrapping up
@@ -169,8 +165,7 @@ One quick and simple way to measure the extent to which a clonal repertoire is d
 \end{figure}
 
 ... . % TODO: Lead-in sentence here
-Rosenfeld \textit{et al.} \parencite{rosenfeld2018clonesize} recommend evaluating clonal expansions on the basis of both the relative clonal frequency of the largest clones in the repertoire and the extent to which each such clone is larger than the next-largest clone, with recommended cutoffs for human data of 5\% for the former and threefold for the latter. In the pilot killifish dataset, clones exceeding 5\% of unique sequences in the repertoire occur in three out of four individuals (2-03, 2-04 and 2-06), while clones exceeding the size of the next-largest clone by at least threefold occur in a different three individuals (2-03, 2-05 and 2-06). However, only one individual, 2-04, exhibits a potentially medically-relevant clonal expansion by the standards of Rosenfeld \textit{et al.}; this clone (2-04\_8143) occupies 6.8\,\% of the repertoire and is roughly 3.1-fold larger than the next-largest clone, and is identified reproducibly as a clonal expansion in both the pooled dataset (\Cref{fig:igseq-pilot-clones-expansions-rep}) and each of the separate replicates (\Cref{fig:igseq-pilot-clones-expansions-rep}) from individual 3-04.
-... . % TODO: Interpretation: what does this mean for 8-week-old killifish repertoires? Why does it matter? Can we rely on the frequencies from Rosenfeld?
+In addition to investigating the P20, Rosenfeld \textit{et al.} \parencite{rosenfeld2018clonesize} recommend evaluating clonal expansions in antibody repertoires on the basis of both the relative clonal frequency of the largest clones in the repertoire and the extent to which each such clone is larger than the next-largest clone, with recommended cutoffs for human data of 5\% for the former and threefold for the latter. In the pilot killifish dataset, clones exceeding 5\% of unique sequences in the repertoire occur in three out of four individuals (2-03, 2-04 and 2-06), while clones exceeding the size of the next-largest clone by at least threefold occur in a different three individuals (2-03, 2-05 and 2-06). However, only one individual, 2-04, exhibits a potentially medically-relevant clonal expansion by the standards of Rosenfeld \textit{et al.}; this clone (2-04\_8143) occupies 6.8\,\% of the repertoire and is roughly 3.1-fold larger than the next-largest clone, and is identified reproducibly as a clonal expansion in both the pooled dataset (\Cref{fig:igseq-pilot-clones-expansions}) and each of the separate replicates (\Cref{fig:igseq-pilot-clones-expansions-rep}) from individual 3-04. These results could be taken as demonstrating that potentially medically-relevant clonal expansions are present, albeit not common, in middle-aged adult male turquoise killifish; however, without functional validation it is not clear to what extent the recommended guidelines derived from human data apply to this species, especially when the body size (and hence the potential clonal richness) of turquoise killifish is so much smaller.
 
 \begin{figure}
 \centering
@@ -180,12 +175,10 @@ Rosenfeld \textit{et al.} \parencite{rosenfeld2018clonesize} recommend evaluatin
 \end{figure}
 
 Having investigated the clonal abundance distribution and various measures of clonal expansion, we now come to the question of the \textit{diversity} of the killifish clonal repertoire. As discussed in detail in \Cref{app:diversity}, the diversity of a population can be interpreted -- and measured -- in multiple ways, with different measures laying different amounts of weight on the richness (number of species) and evenness (relative distribution of species) of that population and reporting the results in different ways. In order to visualise the diversity of killifish clonal repertoires across a wide range of diversity orders (...) % TODO: Find a way to explain diversity orders concisely
-simultaneously and on a common scale, Hill diversity spectra % Citation needed
-can be used. These ... . % TODO: Concise explanation
+simultaneously and on a common scale, Hill diversity spectra \parencite{hill1973diversity} can be used. These ... . % TODO: Concise explanation
 A more detailed explanation, including the underlying equations, can be found in \Cref{app:diversity}.
 
 \Cref{fig:igseq-pilot-clone-diversity} shows the diversity of clone sizes in each individual in the pilot dataset, as measured using Hill diversity spectra across each individual's three replicates (\Cref{fig:igseq-pilot-design}). \Cref{fig:igseq-pilot-clone-diversity-alpha} gives the alpha diversity, or average \textit{within-replicate} diversity, while \Cref{fig:igseq-pilot-clone-diversity-beta} shows the beta-diversity, or variation in clone-size distribution \textit{between} replicates (\Cref{app:diversity}). In both cases, each curve represents a single individual and gives the corresponding diversity measure at a range of different diversity orders; roughly speaking, higher diversity orders place proportionately more weight on common over rare species (i.e. clones) when calculating diversity, with zero-order diversity being equivalent to simple species richness (\Cref{app:diversity}). As beta-diversity (unlike alpha-diversity) is sensitive to the number of sub-populations being compared, it has been rescaled here such that 0 represents the minimum possible beta-diversity at each order and 1 represents the maximum (\Cref{app:diversity}).
-% TODO: Explain rescaling in diversity appendix
 % TODO: More precise references to appendix subsections
 
 \begin{figure}
@@ -199,7 +192,7 @@ A more detailed explanation, including the underlying equations, can be found in
 \phantomsubcaption{}
 \label{fig:igseq-pilot-clone-diversity-beta}
 \end{subfigure}
-\caption{\textbf{Clonal diversity spectra for pilot dataset:} Hill diversity spectra of clone sizes (as measured by number of unique sequences per clone) over replicates for each individual in the pilot dataset. (A) Alpha-diversity across replicates; (B) Beta-diversity across replicates, rescaled to between 0 (minimum) and 1 (maximum) for each individual. Shaded regions in both subfigures represent 95\,\% confidence intervals, estimated using bootstrapping.} % TODO: Parametric or nonparametric?
+\caption[Clonal diversity spectra for \igseq pilot dataset]{\textbf{Clonal diversity spectra for \igseq pilot dataset:} Bootstrapped Hill diversity spectra of clone sizes (as measured by number of unique sequences per clone) over replicates for each individual in the pilot dataset. (A) Alpha-diversity across replicates; (B) Beta-diversity across replicates, rescaled to between 0 (minimum) and 1 (maximum) for each individual. Shaded regions in both subfigures represent 95\,\% confidence intervals, estimated using bootstrapping.}
 \label{fig:igseq-pilot-clone-diversity}
 \end{figure}
 
@@ -213,23 +206,20 @@ To that end, I computed the clonal diversity spectra separately for each replica
 \begin{figure}
 \centering
 \includegraphics[width = 0.8\textwidth]{_Figures/png/pilot-clone-diversity-solo-box}
-\caption{Boxplots of Hill diversity values for the clonal repertoires of replicates from each individual in the \igseq pilot dataset at a sample of diversity orders. Pairwise $p$-values are computed using nonparametric Mann–Whitney U tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$). Annotated $p$-values ($P(KWT)$) indicates the statistical significance of the estimated individual effect on diversity at each order under a Kruskal-Wallis test.} % TODO: Figure title
+\caption[Comparing clonal alpha-diversities between individuals in the \igseq pilot dataset]{\textbf{Comparing clonal alpha-diversities between individuals in the \igseq pilot dataset:} Boxplots of Hill diversity values for the clonal repertoires of replicates from each individual in the \igseq pilot dataset at a sample of diversity orders. Pairwise $p$-values are computed using nonparametric Mann–Whitney U tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$). Annotated $p$-values ($P(KWT)$) indicates the statistical significance of the estimated individual effect on diversity at each order under a Kruskal-Wallis test.}
 \label{fig:igseq-pilot-clone-diversity-solo-box}
 \end{figure}
 
 Unlike alpha-diversity, the beta-diversity spectrum of a population does not necessarily decline monotonically with increasing diversity order; nevertheless, in \Cref{fig:igseq-pilot-clone-diversity-beta} the between-replicate beta-diversity is much higher at low diversity orders (where it approaches the maximum) than at higher ones (where it is close to the minimum). This indicates that replicates from the same individual have very different clonal content when all clones are included, but become increasingly similar as more and more weight is put on the largest clones in each replicate. This result is highly consistent with the findings in \Cref{fig:igseq-pilot-clone-sizes} that each repertoire contains a small number of large clones (which are shared reproducibly between replicates) and a much larger number of much smaller clones (which are not); the difference in patterns of cross-replicate reproducibility between small and large clones observed in \Cref{fig:igseq-pilot-clone-sizes-reps} gives rise to the patterns of beta-diversity observed in \Cref{fig:igseq-pilot-clone-diversity-beta}.
 
-Finally, given the apparent correspondence between a high P20 or fitted Zipf exponent and low effective diversity as measured using Hill spectra, I investigated to what extent these measures, which are substantially quicker and easier to compute than full diversity spectra, act as good proxies for properly-estimated Hill diversity. To that end, I fitted Zipf distributions separately to the clonal repertoires of each replicate in the dataset (both including all clones and excluding the five largest in each repertoire, as above) as well as computing the P20 for these repertoires. I then computed Pearson product-moment correlation coefficients % TODO: Citation needed
+Finally, given the apparent correspondence between a high P20 or fitted Zipf exponent and low effective diversity as measured using Hill spectra, I investigated to what extent Hill numbers can substitute for these metrics as a measure of repertoire diversity. To that end, I fitted Zipf distributions separately to the clonal repertoires of each replicate in the dataset (both including all clones and excluding the five largest in each repertoire, as above) as well as computing the P20 for these repertoires. I then computed Pearson product-moment correlation coefficients % TODO: Citation needed
 at each diversity order, enabling correlation spectra to be plotted for each of the three potential proxy metrics. I did this both for the correlation between per-replicate proxy metrics and per-replicate repertoire diversity (\Cref{fig:igseq-pilot-clone-diversity-metrics-cor-rep}) and between per-individual averaged metrics and per-individual alpha diversity (\Cref{fig:igseq-pilot-clone-diversity-metrics-cor-alpha}). 
 
-At the per-replicate level, the filtered Zipf exponent performed fairly poorly at all diversity orders, while the all-clones Zipf exponent and P20 both performed relatively poorly at very low orders but correlated well with higher-order diversity measures ($q \geq 1$), with P20 consistently outperforming either Zipf exponent as a predictor of Hill diversity; best of all is \embed{_Figures/txt/pilot-clone-diversity-metrics-cor-rep-best-metric.txt} at $q=\embed{_Figures/txt/pilot-clone-diversity-metrics-cor-rep-best-q.txt}$, with a correlation coefficient of \embed{_Figures/txt/pilot-clone-diversity-metrics-cor-rep-best-r.txt}. When comparing averaged metrics with average (alpha) per-individual diversity, the pattern for the all-clones Zipf exponent and P20 is broadly similar, albeit reaching much lower correlation values: at $q=\embed{_Figures/txt/pilot-clone-diversity-metrics-cor-avg-best-q.txt}$, the average \embed{_Figures/txt/pilot-clone-diversity-metrics-cor-avg-best-metric.txt} approaches a near-perfect correlation of \embed{_Figures/txt/pilot-clone-diversity-metrics-cor-avg-best-r.txt}. Conversely, the filtered Zipf exponent behaves very differently in the average case compared to the per-replicate case, with even worse prediction at very low diversity orders but improving greatly at higher orders, to the point where, from $q=\embed{_Figures/txt/pilot-clone-diversity-metrics-cor-avg-cross-q.txt}$ upwards, it actually correlates better with Hill diversity than either P20 nor the all-clones Zipf exponent, with an optimum correlation of \embed{_Figures/txt/pilot-clone-diversity-metrics-cor-avg-sfilter-best-r.txt} at $q=\embed{_Figures/txt/pilot-clone-diversity-metrics-cor-avg-sfilter-best-q.txt}$.
-% TODO: Can I explain this, or is it "surprisingly, however"?
+At the per-replicate level, the correspondence between Hill diversity and filtered Zipf exponent was fairly poor at all diversity orders, while the all-clones Zipf exponent and P20 both correlated relatively poorly with Hill diversity at very low orders but correlated well with higher-order diversity measures ($q \geq 1$), with P20 consistently outperforming either Zipf exponent as a predictor of Hill diversity; the best correlation of all was founh for \embed{_Figures/txt/pilot-clone-diversity-metrics-cor-rep-best-metric.txt} at $q=\embed{_Figures/txt/pilot-clone-diversity-metrics-cor-rep-best-q.txt}$, with a correlation coefficient of $\embed{_Figures/txt/pilot-clone-diversity-metrics-cor-rep-best-r.txt}$. When comparing averaged metrics with average (alpha) per-individual diversity, the pattern for the all-clones Zipf exponent and P20 is broadly similar, albeit reaching much lower correlation values: at $q=\embed{_Figures/txt/pilot-clone-diversity-metrics-cor-avg-best-q.txt}$, the average \embed{_Figures/txt/pilot-clone-diversity-metrics-cor-avg-best-metric.txt} approaches a near-perfect correlation of $\embed{_Figures/txt/pilot-clone-diversity-metrics-cor-avg-best-r.txt}$. Conversely, the filtered Zipf exponent behaves very differently in the average case compared to the per-replicate case, with even worse correlation at very low diversity orders but improving greatly at higher orders, to the point where, from $q=\embed{_Figures/txt/pilot-clone-diversity-metrics-cor-avg-cross-q.txt}$ upwards, it actually correlates better with Hill diversity than either P20 nor the all-clones Zipf exponent, with an optimum correlation of \embed{_Figures/txt/pilot-clone-diversity-metrics-cor-avg-sfilter-best-r.txt} at $q=\embed{_Figures/txt/pilot-clone-diversity-metrics-cor-avg-sfilter-best-q.txt}$.
 
-It therefore appears that the diversity of the clonal repertoire can be predicted well by P20 and Zipf proxy metrics across most of the range of diversity orders, the exception being low orders substantially less than 1. These low orders are primarily (or exclusively, in the case of $q=0$) measures of clonal richness which neglect clone size when computing diversity; as P20 and Zipf exponents are both measures of the extent to which the repertoire is dominated by the largest clones, it is perhaps unsurprising that they are less well-equipped to predict the lower-order diversity of the clonal repertoire. % TODO: Citation needed?
-... % TODO: Discuss meaning and usefulness of these correlation results
+It therefore appears that P20 and Zipf metrics of clonal alpha-diversity can be well-predicted by higher-order Hill-diversity measures, with the closest correspondence found at diversity orders between 1 and 1.5 (for P20 and all-clones Zipf exponent) or 2 and 2.5 (for the filtered Zipf exponent). This finding aptly demonstrates the earlier point that, while most measures of repertoire diversity capture only one aspect of a population's species composition, the Hill spectra can simultaneously depict a whole range of different aspects of population diversity and so substitute for many different diversity measures at once. In addition to high-order, evenness-focused metrics of clonal diversity like P20, the Hill spectrum also captures lower-order, richness-focused metrics, providing a valuable overview of the entire diversity structure of the clonal repertoire. This being the case, I will primarily focus on Hill diversity in subsequent sections of this chapter, making use of other diversity metrics like P20 only when they serve some specific purpose.
 
-In conclusion, therefore, adult turquoise killifish express diverse clonal B-cell repertoires, with each fish containing several thousand detected clones. As in other species, this repertoire comprises a few very large expanded clones % TODO: How many unique sequences in very large clones?
-and a much larger number of very small clones, the latter of which are highly vulnerable to undersampling. ... % TODO: Finish overview paragraph
+In conclusion, therefore, adult turquoise killifish express diverse clonal B-cell repertoires, with each fish containing several thousand detected clones. As in other species, this repertoire comprises a few very large expanded clones and a much larger number of very small clones (\Cref{fig:igseq-pilot-clone-sizes}), the latter of which are highly vulnerable to undersampling; it is therefore likely that, as in most repertoire-sequencing experiments \parencite{mora2016diversity}, the total clonal richness of the repertoire is substantially higher than the richness measures used here suggest. Substantial clonal expansions are common in this cohort (\Cref{fig:igseq-pilot-clones-expansions}), some of which reach the standard for potential medical relevance suggested for humans by Rosenfeld \textit{et al.} \parencite{rosenfeld2018clonesize}. However, whether the frequency of these expansions increases as a function of age in the turquoise killifish, and whether this is accompanied by a general fall in repertoire diversity, cannot be inferred from this initial pilot dataset.
 
 \begin{figure}
 \centering
@@ -253,18 +243,18 @@ Pearson product-moment correlation coefficients between clonal Hill diversity an
 
 The clonal repertoire of an organism reflects the history of \naive B-cell production and subsequent clonal expansion in that individual, and as such is unique to each individual repertoire: by definition, clones cannot be shared between individuals. As such, while an essential part of any repertoire analysis (and a useful way to assess reproducibility between replicates), clonal measures are limited in their ability to meaningfully compare the antibody repertoires of different individuals. In contrast, the range of V(D)J-combinations available within an antibody repertoire is defined by the corresponding gene locus (\Cref{sec:nfu-locus}), and is therefore largely shared across individuals of a given species. This is particularly true for inbred lines of laboratory model organisms, for which the high level of polymorphism observed in the V-regions of wild populations \parencite{gadalamaria2015tigger,corcoran2016igdiscover} is not an issue. As such, the V(D)J usage distributions of antibody repertoires represent an alternative metric for measuring repertoire composition and diversity, which is more amenable to comparison between individuals (and groups of individuals) of the same species.
 
-In order to analyse the composition of the V(D)J segment repertoire in an individual, we need unambiguous segment calls for as many unique sequences in that repertoire as possible. In the processed pilot dataset, \embed{_Figures/txt/pilot-segments-one-vj-n-pc.txt}\,\% of unique sequences (corresponding to \embed{_Figures/txt/pilot-segments-one-vj-conscount-pc.txt}\,\% of surviving input reads) were assigned an unambiguous VJ-identity, while only \embed{_Figures/txt/pilot-segments-one-vdj-n-pc.txt}\,\% of unique sequences (corresponding to \embed{_Figures/txt/pilot-segments-one-vdj-conscount-pc.txt}\,\% of surviving input reads) were assigned an unambiguous VDJ-identity. This difference arises from the fact that \embed{_Figures/txt/pilot-segments-ambig-d-n-pc.txt}\,\% of unique sequences (corresponding to \embed{_Figures/txt/pilot-segments-ambig-d-conscount-pc.txt}\,\% of surviving input reads) were assigned either no D-identity at all, or an ambiguous one with two or more possible D-assignments. To avoid any distortions or loss of resolution caused by the loss of almost a third of the dataset, I therefore proceed using the VJ-repertoire as ... % TODO: Finish this
+In order to analyse the composition of the V(D)J segment repertoire in an individual, we need unambiguous segment calls for as many unique sequences in that repertoire as possible. In the processed pilot dataset, \embed{_Figures/txt/pilot-segments-one-vj-n-pc.txt}\,\% of unique sequences (corresponding to \embed{_Figures/txt/pilot-segments-one-vj-conscount-pc.txt}\,\% of surviving input reads) were assigned an unambiguous VJ-identity, while only \embed{_Figures/txt/pilot-segments-one-vdj-n-pc.txt}\,\% of unique sequences (corresponding to \embed{_Figures/txt/pilot-segments-one-vdj-conscount-pc.txt}\,\% of surviving input reads) were assigned an unambiguous VDJ-identity. This difference arises from the fact that \embed{_Figures/txt/pilot-segments-ambig-d-n-pc.txt}\,\% of unique sequences (corresponding to \embed{_Figures/txt/pilot-segments-ambig-d-conscount-pc.txt}\,\% of surviving input reads) were assigned either no D-identity at all, or an ambiguous one with two or more possible D-assignments. To avoid any distortions or loss of resolution caused by the loss of almost a third of the dataset, I therefore decided to use the VJ-repertoire to investigate segment-choice diversity going forward.
 
 \Cref{fig:igseq-pilot-vj-rank-frequency} shows the rank:frequency distribution of the VJ repertoire for each individual in the pilot dataset. Unlike with the clonal repertoire, these distributions are clearly not well-modelled by a power law even when the largest V/J combinations are excluded; in particular, the frequency of smaller V/J combinations declines much more quickly than would be predicted by Zipf's law. Nevertheless, these VJ repertoires are strongly dominated by the largest combinations in each individual, with P20 values ranging from \embed{_Figures/txt/pilot-segments-vj-p20-min.txt}\,\% to \embed{_Figures/txt/pilot-segments-vj-p20-max.txt}\,\%. In total, of the \embed{_Figures/txt/pilot-segments-vj-n-theoretical.txt} possible theoretically distinguishable V/J combinations in the turquoise-killifish repertoire, \embed{_Figures/txt/pilot-segments-vj-n-any.txt} (\embed{_Figures/txt/pilot-segments-vj-pc-any.txt}\,\%) are observed in at least one individual, with the number observed in any single individual ranging from \embed{_Figures/txt/pilot-segments-vj-n-min.txt} (\embed{_Figures/txt/pilot-segments-vj-pc-min.txt}\,\%) to \embed{_Figures/txt/pilot-segments-vj-n-max.txt} (\embed{_Figures/txt/pilot-segments-vj-pc-max.txt}\,\%).
 
 \begin{figure}
 \centering
 \includegraphics[width=0.8\textwidth]{_Figures/png/pilot-vj-rank-frequency}
-\caption[Rank/frequency distributions of pilot VJ repertoires]{\textbf{Rank/frequency distributions of pilot VJ repertoires:} ...} % TODO: Fill in caption
+\caption[Rank/frequency distributions of pilot VJ repertoires]{\textbf{Rank/frequency distributions of pilot VJ repertoires:} Log-log line plots of overlaid rank/frequency distributions of the individual VJ repertoires in the \igseq pilot dataset, showing the rapid decline in frequency of the smallest V/J-assignment categories and the resulting clear deviation from a power-law distribution.}
 \label{fig:igseq-pilot-vj-rank-frequency}
 \end{figure}
 
-As with the clonal repertoire, the diversity of the VJ repertoire can be assessed in a wide variety of ways, among the most flexible and informative of which is the Hill diversity spectrum (\Cref{app:diversity}). \Cref{fig:igseq-pilot-vj-diversity} shows the alpha (\Cref{fig:igseq-pilot-vj-diversity-alpha}) and beta (\Cref{fig:igseq-pilot-vj-diversity-beta}) diversity spectra of the VJ repertoire for each individual in the pilot dataset. As with the clonal repertoire, there were no significant pairwise differences in alpha diversity between individuals, although in this case a Kruskal-Wallis test was able to find a marginally significant overall effect of individual on VJ diversity at high diversity orders (\Cref{fig:igseq-pilot-clone-diversity-solo-box}); this difference probably arises from the fact that, for some individuals, the VJ-repertoire diversity spectra were much more similar between replicates of the same individual than in the clonal repertoire (\Cref{fig:igseq-pilot-vj-diversity-solo-spectra,fig:igseq-pilot-clone-diversity-solo-spectra}). 
+As with the clonal repertoire, the diversity of the VJ repertoire can be assessed in a wide variety of ways, among the most flexible and informative of which is the Hill diversity spectrum (\Cref{app:diversity}). \Cref{fig:igseq-pilot-vj-diversity} shows the alpha (\Cref{fig:igseq-pilot-vj-diversity-alpha}) and beta (\Cref{fig:igseq-pilot-vj-diversity-beta}) diversity spectra of the VJ repertoire for each individual in the pilot dataset. Unsurprisingly, the alpha-diversity measures of the VJ repertoire were much lower than for the clonal repertoire, reflecting the relatively restricted range of possible V/J choices available to each clone compared to the huge number of total \naive B-cells. As with the clonal repertoire, there were no significant pairwise differences in alpha diversity between individuals, although in this case a Kruskal-Wallis test was able to find a marginally significant overall effect of individual on VJ diversity at high diversity orders (\Cref{fig:igseq-pilot-clone-diversity-solo-box}); this difference probably arises from the fact that, for some individuals, the VJ-repertoire diversity spectra were much more similar between replicates of the same individual than in the clonal repertoire (\Cref{fig:igseq-pilot-vj-diversity-solo-spectra,fig:igseq-pilot-clone-diversity-solo-spectra}). 
 
 \begin{figure}
 \centering
@@ -277,14 +267,14 @@ As with the clonal repertoire, the diversity of the VJ repertoire can be assesse
 \phantomsubcaption{}
 \label{fig:igseq-pilot-vj-diversity-beta}
 \end{subfigure}
-\caption{\textbf{VJ-diversity spectra for pilot dataset:} Hill diversity spectra of VJ usage (as measured by number of unique sequences per V/J combination) over replicates for each individual in the pilot dataset. (A) Alpha-diversity across replicates; (B) Beta-diversity across replicates, rescaled to between 0 (minimum) and 1 (maximum) for each individual. Shaded regions in both subfigures represent 95\,\% confidence intervals, estimated using bootstrapping.} % TODO: Parametric or nonparametric?
+\caption[VJ-diversity spectra for \igseq pilot dataset]{\textbf{VJ-diversity spectra for \igseq pilot dataset:} Bootstrapped Hill diversity spectra of VJ usage (as measured by number of unique sequences per unambiguous V/J combination) over replicates for each individual in the pilot dataset. (A) Alpha-diversity across replicates; (B) Beta-diversity across replicates, rescaled to between 0 (minimum) and 1 (maximum) for each individual. Shaded regions in both subfigures represent 95\,\% confidence intervals, estimated using bootstrapping.}
 \label{fig:igseq-pilot-vj-diversity}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width = 0.8\textwidth]{_Figures/png/pilot-vj-diversity-solo-box}
-\caption{Boxplots of Hill diversity values for the VJ repertoires of replicates from each individual in the \igseq pilot dataset at a sample of diversity orders. Pairwise $p$-values are computed using nonparametric Mann–Whitney U tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$). Annotated $p$-values ($P(KWT)$) indicates the statistical significance of the estimated individual effect on diversity at each order under a Kruskal-Wallis test.} % TODO: Figure title
+\caption[Comparing VJ alpha-diversities between individuals in the \igseq pilot dataset]{\textbf{Comparing VJ alpha-diversities between individuals in the \igseq pilot dataset:} Boxplots of Hill diversity values for the VJ repertoires of replicates from each individual in the \igseq pilot dataset at a sample of diversity orders. Pairwise $p$-values are computed using nonparametric Mann–Whitney U tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$). Annotated $p$-values ($P(KWT)$) indicates the statistical significance of the estimated individual effect on diversity at each order under a Kruskal-Wallis test.}
 \label{fig:igseq-pilot-clone-diversity-solo-box}
 \end{figure}
 
@@ -301,9 +291,35 @@ The beta-diversity spectra, meanwhile, are close to the minimum value across all
 \phantomsubcaption{}
 \label{fig:igseq-pilot-rdi-pcoa}
 \end{subfigure}
-\caption[Repertoire dissimilarity index (RDI) analysis of pilot data]{\textbf{Repertoire dissimilarity index (RDI) analysis of pilot data:} (A) Dendrogram of pilot replicates produced through average-linkage clustering on pairwise VJ-RDI distances. (B) Principal co-ordinate analysis (PCoA) of pairwise VJ-RDI distances between pilot replicates, coloured by source individual.}
+\caption[Repertoire dissimilarity index (RDI) analysis of \igseq pilot repetoires]{\textbf{Repertoire dissimilarity index (RDI) analysis of \igseq pilot repertoires:} (A) Dendrogram of pilot replicates produced through average-linkage clustering on pairwise VJ-RDI distances. (B) Principal co-ordinate analysis (PCoA) of pairwise VJ-RDI distances between pilot replicates, coloured by source individual.}
 \label{fig:igseq-pilot-rdi}
 \end{figure}
+
+\subsection{Generative models and potential repertoire entropy}
+\label{sec:igseq_pilot_generative}
+
+\Cref{sec:igseq_pilot_clones,sec:igseq_pilot_segments} analysed the clonal and VJ repertoires of adult killifish as actually observed in the pilot dataset. For various reasons, including primary selection, clonal expansion, and selection during affinity maturation, this observed secondary repertoire will differ in its statistical properties (V/J prevalence, CDR3 length, etc.) from the original generative process giving rise to \igh{} sequences in the primary lymphoid organs. % TODO: Citation needed
+
+To investigate the generative repertoires of turquoise killifish, I used \program{IGoR}, a tool for inferring generative models of the VDJ-recombination and junctional-diversity process from immune-repertoire-sequencing data. % TODO: Cite IGoR, describe methods in more detail in methods chapter
+This program exploits the fact that B-cells which fail their first attempt at VDJ-recombination but suceed in their second retain their first, nonfunctional, sequence rearrangement, which can then be detected at low levels in the repertoire. As these nonfunctional sequences are not used to produce BCR or antibody proteins, they do not take part in primary selection; as a result, unlike the functional repertoire, the statistical properties of the nonfunctional sequence population are not altered by this selective process. By using only nonfunctional repertoire sequences, therefore, \program{IGoR} can reconstruct the original parameters of the sequence-generation process. % TODO: Citations needed
+
+In order to obtain something as close as possible to \naive, nonfunctional sequences from the pilot repertoire dataset, I first took the consensus sequence of each clone in each individual repertoire, then filtered these by functional status to retain only sequences marked by \program{Change-O} as nonfunctional. This yielded a total of ... sequences, or ... to ... per individual repertoire. This low prevalence of nonfunctional sequences is a known phenomenon of RNA-sequencing-based \igseq datasets, as unlike functional sequences nonfunctional rearrangements are expressed at only a basal level. % TODO: Citation needed, discuss further
+Unfortunately, the numbers of sequences obtained here per individual are not sufficient to infer a reliable generative model with \program{IGoR}; however, as the parameters of the generative process tend to be highly similar between individuals (and would be expected to be even more-so in a genetically-homogeneous inbred line), ... % TODO: I therefore used the pooled sequences
+
+I therefore 
+
+
+
+; as a result, by using only nonfunctional repertoire sequences, \program{IGoR} can reconstruct the original 
+
+
+% The previous two sections analysed clonal and V(D)J repertoires, respectively, as actually observed for individuals in the pilot dataset. For several reasons, such observed distributions are distinct from the original generative process giving rise to ...
+
+
+% The observed V(D)J repertoire is strongly affected by selection, clonal expansion and other population-level processes taking place after the initial generation of \igh{} sequences via VDJ-recombination and its attendant junctional diversity...
+
+% In order to access the original generative process giving rise to recombined \igh{} sequences in an organism, the program \program{IGoR} (...) infers a generative model of sequence recombination ... % TODO: Describe IGoR process, sequence selection
+
 
 % TODO: Add (or abandon) IGoR section here
 \dots
