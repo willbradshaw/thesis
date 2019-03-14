@@ -118,7 +118,7 @@ Total RNA from whole-body killifish samples was isolated as described in \Cref{s
 \newabbreviation{times}{$\times$}{multiples of standard concentration}
 \newabbreviation{GSP}{GSP}{gene-specific primer (for reverse-transcription)}
 \newabbreviation{umol}{\textmu{}mol}{micromole(s)}
-\newabbreviation{TSA}{TSA}{template-switch adaptor}
+\newabbreviation{TSA}{TSA}{template-switch adapter}
 \newabbreviation{DTT}{DTT}{dithiothreitol (reducing agent)}
 \newabbreviation{mM}{mM}{millimolar concentration (\cu{\milli\mole\per\liter}{}{})}
 \newabbreviation{mmol}{mmol}{millimole(s)}
@@ -131,9 +131,9 @@ Total RNA from whole-body killifish samples was isolated as described in \Cref{s
 \newabbreviation{UDG}{UDG}{uracil DNA glycosylase}
 
 
-Reverse transcription of total RNA and template switching for \igseq library preparation was performed using SMARTScribe Reverse Transcriptase, in line with the protocol specified in \parencite{turchaninova2016igprep} (Procedure, steps 5-9). Briefly, \ng{750} total RNA from a killifish sample was combined with \ul{2} \umol{10} gene-specific primer (GSP), homologous with the second \ch exon of \Nfu \igh{M} (\Cref{app:oligos_primers}). The reaction volume was brought to a total of \ul{8} with nuclease-free water, and the resulting mixture was incubated for 2 minutes at \degC{70} to denature the RNA, then cooled to \degC{42} to anneal the GSP. 
+Reverse transcription of total RNA and template switching for \igseq library preparation was performed using SMARTScribe Reverse Transcriptase, in line with the protocol specified in \parencite{turchaninova2016igprep} (Procedure, steps 5-9). Briefly, \ng{750} total RNA from a killifish sample was combined with \ul{2} \umol{10} gene-specific primer (GSP), homologous with the second \ch exon of \Nfu \igh{M} (\Cref{app:oligos_primers}, designed using \program{primer3} \parencite{untergasser2012primer3}). The reaction volume was brought to a total of \ul{8} with nuclease-free water, and the resulting mixture was incubated for 2 minutes at \degC{70} to denature the RNA, then cooled to \degC{42} to anneal the GSP. 
 
-Following annealing, the RNA-primer mixture was combined with \ul{12} of reverse-transcription master-mix (\Cref{tab:methods_rt_mm}), including the reverse-transcriptase enzyme and template-switch adapter (\Cref{app:oligos_tsa}). The complete reaction mixture was incubated at for \hr{1} at \degC{42} for the reverse-transcription reaction, then mixed with \ul{1} of uracil DNA glycosylase (UDG) and incubated for a further \mins{40} at \degC{37} to digest the template-switch adapter. Finally, the reaction product was purified using SeraSure beads (\Cref{sec:methods_molec_standard_serasure}) at \x{0.7} concentration, eluting in \ul{16.5} clean elution buffer.
+Following annealing, the RNA-primer mixture was combined with \ul{12} of reverse-transcription master-mix (\Cref{tab:methods_rt_mm}), including the reverse-transcriptase enzyme and template-switch adapter (\Cref{app:oligos_tsa}, sequence provided in \parencite{turchaninova2016igprep}). The complete reaction mixture was incubated at for \hr{1} at \degC{42} for the reverse-transcription reaction, then mixed with \ul{1} of uracil DNA glycosylase (UDG) and incubated for a further \mins{40} at \degC{37} to digest the template-switch adapter. Finally, the reaction product was purified using SeraSure beads (\Cref{sec:methods_molec_standard_serasure}) at \x{0.7} concentration, eluting in \ul{16.5} clean elution buffer.
 
 \begin{table}[h]
 \begin{center}\small
@@ -153,12 +153,12 @@ Following annealing, the RNA-primer mixture was combined with \ul{12} of reverse
 \end{center}
 \end{table}
 
-\subsubsection{PCR amplification and adaptor addition} 
+\subsubsection{PCR amplification and adapter addition} 
 \label{sec:methods_molec_igseq_pcr}
 
 \newabbreviation[sort=H2O]{H2O}{H\textsubscript{2}O}{Water}
 
-Following reverse-transcription, UDG digestion, and cleanup, the reaction mixture underwent three successive rounds of Kapa PCR (\Cref{sec:methods_molec_standard_pcr}, \Cref{tab:methods_igseq_pcr}) each of which was followed by a further round of bead cleanups (\Cref{sec:methods_molec_standard_serasure}, \Cref{tab:methods_igseq_beads}). The first of these PCR reactions added a second strand to the reverse-transcribed cDNA and amplified the resulting DNA molecules; the second added partial Illumina sequencing adaptors and further amplified the library, and the third added complete Illumina adaptors (including i5 and i7 indices \parencite{illumina2018adaptors}).
+Following reverse-transcription, UDG digestion, and cleanup, the reaction mixture underwent three successive rounds of Kapa PCR (\Cref{sec:methods_molec_standard_pcr}, \Cref{tab:methods_igseq_pcr}) each of which was followed by a further round of bead cleanups (\Cref{sec:methods_molec_standard_serasure}, \Cref{tab:methods_igseq_beads}). The first of these PCR reactions added a second strand to the reverse-transcribed cDNA and amplified the resulting DNA molecules; the second added partial Illumina sequencing adapters and further amplified the library, and the third added complete Illumina adapters (including i5 and i7 indices \parencite{illumina2018adapters}). Primer sequences homologous to the template-switch adapter (M1SS and M1S) were provided by \parencite{turchaninova2016igprep}, while those homologous to the \cm{1} constant-region exon (IGHC-B and IGHC-C) were designed using \program{primer3} \parencite{untergasser2012primer3}.
 
 \begin{table}[h]
 \def\arraystretch{1.3}
@@ -170,12 +170,13 @@ Following reverse-transcription, UDG digestion, and cleanup, the reaction mixtur
  & \# cycles & $T_m$ (\degC{}) & $t_\mathrm{ext}$ (\secs{}) & F & R & Template & Primers (each) & Kapa & H\textsubscript{2}O \\\midrule
 1 & 18 & 65 & 15 & IGHC-B & M1SS & 10.5 & 1 (\x{}2) & 12.5 & 0 \\\midrule
 2 & 13 & 65 & 15 & M1S+P2 & IGHC-C+P1 & 1 & 0.5 (\x{}2) & 12.5 & 10.5 \\\midrule
-3 & 7 to 9 & \textbf{68} & 15 & D50*\tnote{a} & D7**\tnote{a} & 2 & \textbf{0.75} (\x{}2) & 12.5 & 9 \\
-\bottomrule % TODO: Correct cycle numbers (Ola, Michael)
+3 & 7 to 12\tnote{c} & \textbf{68} & 15 & D50*\tnote{a} & D7**\tnote{a} & 2 & \textbf{0.75} (\x{}2) & 12.5 & 9 \\
+\bottomrule
 \end{tabular}
 \begin{tablenotes}
 \item[a] PCR3 primers selected as appropriate for each library's assigned indices; see \Cref{app:oligos_illumina} for more information.
 \item[b] If the number of samples to be sequenced was small, all volumes of PCR 3 were doubled for a \ul{50} total PCR volume.
+\item[c] See \Cref{tab:methods_igseq_cycles} for specific cycle numbers used in each experiment.
 \end{tablenotes}
 \label{tab:methods_igseq_pcr}
 \end{threeparttable}
@@ -193,19 +194,35 @@ RT & 21 & 14.7 & 0.7 & 16.5\\
 PCR 1 & 25 & 17.5 & 0.7 & 25\\
 PCR 2 & 25 & 17.5 & 0.7 & 15\\
 PCR 3 & 25\tnote{c} & 20\tnote{c} & 0.8 & 15\tnote{c}\\
-Pooling & Varies & Varies & 2.5 & 35\\ 
+Pooling & Varies\tnote{d} & Varies\tnote{d} & 2.5 & 35\\ 
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
 \item[a] Each bead cleanup takes place immediately \textit{after} its corresponding stage.
 \item[b] Bead volumes are usually given as multiples of the sample volume.
 \item[c] If PCR 3 reaction volume differs from \ul{25}, bead and elution volumes are rescaled proportionally to sample volume as appropriate.
+\item[d] Samples are pooled in equimolar ratio.
 \end{tablenotes}
 \label{tab:methods_igseq_beads}
 \end{threeparttable}
 \end{table}
 
-% TODO: Table of experiment-specific cycle numbers, sequencing conditions, et cetera. (Ola, Michael)
+\begin{table}[h]
+\def\arraystretch{1.3}
+\centering\small
+\caption{PCR cycle numbers used for \Nfu immunoglobulin sequencing}
+\begin{threeparttable}
+\begin{tabular}{c|ccc|cc|ccccc}\toprule
+\multirow{2}{*}{\textbf{Experiment}} & \multicolumn{3}{c|}{\textbf{Number of PCR cycles}} & \multirow{2}{*}{\textbf{Reference}}\\
+& PCR 1 & PCR 2 & PCR 3 &\\\midrule
+Pilot & 18 & 13 & ? & \Cref{sec:igseq_pilot}\\ % TODO: Fill in pilot cycle numbers
+Ageing & 18 & 13 & 8 & \Cref{sec:igseq_ageing}\\
+Gut & 18 & 13 & 12 &\Cref{sec:igseq_gut}\\
+\bottomrule
+\end{tabular}
+\label{tab:methods_igseq_cycles}
+\end{threeparttable}
+\end{table}
 
 \subsubsection{Library pooling, size selection and sequencing} 
 \label{sec:methods_molec_igseq_seq}

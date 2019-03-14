@@ -18,7 +18,7 @@ source("aux/ggplot2.R")
 source("aux/changeo.R")
 
 # Specify input paths
-experiment <- "pilot"
+experiment <- "ageing"
 segments_path_individual <- paste0("../_Data/igor/segments/", experiment,
                                    "-individual-segments.tsv")
 segments_path_group <- paste0("../_Data/igor/segments/", experiment,
@@ -32,9 +32,10 @@ d_names_path <- "../_Data/segments/nfu/nfu_dh_name_conversion.csv"
 j_names_path <- "../_Data/segments/nfu/nfu_jh_name_conversion.csv"
 
 # Specify parameters
+age_groups <- c("39", "56", "73", "128")
 individuals <- paste0("2-0", seq(3, 6))
-palette <- c(colours_igseq[["pilot_rep1"]], colours_igseq[["pilot_rep2"]],
-             colours_igseq[["pilot_rep3"]], colours_igseq[["pilot_rep4"]])
+palette <- c(colours_igseq[["ageing_group1"]], colours_igseq[["ageing_group2"]],
+             colours_igseq[["ageing_group3"]], colours_igseq[["ageing_group4"]])
 # Output path
 filename_base <- paste0(experiment, "-igor")
 
@@ -60,8 +61,8 @@ import_segments <- function(path, v_names, d_names, j_names){
 plot_segments <- function(segments, grouped = FALSE){
   indiv <- segments_individual %>% filter(SEGMENT_TYPES == segments)
   g_base <- ggplot(mapping = aes_string(x=paste0(segments, "_NAME_OLD"), y="P",
-                                        colour="ID", group="ID")) +
-    scale_colour_manual(values = palette, name = "Individual") +
+                                        colour="AGE_DAYS", group="ID")) +
+    scale_colour_manual(values = palette, name = "Age group (days)") +
     scale_y_continuous(name = "Probability (%)",
                        labels = function(y) y * 100,
                        expand=c(0,0)) +
@@ -74,15 +75,14 @@ plot_segments <- function(segments, grouped = FALSE){
   if (!grouped) return(g_base + geom_line(data = indiv))
   group <- segments_group %>% filter(SEGMENT_TYPES == segments)
   g <- g_base + geom_line(data = indiv, alpha = 0.8, linetype = 2) +
-    geom_line(data = group, size = 1.5, 
-              colour = colours_igseq[["ageing_group2"]])
+    geom_line(data = group, size = 1.5)
   return(g)
 }
 
 plot_indels <- function(ev, grouped = FALSE){
   indiv <- indels_individual %>% filter(event == ev)
-  g_base <- ggplot(mapping = aes(x=n, y=p, colour=id, group=id)) +
-    scale_colour_manual(values = palette, name = "Individual") +
+  g_base <- ggplot(mapping = aes(x=n, y=p, colour=age_days, group=id)) +
+    scale_colour_manual(values = palette, name = "Age group (days)") +
     scale_y_continuous(name = "Probability (%)",
                        labels = function(y) y * 100, expand = c(0,0)) +
     theme_classic() + theme_base + theme(
@@ -91,8 +91,7 @@ plot_indels <- function(ev, grouped = FALSE){
   if (!grouped) return(g_base + geom_line(data = indiv))
   group <- indels_group %>% filter(event == ev)
   g <- g_base + geom_line(data = indiv, alpha = 0.8, linetype = 2) +
-    geom_line(data = group, size = 1.5, 
-              colour = colours_igseq[["ageing_group2"]])
+    geom_line(data = group, size = 1.5)
   return(g)
 }
 
@@ -107,14 +106,22 @@ j_names <- suppressMessages(read_csv(j_names_path))
 
 # Segments
 segments_individual <- import_segments(segments_path_individual, v_names,
-                                       d_names, j_names)
+                                       d_names, j_names) %>%
+  mutate(AGE_GROUP = as.integer(sub("-.*", "", ID)),
+         AGE_DAYS = age_groups[AGE_GROUP])
 segments_group <- import_segments(segments_path_group, v_names, d_names,
-                                  j_names)
+                                  j_names) %>%
+  mutate(AGE_DAYS = factor(ID, levels = age_groups))
 
 # Indels
 col_indels <- cols(p = "d", n = "i", .default = "c")
-indels_individual <- import_tsv(indels_path_individual, col_indels)
-indels_group <- import_tsv(indels_path_group, col_indels)
+indels_individual <- import_tsv(indels_path_individual, col_indels) %>%
+  mutate(age_group = as.integer(sub("-.*", "", id)),
+         age_days = age_groups[age_group])
+
+indels_group <- import_tsv(indels_path_group, col_indels) %>%
+  mutate(age_days = factor(id, levels = age_groups))
+
 
 #------------------------------------------------------------------------------
 # VISUALISE (AND SAVE) SEGMENT AND INDEL DISTRIBUTIONS

@@ -11,6 +11,8 @@ Smith-Waterman and Needleman-Wunsch exhaustive alignments \parencite{needleman19
 
 Processing of tabular data was performed using the Tidyverse suite of tools, especially \program[R]{readr} \parencite{wickham2018readr}, \program[R]{dplyr} \parencite{wickham2018dplyr}, \program[R]{tidyr} \parencite{wickham2018tidyr} and \program[R]{stringr} \parencite{wickham2018stringr}. \program{snakemake} \parencite{koster2012snakemake} was used to design and run data-processing pipelines.
 
+Unless otherwise specified, standard statistical operations and comparisons were performed using built-in functions from the \program[R]{stats} package in \program{R} \parencite{rcore2018rcore}: \snippet{wilcox.test} for two-sample Mann-Whitney $U$ tests, \snipped{kruskal.test} for multisample Kruskal-Wallis analysis-of-variance tests, \snippet{lm} for linear models, \snippet{glm} for generalised linear models, \snippet{cor} for Pearson product-moment correlation coefficients, \snippet{hclust} for hierarchical clustering, and \snippet{pcoa} for principal co-ordinate analysis.
+
 \subsection{Data visualisation}
 \label{sec:methods_comp_visualisation}
 
@@ -29,10 +31,10 @@ Following sequencing and assembly of these BAC inserts, a further group of BACs 
 \subsubsection{Sequence trimming, filtering and correction}
 \label{sec:methods_comp_bacs_trim}
 
-Demultiplexed, adaptor-trimmed MiSeq sequencing data were uploaded by the sequencing provider to Illumina BaseSpace and accessed via \program{basemount}. Reads from each library were trimmed with \lstinline{Trimmomatic} \parencite{bolger2014trimmomatic} to remove adaptor sequences, trim low-quality sequence, and discard any trimmed reads below a minimum lengh:
+Demultiplexed, adapter-trimmed MiSeq sequencing data were uploaded by the sequencing provider to Illumina BaseSpace and accessed via \program{basemount}. Reads from each library were trimmed with \lstinline{Trimmomatic} \parencite{bolger2014trimmomatic} to remove adapter sequences, trim low-quality sequence, and discard any trimmed reads below a minimum lengh:
 
 \begin{lstlisting}
-trimmomatic PE -phred33 <forward_reads_fastq> <reverse_reads_fastq> <output_paths> ILLUMINACLIP:<adaptor_directory>/TruSeq3-PE.fa:2:30:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:4:30 MINLEN:36
+trimmomatic PE -phred33 <forward_reads_fastq> <reverse_reads_fastq> <output_paths> ILLUMINACLIP:<adapter_directory>/TruSeq3-PE.fa:2:30:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:4:30 MINLEN:36
 \end{lstlisting}
 
 Following this, the trimmed reads were filtered to remove \textit{E. coli} genomic DNA and other contaminants by aligning them using \lstinline{Bowtie2} \parencite{langmead2012bowtie2} and retaining read pairs that did not align concordantly:
@@ -68,7 +70,7 @@ Following assembly, any \textit{E. coli} scaffolds resulting from residual conta
 SSPACE_Standard_v3.0.pl -x 0 -k 5 -a 0.7 -n 15 -z 200 -g 1 -p 0 -l <jumping_library_config_file> -s <spades_scaffolds_file>
 \end{lstlisting}
 
-In order to guarantee the reliability of the assembled scaffolds, the assemblies produced with \program{BayesHammer}- and \program{QuorUM}-corrected reads were compared, and scaffolds were broken into segments whose contiguity was agreed on between both assemblies. To integrate these fragments into a contiguous insert assembly, points of agreement between BAC assemblies from the same genomic region (e.g. two scaffolds from one assembly aligning concordantly to one scaffold from another) and between BAC assemblies and genome scaffolds, were used to combine scaffolds where possible. Any still-unconnected scaffolds were assembled together through pairwise end-to-end PCR (\Cref{sec:methods_molec_pcr}, with one primer each on the end of each scaffold) and Sanger sequencing (Eurofins).
+In order to guarantee the reliability of the assembled scaffolds, the assemblies produced with \program{BayesHammer}- and \program{QuorUM}-corrected reads were compared, and scaffolds were broken into segments whose contiguity was agreed on between both assemblies. To integrate these fragments into a contiguous insert assembly, points of agreement between BAC assemblies from the same genomic region (e.g. two scaffolds from one assembly aligning concordantly to one scaffold from another) and between BAC assemblies and genome scaffolds, were used to combine scaffolds where possible. Any still-unconnected scaffolds were assembled together through pairwise end-to-end PCR (\Cref{sec:methods_molec_pcr}, with one primer each on the end of each scaffold designed using \program{primer3} \parencite{untergasser2012primer3}) and Sanger sequencing (Eurofins).
 
 \subsection{Locus characterisation and assembly}
 \label{sec:methods_comp_locus}
@@ -314,12 +316,12 @@ Finally, the bootstrap-annotated \snippet{RAxML_bipartitions} file was inspected
 \subsection{Ig-Seq data pre-processing}
 \label{sec:methods_comp_igpreproc}
 
-Unless otherwise specified, pre-processing utilities used in the following sections are provided by the pRESTO \parencite{vanderheiden2014presto} and Change-O \parencite{gupta2015changeo} suites of Ig-Seq processing tools.
+Unless otherwise specified, pre-processing utilities used in the following sections are provided by the \program{pRESTO} \parencite{vanderheiden2014presto} and \program{Change-O} \parencite{gupta2015changeo} suites of Ig-Seq processing tools.
 
 \subsubsection{Sequence uploading and annotation}
 \label{sec:methods_comp_igpreproc_annot}
 
-Demultiplexed, adaptor-trimmed MiSeq sequencing data were uploaded by the sequencing provider to Illumina BaseSpace and accessed via \program{basemount}. Library annotation information (fish ID, sex, strain, age at death, death weight, etc.) were added to the read headers of each library:
+Demultiplexed, adapter-trimmed MiSeq sequencing data were uploaded by the sequencing provider to Illumina BaseSpace and accessed via \program{basemount}. Library annotation information (fish ID, sex, strain, age at death, death weight, etc.) were added to the read headers of each library:
 
 \begin{lstlisting}
 ParseHeaders add -f <field_keys> -u <field_values> -s <input_reads_file>
@@ -521,23 +523,349 @@ where \snippet{-g dmask} indicates that \dh sequences should be masked as well a
 
 Following germline inference, each sequence in the dataset was annotated according to whether or not it possessed V/D/J assignments and whether these assignments were ambiguous (i.e. whether multiple possible assignments were given rather than just one), and combined VJ and VDJ assignments were obtained by concatenating the individual segment assignments as appropriate. The processed sequence databases were then passed on to downstream analysis pipelines as outlined in \Cref{sec:methods_comp_igdownstream}.
 
+\subsubsection{Tracking read survival}
+\label{sec:methods_comp_igpreproc_readsurv}
+
+Read survival during the pre-processing pipeline was tracked for each replicate at each stage from importation of raw reads to clonotyping (no sequences were lost during germline inference). During the \program{pRESTO} pipeline, read counting was performed by extracting sequence headers into a tab-delimited table
+
+\begin{lstlisting}
+ParseHeaders.py table -s <input_seqs> -f INDIVIDUAL REPLICATE <other_fields>
+\end{lstlisting}  
+
+with other fields (e.g. CONSCOUNT) as appropriate to the stage in the pipeline. \program{Change-O} databases, meanwhile, were already in tab-delimited tabular format. Following conversion to tabular format (if necessary), read survival for each replicate was assessed by aggregating the CONSCOUNT fields of each sequence assigned to each replicate; prior to consensus-building, each sequence was assigned a CONSCOUNT of 1, making this equivalent to counting the number of sequences.
+
 \subsection{Downstream analysis of antibody repertoires}
 \label{sec:methods_comp_igdownstream}
 
-% TODO: Write methods for downstream IgSeq analyses
+\subsubsection{Clonal counts and inter-replicate correlations}
+\label{sec:methods_comp_igdownstream_clones}
+
+Following the completion of the pipeline from \Cref{sec:methods_comp_igpreproc}, the number and proportion of sequences successfully assigned clonotypes was evaluated by counting the number of sequences in the final \program{Change-O} databases with missing (NA) clonal identities. The size of each clone in the dataset was found by counting the number of unique sequences assigned to that clone, either in total or for each replicate separately; a clone was designated to be present in a replicate if at least one sequence in that replicate was assigned to that clone. Following inference of clone sizes in each replicate, the correlation between replicates was computed using a simple Pearson's product-moment correlation coefficient (implemented in \snippet{cor} in \program{R}) comparing their respective vectors of clone sizes.
 
 \subsubsection{Zipf approximation of rank:frequency distributions}
 \label{sec:methods_comp_igdownstream_zipf}
 
-\subsubsection{Repertoire Dissimilarity Index (RDI) measurements}
+Rank:frequency distributions of clones in a repertoire were computed by first computing the size of each clone in the repertoire (\Cref{sec:methods_comp_igdownstream_clones}), computing the relative frequency by dividing these sizes by the total number of unique sequences in the repertoire, then ranking the clones in descending order of relative frequency. These distributions could then be plotted on a log:log plot to visualise the underlying distribution.
+
+To fit a Zipf distribution to the rank:frequency distribution, maximum-likelihood estimation was used, as implemented in \program{R}'s standard \snippet{mle} function, either on all clones or excluding some number of largest clones beforehand:
+
+\begin{lstlisting}[language=R]
+lzipf <- function(f, s){
+  # Compute the negative log-likelihood of a set of frequencies under a Zipf
+  # distribution with parameter s
+  s * sum(f * log(1:length(f))) + sum(f) * log(H(length(f), s))
+}
+
+dzipf <- function(r, s, N){
+  # Return the predicted frequency of a rank r under a Zipf distribution
+  # for a population with total size N
+  (1/(r^s))/H(N, s)
+}
+
+compute_zipf_slope <- function(frequencies, n_exclude){
+  m <- mle(function(s) lzipf(frequencies[-(1:n_exclude)], s), start = list(s=1))
+  return(m@coef[["s"]])
+}
+
+# Add Zipf slope and predicted clonal frequencies to a pre-computed clone table
+clone_table <- clntab %>% group_by(INDIVIDUAL) %>% arrange(CLONE_RANK) %>% mutate(S = compute_zipf_slope(CLONE_SIZE, n_exclude), EXP_FREQUENCY = dzipf(CLONE_RANK, S, n()), EXP_SIZE = sum(CLONE_SIZE) * EXP_FREQUENCY))
+\end{lstlisting}
+
+\noindent The resulting expected frequency from the fitted Zipf distribution could then be overlaid on the actual observed frequency to compare the fit of the fitted distribution to the actual clonal repertoire. Meanwhile, the ranks and frequencies computed as part of the estimation process could be used to compute the observed P20 of the repertoire (i.e. the sum of frequencies of all clones with rank 20 or less), as well as the expected P20 (i.e. the sum of frequences for those clones predicted by the fitted Zipf distribution).
+
+
+\subsubsection{Rarefaction analysis for inter-experiment comparison}
+\label{sec:methods_comp_igdownstream_rarefaction}
+
+Comparisons between individuals of metrics such as clonal counts, P20, or the proportion of large clones in the repertoire make the implicit assumption that the sampling process (in particular, the sampling effort) used to obtain each repertoire was similar between the individuals being compared. When this is not the case -- when the number of cycles used to amplify each library or the number of reads obtained per library differs between individuals, for example -- sample composition is liable to differ systematically between repertoires, making comparisons using such metrics unreliable. In the case of immune repertoire sequencing, the very large number of small clones in most immune repertoires  \parencite{mora2016diversity} means that increased sampling depth is likely to lead to larger clonal counts, lower P20 values, and smaller proportions of large clones.
+
+In order to compare the clonal richness and P20 values of antibody repertoires from different \igseq experiments in the turquoise killifish in a more reliable manner, I performed rarefaction analysis \parencite{gotelli2001rarefaction} on these repertoires at the level of unique sequences. For each of a range of sample sizes (from $10^2$ to $10^4$ unique sequences), sequence entries in the pre-processed \program{Change-O} database were repeatedly subsampled without replacement from the repertoire of each individual in each experiment, for a total of 20 iterations per sample size. The number of small (fewer than 5 unique sequences), large (5 or more unique sequences) and total clones for each individual, as well as the P20, was computed for each subsample, and the mean and standard deviation of each measurement was computed across replicates for each individual, sample size, and experiment. The resulting rarefaction curves (of clonal count or P20 \textit{versus} sample size) could then be plotted and used to compare repertoires of different experiments at any given sample size.
+
+\subsubsection{Hill diversity spectra}
+\label{sec:methods_comp_igdownstream_spectra}
+
+The procedure for computing Hill diversity spectra from a \program{Change-O} sequence database was adapted (and substantially expanded) from the code for the same purpose provided in the \program{R} package \program[R]{Alakazam} \parencite{gupta2015changeo,stern2014bcells}. To begin with, columns in the database were specified designating an outer group (e.g. an age group), an inner group (which could be the same as the outer group, or finer, e.g. an individual), and a ``clone'' group (by default the clonal identity, but could also be a V(D)J identity or any other set of sequence categories). Counts of unique sequences were then computed for each ``clone'' within each inner group, and aggregated to find total sequence counts for each inner group:
+
+\begin{lstlisting}[language=R]
+clone_tab <- data %>% group_by_(.dots = c(outer_group, inner_group, clone_field)) %>% dplyr::summarize(COUNT = n())
+group_tab <- clone_tab %>% group_by_(.dots = c(outer_group, inner_group)) %>% dplyr::summarize_(SEQUENCES = interp(~sum(x, na.rm = TRUE), x = as.name("COUNT")))
+\end{lstlisting}
+
+\noindent The size of the bootstrap replicates (\snippet{NSAM}) for each sample was then computed as the minimum across all inner groups:
+
+\begin{lstlisting}[language=R]
+group_tab <- mutate(group_tab, NSAM = min(SEQUENCES))
+\end{lstlisting}
+
+\noindent A table of \snippet{nboot} bootstrap replicates of ``clonal'' frequencies, each of size \snippet{NSAM}, was then computed for each outer-group/inner-group combination through multinomial resampling:
+
+\begin{lstlisting}[language=R]
+bootstrap_abundance <- function(nboot, clone_tab, group_tab, outer_group_name, outer_group_value, inner_group_name, inner_group_value, clone_field){
+	# Generate independent bootstrap samples for a given
+	# group combination in a clone table
+	gtab <- group_tab[group_tab[[outer_group_name]] == 
+		outer_group_value & 
+		group_tab[[inner_group_name]] == 
+		inner_group_value,]
+	ctab <- clone_tab[clone_tab[[inner_group_name]] == 
+		inner_group_value & 
+		clone_tab[[outer_group_name]] == 
+		outer_group_value,]
+	# Get sequence number for resampling
+	n <- gtab$NSAM
+	# Get abundances of each clone in group
+	abund_obs <- ctab$COUNT
+	# Infer abundances of observed and unseen clones using
+	# Chao's method (functions provided in alakazam)
+	p1 <- adjustObservedAbundance(abund_obs)
+	p2 <- inferUnseenAbundance(abund_obs)
+	# Adjusted vector of clonal frequencies
+	abund_inf <- c(p1, p2)
+	# Specify clone names for known and unknown clones
+	n1 <- ctab[[clone_field]]
+	n2 <- paste("UNKNOWN", inner_group_value,
+		seq_along(p2), sep = "_")
+	names_inf <- c(n1, n2)
+	# Use inferred clone distribution and resampling size to 
+	# generate independent bootstrap samples through
+	# multinomial sampling
+	sample_mat <- rmultinom(nboot, n, abund_inf)
+	sample_tab <- melt(sample_mat, varnames = 
+		c(clone_field, "ITER"), value.name = "N")
+	sample_tab[[clone_field]] <- 
+		names_inf[sample_tab[[clone_field]]]
+	sample_tab[[outer_group_name]] <- outer_group_value
+	sample_tab[[inner_group_name]] <- inner_group_value
+	return(sample_tab)
+}
+
+compute_inner_bootstrap <- function(nboot, clone_tab, group_tab, outer_group_name, outer_group_value, inner_group_name, clone_field){
+	# For each inner group in an outer group, compute
+	# bootstrap counts and return a concatenated table
+	bootstraps <- tibble()
+	gtab <- group_tab[group_tab[[outer_group_name]] == 
+		outer_group_value,]
+	for (g in gtab %>% pull(inner_group_name) %>% unique){
+		sample_tab <- bootstrap_abundance(nboot, 
+			clone_tab, group_tab, 
+			outer_group_name, outer_group_value, 
+			inner_group_name, g, clone_field)
+		bootstraps <- bind_rows(bootstraps, sample_tab)
+	}
+	return(bootstraps)
+}
+
+compute_outer_bootstrap <- function(nboot, clone_tab, group_tab, outer_group_name, inner_group_name, clone_field){
+	# Compute inner bootstrap values for each outer group
+	# and collate values in a single table
+	bootstraps <- tibble()
+	for (G in group_tab %>% pull(outer_group_name) %>% 
+		unique){
+		sample_tab <- compute_inner_bootstrap(nboot, 
+			clone_tab, group_tab, 
+			outer_group_name, G,
+			inner_group_name, clone_field)
+		bootstraps <- bind_rows(bootstraps, sample_tab)
+	}
+	return(bootstraps)
+}
+
+bootstraps <- compute_outer_bootstrap(nboot, clone_tab, group_tab, outer_group, clone_field)
+\end{lstlisting}
+
+\noindent Following bootstrap generation, individual Hill diversity numbers (\Cref{sec:diversity-unitary-hill}) could be computed for each inner group for each bootstrap replicate (using \program[R]{alakazam}'s built-in \snippet{calcDiversity} function \parencite{gupta2015changeo,stern2014bcells}) for each diversity order in a vector \snippet{Q}:
+
+\begin{lstlisting}[language=R]
+bs_tab <- bootstraps %>% group_by_(.dots = c(outer_group, inner_group, "ITER"))
+div_tab_bs_solo <- tibble()
+for (q in Q){
+	dt <- summarise(bs_tab, Q = q, D = calcDiversity(N, q = q), N_GROUP = 1)
+	div_tab_bs_solo <- bind_rows(div_tab_bs_solo, dt)
+}
+\end{lstlisting}
+
+\noindent Similarly, different sorts of aggregate diversity spectrum (\Cref{sec:diversity-structured}) could be computed for each outer group:
+
+\begin{lstlisting}[language=R]
+# Gamma diversity
+bs_tab_gamma <- bootstraps %>% group_by_(.dots = c(group_within, clone_field, "ITER")) %>% summarise(N = sum(N)) %>% group_by_(.dots = c(outer_group, "ITER"))
+div_tab_bs_gamma <- tibble()
+for (q in Q){
+	dt <- summarise(bs_tab_gamma, Q = q,
+		D = calcDiversity(N, q = q))
+	div_tab_bs_gamma <- bind_rows(div_tab_bs_gamma, dt)
+}
+
+# Alpha diversity
+bs_tab_alpha <- bootstraps %>% group_by_(.dots = c(outer_group, inner_group, "ITER"))
+div_tab_split <- tibble()
+for (q in Q){
+	dt <- summarise(bs_tab_alpha, Q = q,
+		D = calcDiversity(N, q = q))
+	div_tab_split <- bind_rows(div_tab_split, dt)
+}
+div_tab_bs_alpha <- div_tab_bs_alpha %>% group_by_(.dots = c(outer_group, "ITER", "Q")) %>% summarise(D = ifelse(dplyr::first(Q) != 1, mean(D^(1-dplyr::first(Q)))^(1/(1-dplyr::first(Q))),  exp(mean(log(D)))), N_GROUP = n())
+
+# Beta diversity (gamma/alpha)
+div_tab_bs_beta <- full_join(div_tab_bs_gamma, div_tab_bs_alpha, by = c(outer_group, "ITER", "Q"), suffix = c("_GAMMA", "_ALPHA")) %>% mutate(D= D_GAMMA/D_ALPHA) %>% select(-D_GAMMA, -D_ALPHA)
+\end{lstlisting}
+
+\noindent Finally, each diversity spectrum was grouped by diversity order and summarised across bootstrap replicates, to obtain mean and standard-deviation values at each diversity order:
+
+\begin{lstlisting}[language=R]
+summarise_bootstrap_diversity <- function(div_tab, outer_group, confidence_interval = 0.95, inner_group = NULL){
+	# Summarise diversity table across bootstrap repeats
+	div_tab %>% group_by_(.dots = c(outer_group, "Q")) %>%
+		{if ("N_GROUP" %in% colnames(.)) group_by(., 
+			N_GROUP, add = TRUE) else . } %>%
+		{if (!is.null(inner_group)) group_by_(., .dots = 
+			inner_group, add = TRUE) else . } %>%
+		summarise(D_SD = sd(D), D = mean(D)) %>%
+		mutate(D_UPPER = D + ci_scale(ci) * D_SD,
+			D_LOWER = D - ci_scale(ci) * D_SD)
+}
+# Compute solo diversity for inner groups
+solo <- summarise_bootstrap_diversity(div_tab_bs_solo, outer_group, 0.95, inner_group)
+
+# Compute aggregate diversity for outer groups
+alpha <- summarise_bootstrap_diversity(div_tab_bs_alpha, outer_group, 0.95)
+beta  <- summarise_bootstrap_diversity(div_tab_bs_beta,  outer_group, 0.95)
+gamma <- summarise_bootstrap_diversity(div_tab_bs_gamma, outer_group, 0.95)
+\end{lstlisting}
+
+\noindent Solo, alpha and gamma spectra could then be plotted (and compared between groups or against other diversity metrics) directly from these summarised tables. However, as the beta diversity of an outer group depends on the number of inner groups it contains (\snippet{N_GROUP}), beta spectra of outer groups of different sizes needed to be rescaled to a common range (0 for minimum possible beta-diversity, 1 for maximum) prior to plotting in order to be comparable:
+
+\begin{lstlisting}[language=R]
+beta_rescaled <- beta_div_tab %>% mutate(D = (D-1)/(N_GROUP-1), D_UPPER = (D_UPPER-1)/(N_GROUP-1), D_LOWER = (D_LOWER-1)/(N_GROUP-1), D_SD = D_SD/(N_GROUP-1)) %>% select(-N_GROUP)
+\end{lstlisting}
+
+\subsubsection{Repertoire Dissimilarity Index (RDI)}
 \label{sec:methods_comp_igdownstream_rdi}
 
 \newabbreviation{RDI}{RDI}{Repertoire Dissimilarity Index}
 
-The Repertoire Dissimilarity Index (RDI) \parencite{bolen2017rdi} is a method for computing a distance between any two repertoires on the basis of their V(D)J segment composition, based on the Euclidean distance between their respective V(D)J-abundance vectors. As such, it provides a pairwise distance metric which can be used to compare, cluster and visualise the relationship between different antibody repertoires.
+The Repertoire Dissimilarity Index (RDI) \parencite{bolen2017rdi} is a pairwise distance metric between immune repertoires, based on the relative prevalence of different gene segments (or combinations of segments) in each repertoire. To compute a set of pairwise RDIs between a group of repertoires, the number of sequences assigned to each segment-choice identity is first counted for each repertoire. These counts vectors are then downsampled without replacement to the size of the repertoire with the fewest unique sequences, then normalised to sum to a constant factor. The normalised counts are then transformed with the inverse hyperbolic sine function, which is roughly linear for values close to zero and logarithmic for values greater than one \parencite{bolen2017rdi}; this transformation puts greater weight on rare segment-choice categories to prevent them being dominated by changes in the most prevalent categories \parencite{bolen2017rdi}. Finally, the distance between each pair of repertoires is calculated as the Euclidean distances between their respoctive transformed counts vectors. This process is then repeated multiple times with independent downsamplings, and the final RDI between each pair of repertoires is given as the arithmetic mean across all iterations.
 
-\subsubsection{Computing diversity spectra}
-\label{sec:methods_comp_igdownstream_spectra}
+In this thesis, RDIs were computed based on the VJ-assignment of each sequence in each repertoire. To compute VJ-RDIs between repertoires in a collated \program{Change-O} database, the database was first filtered to remove sequences with missing or ambiguous V- or J-calls. The database columns denoting VJ-identity and repertoire assignment (by replicate for the pilot dataset, by individual for the ageing and gut dataset) were then extracted, and used to construct a VJ-counts table in the format specified by the \program[R]{rdi} package \parencite{bolen2017rdi}:
 
+\begin{lstlisting}[language=R]
+# Extract VJ and ID columns
+genes <- pull(<filtered_changeo_db>, <vj_call_field>)
+annots <- as.character(pull(filtered_changeo_db>, <repertoire_id_field>))
 
+# Create counts table
+counts <- calcVDJcounts(genes = genes, seqAnnot = annots, simplifyNames = TRUE, splitCommas = FALSE)
+\end{lstlisting}
 
+\noindent The RDI between each pair of repertoires could then be computed as described above using the provided \snippet{calcRDI} function from the \program[R]{rdi} package \parencite{bolen2017rdi}:
+
+\begin{lstlisting}[language=R]
+rdi <- calcRDI(counts, subsample = TRUE, distMethod = "euclidean", nIter = 100, constScale = TRUE, units = "lfc")
+\end{lstlisting}
+
+\noindent where \snippet{nIter = 100} specifies that the RDI measurements should be averaged over 100 iterations.
+
+Following RDI computation, hierarchical (average-linkage) clustering was performed on the resulting distance matrix, and the dendrogram of the resulting clustering structure was visualised using \program[R]{ggtree}. Principal co-ordinate analysis (PCoA) was performed using standard \program{R} \snippet{pcoa} function, then processed into standard tabular format for visualisation:
+
+\begin{lstlisting}[language=R]
+# Perform PCoA
+pc <- pcoa(rdi)
+
+# Percentage of variation in each dimension
+pc_var <- pc$values %>% pull(Broken_stick) %>% (function(x) round(x*100, 1))
+
+# Extract co-ordinates in first two axes into tibble
+pc_tab <- tibble(REPERTOIRE = rownames(as.matrix(rdi)), PCO1 = pc$vectors[,1], PCO2 = pc$vectors[,2])
+\end{lstlisting}
+
+\subsubsection{Analysing generative repertoire diversity with \program{IGoR}}
+\label{sec:methods_comp_igdownstream_igor}
+
+% TODO: Describe IGoR principles here
+
+...
+
+``Generative'' is therefore used here in two senses: as the type of model fitted by \program{IGoR} (which can be used to \textit{generate} new sequences drawn from the same distribution) and as the biological mechanism modelled by that program (which itself \textit{generates} sequences through VDJ recombination and junctional diversity).
+
+...
+
+\subsubsubsection{Preparing sequence databases for \program{IGoR}}
+
+Before fitting a generative model with \program{IGoR}, the pre-processed \program{Change-O} database must be further processed to exclude ... and functional 
+
+To begin with, the pre-processed \program{Change-O} database of all sequences in all repertoires for a given experiment is further processed with \program[R]{SHazaM} \parencite{gupta2015changeo} in \program{R} to collapse each clone down to a single strict-majority-rule consensus sequence, followed by additional processing to correct ambiguous characters and remove gaps:
+
+\begin{lstlisting}[language=R]
+# First exclude sequences with missing clonal assignments
+changeo_db <- changeo_db[!is.na(changeo_db[[clone_field]]),]
+
+# Collapse each clone to a single consensus sequence
+changeo_db_collapsed <- collapseClones(changeo_db, cloneColumn = "CLONE", sequenceColumn = "SEQUENCE_IMGT", germlineColumn = "GERMLINE_IMGT_D_MASK", method = "mostCommon", includeAmbiguous = FALSE, breakTiesStochastic = FALSE, expandedDb = NULL)
+
+# Remove any ambiguous characters
+chars_allowed <- c("A","T","G","C","N",".","-")
+regex_disallowed <- paste0("[^", paste(chars_allowed, collapse = ""), "]")
+changeo_db_collapsed <- changeo_db_collapsed %>% mutate(CLONAL_SEQUENCE = gsub(regex_disallowed, "N", CLONAL_SEQUENCE), CLONAL_GERMLINE = gsub(regex_disallowed, "N", CLONAL_GERMLINE))
+
+# Strip gap characters
+changeo_db_stripped <- changeo_db_collapsed %>% mutate(SEQUENCE_OUT = gsub("[^ACGTN]", "", CLONAL_SEQUENCE))
+\end{lstlisting}
+
+\noindent In order to assign functional statuses to these new consensus sequences, they were then extracted into \format{FASTA} format, assigned V/J identities and CDR3 boundaries with \program{IgBLAST}, then re-imported into \program{Change-O} database format, after which functional sequences could be identified and discarded:
+
+\begin{lstlisting}
+# Extract consensus DB into FASTA Format
+ConvertDb fasta -d <consensus_db_path> -o <consensus_fasta_path> --if SEQUENCE_ID --sf SEQUENCE_OUT --mf INDIVIDUAL REPLICATE <other fields> 
+
+# Assign VDJ identities etc. with IgBLAST
+makeblastdb -parse_seqids -dbtype nucl -in <vh_reference_fasta> -out <vh_db_prefix>;
+makeblastdb -parse_seqids -dbtype nucl -in <dh_reference_fasta> -out <dh_db_prefix>;
+makeblastdb -parse_seqids -dbtype nucl -in <jh_reference_fasta> -out <jh_db_prefix>;
+igblastn -ig_seqtype Ig -domain_system imgt -query <consensus_fasta_path> -out <igblast_output_path> -germline_db_V <vh_db_prefix> -germline_db_D <dh_db_prefix> -germline_db_J <jh_db_prefix> -auxiliary_data <jh_aux_file> -outfmt '7 std qseq sseq btop'
+
+# Re-import into Change-O, with new VDJ assignments and functional status
+MakeDb igblast --regions --scores --partial --asis-calls --cdr3 -i <igblast_output> -s <consensus_fasta_path> -r <vh_reference_fasta> <dh_reference_fasta> <jh_reference_fasta>
+
+# Split functional from nonfunctional sequences
+ParseDb split -f FUNCTIONAL -d <new_consensus_db>
+\end{lstlisting}
+
+\noindent These operations produced a pooled database of nonfunctional, semi-\naive sequences from all individuals in all sample groups. Before running \program{IGoR} on these databases, they then needed to be split by INDIVIDUAL (for individual models) or sample group annotation (for pooled models):
+
+\begin{lstlisting}
+ParseDb split -d <nonfunctional_consensus_db> -f <split_field> 
+\end{lstlisting}
+
+\noindent Finally, each split database was then re-extracted into \program{FASTA} format for importation by \program{IGoR}:
+
+\begin{lstlisting}
+ConvertDb fasta -d <split_nonfunctional_db> -o <split_nonfunctional_fasta> --if SEQUENCE_ID --sf SEQUENCE_INPUT
+\end{lstlisting}
+
+\subsubsubsection{Model inference with \program{IGoR}}
+
+The model-inference process by \program{IGoR} takes place in several steps. First, the sequences from the previous section are converted into the correct format:
+
+\begin{lstlisting}
+igor -set_wd <working_directory> -read_seqs <split_nonfunctional_fasta>
+\end{lstlisting}
+
+\noindent These sequences were then aligned to reference V/D/J databases, using V/J ``anchor'' files to specify the CDR3 boundaries for each V/J identity:
+
+\begin{lstlisting}
+igor -set_wd <working_directory> -set_genomic --V <vh_reference_fasta> --D <vh_reference_fasta> --J <vh_reference_fasta> -set_CDR3_anchors --V <v_anchor_file> --J <j_anchor_file> -align --all
+\end{lstlisting}
+
+\noindent These alignments could then be used to infer a generative model for the repertoire, by fitting probability distributions for V/D/J-choice, N-insertions, P-insertions, and deletions:
+
+\begin{lstlisting}
+igor -set_wd <working_directory> -set_custom_model <default_model> -set_genomic --V <vh_reference_fasta> --D <vh_reference_fasta> --J <vh_reference_fasta> -set_CDR3_anchors --V <v_anchor_file> --J <j_anchor_file> -infer
+\end{lstlisting}
+
+\noindent The inferred model was then \textit{evaluated}, to generate parseable parameter and probability-distribution files:
+
+\begin{lstlisting}
+igor -set_wd <working_directory> -load_last_inferred -evaluate -output --scenarios 5 --Pgen --coverage VJ_gene
+\end{lstlisting}
+
+\noindent Finally, having inferred a generative model for each individual and pooled repertoire with \program{IGoR}, the inferred gene-choice, insertion and deletion probability distributions, along with the inferred entropy of each component of the model, was extracted from \program{IGoR}'s output files with \program[python]{pygor}, a \program{Python} package supplied as part of the \program{IGoR} program.
