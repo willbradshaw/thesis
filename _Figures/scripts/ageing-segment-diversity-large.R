@@ -21,16 +21,17 @@ source("aux/changeo.R")
 # TODO: Select input settings to match other spectra in chapter
 seqset <- "all" # or "functional"
 copy <- "NULL" # or "DUPCOUNT"
-tab_path_grouped <- paste0("../_Data/changeo/spectra/",
-                           "ageing_clone-diversity-grouped_seqs-",
-                           seqset, "_copy-", copy, ".tsv")
-tab_path_solo <- paste0("../_Data/changeo/spectra/",
-                        "ageing_clone-diversity-solo_seqs-",
-                        seqset, "_copy-", copy, ".tsv")
+segments <- "VJ" # or "VJ"
+tab_path_grouped <- paste0("../_Data/changeo/spectra/ageing_", segments,
+                           "-diversity-grouped_seqs-all-large",
+                           "_copy-", copy, ".tsv")
+tab_path_solo <- paste0("../_Data/changeo/spectra/ageing_", segments,
+                        "-diversity-solo_seqs-all-large",
+                        "_copy-", copy, ".tsv")
 
 
 # Output paths
-filename_base <- "ageing-clone-diversity"
+filename_base <- paste0("ageing-", segments, "-diversity-large")
 
 #------------------------------------------------------------------------------
 # IMPORT DATA
@@ -54,23 +55,68 @@ tab_solo <- tab_solo %>% mutate(AGE_DAYS = factor(AGE_DAYS, levels = age_groups)
 
 g_alpha <- plot_diversity_alpha(tab_grouped, "AGE_DAYS") +
   scale_colour_manual(values = palette, name = "Age group (days)") +
-  scale_fill_manual(values = palette, name = "Age group (days)")
-
-g_solo <-  ggplot(tab_solo) + 
-  geom_line(aes(x=Q, y=D, colour = AGE_DAYS, group = INDIVIDUAL)) + 
-  geom_ribbon(aes(x=Q, ymin = D_LOWER, ymax = D_UPPER, 
-                  fill = AGE_DAYS, group = INDIVIDUAL), alpha = 0.4) +
-  facet_wrap(~AGE_DAYS, scales = "free") +
-  xlab("Diversity order (q)") + 
-  ylab(expression(Diversity~(""[q]*D))) +
-  xlim(c(0,4)) + ylim(c(0,1500)) +
+  scale_fill_manual(values = palette, name = "Age group (days)") +
+  theme(legend.title = element_text(margin = margin(r = 1, unit = "cm")))
+g_beta_unscaled <- plot_diversity_beta(tab_grouped, "AGE_DAYS") +
   scale_colour_manual(values = palette, name = "Age group (days)") +
   scale_fill_manual(values = palette, name = "Age group (days)") +
-  theme_classic() + theme_base
+  theme(legend.title = element_text(margin = margin(r = 1, unit = "cm")))
+g_beta_scaled <- plot_diversity_beta_scaled(tab_grouped, "AGE_DAYS") +
+  scale_colour_manual(values = palette, name = "Age group (days)") +
+  scale_fill_manual(values = palette, name = "Age group (days)") +
+  ylim(c(0,0.75)) +
+  theme(legend.title = element_text(margin = margin(r = 1, unit = "cm")))
 
 
 #------------------------------------------------------------------------------
-# COMPARE SHANNON ENTROPY OF DIFFERENT AGE GROUPS
+# COMBINE ALPHA AND BETA SPECTRA WITH SINGLE LEGEND
+#------------------------------------------------------------------------------
+
+# Extract legend from absplot
+g <- ggplotGrob(g_alpha)$grobs
+legend <- g[[which(sapply(g, function(x) x$name) == "guide-box")]]
+lheight <- sum(legend$height)
+lwidth <- sum(legend$width)
+# Combine plots without legend
+plt <- plot_grid(g_alpha + theme(legend.position = "none"),
+                 g_beta_scaled + theme(legend.position = "none"), 
+                 ncol = 2, nrow = 1, labels="AUTO",
+                 label_fontfamily = titlefont, label_fontface = "plain",
+                 label_size = fontsize_base * fontscale_label)
+combined <- arrangeGrob(plt,
+                        legend,
+                        ncol = 1, nrow = 2,
+                        heights = unit.c(unit(1, "npc") - lheight, lheight))
+
+# Visualise plot
+plot_unit = "cm"
+plot_height <- 15
+plot_width <- 25
+map_layout <- grid.layout(
+  ncol = 1,
+  nrow = 1,
+  heights = unit(plot_height, plot_unit),
+  widths = unit(plot_width, plot_unit)
+)
+vtop <- viewport(layout = map_layout)
+grid.newpage()
+pushViewport(vtop)
+pushViewport(viewport(layout.pos.col = 1, layout.pos.row = 1))
+grid.draw(combined)
+popViewport(1)
+
+plt <- grid.grab()
+
+#------------------------------------------------------------------------------
+# SAVE SPECTRA
+#------------------------------------------------------------------------------
+
+savefig(plot = plt, filename = paste0(filename_base, "-alpha-beta"),
+        height = plot_height, 
+        width = plot_width)
+
+#------------------------------------------------------------------------------
+# COMPARE DIFFERENT AGE GROUPS AT SPECIFIC ORDERS
 #------------------------------------------------------------------------------
 
 # Filter solo-diversity table
@@ -162,7 +208,7 @@ annotate_pvalues <- function(qvals, family = list("gamma" = Gamma()),
 
 # Make boxplots and annotate with P-values
 qvals <- c(0,1,1.5,2,3,4)
-P_pos <- tibble(Q = qvals, x = 110, y = c(800,500,900,750,550,400))
+P_pos <- tibble(Q = qvals, x = 110, y = c(97.5,42,28.5,21,14,11.5))
 
 P_gamma <- annotate_pvalues(qvals) %>% full_join(P_pos, by = "Q")
 P_linear <- annotate_pvalues(qvals, list("linear" = NA)) %>%
@@ -177,14 +223,11 @@ g_solofit_linear <- plot_solo_diversity(qvals, family = NA) +
 g_solofit_igauss <- plot_solo_diversity(qvals, family = inverse.gaussian()) +
   geom_text(data = P_igauss, aes(label = ANNOT,x=x,y=y), size = 3.5)
 
+
 #------------------------------------------------------------------------------
 # SAVE FIGURES
 #------------------------------------------------------------------------------
 
-savefig(plot = g_alpha, filename = paste0(filename_base, "-alpha"),
-        height = 15, ratio = 1.5)
-savefig(g_solo, paste0(filename_base, "-solo-spectra"),
-        height = 15, width = 20)
 savefig(plot = g_solofit_gamma, height = 20, ratio = 1.5,
         filename = paste0(filename_base, "-solo-fit-gamma"))
 savefig(plot = g_solofit_linear, height = 20, ratio = 1.5,

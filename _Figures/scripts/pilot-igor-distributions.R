@@ -119,7 +119,7 @@ indels_group <- import_tsv(indels_path_group, col_indels)
 #------------------------------------------------------------------------------
 # VISUALISE (AND SAVE) SEGMENT AND INDEL DISTRIBUTIONS
 #------------------------------------------------------------------------------
-
+C_Appendices/Tables
 # Segment usage plot
 g_d <- plot_segments("D", TRUE)
 g_j <- plot_segments("J", TRUE)

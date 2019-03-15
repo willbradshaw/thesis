@@ -93,8 +93,10 @@ plot_entropy_table <- function(htab, pal = palette){
     geom_text(aes(x=level, y = chx, label = label),
               hjust = 0.5, vjust = 0.5, family = font, size = 5.5) +
     coord_flip() + scale_x_reverse() + scale_y_reverse()
+  
   # Configure colour display
-  g <- g + scale_alpha_manual(values = htab$alpha) +
+  g <- g + scale_alpha_manual(values = h_group %>% arrange(id, level) %>% 
+                                pull(alpha)) +
     scale_fill_manual(values = pal)
   return(g)
 }
@@ -115,49 +117,13 @@ entropies_individual <- import_entropies(entropies_path_individual) %>%
 #------------------------------------------------------------------------------
 
 # Process entropies for plotting
-h_group <- entropy_table(entropies_group) %>% filter(id != "128")
+h_group <- entropy_table(entropies_group) %>% 
+  mutate(age_days = factor(id, levels = age_groups)) %>%
+  filter(id != "128")
 
 # Plot entropy composition
-g_h_group <- plot_entropy_table(h_group) + facet_grid(id~.)
-# Save output
-g <- plot_grid(g_h_group, ncol = 1, nrow = 1, labels = "N. furzeri",
-               rel_heights = c(0.2,1), label_y = 1, label_x = 0.02,
-               label_fontfamily = titlefont, label_fontface = "plain",
-               label_size = fontsize_base * 2,
-               hjust = 0)
-# savefig(g, filename_base, height = 6, width = 28)
-
-#------------------------------------------------------------------------------
-# CONVERT GENERATIVE ENTROPY TO HILL DIVERSITY 
-#------------------------------------------------------------------------------
-
-# Auxiliary functions
-nats2oom <- function(n) log10(exp(n))
-bits2oom <- function(b) nats2oom(b/log2(exp(1)))
-
-# Killifish diversity
-d1_model_oom <- bits2oom(h_group %>% filter(level == 1) %>% pull(h))
-# savetxt(d1_model_oom %>% round, paste0(filename_base, "-diversity-oom"))
-
-# Human diversity range
-human_oom_low <- bits2oom(70)
-human_oom_high <- bits2oom(80)
-# savetxt(human_oom_low %>% round, paste0(filename_base, "-human-oom-low"))
-# savetxt(human_oom_high %>% round, paste0(filename_base, "-human-oom-high"))
-
-#------------------------------------------------------------------------------
-# SAVE TEXT OF ENTROPY OF DIFFERENT PROCESSES
-#------------------------------------------------------------------------------
-
-h_total <- h_group %>% filter(level == 1) %>% pull(h) %>% round
-h_gene <- entropies_group %>% filter(category == "Gene choice") %>%
-  pull(h) %>% sum %>% round
-h_ins <- entropies_group %>% filter(category == "Insertions") %>%
-  pull(h) %>% sum %>% round
-h_del <- entropies_group %>% filter(category == "Deletions") %>%
-  pull(h) %>% sum %>% round
-
-# savetxt(h_total, paste0(filename_base, "-total"))
-# savetxt(h_gene, paste0(filename_base, "-gene"))
-# savetxt(h_ins, paste0(filename_base, "-ins"))
-# savetxt(h_del, paste0(filename_base, "-del"))
+g_h_group <- plot_entropy_table(h_group) + 
+  facet_wrap(~id, ncol = 1, 
+             labeller = as_labeller(function(c) paste0("Age (days) = ", c))) +
+  theme(strip.text.x = element_text(hjust = 0.9))
+savefig(g_h_group, filename_base, height = 20, width = 28)
