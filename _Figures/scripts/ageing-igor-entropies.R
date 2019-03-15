@@ -113,7 +113,7 @@ entropies_individual <- import_entropies(entropies_path_individual) %>%
          age_days = age_groups[age_group])
 
 #------------------------------------------------------------------------------
-# VISUALISE (AND SAVE) SEGMENT AND INDEL DISTRIBUTIONS
+# VISUALISE ENTROPY COMPOSITION
 #------------------------------------------------------------------------------
 
 # Process entropies for plotting
@@ -127,3 +127,7 @@ g_h_group <- plot_entropy_table(h_group) +
              labeller = as_labeller(function(c) paste0("Age (days) = ", c))) +
   theme(strip.text.x = element_text(hjust = 0.9))
 savefig(g_h_group, filename_base, height = 20, width = 28)
+
+#------------------------------------------------------------------------------
+# COMPARE BETWEEN AGE GROUPS
+#------------------------------------------------------------------------------

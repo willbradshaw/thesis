@@ -165,20 +165,22 @@ dist_tab_nn_group <- dist_tab %>% filter(ID1 != ID2, GRP1 == GRP2) %>%
 # Make plots
 plot_rdi_intra <- function(dist_tab, test_by = "AGE_WEEKS",
                            reference = age_groups, palette = palette_age,
-                           group_name = "Age group (weeks)"){
-  ggplot(dist_tab) +
-    geom_boxplot(aes(x=factor(!!as.name(test_by), levels = reference), y=RDI, 
-                     colour = factor(!!as.name(test_by), levels = reference),
-                     fill = factor(!!as.name(test_by), levels = reference)), 
-                 alpha = 0.4) +
+                           group_name = "Age group (weeks)",
+                           point_size = 3, point_alpha = 0.4){
+  ggplot(dist_tab, aes(x=factor(!!as.name(test_by), levels = reference), y=RDI)) +
+    geom_boxplot(aes(fill = factor(!!as.name(test_by), levels = reference)), 
+                 outlier.shape = NA) +
+    geom_point(size = point_size, alpha = point_alpha) +
     xlab(group_name) +
     scale_colour_manual(values = palette, name = group_name) +
     scale_fill_manual(values = palette, name = group_name) +
     theme_classic() + theme_base + theme(legend.position = "none")
 }
 
-g_intra_age_all <- plot_rdi_intra(dist_tab_filtered_age)
-g_intra_age_nn <- plot_rdi_intra(dist_tab_nn_age) +
+g_intra_age_all <- plot_rdi_intra(dist_tab_filtered_age, point_size = 2,
+                                  point_alpha = 0.3)
+g_intra_age_nn <- plot_rdi_intra(dist_tab_nn_age, point_size = 2, 
+                                 point_alpha = 0.3) +
   ylab("Nearest-neighbour RDI")
 g_intra_group_all <- plot_rdi_intra(dist_tab_filtered_group, "GROUP",
                                     treatment_groups, palette,

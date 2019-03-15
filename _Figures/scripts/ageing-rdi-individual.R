@@ -137,19 +137,18 @@ dist_tab_nn <- dist_tab %>% filter(ID1 != ID2, AGE1 == AGE2) %>%
   select(AGE_DAYS = AGE1, INDIVIDUAL = ID1, NEIGHBOUR = ID2, RDI)
 
 # Make plots
-g_intra_all <- ggplot(dist_tab_filtered) +
-  geom_boxplot(aes(x=as.numeric(AGE_DAYS), y=RDI, 
-                   colour = factor(AGE_DAYS, levels = age_groups),
-                   fill = factor(AGE_DAYS, levels = age_groups)), alpha = 0.4) +
-  scale_colour_manual(values = palette, name = "Age group (days)") +
+g_intra_all <- ggplot(dist_tab_filtered, aes(x=as.numeric(AGE_DAYS), y=RDI)) +
+  geom_boxplot(aes(fill = factor(AGE_DAYS, levels = age_groups)), 
+               outlier.shape = NA) +
+  geom_point(size = 2, alpha = 0.3) +
   scale_fill_manual(values = palette, name = "Age group (days)") +
   xlab("Age at death (days)") + 
   theme_classic() + theme_base + 
   theme(legend.title = element_text(margin = margin(r = 1, unit = "cm")))
-g_intra_nn <- ggplot(dist_tab_nn) +
-  geom_boxplot(aes(x=as.numeric(AGE_DAYS), y=RDI, 
-                   colour = factor(AGE_DAYS, levels = age_groups),
-                   fill = factor(AGE_DAYS, levels = age_groups)), alpha = 0.4) +
+g_intra_nn <- ggplot(dist_tab_nn, aes(x=as.numeric(AGE_DAYS), y=RDI)) +
+  geom_boxplot(aes(fill = factor(AGE_DAYS, levels = age_groups)), 
+               outlier.shape = NA) +
+  geom_point(size = 2, alpha = 0.4) +
   scale_colour_manual(values = palette, name = "Age group (days)") +
   scale_fill_manual(values = palette, name = "Age group (days)") +
   xlab("Age at death (days)") + ylab("Nearest-neighbour RDI") +

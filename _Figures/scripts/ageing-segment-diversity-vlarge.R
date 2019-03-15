@@ -64,9 +64,7 @@ g_beta_unscaled <- plot_diversity_beta(tab_grouped, "AGE_DAYS") +
 g_beta_scaled <- plot_diversity_beta_scaled(tab_grouped, "AGE_DAYS") +
   scale_colour_manual(values = palette, name = "Age group (days)") +
   scale_fill_manual(values = palette, name = "Age group (days)") +
-  ylim(c(0,0.75)) +
   theme(legend.title = element_text(margin = margin(r = 1, unit = "cm")))
-
 
 #------------------------------------------------------------------------------
 # COMBINE ALPHA AND BETA SPECTRA WITH SINGLE LEGEND
@@ -208,7 +206,7 @@ annotate_pvalues <- function(qvals, family = list("gamma" = Gamma()),
 
 # Make boxplots and annotate with P-values
 qvals <- c(0,1,1.5,2,3,4)
-P_pos <- tibble(Q = qvals, x = 110, y = c(97.5,42,28.5,21,14,11.5))
+P_pos <- tibble(Q = qvals, x = 110, y = c(25,14,11.5,10.5,9.5,9))
 
 P_gamma <- annotate_pvalues(qvals) %>% full_join(P_pos, by = "Q")
 P_linear <- annotate_pvalues(qvals, list("linear" = NA)) %>%

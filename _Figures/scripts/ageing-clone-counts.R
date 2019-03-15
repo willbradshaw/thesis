@@ -86,8 +86,10 @@ savetxt(cl_counts_kruskal$p.value %>% signif(2),
 
 # Plot range of clone numbers in different age groups
 age_groups <- c("39", "56", "73", "128")
-g_nclones <- ggplot(tab_cl_counts_num) + 
-  geom_boxplot(aes(x=AGE_DAYS, y=N, fill = factor(AGE_DAYS, levels = age_groups))) +
+g_nclones <- ggplot(tab_cl_counts_num, aes(x=AGE_DAYS, y=N)) + 
+  geom_boxplot(aes(fill = factor(AGE_DAYS, levels = age_groups)),
+               outlier.shape = NA) +
+  geom_point(size = 3, alpha = 0.5) +
   scale_fill_manual(values = palette, name = "Age group (days)") +
   xlab("Age at death (days)") + ylab("# Clones") +
   theme_classic() + theme_base

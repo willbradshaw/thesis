@@ -32,18 +32,22 @@ tab <- import_tab(inpath)
 # COUNT INDIVIDUAL SEQUENCES
 #------------------------------------------------------------------------------
 
-counts <- tab %>% group_by(INDIVIDUAL) %>% summarise(N = n()) %>% pull(N)
+tab_unique <- tab %>% group_by(AGE_DAYS, INDIVIDUAL, SEQUENCE_INPUT) %>%
+  summarise(N = 1)
+counts <- tab_unique %>% group_by(INDIVIDUAL) %>% summarise(N = sum(N)) %>%
+  pull(N)
 
 savetxt(min(counts), paste0(filename_base, "-min"))
 savetxt(max(counts), paste0(filename_base, "-max"))
-savetxt(sum(counts), paste0(filename_base, "-sum"))
 
 #------------------------------------------------------------------------------
 # COUNT INDIVIDUAL SEQUENCES
 #------------------------------------------------------------------------------
 
-counts_group <- tab %>% group_by(AGE_DAYS) %>% summarise(N = n())
+counts_group <- tab_unique %>% group_by(AGE_DAYS) %>% summarise(N = sum(N))
+counts_group_out <- counts_group %>% 
+  mutate(`Age group (days)` = factor(AGE_DAYS, levels = age_groups),
+         `# Unique sequences` = N) %>% select(-AGE_DAYS, -N) %>%
+  arrange(`Age group (days)`)
 
-# savetxt(min(counts), paste0(filename_base, "-min"))
-# savetxt(max(counts), paste0(filename_base, "-max"))
-# savetxt(sum(counts), paste0(filename_base, "-sum"))
+savetab(counts_group_out, filename_base)

@@ -68,6 +68,18 @@ g_beta_scaled <- plot_diversity_beta_scaled(tab_grouped, "AGE_DAYS") +
   theme(legend.title = element_text(margin = margin(r = 1, unit = "cm")))
 
 
+g_solo <-  ggplot(tab_solo) + 
+  geom_line(aes(x=Q, y=D, colour = AGE_DAYS, group = INDIVIDUAL)) + 
+  geom_ribbon(aes(x=Q, ymin = D_LOWER, ymax = D_UPPER, 
+                  fill = AGE_DAYS, group = INDIVIDUAL), alpha = 0.4) +
+  facet_wrap(~AGE_DAYS, scales = "free") +
+  xlab("Diversity order (q)") + 
+  ylab(expression(Diversity~(""[q]*D))) +
+  xlim(c(0,4)) + ylim(c(0,120)) +
+  scale_colour_manual(values = palette, name = "Age group (days)") +
+  scale_fill_manual(values = palette, name = "Age group (days)") +
+  theme_classic() + theme_base
+
 #------------------------------------------------------------------------------
 # COMBINE ALPHA AND BETA SPECTRA WITH SINGLE LEGEND
 #------------------------------------------------------------------------------
@@ -228,6 +240,8 @@ g_solofit_igauss <- plot_solo_diversity(qvals, family = inverse.gaussian()) +
 # SAVE FIGURES
 #------------------------------------------------------------------------------
 
+savefig(g_solo, paste0(filename_base, "-solo-spectra"),
+        height = 15, width = 20)
 savefig(plot = g_solofit_gamma, height = 20, ratio = 1.5,
         filename = paste0(filename_base, "-solo-fit-gamma"))
 savefig(plot = g_solofit_linear, height = 20, ratio = 1.5,

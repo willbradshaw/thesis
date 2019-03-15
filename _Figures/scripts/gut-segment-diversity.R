@@ -111,9 +111,39 @@ g_beta_scaled <- gplot_grid(g_beta_age_scaled, g_beta_group_scaled)
 
 # Cross-combine alpha and beta spectra with single legend
 g_alpha_beta_age <- gplot_grid_onelegend(g_alpha_age, g_beta_age_scaled,
-                                         15, 30)
+                                         plot_height = 15, plot_width = 30)
 g_alpha_beta_group <- gplot_grid_onelegend(g_alpha_group, g_beta_group_scaled,
-                                           15, 30)
+                                           plot_height = 15, plot_width = 30)
+
+# Solo spectra
+
+g_solo_age <-  ggplot(tab_solo_age) + 
+  geom_line(aes(x=Q, y=D, colour = AGE_WEEKS, group = INDIVIDUAL)) + 
+  geom_ribbon(aes(x=Q, ymin = D_LOWER, ymax = D_UPPER, 
+                  fill = AGE_WEEKS, group = INDIVIDUAL), alpha = 0.4) +
+  facet_wrap(~AGE_WEEKS, scales = "free") +
+  xlab("Diversity order (q)") + 
+  ylab(expression(Diversity~(""[q]*D))) +
+  xlim(c(0,4)) + ylim(c(0,120)) +
+  scale_colour_manual(values = palette, name = "Age group (weeks)") +
+  scale_fill_manual(values = palette, name = "Age group (weeks)") +
+  theme_classic() + theme_base +
+  theme(legend.title = element_text(margin = margin(r = 1, unit = "cm")))
+
+g_solo_group <-  ggplot(tab_solo_group) + 
+  geom_line(aes(x=Q, y=D, colour = GROUP, group = INDIVIDUAL)) + 
+  geom_ribbon(aes(x=Q, ymin = D_LOWER, ymax = D_UPPER, 
+                  fill = GROUP, group = INDIVIDUAL), alpha = 0.4) +
+  facet_wrap(~GROUP, scales = "free") +
+  xlab("Diversity order (q)") + 
+  ylab(expression(Diversity~(""[q]*D))) +
+  xlim(c(0,4)) + ylim(c(0,120)) +
+  scale_colour_manual(values = palette, name = "Treatment group") +
+  scale_fill_manual(values = palette, name = "Treatment group") +
+  theme_classic() + theme_base +
+  theme(legend.title = element_text(margin = margin(r = 1, unit = "cm")))
+
+g_solo <- gplot_grid(g_solo_age, g_solo_group, ncol = 1, nrow = 2)
 
 #------------------------------------------------------------------------------
 # SAVE SPECTRA
@@ -219,6 +249,8 @@ g_solofit_group <- plot_solo_diversity(tab_solo_group, qvals, "GROUP",
 #------------------------------------------------------------------------------
 
 # Group spectrum plots
+savefig(g_solo, paste0(filename_base, "-solo-spectra"),
+        height = 25, width = 25)
 savefig(plot = g_alpha, filename = paste0(filename_base,"-alpha"),
         height = 15, width = 30)
 savefig(plot = g_beta_scaled, filename = paste0(filename_base,"-beta"),

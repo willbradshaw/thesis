@@ -80,10 +80,7 @@ In order to test the significance of these differences in clonal diversity betwe
 \label{fig:igseq-ageing-clone-diversity-solo-fit-gamma}
 \end{figure}
 
-While a significant decline in clonal diversity was age was found at various diversity orders, no such decline was observed in the VJ-repertoires of the different age-groups, either when visually comparing the alpha-spectra (\Cref{fig:igseq-ageing-VJ-diversity-alpha}) or statistically comparing the distributions at different diversity orders (\Cref{fig:igseq-ageing-VJ-diversity-solo-fit-gamma}). This marked difference between the clonal and VJ repertoires is at first surprising, as a distortion in the clonal repertoire caused by an increased dominance of a few large clones might be expected to cause a similar distortion in the VJ repertoire by expanding those dominant clones' V/J combinations; however, given that an average of \embed{_Figures/txt/ageing-pc-seq-in-small-clones-avg.txt}\,\% of unique sequences in the repertoire are contained in small clones of fewer than 5 unique sequences (\Cref{fig:igseq-ageing-pc-seq-in-small-clones}), and that this average does not change significantly with age (Kruskal-Wallis analysis of variance, $p=\embed{_Figures/txt/ageing-pc-seq-in-small-clones-kruskal-p.txt}$), it may simply be the case that any age-related change in VJ-diversity arising from the minority of sequences in expanded clones is dominated by an absence of change in the V/J-usage distribution of \naive B-cells. % TODO: To test this hypothesis...
-
-% TODO: Test diversity of activated clones
-% TODO: Test change in V/J usage entropy with age with IGoR
+While a significant decline in clonal diversity was age was found at various diversity orders, no such decline was observed in the VJ-repertoires of the different age-groups, either when visually comparing the alpha-spectra (\Cref{fig:igseq-ageing-VJ-diversity-alpha}) or statistically comparing the distributions at different diversity orders (\Cref{fig:igseq-ageing-VJ-diversity-solo-fit-gamma,fig:igseq-ageing-vj-diversity-solo-spectra}). This marked difference between the clonal and VJ repertoires is at first surprising, as a distortion in the clonal repertoire caused by an increased dominance of a few large clones might be expected to cause a similar distortion in the VJ repertoire by expanding those dominant clones' V/J combinations; however, given that an average of \embed{_Figures/txt/ageing-pc-seq-in-small-clones-avg.txt}\,\% of unique sequences in the repertoire are contained in small clones of fewer than 5 unique sequences (\Cref{fig:igseq-ageing-pc-seq-in-small-clones}), and that this average does not change significantly with age (Kruskal-Wallis analysis of variance, $p=\embed{_Figures/txt/ageing-pc-seq-in-small-clones-kruskal-p.txt}$), it may simply be the case that any age-related change in VJ-diversity arising from the minority of sequences in expanded clones is dominated by an absence of change in the V/J-usage distribution of \naive B-cells. To test this hypothesis, I repeated the estimation of VJ-diversity spectra while excluding small clones (containing fewer than five unique sequences); as expected, a clear pattern of reduced alpha-diversity with age emerges (\Cref{fig:igseq-ageing-VJ-diversity-alpha}), with significant declines in diversity with age observed across all diversity orders tested (\Cref{fig:igseq-ageing-VJ-diversity-large-solo-fit-gamma}).
 
 \begin{figure}
 \centering
@@ -107,7 +104,43 @@ While a significant decline in clonal diversity was age was found at various div
 \label{fig:igseq-ageing-VJ-diversity-solo-fit-gamma}
 \end{figure}
 
-While the alpha-diversity of the VJ-repertoire (reflecting average diversity within each individual repertoire) does not appear to change with age in the turquoise killifish, the beta-diversity (reflecting inter-individual variability in VJ-expression) shows dramatic differences between age groups, especially at higher diversity orders (\Cref{fig:igseq-ageing-VJ-diversity-beta}): while the diversity of the 5.5- and 8-week-old groups is close to the theoretical minimum for that sample size, the 10.5-week-old group exhibits a substantial increase in inter-individual variability across a wide range of diversity orders, and the 18-week old group shows an even more dramatic increase. This increase in inter-individual diversity with age is corroborated by inter-individual RDI distances computed on VJ-repertoires within each age group: both the overall distribution of inter-individual distances (\Cref{fig:igseq-ageing-rdi-VJ-individual-groupdist-all}), and the distribution of nearest-neighbour distances within each age group (\Cref{fig:igseq-ageing-rdi-VJ-individual-groupdist-nn}), increase significantly with age. This tendency for individuals from increasing age groups to become more distinct in their VJ-repertoires can also be observed using principal co-ordinate analysis:  in \Cref{fig:igseq-ageing-rdi-VJ-individual-pcoa-facet}, the great majority of individuals from younger age groups are visibly more tightly clustered than those from older age groups, which drift apart progressively as age-at-death increases. As in ageing humans (\Cref{sec:intro_immunosenescence}), therefore, the ageing killifish appears to become more individualised and distinct in its antibody repertoire, presumably as the result of an accumulating history of unique individual responses to antigen exposure.
+\begin{figure}
+\centering
+\includegraphics[width = 0.8\textwidth]{_Figures/png/ageing-VJ-diversity-vlarge-alpha-beta}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
+\label{fig:igseq-ageing-VJ-diversity-large-alpha}
+\end{subfigure}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
+\label{fig:igseq-ageing-VJ-diversity-large-beta}
+\end{subfigure}
+\caption[VJ-diversity spectra for large clones in the \igseq ageing dataset]{\textbf{VJ-diversity spectra for non-singleton clones in the \igseq ageing dataset:} Bootstrapped Hill diversity spectra of VJ usage (as measured by number of unique sequences per unambiguous V/J combination) over individuals for each age group in the \igseq ageing dataset, excluding clonal groups with fewer than five unique sequences. (A) Alpha-diversity across individuals; (B) Beta-diversity across individuals, rescaled to between 0 (minimum) and 1 (maximum) in accordance with the number of individuals in each age group. Shaded regions in both subfigures represent 95\,\% confidence intervals, estimated using bootstrapping.}
+\label{fig:igseq-ageing-VJ-diversity-large-spectra}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width = 0.8\textwidth]{_Figures/png/ageing-VJ-diversity-vlarge-solo-fit-gamma}
+\caption[Comparing VJ alpha-diversities between age groups for large clones in the \igseq ageing dataset]{\textbf{Comparing VJ alpha-diversities between age groups for non-singleton clones in the \igseq ageing dataset:} Boxplots of Hill diversity values for the VJ repertoires of individuals of each age group in the \igseq ageing dataset at a sample of diversity orders, excluding clonal groups with fewer than five unique sequences, overlaid with the predictions of the best-fit Gamma-distributed generalised linear model at each order.  Annotated $p$-values indicate the statistical significance of the estimated age effect on diversity under the GLM ($P(GLM)$) and a Kruskal-Wallis test ($P(KWT)$) for each diversity order.}
+\label{fig:igseq-ageing-VJ-diversity-large-solo-fit-gamma}
+\end{figure}
+
+\begin{wraptable}{r}{6.5cm}
+\caption{Unique nonfunctional sequences available for model inference with \program{IGoR}}\label{tab:igseq-ageing-igor-seqs}
+\input{_Figures/tables/igseq-ageing-igor-seqs}
+\end{wraptable}
+
+The finding that a significant age-related change in VJ-alpha-diversity is only observed when small clones are excluded suggests that, while a the secondary antibody repertoire changes significantly with age in the turquoise killifish, the primary generative process does not, at least as far as its statistical composition is concerned. To test this, I inferred generative models for each age group with \program{IGoR} in the manner described in \Cref{sec:igseq_pilot_generative}. Following consensus-sequence inference across clones and discarding of functional sequences, the number of sequences available per individual for this purpose ranged from \embed{_Figures/txt/igseq-ageing-igor-seqs-min.txt} to \embed{_Figures/txt/igseq-ageing-igor-seqs-max.txt}; all far too low to infer a reliable model with \program{IGoR}. However, pooling these repertoires by age group yielded over 5000 unique sequences for the first three age groups, though the oldest, smallest group yielded only c. 700 sequences total (\Cref{tab:igseq-ageing-igor-seqs}). I therefore investigated the entropy composition of the generative repertoire for the first three age groups in the dataset (\Cref{fig:igseq-pilot-igor-entropies}). The results supported the hypothesis that the generative process remains intact throughout the killifish lifespan, with very similar entropy compositions for all three age groups; neither the total entropy nor any of the major components differs by as much as 1 bit between any two of the three models. Consistent with this, the segment-choice, insertion, and deletion distributions inferred for the generative process are highly similar across all individuals and age groups, despite the very small size of many of the datasets used for many of these models (\Cref{fig:igseq-ageing-igor-segments,fig:igseq-ageing-igor-indels}).
+
+\begin{figure}
+\centering
+\includegraphics[width = \textwidth]{_Figures/png/ageing-igor-entropies}
+\caption[Entropy composition of the killifish generative repertoire in different age groups]{\textbf{Entropy composition of the killifish generative repertoire in different age groups:} Entropy composition of different diversification mechanisms in the generative process of the turquoise-killifish antibody repertoire, inferred using \program{IGoR} for the first three age groups in the \igseq pilot dataset. ``VD len'' and ``DJ len'' denote sequence variability arising from the number of N-insertions, while ``VD nts'' and ``DJ nts'' refer to variability in the nucleotide sequences so inserted; ``delV'', ``delD'' and ``delJ'' refer to variability arising from deleted (or P-inserted) nucleotides at the boundaries of the selected gene segments. The fourth age group in the dataset (128 days) contained too few nonfunctional sequences to fit a reliable model.}
+\label{fig:igseq-pilot-igor-entropies}
+\end{figure}
+
+While the alpha-diversity of the entire VJ-repertoire (reflecting average diversity within each individual repertoire) does not change significantly with age in the turquoise killifish, the beta-diversity (reflecting inter-individual variability in VJ-expression) shows dramatic differences between age groups, especially at higher diversity orders, for both the entire repertoire (\Cref{fig:igseq-ageing-VJ-diversity-beta}), and the subset of the repertoire contained in large clones (\Cref{fig:igseq-ageing-VJ-diversity-large-beta}): in both cases, while the diversity of the 5.5-week-old group is close to the theoretical minimum for that sample size, the 10.5-week-old group exhibits a substantial increase in inter-individual variability across a wide range of diversity orders, and the 18-week old group shows an even more dramatic increase. This increase in inter-individual diversity with age is corroborated by inter-individual RDI distances computed on VJ-repertoires within each age group: both the overall distribution of inter-individual distances (\Cref{fig:igseq-ageing-rdi-VJ-individual-groupdist-all}), and the distribution of nearest-neighbour distances within each age group (\Cref{fig:igseq-ageing-rdi-VJ-individual-groupdist-nn}), increase significantly with age. This tendency for individuals from increasing age groups to become more distinct in their VJ-repertoires can also be observed using principal co-ordinate analysis:  in \Cref{fig:igseq-ageing-rdi-VJ-individual-pcoa-facet}, the great majority of individuals from younger age groups are visibly more tightly clustered than those from older age groups, which drift apart progressively as age-at-death increases. As in ageing humans (\Cref{sec:intro_immunosenescence}), therefore, the ageing killifish appears to become more individualised and distinct in its antibody repertoire, presumably as the result of an accumulating history of unique individual responses to antigen exposure.
 
 \begin{figure}
 \centering
@@ -138,10 +171,6 @@ While the alpha-diversity of the VJ-repertoire (reflecting average diversity wit
 \caption[Inter-individual VJ-RDI distances in the \igseq ageing dataset, part 2]{\textbf{Inter-individual VJ-RDI distances in the \igseq ageing dataset, part 2:}Principal co-ordinate analysis (PCoA) of pairwise inter-individual VJ-RDI distances in the \igseq ageing dataset, coloured by age group and displayed together (A) or separately by age group (B).}
 \label{fig:igseq-ageing-rdi-VJ-individual-pcoa}
 \end{figure}
-
-% TODO: IGoR parameters and entropy with age
-
-% TODO: Conclusion: effects of ageing on repertoire composition in TK
 
 \FloatBarrier
 \clearpage
