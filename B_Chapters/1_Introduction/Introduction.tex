@@ -16,13 +16,6 @@
 \section{Overview}
 \label{sec:intro_overview}
 
-\newabbreviation{DNA}{DNA}{deoxyribonucleic acid}
-\newabbreviation{BCR}{BCR}{B-cell receptor}
-\newabbreviation{IGH}{IGH}{Immunoglobulin heavy chain}
-\newabbreviation{IgSeq}{IgSeq}{Immunoglobulin sequencing}
-\newabbreviation{e.g.}{e.g.}{\textit{exempli gratia} (for example)}
-\newabbreviation{i.e.}{i.e.}{\textit{id est} (that is to say)}
-
 All organisms exist in a state of intense competition for resources. For many organisms, among the most dangerous competitors are parasites, which attempt to colonise the host's own body and co-opt its internal resources and systems to their own advantage. The evolutionary arms race between parasites and hosts is ancient, and has led to the development of a stunning variety of complex offensive and defensive adaptations on each side \parencite{jack2015evolution}. Immunology has therefore had a profound effect on evolution.
 
 One of the most complex and sophisticated systems developed as part of this ancient host/parasite conflict is the vertebrate adaptive immune system. By dynamically recombining their own DNA within specialised lymphocyte cells (\Cref{sec:intro_immunity_primary}), jawed vertebrates are capable of producing an almost unlimited variety of different \textit{de novo} antigen-receptor proteins, and hence of responding effectively to entirely novel immune threats \parencite{jack2015evolution}. In addition, by producing long-lived memory cells in response to antigenic stimulation, the adaptive immune system can retain the ability to respond to recurrent immune threats years or even decades after they were first encountered by an individual \parencite{kurosaki2015memory} (\Cref{sec:intro_affinity_maturation}). This combination of dynamic adaptability to novel immune threats and persistent immune memory enables vertebrates to progressively improve their protection against predictable aspects of their immune environment \parencite{mayer2018memory}, while also coping effectively with the rapid evolution which is one of the main advantages of bacterial and viral pathogens over their slower-evolving hosts.
@@ -44,24 +37,6 @@ In this thesis, therefore, I establish the turquoise killifish as a model for th
 
 \subsection{Antibody structure and function}
 \label{sec:intro_antibody_structure}
-
-\newabbreviation{IGL}{IGL}{Immunoglobulin light chain}
-\newabbreviation{CDR}{CDR}{Complementarity-determining region}
-\newabbreviation{FR}{FR}{Framework region}
-\newabbreviation{FWR}{FWR}{Framework region}
-\newabbreviation{TM}{TM}{Transmembrane exon}
-\newabbreviation{CH}{CH}{Heavy-chain constant-region exon}
-\newabbreviation{CM}{CM}{IGHM constant-region exon}
-\newabbreviation{CD}{CD}{IGHD constant-region exon}
-\newabbreviation{CZ}{CZ}{IGHZ constant-region exon}
-\newabbreviation[sort=Cmu]{cm1}{\cm{}}{IGHM constant-region exon}
-\newabbreviation[sort=Cdelta]{cd1}{\cd{}}{IGHD constant-region exon}
-\newabbreviation[sort=Czeta]{cz1}{\cz{}}{IGHZ constant-region exon}
-\newabbreviation{CSR}{CSR}{Class-switch recombination}
-\newabbreviation{IGHM}{IGHM}{Immunoglobulin M}
-\newabbreviation{IGHD}{IGHD}{Immunoglobulin D}
-\newabbreviation{IGHZ}{IGHZ}{Immunoglobulin Z}
-\newabbreviation{IGHT}{IGHT}{Immunoglobulin T (equivalent to IGHZ)}
 
 The lineage of lymphocytic white blood cells known as B-cells is ancient, with its origins predating any modern jawed-vertebrate lineage and possibly the development of antibodies themselves \parencite{boehm2011design,kasahara2015vlr}. In modern jawed vertebrates, B-lymphocytes are responsible for the production, diversification and secretion of the antigen-receptor proteins known as antibodies \parencite{mix2006immunoglobulins,schroeder2010immunoglobulins}, as well as diverse other roles that vary between taxa \parencite{sunyer2013fishing}. In almost all species examined to date, antibodies share a common, and highly distinctive, tetrameric structure (\Cref{fig:intro-antibody-structure-schematic}), with two identical immunoglobulin heavy chains (IGH) and two light chains (IGL) linked by disulfide bonds into a roughly Y-shaped configuration \parencite{mix2006immunoglobulins,schroeder2010immunoglobulins}. The sequence and structure of these chains, and the corresponding regions of their underlying gene loci, is divided into an N-terminal (5') variable region and a C-terminal (3') constant region \parencite{mix2006immunoglobulins} (\Cref{fig:intro-antibody-structure-schematic}); together, the variable regions of each light/heavy-chain pair determines the antigen-binding specificity of the antibody, while the constant regions, particularly that of the heavy chain, determine its structure, functional properties, and interactions with the rest of the immune system \parencite{mix2006immunoglobulins,schroeder2010immunoglobulins}. Unsurprisingly, the sequence diversity of the constant region is far lower than that of the variable region, with most species expressing only a few distinct constant-region classes (or \textit{isotypes}) but an almost unlimited variety of variable-region sequences (or \textit{ideotypes}).
 
@@ -104,16 +79,6 @@ Of the two types of chain comprising the antibody protein, the heavy chain has b
 
 \subsection{Antibody sequence diversification and primary repertoire diversity}
 \label{sec:intro_immunity_primary}
-
-\newabbreviation{VH}{VH}{Heavy-chain variable (gene segment)}
-\newabbreviation{DH}{DH}{Heavy-chain diversity (gene segment)}
-\newabbreviation{JH}{JH}{Heavy-chain joining (gene segment)}
-\newabbreviation{UTR}{UTR}{Untranslated region}
-\newabbreviation{RAG}{RAG}{Recombination-activating gene}
-\newabbreviation{RSS}{RSS}{Recombination signal sequence}
-\newabbreviation{NHEJ}{NHEJ}{Non-homologous end-joining}
-\newabbreviation{TdT}{TdT}{Terminal dideoxy transferase}
-
 
 The immune environment encountered by a vertebrate organism contains an enormous number of different potential pathogenic threats, each of which has its own antigenic signatures and many of which are capable of evolving much more rapidly than the vertebrate host \parencite{jack2015evolution}. In order for the adaptive immune system to cope with this huge diversity of different threats, it must be able to produce antibodies with a correspondingly large diversity of different antigen specificities. The greater the potential diversity of antibody sequences available to the adaptive immune system, the greater its capacity to respond effectively to novel immune threats. In reality, the mechanisms employed by the vertebrate adaptive immune system to diversify its antigen receptors enable an almost unlimited diversity of potential antibody sequences, with a correspondingly vast array of potential antigen specificities \parencite{mora2016quantifying}.
 
@@ -201,14 +166,6 @@ The number of D-regions in the medaka locus is not provided in the sources.}
 \subsection{Affinity maturation and secondary repertoire diversity}
 \label{sec:intro_affinity_maturation}
 
-\newabbreviation{SHM}{SHM}{somatic hypermutation}
-\newabbreviation{AID}{AID}{activation-induced cytidine deaminase}
-\newabbreviation{FDC}{FDC}{follicular dendritic cell}
-\newabbreviation{GALT}{GALT}{gut-associated lymphoid tissue}
-\newabbreviation{HSC}{HSC}{haematopoietic stem cell}
-\newabbreviation{c}{c.}{\textit{circa} (approximately)}
-\newabbreviation{etc}{etc.}{\textit{et cetera} (and so on)}
-
 Following VDJ recombination and primary selection, developed \naive B-cells emerge from the primary lymphoid organs and circulate in the periphery. At some point, a subset of these \naive cells will make contact with their cognate antigen. If this contact occurs in the correct signalling context (e.g. in the presence of T-cell help for T-dependent responses \parencite{sompayrac2019immune}), the B-cell becomes activated and begins to proliferate \parencite{dunnwalters2010bcellageing}. During this clonal expansion process, the B-cell's antibody genes undergo a very high rate of somatic mutation (known as \textit{somatic hypermutation} or SHM), with mutations focused in the complementarity-determining regions coding for the antigen-binding loops of the variable region; in mammals, the rate can be as high as $10^{-3}$ per nucleotide per cell division \parencite{noia2007shm}. This SHM process is orchestrated by the activation-induced cytidine deaminase enzyme (AID), which preferentially targets particular hotspot motifs (canonically  RGYW/WRCY and WA/TW) and deaminates cytidine residues to uracil, which can either be corrected to thymine on DNA replication (resulting in a C-to-T transition mutation) or removed via base-excision repair (resulting in a variety of other mutations) \parencite{magor2015affinity}. As a result, the original antibody sequence of the ancestral \naive cell is diversified into a cluster of related sequences, with widely varying affinity for the cognate antigen.
 
 In order for the combination of clonal expansion and somatic hypermutation to improve the adaptive immune system's ability to respond to the stimulating antigen, the resulting clone needs to undergo a selection process, to identify and advantage cells expressing antibodies with improved antigen affinity. This selection is effected through a competitive process in which clonally-expanded B-cells attempt to bind cognate antigen trapped on the surface of helper cells: those cells which successfully bind antigen receive growth and differentiation signals, while those which do not undergo programmed cell death. In mammals, this process takes place primarily in histologically-distinct germinal centres within specialised secondary lymphoid organs such as the spleen \parencite{victora2012gc}, in which B-cells that have encountered antigen first undergo clonal expansion and SHM, then compete for antigen on the surface of follicular dendritic cells (FDCs) \parencite{howard2006quality,victora2012gc}. In teleosts, which lack specialised, histologically-differentiated germinal centres, B-cell proliferation takes place near clusters of melanomacrophages surrounded by reticular cells, both of which have been attributed an antigen-trapping and -presentation role analogous to that performed by FDCs in mammals \parencite{magor2015affinity}.
@@ -255,10 +212,6 @@ In addition to this lack of spatial resolution in our knowledge of antibody repe
 
 \section{The African turquoise killifish as a model for vertebrate ageing}
 \label{sec:intro_killifish}
-
-\newabbreviation[sort=N. furzeri]{nfu}{\textit{N. furzeri}}{\nfu}
-\newabbreviation{GRZ}{GRZ}{Strain of \Nfu (derived from Gonarezhou National Park, Zimbabwe)}
-\newabbreviation{GRZ-AD}{GRZ-AD}{Substrain of GRZ}
 
 The genus \textit{Nothobranchius} comprises a broad group of annual freshwater fishes distributed across equatorial and subequatorial Africa \parencite{valdesalici2003lifespan}, with species diversity concentrated in the south-east of the continent \parencite{genade2005annual}. Members of this genus share a suite of adaptations to life in ephemeral pools and rivers, most notably the production of desiccation-resistant embryos capable of surviving through the dry season in a diapause state \parencite{genade2005annual} (\Cref{fig:intro-killifish-life-cycle}). Fish from this genus have been known for several decades to  exhibit very rapid growth and short lifespans, consistent with their evolving under conditions of very high extrinsic mortality \parencite{valdesalici2003lifespan}, with many species exhibiting a median lifespan of less than one year. Nevertheless, there is wide variation within the genus in body size, growth rate and lifespan, with species from less arid regions tending to show slower growth and longer median lifespans \parencite{genade2005annual}.
 

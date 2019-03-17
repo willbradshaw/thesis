@@ -20,7 +20,8 @@ SmartNNNa & AAGCAGUGGTAUCAACGCAGAGUNNNNUNNNNUNNNNUCTTrGrGrGrG & \parencite{turch
 \begin{threeparttable}
 \begin{tabular}{cp{7cm}cccc}\toprule
 \textbf{Name} & \textbf{Sequence} & \textbf{Purpose} & \textbf{Source}\tnote{a} \\\midrule
-RT1 & TGGTCTTGCCAGCTGGTGATTTCCGCC & \igseq \cm{2} RT\tnote{b}~primer & -- \\\midrule
+\multirow{2}{*}{RT1} & \multirow{2}{*}{TGGTCTTGCCAGCTGGTGATTTCCGCC} & \igseq \cm{2} & \multirow{2}{*}{--} \\
+ & & reverse-transcription primer & \\\midrule
 M1SS & AAGCAGTGGTATCAACGCA & \igseq PCR1 forward primer & \parencite{turchaninova2016igprep} \\
 IGH-B & CCACATGGCACCAGAGGAAAC & \igseq PCR1 reverse primer & --\\
 M1S+P2 & GTGACTGGAGTTCAGACGTGTGCTCTTC--CGATCTCAGTGGTATCAACGCAGAG  & \igseq PCR2 forward primer & \parencite{turchaninova2016igprep} \\ % Plus Illumina adapters
@@ -28,7 +29,7 @@ IGH-C+P1 & ACACTCTTTCCCTACACGACGCTCTTC--CGATCTATGGCACCAGAGGAAACACAAC & \igseq PC
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
-\item[a] Items without a specified source were designed by the author using Primer3, as described in ... % TODO: Reference primer3 methods section
+\item[a] Items without a specified source were designed by the author using \program{Primer3} \parencite{untergasser2012primer3}.
 \item[b] Reverse-transcription
 \end{tablenotes}
 \end{threeparttable}
@@ -37,7 +38,7 @@ IGH-C+P1 & ACACTCTTTCCCTACACGACGCTCTTC--CGATCTATGGCACCAGAGGAAACACAAC & \igseq PC
 \section{Illumina TruSeq adaptor sequences}
 \label{app:oligos_illumina}
 
-\subsection*{P1/i5 adaptor sequences}
+\subsection{P1/i5 adaptor sequences}
 
 \begin{tabular}{rm{10cm}}
 \textbf{Base sequence:} & AATGATACGGCGACCACCGAGATCTACAC\textbf{NNNNNNNN}--ACACTCTTTCCCTACACGACGC\\
@@ -65,7 +66,7 @@ D508 & GTCAGTAC\\
 \end{center}
 % TODO: Correct source
 
-\subsection*{P2/i7 adaptor sequences}
+\subsection{P2/i7 adaptor sequences}
 
 \begin{tabular}{rm{10cm}}
 \textbf{Base sequence:} & ACAAGCAGAAGACGGCATACGAGAT\textbf{NNNNNNNN}--GTGACTGGAGTTCAGACGTGTGC\\

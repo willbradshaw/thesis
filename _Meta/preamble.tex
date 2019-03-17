@@ -375,7 +375,8 @@
 
 
 % Program/package names and code snippets
-\newcommand{\program}[2][bash]{\lstinline[language=#1]{#2}} %[]
+\newcommand{\program}[1]{#1}
+%\newcommand{\program}[2][bash]{\lstinline[language=#1]{#2}} %[]
 \newcommand{\snippet}[2][bash]{\lstinline[language=#1]{#2}} %[]
 
 % IGH locus components
@@ -386,7 +387,9 @@
 \newcommand{\ch}{CH\xspace}
 
 % File formats
-\newcommand{\fmt}[1]{\texttt{\MakeUppercase{#1}}}
+%\newcommand{\fmt}[1]{\texttt{\MakeUppercase{#1}}}
+\newcommand{\fmt}[1]{\MakeUppercase{#1}}
+\newcommand{\format}[1]{\fmt{#1}}
 
 % Sequence
 \newcommand{\sequence}[1]{\texttt{\MakeUppercase{#1}}}
