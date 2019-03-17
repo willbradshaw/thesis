@@ -11,7 +11,7 @@ The question of how to measure the diversity of clones or sequences within an an
 \subsection{Terminology}
 \label{app:diversity-unitary-terminology}
 
-Though in this appendix I use terminology derived from the ecological literature, the concepts and measured discussed here can be applied to any situation in which a set (or \textit{population}) of elements (\textit{individuals}) is partitioned among some number of mutually-exclusive categories (\textit{species}). Considered abstractly, these terms and denotations could be used to refer to coloured balls in an urn, species in a rainforest, or sequences in a repertoire.
+Though in this appendix I use terminology derived from the ecological literature, the concepts and measures discussed here can be applied to any situation in which a set (or \textit{population}) of elements (\textit{individuals}) is partitioned among some number of mutually-exclusive categories (\textit{species}). Considered abstractly, these terms and denotations could be used to refer to coloured balls in an urn, species in a rainforest, or sequences in a repertoire.
 
 Let $X$ be a unitary population of individuals, each of which is assigned to some species $s$ from a set of possible species $S$. The term ``unitary'' here denotes that $X$ has no internal structure except the species identity of its constitutent individuals. Let $n_s$ denote the number of individuals in $X$ belonging to $s$, and $N$ denote the total number of individuals in $X$. Then 
 
@@ -158,14 +158,12 @@ D_\beta = \frac{D_\gamma}{D_\alpha}
 
 In the rest of this section, I will primarily consider only subpopulations with equal sizes $N_X = \frac{N}{M}$ and equal weights $w = \frac{1}{M}$, as this is how they are used in the repertoire-diversity methods discussed in \Cref{sec:methods_comp_igdownstream_spectra} and \Cref{chap:igseq}. Equal-sized and -weighted populations can be produced by downsampling each subpopulation to the same number of individuals (in the \igseq case, by downsampling each repertoire to the same number of unique sequences) prior to calculating the diversity of the population.
  
-\subsubsection{Calculating alpha, beta, and gamma}
+\subsection{Calculating alpha, beta, and gamma}
 \label{app:diversity-structured-calc}
 
 The alpha, beta and gamma diversities of structured populations can be calculated analogously to the unitary true diversities discussed in \Cref{app:diversity-unitary-hill}. In this framework, the alpha diversity represents the effective number of equally-abundant species present in the ``average'' subpopulation drawn from $C$, while the gamma diversity represents the effective number of such species present in the population as a whole (ignoring subpopulation membership). Beta diversity also represents an effective number of groupings, but in this case the unit is subpopulations rather than species: given an alpha diversity value for $C$, the beta diversity gives the number of equally-weighted subpopulations, with no species in common, that would give rise to the gamma diversity of $C$.
 
-Under this framework, the diversities of order $q$ for a structured population $C$ are given by
-
-% TODO: Cite or explain these equations
+Under this framework, the diversities of order $q$ for a structured population $C$ are given \parencite{jost2007partitioning} by
 
 \begin{equation}
 ^qD_\gamma(C)
@@ -251,7 +249,7 @@ Under this framework, the diversities of order $q$ for a structured population $
 \label{eq:diversity_beta_q1}
 \end{equation}
 
-\subsubsection{Rescaling beta diversity}
+\subsection{Rescaling beta diversity}
 \label{app:diversity-structured-rescaling}
 
 As discussed in \Cref{app:diversity-structured-calc}, while alpha  and gamma diversity are expressed in terms of an effective number of species (in an average subpopulation and the entire structured population, respectively), beta diversity is expressed in terms of an effective number of subpopulations. Since the effective number of subpopulations is determined in part by the actual number of subpopulations, this means that the beta diversity, unlike alpha and gamma diversity, is directly dependent on the number of subpopulations $M$. If two different structured populations contain different numbers of subpopulations, it is therefore not possible to compare their beta diversity values directly; rather, the beta diversity spectra of the populations must be \textit{rescaled} to a common range before such a comparison is performed.
