@@ -29,10 +29,10 @@
 % To use choose `chapter' option in the document class
 
 \ifdefineChapter
-	%\includeonly{B_Chapters/1_Introduction/Introduction}
-	%\includeonly{B_Chapters/2_Methods/Methods,C_Appendices/Solutions,C_Appendices/Primers,C_Appendices/Diversity,C_Appendices/Tables}
-	%\includeonly{B_Chapters/3_Locus/Locus,C_Appendices/Figures,C_Appendices/Tables}
-	\includeonly{B_Chapters/4_IgSeq/IgSeq,C_Appendices/Diversity,C_Appendices/Figures,C_Appendices/Tables}
+	%\includeonly{B_Chapters/1_Introduction}
+	%\includeonly{B_Chapters/2_Methods,C_Appendices/Solutions,C_Appendices/Primers,C_Appendices/Diversity,C_Appendices/Tables}
+	%\includeonly{B_Chapters/3_Locus,C_Appendices/Figures,C_Appendices/Tables}
+	\includeonly{B_Chapters/4_IgSeq,C_Appendices/Diversity,C_Appendices/Figures,C_Appendices/Tables}
 	%\includeonly{C_Appendices/Solutions,C_Appendices/Primers,C_Appendices/Diversity,C_Appendices/Figures,C_Appendices/Tables}
 \fi
 
@@ -71,38 +71,19 @@
 %% ******************************** Main Matter *********************************
 \mainmatter\onehalfspacing
 %
-\include{B_Chapters/1_Introduction/Introduction}
-\include{B_Chapters/2_Methods/Methods}
-\include{B_Chapters/3_Locus/Locus} 
-\include{B_Chapters/4_IgSeq/IgSeq}
+\include{B_Chapters/1_Introduction}
+\include{B_Chapters/2_Methods}
+\include{B_Chapters/3_Locus} 
+\include{B_Chapters/4_IgSeq}
 
 % ********************************** Back Matter *******************************
 % Backmatter should be commented out, if you are using appendices after References
 %\backmatter
 
 % ********************************** Bibliography ******************************
+
 \begin{spacing}{0.9}
-
-% To use the conventional natbib style referencing
-% Bibliography style previews: http://nodonn.tipido.net/bibstyle.php
-% Reference styles: http://sites.stat.psu.edu/~surajit/present/bib.htm
-
-%\bibliographystyle{apalike}
-%\bibliographystyle{unsrt} % Use for unsorted references 
-% TODO: Fix bibliography style 
-%\bibliographystyle{plainnat} % use this to have URLs listed in References
-%\cleardoublepage
-%\bibliography{D_References/igh-locus} % Path to your References.bib file
-%\bibliography{D_References/Locus} % Path to your References.bib file
-
-% If you would like to use BibLaTeX for your references, pass `custombib' as
-% an option in the document class. The location of 'reference.bib' should be
-% specified in the preamble.tex file in the custombib section.
-% Comment out the lines related to natbib above and uncomment the following line.
-
 \printbibliography[heading=bibintoc, title={References}]
-
-
 \end{spacing}
 
 % ********************************** Appendices ********************************

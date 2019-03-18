@@ -180,7 +180,8 @@ plot_solo_diversity <- function(tab, qvals, test_by = "AGE_WEEKS",
                                 reference = age_groups, palette = palette){
   ggplot(multi_filter(tab, qvals, test_by), aes(x=!!as.name(test_by), y=D)) +
     geom_boxplot(aes(fill = factor(!!as.name(test_by), levels = reference),
-                     group = !!as.name(test_by))) +
+                     group = !!as.name(test_by)), outlier.shape = NA) +
+    geom_point(alpha = 0.4, size = 2) +
     facet_wrap(~Q, scales = "free", labeller = function(q) label_both(q, sep = " = ")) +
     scale_fill_manual(values = palette, name = x_lab) +
     ylab("Diversity") + xlab(x_lab) + ylim(c(0, NA)) +

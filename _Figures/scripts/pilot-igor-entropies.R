@@ -136,13 +136,13 @@ bits2oom <- function(b) nats2oom(b/log2(exp(1)))
 
 # Killifish diversity
 d1_model_oom <- bits2oom(h_group %>% filter(level == 1) %>% pull(h))
-savetxt(d1_model_oom %>% round, paste0(filename_base, "-diversity-oom"))
+savetxt(d1_model_oom %>% floor, paste0(filename_base, "-diversity-oom"))
 
 # Human diversity range
 human_oom_low <- bits2oom(70)
 human_oom_high <- bits2oom(80)
-savetxt(human_oom_low %>% round, paste0(filename_base, "-human-oom-low"))
-savetxt(human_oom_high %>% round, paste0(filename_base, "-human-oom-high"))
+savetxt(human_oom_low %>% floor, paste0(filename_base, "-human-oom-low"))
+savetxt(human_oom_high %>% floor, paste0(filename_base, "-human-oom-high"))
 
 #------------------------------------------------------------------------------
 # SAVE TEXT OF ENTROPY OF DIFFERENT PROCESSES

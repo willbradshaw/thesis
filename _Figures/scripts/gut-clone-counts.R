@@ -187,8 +187,10 @@ tab_cl_all_counts_relative_melted <- tab_cl_all_counts_relative %>%
                            levels = c("CLONES_PER_UMI", "CLONES_PER_SEQUENCE"))
   )
 
-plot_metrics_relative <- ggplot(tab_cl_all_counts_relative_melted) + 
-  geom_boxplot(aes(x=variable, y=value, fill = EXPERIMENT)) + 
+plot_metrics_relative <- ggplot(tab_cl_all_counts_relative_melted,
+                                aes(x=variable, y=value)) + 
+  geom_boxplot(aes(fill = EXPERIMENT), outlier.shape = NA) +
+  geom_point(alpha = 0.4, size = 2) +
   scale_x_discrete(breaks = c("CLONES_PER_UMI", "CLONES_PER_SEQUENCE"),
                    labels = c("UMI groups", "Unique sequences")) +
   ylab("# per clone") +
