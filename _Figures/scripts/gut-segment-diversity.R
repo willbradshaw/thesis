@@ -125,7 +125,7 @@ g_solo_age <-  ggplot(tab_solo_age) +
   xlab("Diversity order (q)") + 
   ylab(expression(Diversity~(""[q]*D))) +
   xlim(c(0,4)) + ylim(c(0,120)) +
-  scale_colour_manual(values = palette, name = "Age group (weeks)") +
+  scale_colour_manual(values = palette_age, name = "Age group (weeks)") +
   scale_fill_manual(values = palette, name = "Age group (weeks)") +
   theme_classic() + theme_base +
   theme(legend.title = element_text(margin = margin(r = 1, unit = "cm")))
@@ -217,7 +217,9 @@ plot_solo_diversity <- function(tab, qvals, test_by = "AGE_WEEKS",
     facet_wrap(~Q, scales = "free", labeller = function(q) label_both(q, sep = " = ")) +
     scale_fill_manual(values = palette, name = x_lab) +
     ylab("Diversity") + xlab(x_lab) + ylim(c(0, NA)) +
-    theme_classic() + theme_base
+    theme_classic() + theme_base + theme(
+      legend.title = element_text(margin = margin(r = 1, unit = "cm"))
+    )
 }
 
 # Make boxplots and annotate with P-values
@@ -244,6 +246,9 @@ g_solofit_group <- plot_solo_diversity(tab_solo_group, qvals, "GROUP",
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 # No significant relationships here, so didn't add code for stars
 
+g_solofit_both <- gplot_grid(g_solofit_age, g_solofit_group, 
+                             ncol = 1, nrow = 2)
+
 #------------------------------------------------------------------------------
 # SAVE FIGURES
 #------------------------------------------------------------------------------
@@ -257,7 +262,9 @@ savefig(plot = g_beta_scaled, filename = paste0(filename_base,"-beta"),
         height = 15, width = 30)
 
 # Boxplots
-savefig(plot = g_solofit_age, height = 20, ratio = 1.5,
-        filename = paste0(filename_base, "-solo-age"))
-savefig(plot = g_solofit_group, height = 20, ratio = 1.5,
-        filename = paste0(filename_base, "-solo-groups"))
+# savefig(plot = g_solofit_age, height = 20, ratio = 1.5,
+#         filename = paste0(filename_base, "-solo-age"))
+# savefig(plot = g_solofit_group, height = 20, ratio = 1.5,
+#         filename = paste0(filename_base, "-solo-groups"))
+savefig(plot = g_solofit_both, height = 40, ratio = 3/4,
+        filename = paste0(filename_base, "-solo-boxplots"))

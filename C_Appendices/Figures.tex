@@ -35,6 +35,21 @@
 
 \begin{figure}
 \centering
+\includegraphics[width = 0.9\textwidth]{_Figures/png/pilot-read-survival-all.png}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
+\label{fig:igseq-pilot-read-survival-all-a}
+\end{subfigure}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
+\label{fig:igseq-pilot-read-survival-all-b}
+\end{subfigure}
+\caption[Read survival during pre-processing of \igseq pilot dataset, part 2]{\textbf{Read survival during pre-processing of \igseq pilot dataset, part 2:} Line graphs of absolute (A) and relative (B) read survival during pre-processing of the pilot \igseq dataset, up to and including clonotyping.}
+\label{fig:igseq-pilot-read-survival-all}
+\end{figure}
+
+\begin{figure}
+\centering
 \includegraphics[width=0.8\textwidth]{_Figures/png/pilot-clones-expansions-rep}
 \caption[Clonal expansions in \Nfu pilot repertoires]{\textbf{Clonal expansions in \Nfu pilot repertoires}: Scatter plots of clonal abundance for each replicate in the pilot \igseq dataset, measured in terms of the proportion of unique sequences in the repertoire ($x$-axis) and the abundance relative to the next-largest clone ($y$-axis). Thresholds for identifying clonal expansions (5\,\% and 3-fold for the $x$- and $y$-axis, respectively) suggested by Rosenfeld \textit{et al.} \parencite{rosenfeld2018clonesize}.}
 \label{fig:igseq-pilot-clones-expansions-rep}
@@ -56,8 +71,45 @@
 
 \begin{figure}
 \centering
+\includegraphics[width = 0.9\textwidth]{_Figures/png/ageing-functional-prop}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
+\label{fig:igseq-ageing-functional-prop-pre}
+\end{subfigure}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
+\label{fig:igseq-ageing-functional-prop-post}
+\end{subfigure}
+\caption[Functional composition and V-score filtering of \igseq ageing dataset]{\textbf{Functional composition and V-score filtering of \igseq ageing dataset:} Proportion of input reads, UMI groups and unique sequences in the \igseq ageing dataset belonging to different (non)functional categories, before (A) and after (B) filtering on V-alignment score.}
+\label{fig:igseq-ageing-functional-prop}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width = 0.8\textwidth]{/home/will/Documents/thesis/_Figures/png/ageing-nclones.png}
+\caption[Number of clones in the \igseq ageing dataset]{\textbf{Number of clones in the \igseq ageing dataset:} Boxplots of clonal counts for each individual in the \igseq ageing dataset, grouped by age at death. The apparent decline in clonal count with age is not significant (Kruskal-Wallis analysis of variance, $p=\embed{_Figures/txt/ageing-nclones-kruskal-p.txt}$).}
+\label{fig:igseq-ageing-nclones}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width = 0.9\textwidth]{_Figures/png/ageing-clone-sizes}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
+\label{fig:igseq-ageing-clone-sizes-sizes}
+\end{subfigure}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
+\label{fig:igseq-ageing-clone-sizes-reps}
+\end{subfigure}
+\caption[Clone size and cross-replicate reproducibility in the \igseq ageing dataset]{\textbf{Clone size and cross-replicate reproducibility in the \igseq ageing dataset:}(A) Proportion of clones of different sizes for each individual in the ageing dataset, measured in unique sequences per clone. (B) LOESS-smoothed curves \parencite{cleveland1992loess} showing proportion of clones of each size found across one or both replicates of the appropriate individual.}
+\label{fig:igseq-ageing-clone-sizes}
+\end{figure}
+
+\begin{figure}
+\centering
 \includegraphics[width = 0.8\textwidth]{_Figures/png/ageing-clone-diversity-solo-spectra}
-\caption[Per-individual clonal diversity spectra for ageing dataset]{\textbf{Per-individual clonal diversity spectra for ageing dataset:} Hill diversity spectra of clone sizes (as measured by number of unique sequences per clone) for each individual in the \igseq pilot dataset, grouped by age at death.}
+\caption[Per-individual clonal diversity spectra for ageing dataset]{\textbf{Per-individual clonal diversity spectra for ageing dataset:} Hill diversity spectra of clone sizes (as measured by number of unique sequences per clone) for each individual in the \igseq ageing dataset, grouped by age at death.}
 \label{fig:igseq-ageing-clone-diversity-solo-spectra}
 \end{figure}
 
@@ -78,7 +130,7 @@
 \begin{figure}
 \centering
 \includegraphics[width = 0.8\textwidth]{_Figures/png/ageing-VJ-diversity-solo-spectra}
-\caption[Per-individual clonal diversity spectra for ageing dataset]{\textbf{Per-individual clonal diversity spectra for ageing dataset:} Hill diversity spectra of VJ usage (as measured by number of unique sequences per V/J combination) for each individual in the \igseq pilot dataset, grouped by age at death.}
+\caption[Per-individual clonal diversity spectra for ageing dataset]{\textbf{Per-individual clonal diversity spectra for ageing dataset:} Hill diversity spectra of VJ usage (as measured by number of unique sequences per V/J combination) for each individual in the \igseq ageing dataset, grouped by age at death.}
 \label{fig:igseq-ageing-vj-diversity-solo-spectra}
 \end{figure}
 
@@ -131,6 +183,40 @@
 
 \begin{figure}
 \centering
+\includegraphics[width = 0.9\textwidth]{_Figures/png/gut-functional-prop}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
+\label{fig:igseq-gut-functional-prop-pre}
+\end{subfigure}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
+\label{fig:igseq-gut-functional-prop-post}
+\end{subfigure}
+\caption[Functional composition and V-score filtering of \igseq ageing dataset]{\textbf{Functional composition and V-score filtering of \igseq ageing dataset:} Proportion of input reads, UMI groups and unique sequences in the \igseq gut-microbiota-transfer dataset belonging to different (non)functional categories, before (A) and after (B) filtering on V-alignment score.}
+\label{fig:igseq-gut-functional-prop}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width = \textwidth]{_Figures/png/gut-read-survival-all-rin.png}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
+\label{fig:igseq-gut-read-survival-all-rin-abs}
+\end{subfigure}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
+\label{fig:igseq-gut-read-survival-all-rin-rel}
+\end{subfigure}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
+\label{fig:igseq-gut-read-survival-all-rin-scatter}
+\end{subfigure}
+\caption[Relationship between RNA integrity and read survival in the gut \igseq dataset]{\textbf{Relationship between RNA integrity and read survival in the gut \igseq dataset:} (A-B) Absolute (A) and relative (B) read survival during pre-processing of the \igseq gut-microbiota-transfer dataset, up to and including clonotyping, coloured by the RNA integrity number of each input sample. The dotted red line in (B) indicates the 30\% read-survival cutoff, below which samples are discarded prior to downstream analysis. (C) Scatterplot of RNA integrity number vs percentage read survival, up to and including clonotyping.}
+\label{fig:igseq-gut-read-survival-all-rin}
+\end{figure}
+
+\begin{figure}
+\centering
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-gut-clone-diversity-solo-spectra-age}
@@ -157,24 +243,4 @@
 \includegraphics[width = 0.8\textwidth]{_Figures/png/igseq-gut-VJ-diversity-solo-spectra}
 \caption[Per-individual VJ-diversity spectra for gut dataset]{\textbf{Per-individual VJ-diversity spectra for gut dataset:} Hill diversity spectra of VJ usage (as measured by number of unique sequences per V/J combination) for each individual in the \igseq gut dataset, grouped by (A) age at death and (B) treatment group.}
 \label{fig:igseq-gut-vj-diversity-solo-spectra}
-\end{figure}
-
-
-\begin{figure}
-\centering
-\includegraphics[width = \textwidth]{_Figures/png/gut-read-survival-all-rin.png}
-\begin{subfigure}{0em}
-\phantomsubcaption{}
-\label{fig:igseq-gut-read-survival-all-rin-abs}
-\end{subfigure}
-\begin{subfigure}{0em}
-\phantomsubcaption{}
-\label{fig:igseq-gut-read-survival-all-rin-rel}
-\end{subfigure}
-\begin{subfigure}{0em}
-\phantomsubcaption{}
-\label{fig:igseq-gut-read-survival-all-rin-scatter}
-\end{subfigure}
-\caption[Relationship between RNA integrity and read survival in the gut \igseq dataset]{\textbf{Relationship between RNA integrity and read survival in the gut \igseq dataset:} (A-B) Absolute (A) and relative (B) read survival during pre-processing of the \igseq gut-microbiota-transfer dataset, up to and including clonotyping, coloured by the RNA integrity number of each input sample. The dotted red line in (B) indicates the 30\% read-survival cutoff, below which samples are discarded prior to downstream analysis. (C) Scatterplot of RNA integrity number \textit{versus} percentage read survival, up to and including clonotyping.}
-\label{fig:igseq-gut-read-survival-all-rin}
 \end{figure}

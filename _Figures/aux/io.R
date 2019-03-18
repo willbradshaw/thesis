@@ -34,7 +34,7 @@ savefig <- function(plot, filename, device = c("svg", "png"), height = NA,
            height = height,
            width = ifelse(is.na(width), height * ratio, width),
            units = units,
-           dpi = dpi
+           dpi = dpi, limitsize = FALSE
     )
   }
 }

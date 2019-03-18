@@ -177,8 +177,9 @@ interrep_cor_avg <- tab_cl_cor %>% pull(R) %>% mean %>% round(2)
 savetxt(interrep_cor_avg, paste0(filename_base, "-cor-avg"))
 
 # Plot distribution of inter-replicate correlation coefficients
-g_cor <- ggplot(tab_cl_cor) + 
-  geom_boxplot(aes(x = COMPARISON, y=R, fill = COMPARISON)) +
+g_cor <- ggplot(tab_cl_cor, aes(x=COMPARISON, y=R)) + 
+  geom_boxplot(aes(fill = COMPARISON), outlier.shape = NA) +
+  geom_point(size = 3, alpha = 0.4) +
   scale_x_discrete(labels = c("bio/lib", "bio/orig", "lib/orig"),
                    name = "Inter-replicate comparison") + 
   scale_y_continuous(breaks = seq(0,1,0.2),

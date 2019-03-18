@@ -175,16 +175,23 @@ plot_largeclones_pc <- ggplot(r %>% filter(METRIC == "PC_CLONES_SMALL")) +
 
 outplot_nclones_size <- gplot_grid_onelegend(plot_nclones_small, plot_nclones_large,
                                              plot_largeclones_pc, ncol = 3,
-                                             plot_height = 15,
+                                             plot_height = plot_height,
                                              plot_width = 35)
 
 #------------------------------------------------------------------------------
 # SAVE OUTPUT
 #------------------------------------------------------------------------------
 
-savefig(outplot_nclones, filename = paste0(outpath, "-counts"),
-        height = plot_height, width = plot_width)
-savefig(outplot_p, filename = paste0(outpath, "-p", P),
+# Combine total and faceted plot
+outplot_both <- gplot_grid_onelegend(plot_nclones_sd,plot_p_sd,
+                                        plot_height=plot_height, 
+                                        plot_width=plot_width)
+
+# savefig(outplot_nclones, filename = paste0(outpath, "-counts"),
+#         height = plot_height, width = plot_width)
+# savefig(outplot_p, filename = paste0(outpath, "-p", P),
+#         height = plot_height, width = plot_width)
+savefig(outplot_both, filename = paste0(outpath, "s"),
         height = plot_height, width = plot_width)
 savefig(outplot_nclones_size, filename = paste0(outpath, "-counts-size"),
         height = plot_height, width = 35)

@@ -186,7 +186,8 @@ signif_table <- function(qvals, families = list("gamma" = Gamma())){
 plot_solo_diversity <- function(qvals, family = Gamma()){
   ggplot(multi_filter(qvals), aes(x=AGE_DAYS, y=D)) +
     geom_boxplot(aes(fill = factor(AGE_DAYS, levels = age_groups),
-                     group = AGE_DAYS)) +
+                     group = AGE_DAYS), outlier.shape = NA) +
+    geom_point(alpha = 0.4, size = 2) +
     geom_line(data = multi_predict(qvals, family), colour = "black", 
               size = 2) +
     facet_wrap(~Q, scales = "free", labeller = function(q) label_both(q, sep = " = ")) +
