@@ -892,7 +892,7 @@ wish to left align your text}
 \newcommand{\supervisor}[1]{\renewcommand{\@supervisor}{#1}\PHD@supervisortrue}
 
 % Supervisor Title (Supervisor - Default, can be changed)
-\newcommand{\@supervisorrole}{Gutachter: }
+\newcommand{\@supervisorrole}{\textbf{Gutachter:} }
 \newcommand{\supervisorrole}[1]{\renewcommand{\@supervisorrole}{#1}}
 
 % Supervisor width to align
@@ -920,7 +920,7 @@ der Mathematisch-Naturwissenschaftlichen Fakult\"at\\
 der Universit\"at zu K\"oln\\
 vorgelegt von}\\}
 
-\newcommand{\pruefungstext}{Tag der m\"undlichen Pr\"ufung: 6. Juni 2019}
+\newcommand{\pruefungstext}{\textbf{Tag der m\"undlichen Pr\"ufung:} 6. Juni 2019}
 
 % keywords (These keywords will appear in the PDF meta-information
 % called `pdfkeywords`.)
@@ -1067,7 +1067,7 @@ vorgelegt von}\\}
 \newenvironment{acknowledgements}{
 \cleardoublepage
 \setsinglecolumn
-\chapter*{\centering \Large Acknowledgements}
+\chapter*{\centering \LARGE Acknowledgements}
 \thispagestyle{empty}
 }
 

@@ -142,16 +142,17 @@ Following reverse-transcription, UDG digestion, and cleanup, the reaction mixtur
 \caption{Details of PCR protocols for \Nfu immunoglobulin sequencing}
 \begin{tabular}{c|ccc|cc|ccccc}\toprule
 \multirow{2}{*}{\textbf{PCR}} & \multicolumn{3}{c|}{\textbf{Protocol details}} & \multicolumn{2}{c|}{\textbf{Primers}} & \multicolumn{4}{c}{\textbf{Volumes (\ul{})\tnote{b}}}\\
- & \# cycles & $T_m$ (\degC{}) & $t_\mathrm{ext}$ (\secs{}) & F & R & Template & Primers (each) & Kapa & H\textsubscript{2}O \\\midrule
+ & \# cycles & $T_m$ (\degC{}) & $t_\mathrm{ext}$ (\secs{}) & F & R & Template & Primers\tnote{c} & Kapa & H\textsubscript{2}O \\\midrule
 1 & 18 & 65 & 15 & IGHC-B & M1SS & 10.5 & 1 (\x{}2) & 12.5 & 0 \\\midrule
 2 & 13 & 65 & 15 & M1S+P2 & IGHC-C+P1 & 1 & 0.5 (\x{}2) & 12.5 & 10.5 \\\midrule
-3 & 7 to 12\tnote{c} & \textbf{68} & 15 & D50*\tnote{a} & D7**\tnote{a} & 2 & \textbf{0.75} (\x{}2) & 12.5 & 9 \\
+3 & 7 to 12\tnote{d} & \textbf{68} & 15 & D50*\tnote{a} & D7**\tnote{a} & 2 & \textbf{0.75} (\x{}2) & 12.5 & 9 \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
 \item[a] PCR3 primers selected as appropriate for each library's assigned indices; see \Cref{app:oligos_illumina} for more information.
 \item[b] If the number of samples to be sequenced was small, all volumes of PCR 3 were doubled for a \ul{50} total PCR volume.
-\item[c] See \Cref{tab:methods_igseq_cycles} for specific cycle numbers used in each experiment.
+\item[c] Stated volume applies separately to both forward and reverse primer for that reaction.
+\item[d] See \Cref{tab:methods_igseq_cycles} for specific cycle numbers used in each experiment.
 \end{tablenotes}
 \label{tab:methods_igseq_pcr}
 \end{threeparttable}
@@ -243,7 +244,7 @@ Unless otherwise specified, data were visualised using \program{ggplot2} \parenc
 \subsubsection{Identifying BAC candidates for the \nfu \igh{} locus}
 \label{sec:methods_comp_bacs_ident}
 
-The first group of candidate BAC clones to be used in the \Nfu locus assembly was identified by searching for scaffolds in a previous assembly of the \Nfu genome (\texttt{NotFur1}, GenBank accession GCA\_000878545.1 \parencite{valenzano2015genome}) that contained either \textit{IGH} gene fragments (\texttt{GapFilledScaffold\_8761}, \texttt{8571}, \texttt{16121}) or genes homologous to those flanking the \textit{IGH} locus in stickleback and medaka (GapFilledScaffold\_2443 and 292). Subsequences from these scaffolds were sent to Kathrin Reichwald at the FLI in Jena, who identified four BAC clones (193A03, 276N03, 209K12, 181N10) with sequenced ends close to the query sequences.
+The first group of candidate BAC clones to be used in the \Nfu locus assembly was identified by searching for scaffolds in a previous assembly of the \Nfu genome (\texttt{NotFur1}, GenBank accession GCA\_000878545.1 \parencite{valenzano2015genome}) that contained either \textit{IGH} gene fragments (GapFilledScaffold\_8761, 8571, 16121) or genes homologous to those flanking the \textit{IGH} locus in stickleback and medaka (GapFilledScaffold\_2443 and 292). Subsequences from these scaffolds were sent to Kathrin Reichwald at the FLI in Jena, who identified four BAC clones (193A03, 276N03, 209K12, 181N10) with sequenced ends close to the query sequences.
 
 Following sequencing and assembly of these BAC inserts, a further group of BACs was identified using a second, independent genome assembly (GenBank accession 	GCA\_001465895.2, \parencite{reichwald2015genome}) and the database of BAC end sequences, which by then were publicly available. The assembled BAC sequences were found to map within or near a large, gapped region on synteny group 3 of this genome assembly, and BACs were selected that either intruded into this gapped region or had end sequences that mapped to another scaffold aligning to the assembled BAC inserts (scaffold01427, scaffold02214, scaffold01820). In total, 11 further BACs were sequenced and assembled in this second round (223M21, 162F04, 220O06, 248A22, 165M01, 206K13, 154G24, 208A08, 277J10, 109B21, 216D12).
 
@@ -387,7 +388,7 @@ Following extraction and manual curation, \vh segments were grouped into familie
 
 \noindent As with \vh segments, \jh segments were identified by building a multiple-sequence alignment with \program{PRANK} and using it to construct an HMM with \program{NHMMER}; the parameters used were the same as for \vh segments, except that there was no minimum score for \program{NHMMER} to report a sequence match (\snippet{-T 0} instead of \snippet{-T 80}). The resulting sequence ranges were extended by \bp{20} on either end and extracted into FASTA format. These sequences were then trimmed automatically by identifying the RSS heptamer sequence at the 5' end and the splice junction motif (\texttt{GTA}) at the 3' end, then checked and refined manually.
 
-\begin{wraptable}{r}{5.5cm}
+\begin{wraptable}{r}{6.5cm}
 \caption{Regex patterns used to search for conserved W118 residues in \jh sequences during AUX file generation}\label{tab:jh-aux-patterns}
 \begin{tabular}{r>{\ttseries}l}\toprule  
 \# & Pattern \\\midrule
@@ -399,9 +400,7 @@ Following extraction and manual curation, \vh segments were grouped into familie
 \end{tabular}
 \end{wraptable}
 
-\program{IgBLAST} \parencite{ye2013igblast} identifies CDR3 boundaries for recombined IGH VDJ sequences using an auxiliary file specifying the reading frame of each \jh segment, along with the co-ordinate of the conserved \texttt{TGG} codon (corresponding to the conserved W118 residue in the recombined sequence \parencite{lefranc2014immunoglobulins}) marking the CDR3/FR4 boundary. An auxiliary file for the inferred \jh segments was generated automatically by searching for the conserved sequence using a series of regular-expression patterns of decreasing stringency (\Cref{tab:jh-aux-patterns}), taking the first match in each sequence as the desired residue; this determined both the reading frame and the W118 sequence co-ordinate. Once generated, the auxiliary file was then used to determine the reading frame for automatically translating the \jh sequences; both the auxiliary file and amino-acid \fmt{FASTA} file were then edited to incorporate any manual refinements made to the \jh nucleotide sequences.
-
-Curated \jh sequences were named based on their order within their parent sublocus and, where applicable, on whether they were upstream of IGHZ or IGHM constant regions (\Cref{tab:nfu-jh-coords-seg,tab:xma-jh-coords-seg}).
+\program{IgBLAST} \parencite{ye2013igblast} identifies CDR3 boundaries for recombined IGH VDJ sequences using an auxiliary file specifying the reading frame of each \jh segment, along with the co-ordinate of the conserved \texttt{TGG} codon (corresponding to the conserved W118 residue in the recombined sequence \parencite{lefranc2014immunoglobulins}) marking the CDR3/FR4 boundary. An auxiliary file for the inferred \jh segments was generated automatically by searching for the conserved sequence using a series of regular-expression patterns of decreasing stringency (\Cref{tab:jh-aux-patterns}), taking the first match in each sequence as the desired residue; this determined both the reading frame and the W118 sequence co-ordinate. Once generated, the auxiliary file was then used to determine the reading frame for automatically translating the \jh sequences; both the auxiliary file and amino-acid \fmt{FASTA} file were then edited to incorporate any manual refinements made to the \jh nucleotide sequences. Curated \jh sequences were named based on their order within their parent sublocus and, where applicable, on whether they were upstream of IGHZ or IGHM constant regions (\Cref{tab:nfu-jh-coords-seg,tab:xma-jh-coords-seg}).
 
 \subsubsubsection{\dh}
 
@@ -836,41 +835,9 @@ bootstrap_abundance <- function(nboot, clone_tab, group_tab, outer_group_name, o
 	return(sample_tab)
 }
 
-compute_inner_bootstrap <- function(nboot, clone_tab, group_tab, outer_group_name, outer_group_value, inner_group_name, clone_field){
-	# For each inner group in an outer group, compute
-	# bootstrap counts and return a concatenated table
-	bootstraps <- tibble()
-	gtab <- group_tab[group_tab[[outer_group_name]] == 
-		outer_group_value,]
-	for (g in gtab %>% pull(inner_group_name) %>% unique){
-		sample_tab <- bootstrap_abundance(nboot, 
-			clone_tab, group_tab, 
-			outer_group_name, outer_group_value, 
-			inner_group_name, g, clone_field)
-		bootstraps <- bind_rows(bootstraps, sample_tab)
-	}
-	return(bootstraps)
-}
-
-compute_outer_bootstrap <- function(nboot, clone_tab, group_tab, outer_group_name, inner_group_name, clone_field){
-	# Compute inner bootstrap values for each outer group
-	# and collate values in a single table
-	bootstraps <- tibble()
-	for (G in group_tab %>% pull(outer_group_name) %>% 
-		unique){
-		sample_tab <- compute_inner_bootstrap(nboot, 
-			clone_tab, group_tab, 
-			outer_group_name, G,
-			inner_group_name, clone_field)
-		bootstraps <- bind_rows(bootstraps, sample_tab)
-	}
-	return(bootstraps)
-}
-
-bootstraps <- compute_outer_bootstrap(nboot, clone_tab, group_tab, outer_group, clone_field)
 \end{lstlisting}
 
-\noindent Following bootstrap generation, individual Hill diversity numbers (\Cref{app:diversity-unitary-hill}) could be computed for each inner group for each bootstrap replicate (using \program{alakazam}'s built-in \snippet{calcDiversity} function \parencite{gupta2015changeo,stern2014bcells}) for each diversity order in a vector of orders \snippet{Q}:
+\noindent Following bootstrap generation and concatenation of bootstrap tables from different inner-group/outer-group combinations, individual Hill diversity numbers (\Cref{app:diversity-unitary-hill}) could be computed for each inner group for each bootstrap replicate (using \program{alakazam}'s built-in \snippet{calcDiversity} function \parencite{gupta2015changeo,stern2014bcells}) for each diversity order in a vector of orders \snippet{Q}:
 
 \begin{lstlisting}[language=R]
 bs_tab <- bootstraps %>% group_by_(.dots = c(outer_group, inner_group, "ITER"))

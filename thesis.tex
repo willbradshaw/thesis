@@ -3,7 +3,7 @@
 
 % **************************** Formatting & Metadata ***************************
 
-\documentclass[a4paper,12pt,times,print,custombib,chapter]{_Meta/thesis}
+\documentclass[a4paper,12pt,times,print,custombib]{_Meta/thesis}
 % See README.md for option details
 
 \input{_Meta/preamble} %Contains packages and user-defined commands and settings
@@ -29,10 +29,10 @@
 % To use choose `chapter' option in the document class
 
 \ifdefineChapter
-	%\includeonly{B_Chapters/1_Introduction}
+	\includeonly{B_Chapters/1_Introduction}
 	%\includeonly{B_Chapters/2_Methods,C_Appendices/Solutions,C_Appendices/Primers,C_Appendices/Diversity,C_Appendices/Tables}
 	%\includeonly{B_Chapters/3_Locus,C_Appendices/Figures,C_Appendices/Tables}
-	\includeonly{B_Chapters/4_IgSeq,C_Appendices/Diversity,C_Appendices/Figures,C_Appendices/Tables}
+	%\includeonly{B_Chapters/4_IgSeq,C_Appendices/Diversity,C_Appendices/Figures,C_Appendices/Tables}
 	%\includeonly{C_Appendices/Solutions,C_Appendices/Primers,C_Appendices/Diversity,C_Appendices/Figures,C_Appendices/Tables}
 \fi
 
@@ -51,7 +51,9 @@
 
 %% *********************** Adding TOC and List of Figures ***********************
 %%%
-\tableofcontents
+\renewcommand{\baselinestretch}{0.9}%
+\tableofcontents%
+\renewcommand{\baselinestretch}{1.0}%
 %%
 \listoffigures
 %%
@@ -75,6 +77,7 @@
 \include{B_Chapters/2_Methods}
 \include{B_Chapters/3_Locus} 
 \include{B_Chapters/4_IgSeq}
+\include{B_Chapters/5_Conclusion}
 
 % ********************************** Back Matter *******************************
 % Backmatter should be commented out, if you are using appendices after References
