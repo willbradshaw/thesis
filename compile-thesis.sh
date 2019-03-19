@@ -2,6 +2,11 @@
 # A script to compile the PhD Thesis - Krishna Kumar 
 # Distributed under GPLv2.0 License
 
+TEXDIR="/usr/local/texlive/2018/bin/x86_64-linux"
+TEXPATH="${TEXDIR}/pdflatex"
+BIBPATH="${TEXDIR}/biber"
+GLOPATH="${TEXDIR}/makeglossaries"
+INDPATH="${TEXDIR}/makeindex"
 compile="compile";
 clean="clean";
 
@@ -84,17 +89,16 @@ if [ $1 = $clean ]; then
 	exit
 elif [ $1 = $compile ]; then
 	echo "Compiling your PhD Thesis...please wait...!"
-	pdflatex -interaction=nonstopmode $filename.tex
-	biber $filename
-#	bibtex $filename.aux
-	makeglossaries $filename
-	makeindex $filename.aux
-	makeindex $filename.idx
-	makeindex $filename.nlo -s nomencl.ist -o $filename.nls
-	pdflatex -interaction=nonstopmode $filename.tex
-	makeindex $filename.nlo -s nomencl.ist -o $filename.nls
-	makeglossaries $filename
-	pdflatex -interaction=nonstopmode $filename.tex
+	$TEXPATH -interaction=nonstopmode $filename.tex
+	$BIBPATH $filename
+	$GLOPATH $filename
+	$INDPATH $filename.aux
+	$INDPATH $filename.idx
+	$INDPATH $filename.nlo -s nomencl.ist -o $filename.nls
+	$TEXPATH -interaction=nonstopmode $filename.tex
+	$INDPATH $filename.nlo -s nomencl.ist -o $filename.nls
+	$GLOPATH $filename
+	$TEXPATH -interaction=nonstopmode $filename.tex
     echo "Cleaning auxiliary files..."
 	rm -rf */*.aux
 	rm -rf *.aux

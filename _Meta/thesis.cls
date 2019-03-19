@@ -487,8 +487,8 @@ supported!}
 % ******************************* Bibliography *********************************
 \ifPHD@authoryear
   \ifPHD@biblatex
-    \RequirePackage[backend=biber, style=authoryear, citestyle=alphabetic, 
-      sorting=nty, natbib=true, maxnames=4]{biblatex}
+    %\RequirePackage[backend=biber, style=authoryear, citestyle=alphabetic, 
+    %  sorting=nty, natbib=true, maxnames=4]{biblatex}
     \setBiBLaTeXtrue
   \else
     \RequirePackage[round, sort, numbers, authoryear]{natbib} %author year
@@ -496,8 +496,8 @@ supported!}
 \else
   \ifPHD@numbered
     \ifPHD@biblatex
-      \RequirePackage[backend=biber, style=numeric-comp, 
-        citestyle=numeric, sorting=none, natbib=true]{biblatex}
+      %\RequirePackage[backend=biber, style=numeric-comp, 
+      %  citestyle=numeric, sorting=none, natbib=true]{biblatex}
       \setBiBLaTeXtrue
     \else
       \RequirePackage[numbers,compress]{natbib} % numbered citation
@@ -516,8 +516,8 @@ supported!}
         }
     \else                                            % set default to numbered
       \ifPHD@biblatex
-        \RequirePackage[backend=biber, style=numeric-comp,
-          citestyle=numeric, sorting=none, natbib=true]{biblatex}
+        %\RequirePackage[backend=biber, style=numeric-comp,
+        %  citestyle=numeric, sorting=none, natbib=true]{biblatex}
         \setBiBLaTeXfalse
       \else
         \RequirePackage[numbers,compress]{natbib} 
