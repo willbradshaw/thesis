@@ -73,7 +73,6 @@
 \usepackage{array}
 \usepackage[docdef=true,nonumberlist]{glossaries-extra}
 \usepackage{textgreek}
-%\usepackage{biblatex-nature}
 %\usepackage{subfiles}
 % ************************* Algorithms and Pseudocode **************************
 
@@ -150,17 +149,9 @@
 
 % If you would like to use biblatex for your reference management, as opposed to the default `natbibpackage` pass the option `custombib` in the document class. Comment out the previous line to make sure you don't load the natbib package. Uncomment the following lines and specify the location of references.bib file
 
-\RequirePackage[backend=biber, citestyle=numeric-comp, style=nature, intitle = true, sorting=none,
-	natbib=true, maxnames=3, minnames=1, url=false, giveninits=true, sortcites=true, date=year,
-	doi=false,isbn=false]{biblatex}
-\renewbibmacro{in:}{\ifentrytype{article}{}{\printtext{\bibstring{in}\intitlepunct}}}
-%\bibliography{References/references} %Location of references.bib only for biblatex
-\bibliography{D_References/1_Introduction,
-	D_References/2_Methods,
-	D_References/3_Locus,
-	D_References/4_IgSeq,
-	D_References/5_Appendices}
-%D_References/references.bib}
+\RequirePackage[backend=biber, citestyle=numeric-comp, style=nature, intitle=true, sorting=none, natbib=true, maxnames=3, minnames=1, url=false, giveninits=true, sortcites=true, date=year, doi=false,isbn=false]{biblatex}
+\renewcommand{\intitlepunct}{\addspace\nopunct}
+\bibliography{D_References/0_References}
 
 \fi
 
