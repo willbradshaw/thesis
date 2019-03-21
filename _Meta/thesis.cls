@@ -1049,16 +1049,16 @@ vorgelegt von}\\}
 \newenvironment{declaration}{
 \cleardoublepage
 \setsinglecolumn
-\chapter*{\centering \Large Erkl\"arung zur Dissertation}
-\thispagestyle{empty}
+\chapter*{\centering \LARGE Erkl\"arung zur Dissertation}
+\pagestyle{empty}
 }{
-\flushright
+\flushright\vspace{3em}
 \@author{}\\
 \@degreedate{}
 \vfill
 }
 
-
+\newcommand{\declare}[1]{\flushright\vspace{#1}\@author{}\\\@degreedate{}\vfill}
 
 % ****************************** Acknowledgements ********************************
 % The acknowledgements environment puts a large, bold, centered
@@ -1168,7 +1168,7 @@ vorgelegt von}\\}
 % Normal abstract in the thesis
   \cleardoublepage
   \setsinglecolumn
-  \chapter*{\centering \Large Abstract}
+  \chapter*{\centering \LARGE Abstract}
   \thispagestyle{empty}
 \fi
 }
@@ -1186,7 +1186,7 @@ vorgelegt von}\\}
 % Normal abstract in the thesis
   \cleardoublepage
   \setsinglecolumn
-  \chapter*{\centering \Large Kurzzusammenfassung}
+  \chapter*{\centering \LARGE Kurzzusammenfassung}
   \thispagestyle{empty}
 \fi
 }
