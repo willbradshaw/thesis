@@ -192,3 +192,19 @@ savefig(plot = g_solofit_linear, height = 20, ratio = 1.5,
         filename = paste0(filename_base, "-solo-fit-linear"))
 savefig(plot = g_solofit_igauss, height = 20, ratio = 1.5,
         filename = paste0(filename_base, "-solo-fit-igauss"))
+
+#------------------------------------------------------------------------------
+# SAVE PLOT FOR POSTER
+#------------------------------------------------------------------------------
+
+# qvals_poster <- seq(4)
+# pg_poster <- P_gamma %>% filter(Q %in% qvals_poster)
+# g_solofit_gamma_poster <- plot_solo_diversity(qvals_poster, family = Gamma()) +
+#   geom_text(data = pg_poster, aes(label = ANNOT,x=x,y=y), size = 3)
+# plot_width_poster <- 37
+# plot_height_poster <- 14
+# g_poster <- gplot_grid_onelegend(g_alpha, g_solofit_gamma_poster, 
+#                                  plot_height = plot_height_poster,
+#                                  plot_width = plot_width_poster, labels = "")
+# savefig(g_poster, paste0(filename_base, "-poster"),
+#         height = plot_height_poster, width = plot_width_poster)

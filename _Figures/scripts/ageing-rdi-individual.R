@@ -29,7 +29,7 @@ treeline_width <- 1.1
 tiplab_offset <- -0.1
 palette <- c(colours_igseq[["ageing_group1"]], colours_igseq[["ageing_group2"]],
              colours_igseq[["ageing_group3"]], colours_igseq[["ageing_group4"]])
-
+age_groups <- c("39", "56", "73", "128")
 
 
 # Configure input
@@ -85,7 +85,6 @@ rdi <- calcRDI(counts, subsample = TRUE,
 # PRINCIPLE CO-ORDINATE ANALYSIS
 #------------------------------------------------------------------------------
 
-age_groups <- c("39", "56", "73", "128")
 indivs <- tab %>% group_by(AGE_DAYS, INDIVIDUAL) %>% summarise %>% ungroup
 
 # Perform PCoA

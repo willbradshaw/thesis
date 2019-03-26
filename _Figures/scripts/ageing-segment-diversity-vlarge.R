@@ -233,3 +233,18 @@ savefig(plot = g_solofit_linear, height = 20, ratio = 1.5,
         filename = paste0(filename_base, "-solo-fit-linear"))
 savefig(plot = g_solofit_igauss, height = 20, ratio = 1.5,
         filename = paste0(filename_base, "-solo-fit-igauss"))
+
+
+#------------------------------------------------------------------------------
+# SAVE PLOT FOR POSTER
+#------------------------------------------------------------------------------
+# 
+# g_alpha_poster <- g_alpha + ggtitle("V/J diversity (large clones only)")
+# g_beta_poster <- g_beta_scaled + 
+#   ggtitle("V/J beta-diversity (large clones only)")
+# plot_width_poster <- 37
+# plot_height_poster <- 14
+# savefig(g_alpha_poster, paste0(filename_base, "-alpha-poster"),
+#         height = plot_height_poster, width = plot_width_poster/2)
+# savefig(g_alpha_poster, paste0(filename_base, "-beta-poster"),
+#         height = plot_height_poster, width = plot_width_poster/3)

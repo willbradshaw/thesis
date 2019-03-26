@@ -988,23 +988,18 @@ vorgelegt von}\\}
 
 % Submission Text
 \vspace*{1em}
-{\usebox{\PHD@submission}}
+{\onehalfspacing
+\Large{Inaugural-Disseration\\
+zur\\
+Erlangung des Doktorgrades\\
+der Mathematisch-Naturwissenschaftlichen Fakult\"at\\
+der Universit\"at zu K\"oln\\
 \vspace*{2em}
-
-
-% Author
-\vspace*{1em}
-{\usebox{\PHD@author}}
-\vspace*{1em}
-% Department and University
+vorgelegt von}\vspace{0.75em}\\}
+{\LARGE\bfseries{\@author}}\vspace{0.75em}
 {\usebox{\PHD@dept}}
 \vspace{.2\PHD@titlepagespacing}
 
-
-% College and degree date
-\vfill
-%{\usebox{\PHD@collegedate}}
-    
 \clearpage
 % Supervisor
 \ifPHD@supervisor%
@@ -1058,7 +1053,7 @@ vorgelegt von}\\}
 \vfill
 }
 
-\newcommand{\declare}[1]{\flushright\vspace{#1}\@author{}\\\@degreedate{}\vfill}
+\newcommand{\declare}[1]{\begin{flushright}\vspace{#1}\@author{}\\\@degreedate{}\end{flushright}\vfill}
 
 % ****************************** Acknowledgements ********************************
 % The acknowledgements environment puts a large, bold, centered
@@ -1277,7 +1272,7 @@ vorgelegt von}\\}
 \newsavebox{\PHD@dept}
 \begin{lrbox}{\PHD@dept}
   \begin{minipage}[c]{\textwidth}
-    \centering {\large \@dept \par}
+    \centering {\Large \@dept \par}
 	       {\large \@university \par}
   \end{minipage}
 \end{lrbox}

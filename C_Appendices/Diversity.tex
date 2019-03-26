@@ -101,7 +101,7 @@ The use of Hill numbers in diversity estimation enables many different, widely-u
 
 \begin{table}
 \centering
-\caption{Summary of effective richness measures for some common diversity indices (adapted and expanded from \citep{jost2006entropy})}
+\caption[Summary of effective-richness measures for some common diversity indices]{Summary of effective-richness measures for some common diversity indices (adapted and expanded from Jost (2006) \citep{jost2006entropy})}
 \begin{tabular}{lll}\toprule
 Diversity index, $f(X)$ & Effective species richness,~$^qD(X)$ & Diversity order, $q$\\\midrule
 Species richness & $^0D(X) = f(X)$ & 0 \\
@@ -158,7 +158,7 @@ D_\beta = \frac{D_\gamma}{D_\alpha}
 
 In the rest of this section, I will primarily consider only subpopulations with equal sizes $N_X = \frac{N}{M}$ and equal weights $w = \frac{1}{M}$, as this is how they are used in the repertoire-diversity methods discussed in \Cref{sec:methods_comp_igdownstream_spectra} and \Cref{chap:igseq}. Equal-sized and -weighted populations can be produced by downsampling each subpopulation to the same number of individuals (in the \igseq case, by downsampling each repertoire to the same number of unique sequences) prior to calculating the diversity of the population.
  
-\subsection{Calculating alpha, beta, and gamma}
+\subsection{Calculating alpha, beta, and gamma diversity}
 \label{app:diversity-structured-calc}
 
 The alpha, beta and gamma diversities of structured populations can be calculated analogously to the unitary true diversities discussed in \Cref{app:diversity-unitary-hill}. In this framework, the alpha diversity represents the effective number of equally-abundant species present in the ``average'' subpopulation drawn from $C$, while the gamma diversity represents the effective number of such species present in the population as a whole (ignoring subpopulation membership). Beta diversity also represents an effective number of groupings, but in this case the unit is subpopulations rather than species: given an alpha diversity value for $C$, the beta diversity gives the number of equally-weighted subpopulations, with no species in common, that would give rise to the gamma diversity of $C$.
