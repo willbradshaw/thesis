@@ -541,16 +541,16 @@ ParseHeaders add -f <field_keys> -u <field_values> -s <input_reads_file>
 
 \begin{lstlisting}
 ParseHeaders.py merge -f <field_keys> -k INDIVIDUAL --act cat -s <annotated_reads_file>
-ParseHeaders.py merge -f <field_keys> -k REPLICATE --act cat -s <annotated_reads_file>
+ParseHeaders.py merge -f <field_keys> -k REPLICATE --act cat -s <individual_annotated_reads>
 \end{lstlisting}
 
 \noindent Following annotations, reads from different libraries were pooled together, then split by replicate identity:
 
 \begin{lstlisting}
-SplitSeq.py group -s {input} -f REPLICATE s <pooled_reads_file>
+SplitSeq.py group -f REPLICATE -s <pooled_reads_file>
 \end{lstlisting}
 
-\noindent This pooling and re-splitting process enables all reads considered to be a single replicate to be processed together even if sequenced separately, maximising the effectiveness of UMI-based pre-processing while also allowing all replicates to be processed in parallel.
+\noindent This pooling and re-splitting process enables all reads considered to be a single replicate to be processed together even if sequenced separately, maximising the effectiveness of UMI-based pre-processing, while also allowing all replicates to be processed in parallel.
 
 \subsubsection{Quality control, primer masking and UMI extraction}
 \label{sec:methods_comp_igpreproc_mask}
@@ -558,20 +558,20 @@ SplitSeq.py group -s {input} -f REPLICATE s <pooled_reads_file>
 After pooling and re-splitting, the raw read set underwent quality control, discarding any read with an average Phred score \parencite{ewing1998phred} of less than 20:
 
 \begin{lstlisting}
-FilterSeq quality -q 20 -s <input_reads_file>
+FilterSeq quality -q 20 -s <split_reads_file>
 \end{lstlisting}
 
-\noindent Following quality filtering, the reads underwent processing to identify and remove invariant primer sequences. To do this, known primer sequences were aligned to each read from a fixed starting position, and the best match on each read was identified and trimmed. Initially, the primer sequences from the third PCR step of the library prep protocol were used, trimming off primer sequences corresponding to part of the constant \cm{1} exon and the 5' invariant part of the template-switch adapter:
+\noindent Following quality filtering, the reads underwent processing to identify and remove invariant primer sequences. To do this, known primer sequences were aligned to each read from a fixed starting position, and the best match on each read was identified and trimmed. To begin with, the primer sequences from the third PCR step of the library prep protocol were used, trimming off primer sequences corresponding to part of the constant \cm{1} exon and the 5' invariant part of the template-switch adapter:
 
 \begin{lstlisting}
-MaskPrimers score --mode cut --start 0 -s <3prime_read_file> -p <CM1_primer_file>;
-MaskPrimers score --mode cut --start 0 -s <5prime_read_file> -p <TSA_primer_file>
+MaskPrimers score --mode cut --start 0 -s <split_reads_3prime> -p <CM1_primer_file>;
+MaskPrimers score --mode cut --start 0 -s <split_reads_5prime> -p <TSA_primer_file>
 \end{lstlisting}
 
 \noindent Following this, the forward reads underwent a second round of masking using the 3' invariant part of the TSA sequence (\sequence{CTTGGGG}), and the intervening 16 bases were extracted and recorded in each read header as that read's unique molecular identifier (UMI):
 
 \begin{lstlisting}
-MaskPrimers score --mode cut --barcode --start 16 --maxerror 0.5 -s <masked_5prime_read_file> -p <TSA_3prime_sequence_file>
+MaskPrimers score --mode cut --barcode --start 16 --maxerror 0.5 -s <masked_reads_5prime> -p <TSA_3prime_sequence_file>
 \end{lstlisting}
 
 \noindent As the match sequence for this second round of masking is shorter and more error-prone than the primer sequences used in the first round, an increased mismatch tolerance (\snippet{--maxerror 0.5}) was permitted, increasing the number of reads with successfully-extracted UMIs.
@@ -582,25 +582,24 @@ MaskPrimers score --mode cut --barcode --start 16 --maxerror 0.5 -s <masked_5pri
 In order to reduce the level of barcode errors in each dataset, primer-masked \igseq reads underwent barcode clustering, in which reads with the same replicate identity and highly similar UMI sequences were grouped together into the same molecular identifier group (MIG). To do this, 5'-reads were clustered by UMI sequence using  \program{CD-HIT-EST} \parencite{li2006cdhit,fu2012cdhit} with a 90\% sequence identity cutoff, with cluster identities being recorded in a new CLUSTER field in each read header \parencite{vanderheiden2018perscomm}:
 
 \begin{lstlisting}
-SplitSeq group -s <masked_reads_file> -f REPLICATE;
-ClusterSets barcode -f BARCODE -k CLUSTER --cluster cd-hit-est --prefix B --ident 0.9 -s <split_reads_file>
+ClusterSets barcode -f BARCODE -k CLUSTER --cluster cd-hit-est --prefix B --ident 0.9 -s <remasked_reads_5prime>
 \end{lstlisting}
 
-In order to split any genuinely distinct MIGs accidentally united by this process, as well as to reduce the level of ``natural'' barcode collisions, the reads then underwent a second round of clustering, this time separately on the read sequences within each barcode cluster using \program{VSEARCH} (an open-source alternative to \program{USEARCH} \parencite{edgar2010usearch,rognes2016vsearch}).
+\noindent In order to split any genuinely distinct MIGs accidentally united by this process, as well as to reduce the level of barcode collisions, the reads then underwent a second round of clustering, this time separately on the read sequences within each barcode cluster using \program{VSEARCH} (an open-source alternative to \program{USEARCH} \parencite{edgar2010usearch,rognes2016vsearch}).
 This time, the cluster dendrogram was cut at 75\% total sequence identity, and each subcluster was separated into its own distinct MIG \parencite{vanderheiden2018perscomm}:
 
 \begin{lstlisting}
-ClusterSets set -f CLUSTER -k CLUSTER --cluster vsearch --prefix S --ident 0.75 -s <clustered_reads_file>
+ClusterSets set -f CLUSTER -k CLUSTER --cluster vsearch --prefix S --ident 0.75 -s <clustered_reads_5prime>
 \end{lstlisting}
 
-These clustering thresholds (90\% for barcode clustering, 75\% for barcode splitting) were identified empirically as the values that maximise the number of reads passing downstream quality checks in turquoise-killifish data.
+\noindent These clustering thresholds (90\% for barcode clustering, 75\% for barcode splitting) were identified empirically as the values that maximise the number of reads passing downstream quality checks in turquoise-killifish data.
 
 The cluster annotations from these two clustering steps were combined into a single annotation, uniquely identifying each MIG in each replicate. These annotations were further modified to designate the replicate identity of each read, giving each MIG a unique annotation across the entire dataset. These annotations were copied to the reverse reads, such that each read pair had a matching MIG annotation, and reads without a mate (due to differential processing of the two reads files) were discarded:
 
 \begin{lstlisting}
-ParseHeaders collapse -s <clustered_5prime_reads> -f CLUSTER --act cat;
-ParseHeaders merge -f REPLICATE CLUSTER -k RCLUSTER --act set -s <annotated_5prime_reads>;
-PairSeq -1 <reannotated_5prime_reads> -2 <3prime_reads> --1f BARCODE CLUSTER RCLUSTER --coord illumina
+ParseHeaders collapse -s <reclustered_reads_5prime> -f CLUSTER --act cat;
+ParseHeaders merge -f REPLICATE CLUSTER -k RCLUSTER --act set -s <annotated_reads_5prime>;
+PairSeq -1 <reannotated_reads_5prime> -2 <masked_reads_3prime> --1f BARCODE CLUSTER RCLUSTER --coord illumina
 \end{lstlisting}
 
 \subsubsection{Consensus-read generation and pair merging}
@@ -609,7 +608,7 @@ PairSeq -1 <reannotated_5prime_reads> -2 <3prime_reads> --1f BARCODE CLUSTER RCL
 Following barcode clustering, the \igseq forward reads were grouped based on cluster identity, and the reads in each cluster grouping were aligned and collapsed into a consensus read sequence:
 
 \begin{lstlisting}
-BuildConsensus --bf RCLUSTER --cf <header_fields> --act <copy_actions> --maxerror 0.1 --maxgap 0.5 -s <annotated_reads_file>
+BuildConsensus --bf RCLUSTER --cf <header_fields> --act <copy_actions> --maxerror 0.1 --maxgap 0.5 -s <paired_reads_file>
 \end{lstlisting}
 
 \noindent Positions at which at least half the aligned reads in the MIG had a gap character were deleted from the consensus (\snippet{--maxgap 0.5}), while MIGs with a mismatch rate from the consensus of more than 10\% were discarded from the dataset (\snippet{--maxerror 0.1}). The resulting \format{FASTQ} file contained a single consensus sequence for each cluster annotation, labelled with its CONSCOUNT (the total number of reads contributing to that consensus sequence),  the number of reads allocated to each barcode in the cluster, and various header fields (\snippet{<header_fields>}) propagated from the contributing reads by summing or concatenating the values from each contributing read (\snippet{<copy_actions>}). An identical consensus-read-generation step was performed on the reverse reads.
@@ -617,13 +616,13 @@ BuildConsensus --bf RCLUSTER --cf <header_fields> --act <copy_actions> --maxerro
 After consensus-read generation had been performed for both 5' and 3' reads, the annotations attached to each read were again unified across read pairs with matching cluster identities, and consensus reads without a mate of the same cluster identity were dropped:
 
 \begin{lstlisting}
-PairSeq -1 <5prime_consensus_reads> -2 <3prime_consensus_reads> -coord presto
+PairSeq -1 <consensus_reads_5prime> -2 <consensus_reads_3prime> -coord presto
 \end{lstlisting}
 
 \noindent Following consensus-read generation and annotation unification, consensus-read pairs with matching cluster annotations were aligned and merged into a single contiguous sequence. Where possible, this was done by simply aligning the two mate sequences against each other; where this was not possible (e.g. due to the lack of a significant sequence overlap) the consensus reads were instead aligned with \program{BLASTN} \parencite{altschul1990blast,altschul1997blast} to a reference database of \vh sequences to generate a merged sequence, with \sequence{N} characters used to separate pairs that aligned in a non-overlapping manner on the same \vh segment \parencite{vanderheiden2014presto}:
 
 \begin{lstlisting}
-AssemblePairs sequential --coord presto --scanrev --aligner blastn --rc tail --1f <header_fields> -1 <5prime_consensus_reads> -2 <3prime_consensus_reads> -r <vh_fasta_file>
+AssemblePairs sequential --coord presto --scanrev --aligner blastn --rc tail --1f <header_fields> -1 <paired_consensus_5prime> -2 <paired_consensus_3prime> -r <vh_fasta_file>
 \end{lstlisting}
 
 \noindent In either case, annotation fields were copied to the new merged sequence from the forward consensus read, with the fields to be copied specified by \snippet{--1f <header_fields>}. Sequence pairs for which both alignment approaches failed were discarded.
@@ -631,7 +630,7 @@ AssemblePairs sequential --coord presto --scanrev --aligner blastn --rc tail --1
 \subsubsection{Collapsing identical sequences and singleton removal}
 \label{sec:methods_comp_igpreproc_collapse}
 
-To quantify the abundance of each unique sequence present in each sample, merged consensus sequences with identical insert sequences but distinct MIG assignments were collapsed together into a single \format{FASTQ} entry, recording the number, size and UMI makeup of contributing MIGs in each case in the sequence header alongside any existing annotation information:
+To convert a dataset of MIGs (representing distinct RNA molecules) into one of unique sequences, merged consensus sequences from \Cref{sec:methods_comp_igpreproc_consensus} with identical insert sequences but distinct cluster identities were collapsed together into a single \format{FASTQ} entry, recording the number, size and UMI makeup of contributing MIGs in each case in the sequence header alongside any existing annotation information:
 
 \begin{lstlisting}
 CollapseSeq --inner --cf <header_fields> --act <copy_actions> -n 20 -s <merged_consensus_seqs>
@@ -639,7 +638,7 @@ CollapseSeq --inner --cf <header_fields> --act <copy_actions> -n 20 -s <merged_c
 
 \noindent The collapsed sequences from each replicate identity in the dataset were then concatenated into a single file for easier downstream processing. 
 
-As sequences represented by only a single read across all MIGs in the dataset (so-called \textit{singleton} sequences, with a \snippet{CONSCOUNT} of no more than 1) could not be corrected by UMI clustering or consensus building, they are not considered reliable for downstream processing and analysis \parencite{vanderheiden2018perscomm}; as a result, they were here identified and separated from the other collapsed sequences:
+As sequences represented by only a single read across all MIGs in the dataset (so-called \textit{singleton} sequences, with a \snippet{CONSCOUNT} of no more than 1) could not be corrected by UMI clustering or consensus building, they are not considered reliable for downstream processing and analysis \parencite{vanderheiden2018perscomm}; as such, they were then identified and separated from the other collapsed sequences:
 
 \begin{lstlisting}
 SplitSeq group -f CONSCOUNT --num 2 -s <collapsed_consensus_seqs>
@@ -654,7 +653,7 @@ seqtk seq -a <non_singleton_consensus_seqs> > <presto_fasta_output>
 \subsubsection{Assigning VDJ identities with IgBLAST}
 \label{sec:methods_comp_igpreproc_igblast}
 
-To assign \vh, \dh and \jh identities to the corrected, collapsed consensus sequences produced by the \program{pRESTO} pipeline, gene segment databases were aligned to the \format{FASTA} output from \Cref{sec:methods_comp_igpreproc_collapse} with \program{IgBLAST} \parencite{ye2013igblast}. To do this, each reference file was converted into a \program{BLAST} database with \snippet{makeblastdb}, and the output \format{FASTA} file was aligned to these databases with \snippet{igblastn}:
+To assign \vh, \dh and \jh identities to the sequences output by the \program{pRESTO} pipeline, the format{FASTA} output from \Cref{sec:methods_comp_igpreproc_collapse} was aligned to databases of reference segments with \program{IgBLAST} \parencite{ye2013igblast}. To do this, each reference file was converted into a \program{BLAST} database with \snippet{makeblastdb}, and the output \format{FASTA} file was aligned to these databases with \snippet{igblastn}:
 
 \begin{lstlisting}
 makeblastdb -parse_seqids -dbtype nucl -in <vh_reference_fasta> -out <vh_db_prefix>;
@@ -671,10 +670,10 @@ igblastn -ig_seqtype Ig -domain_system imgt -query <presto_fasta_output> -out <i
 Following V/D/J identity assignment, the output \format{FASTA} file from \Cref{sec:methods_comp_igpreproc_collapse}, raw reference segment databases from \Cref{sec:methods_comp_locus_segments} and segment assignments from \Cref{sec:methods_comp_igpreproc_igblast} were used to construct a tab-delimited \program{Change-O} sequence database:
 
 \begin{lstlisting}
-MakeDb igblast --regions --scores --failed --partial --asis-calls --cdr3 -i <igblast_output> -s <presto_fasta_output> -r <vh_reference_fasta> <dh_reference_fasta> <jh_reference_fasta>
+MakeDb igblast --regions --scores --failed --partial --cdr3 -i <igblast_output> -s <presto_fasta_output> -r <vh_reference_fasta> <dh_reference_fasta> <jh_reference_fasta>
 \end{lstlisting}
 
-\noindent where \snippet{--failed} indicates that invalid sequences should be included in a separate database rather than discarded outright, \snippet{--regions} and \snippet{--cdr3} indicate that the database should include comprehensive FR and CDR annotations, \snippet{--scores} indicates that the database should include alignment score metrics, \snippet{--partial} indicates that sequences with incomplete V/D/J alignments (e.g. those without an unambiguous V- or J-assignment) should not automaticall qualify as failed, and \snippet{--asis-calls} instructs the program to accept assignments to V/D/J databases with non-standard name formatting. Following database construction, each entry was given a unique name on the basis of its replicate identity and ordering, and the database was filtered to exclude sequences with a V-alignment score of less than 100 (\Cref{sec:igseq_pilot_composition}).
+\noindent where \snippet{--failed} indicates that invalid sequences should be included in a separate database rather than discarded outright, \snippet{--regions} and \snippet{--cdr3} indicate that the database should include comprehensive FR and CDR annotations, \snippet{--scores} indicates that the database should include alignment score metrics, and \snippet{--partial} indicates that sequences with incomplete V/D/J alignments (e.g. those without an unambiguous V- or J-assignment) should not automatically qualify as failed. Following database construction, each entry was given a unique name on the basis of its replicate identity and ordering, and the database was filtered to exclude sequences with a V-alignment score of less than 100 (\Cref{sec:igseq_pilot_composition}).
 
 In order to compute the appropriate distance threshold for clonotype assignment, each sequence was assigned a nearest-neighbour Hamming distance within the repertoire, using the related \program{R} packages \program{SHazaM} and \program{Alakazam} \parencite{gupta2015changeo}:
 
@@ -685,7 +684,7 @@ dist_fail <- tab %>% filter(! ROW %in% dist_pass$ROW) %>%·mutate(DIST_NEAREST =
 writeChangeoDb(bind_rows(dist_pass, dist_fail), <db_output_path>)
 \end{lstlisting}
 
-\noindent where \snippet{model = "ham"} indicates that a single-nucleotide Hamming distance metric is to be used, \snippet{normalize = "len"} that distances should be normalised by total sequence length, \snippet{first = FALSE} determines how to handle ambiguous V/J calls, and \snippet{fields = "INDIVIDUAL"} that only distances between sequences from the same source individual should be considered.
+\noindent where \snippet{model = "ham"} indicates that a single-nucleotide Hamming distance metric is to be used, \snippet{normalize = "len"} that distances should be normalised by total sequence length, \snippet{first = FALSE} determines how to handle ambiguous V/J calls, and \snippet{fields = "INDIVIDUAL"} specifies that only distances between sequences from the same source individual should be considered.
 
 Following assignment of nearest-neighbour distances, a distance threshold for clonotyping was computed by fitting a pair of unimodal distributions to the nearest-neighbour distribution over all sequences and selecting the threshold that minimises the maximises the average of sensitivity and specificity when assigning a point to one of these distributions (\Cref{sec:igseq_pilot_clones}) \parencite{nouri2018threshold}. As with nearest-neighbour distance assignment, this was done in \program{R} using \program{SHazaM} and \program{Alakazam}; all four possible models (fitting either a normal or gamma distribution to each of the two peaks) were tried, and the one with the highest maximum likelihood was used to compute the threshold value:
 
@@ -710,7 +709,7 @@ DefineClones --act set --model ham --sym min --norm len --failed -d <changeo_db>
 
 \noindent where \snippet{--act set} tells the program how to handle ambiguous V/D/J assignments, \snippet{--model ham} specifies the clustering metric as the pairwise Hamming distance; \snippet{--norm len} indicates that the Hamming distances should be normalised by sequence length; \snippet{--sym min} specifies that, in the event of asymmetric \texttt{A -> B} and \texttt{B -> A} distances (e.g. arising from length normalisation) the minimum distance should be used; \snippet{--dist} specifies the distance threshold at which to cut the clustering dendrogram; and \snippet{--gf INDIVIDUAL} states that only sequences from the same individual can belong to the same clone.
 
-Finally, the clonotype numbers assigned to each individual were combined with the group ID of each clonotype to give a unique ID for each clonotype in the dataset.
+Finally, the clonotype numbers assigned to each individual were combined with the ID of the corresponding source individual, giving a unique ID for each clonotype in the dataset.
 
 \subsubsection{Germline inference and segment annotation}
 \label{sec:methods_comp_igpreproc_germ}
@@ -721,7 +720,7 @@ After threshold determination and clonotyping, a so-called ``full-length germlin
 CreateGermlines -g dmask --cloned -d <clonotyped_changeo_db> -r <vh_reference_fasta> <dh_reference_fasta> <jh_reference_fasta> --failed
 \end{lstlisting}
 
-\noindent where \snippet{-g dmask} indicates that \dh nucleotides should be masked in the germline sequence, and \snippet{--failed} indicates that sequences that fail germline assignment should be retained in a separate database. Importantly, \snippet{--cloned} indicates that sequences from the same clone should recieve the same germline assignment, based on a simple majority rule among sequences in the clone; this process also enables assignment of unambiguous segment identities to ambiguously-assigned sequences within larger clones, improving segment calls in the dataset. 
+\noindent where \snippet{-g dmask} indicates that \dh nucleotides should be masked in the germline sequence, and \snippet{--failed} indicates that sequences that fail germline assignment should be retained in a separate database. Importantly, \snippet{--cloned} indicates that sequences from the same clone should receive the same germline assignment, based on a simple majority rule among sequences in the clone; this process also enables assignment of unambiguous segment identities to ambiguously-assigned sequences within larger clones, improving segment calls in the dataset. 
 
 Following germline inference, each sequence in the dataset was annotated according to whether or not it possessed V/D/J assignments and whether these assignments were ambiguous (i.e. whether multiple possible assignments were given rather than just one), and combined VJ and VDJ assignments were obtained by concatenating the individual segment assignments as appropriate. The processed sequence databases were then passed on to downstream analysis pipelines as outlined in \Cref{sec:methods_comp_igdownstream}.
 
@@ -742,12 +741,12 @@ ParseHeaders.py table -s <input_seqs> -f INDIVIDUAL REPLICATE <other_fields>
 \subsubsection{Clonal counts and inter-replicate correlations}
 \label{sec:methods_comp_igdownstream_clones}
 
-Following the completion of the pipeline from \Cref{sec:methods_comp_igpreproc}, the number and proportion of sequences successfully assigned clonotypes was evaluated by counting the number of unique sequences in the final \program{Change-O} databases with missing (NA) clonal identities. The size of each clone in the dataset was found by counting the number of unique sequences assigned to that clone, either in total or for each replicate separately; a clone was designated to be present in a replicate if at least one sequence in that replicate was assigned to that clone. Following inference of clone sizes in each replicate, the correlation between replicates was computed using a simple Pearson's product-moment correlation coefficient (implemented in \snippet{cor} in \program{R}) comparing their respective vectors of clone sizes.
+Following the completion of the pipeline from \Cref{sec:methods_comp_igpreproc}, the number and proportion of sequences successfully assigned clonotypes was evaluated by counting the number of unique sequences in the final \program{Change-O} databases with missing (NA) clonal identities. The size of each clone in the dataset was found by counting the number of unique sequences assigned to that clone, either in total or for each replicate separately; a clone was designated to be present in a replicate if at least one sequence in that replicate was assigned to that clone. Following inference of clone sizes in each replicate, the correlation between replicates was computed using a simple Pearson's product-moment correlation coefficient (implemented in \snippet{cor} in \program{R}) comparing their respective clone-size vectors.
 
 \subsubsection{Zipf approximation of rank/frequency distributions}
 \label{sec:methods_comp_igdownstream_zipf}
 
-To obtain the rank/frequency distributions of clones in a \program{Change-O} database, the size of each clone in each repertoire (\Cref{sec:methods_comp_igdownstream_clones}) was divided by the total number of unique sequences in that repertoire to obtain a relative frequency for each clone; these frequencies were then ranked in descending order within each repertoire. The resulting distributions could then be plotted on a log:log plot to visualise the underlying distribution. Best-fit Zipf distributions could then be obtained for each repertoire using maximum-likelihood estimation, either on all clones or after excluding some number of the largest clones in each repertoire:
+To obtain the rank/frequency distributions of clones in a \program{Change-O} database, the size of each clone in each repertoire (\Cref{sec:methods_comp_igdownstream_clones}) was divided by the total number of unique sequences in that repertoire to obtain a relative frequency for each clone; these frequencies were then ranked in descending order within each repertoire. The resulting distributions were then plotted on a log:log plot to visualise the underlying distribution. Best-fit Zipf distributions could then be obtained for each repertoire using maximum-likelihood estimation, either on all clones or after excluding some number of the largest clones in each repertoire:
 
 \begin{lstlisting}[language=R]
 lzipf <- function(f, s){
@@ -772,7 +771,7 @@ compute_zipf_slope <- function(frequencies, n_exclude){
 clone_table <- clntab %>% group_by(INDIVIDUAL) %>% arrange(CLONE_RANK) %>% mutate(S = compute_zipf_slope(CLONE_SIZE, n_exclude), EXP_FREQUENCY = dzipf(CLONE_RANK, S, n()), EXP_SIZE = sum(CLONE_SIZE) * EXP_FREQUENCY))
 \end{lstlisting}
 
-\noindent The resulting expected frequency from the fitted Zipf distribution could then be overlaid on the actual observed frequency to compare the fit of the inferred distribution to the actual clonal repertoire (\Cref{sec:igseq_pilot_clones}). Meanwhile, the ranks and frequencies computed as part of the estimation process could be used to compute the observed P20 of the repertoire (i.e. the sum of frequencies of all clones with rank 20 or less), as well as the expected P20 (i.e. the sum of frequences for those clones predicted by the fitted Zipf distribution).
+\noindent The resulting expected frequency from the fitted Zipf distribution could then be overlaid on the actual observed frequency to compare the fit of the inferred distribution to the actual clonal repertoire (\Cref{sec:igseq_pilot_clones}). Meanwhile, the ranks and frequencies computed as part of the estimation process could be used to compute the observed P20 of the repertoire (i.e. the sum of frequencies of all clones with rank 20 or less), as well as the expected P20 (i.e. the sum of frequencies for those top-20 clones predicted by the fitted Zipf distribution).
 
 
 \subsubsection{Rarefaction analysis for inter-experiment comparison}
@@ -780,19 +779,19 @@ clone_table <- clntab %>% group_by(INDIVIDUAL) %>% arrange(CLONE_RANK) %>% mutat
 
 Inter-individual comparisons of metrics such as clonal counts, P20, or the proportion of large clones in the repertoire make the implicit assumption that the sampling process (in particular, the sampling effort) used to obtain each repertoire was similar between the individuals being compared. When this is not the case -- when the number of cycles used to amplify each library or the number of sequencing reads per library differs between individuals, for example -- sample composition is liable to differ systematically between repertoires, making comparisons using such metrics unreliable. In the case of immune repertoire sequencing, the very large number of small clones in most immune repertoires  \parencite{mora2016diversity} means that increased sampling depth is likely to lead to larger clonal counts, lower P20 values, and smaller proportions of large clones.
 
-In order to compare the clonal richness and P20 values of antibody repertoires from different \igseq experiments in the turquoise killifish in a more reliable manner, I performed rarefaction analysis \parencite{gotelli2001rarefaction} on these repertoires at the level of unique sequences. For each of a range of sample sizes (from $10^2$ to $10^4$ unique sequences), sequence entries in the pre-processed \program{Change-O} database were repeatedly subsampled without replacement from the repertoire of each individual in each experiment, for a total of 20 iterations per sample size. For each experiment, individual, and sample size, the number of small (fewer than 5 unique sequences), large (5 or more unique sequences) and total clones for each individual, as well as the P20, was computed for each subsample, and the mean and standard deviation of each measurement was computed across subsamples. The resulting rarefaction curves (of clonal count or P20 vs sample size) could then be plotted and used to compare repertoires of different experiments at any given sample size (\Cref{sec:igseq_gut}).
+In order to compare the clonal richness and P20 values of antibody repertoires from different \igseq experiments in the turquoise killifish in a more reliable manner, rarefaction analysis \parencite{gotelli2001rarefaction} was performed on these repertoires at the level of unique sequences. For each of a range of sample sizes (from $10^2$ to $10^4$ unique sequences), sequence entries in the pre-processed \program{Change-O} database were repeatedly subsampled without replacement from the repertoire of each individual in each experiment, for a total of 20 iterations per sample size. For each experiment, individual, and sample size, the number of small (fewer than 5 unique sequences), large (5 or more unique sequences) and total clones for each individual, as well as the P20, was computed for each subsample, and the mean and standard deviation of each measurement was computed across subsamples. The resulting rarefaction curves (of clonal count or P20 vs sample size) could then be plotted and used to compare repertoires of different experiments at any given sample size (\Cref{sec:igseq_gut}).
 
 \subsubsection{Hill diversity spectra}
 \label{sec:methods_comp_igdownstream_spectra}
 
-The procedure for computing Hill diversity spectra (\Cref{app:diversity}) from a \program{Change-O} sequence database was adapted (and substantially expanded) from the code for the same purpose provided in the \program{R} package \program{Alakazam} \parencite{gupta2015changeo,stern2014bcells}. To begin with, columns in the database were specified designating how to divide the entries into an outer group (e.g. an age group), a finer inner group (e.g. an individual), and an even-finer ``clone'' group (by default the clonal identity, but could also be a V(D)J identity or any other set of sequence categories). Counts of unique sequences were then computed for each ``clone'' within each inner group (\snippet{clone_tab}), and aggregated to find total sequence counts for each inner group (\snippet{group_tab}):
+The procedure for computing Hill diversity spectra (\Cref{app:diversity}) from a \program{Change-O} sequence database was adapted (and substantially expanded) from the code for the same purpose provided in the \program{R} package \program{Alakazam} \parencite{gupta2015changeo,stern2014bcells}. To begin with, columns in the database were specified designating how to divide the entries into an outer group (e.g. an age group), a finer inner group (e.g. an individual), and an even-finer ``clone'' group (by default the clonal identity of each sequence entry, but could also be a V(D)J identity or any other set of sequence categories). Counts of unique sequences were then computed for each ``clone'' within each inner group (\snippet{clone_tab}), and aggregated to find total sequence counts for each inner group (\snippet{group_tab}):
 
 \begin{lstlisting}[language=R]
 clone_tab <- data %>% group_by_(.dots = c(outer_group, inner_group, clone_field)) %>% dplyr::summarize(COUNT = n())
 group_tab <- clone_tab %>% group_by_(.dots = c(outer_group, inner_group)) %>% dplyr::summarize_(SEQUENCES = interp(~sum(x, na.rm = TRUE), x = as.name("COUNT")))
 \end{lstlisting}
 
-\noindent The size of the bootstrap replicates (\snippet{NSAM}) for each sample was then computed as the minimum across all inner groups, and a table of \snippet{nboot} bootstrap replicates of ``clonal'' frequencies, each of size \snippet{NSAM}, was computed for each outer-group/inner-group combination through multinomial resampling:
+\noindent The size of the bootstrap replicates (\snippet{NSAM}) for each sample was then computed as the minimum total sequence count across all inner groups, and a table of \snippet{nboot} bootstrap replicates of ``clonal'' frequencies, each of size \snippet{NSAM}, was computed for each outer-group/inner-group combination through multinomial resampling:
 
 \begin{lstlisting}[language=R]
 bootstrap_abundance <- function(nboot, clone_tab, group_tab, outer_group_name, outer_group_value, inner_group_name, inner_group_value, clone_field){
@@ -839,10 +838,10 @@ bootstrap_abundance <- function(nboot, clone_tab, group_tab, outer_group_name, o
 \noindent Following bootstrap generation and concatenation of bootstrap tables from different inner-group/outer-group combinations, individual Hill diversity numbers (\Cref{app:diversity-unitary-hill}) could be computed for each inner group for each bootstrap replicate (using \program{alakazam}'s built-in \snippet{calcDiversity} function \parencite{gupta2015changeo,stern2014bcells}) for each diversity order in a vector of orders \snippet{Q}:
 
 \begin{lstlisting}[language=R]
-bs_tab <- bootstraps %>% group_by_(.dots = c(outer_group, inner_group, "ITER"))
+bs_tab_solo <- bootstraps %>% group_by_(.dots = c(outer_group, inner_group, "ITER"))
 div_tab_bs_solo <- tibble()
 for (q in Q){
-	dt <- summarise(bs_tab, Q = q, 
+	dt <- summarise(bs_tab_solo, Q = q, 
 		D = calcDiversity(N, q = q), N_GROUP = 1)
 	div_tab_bs_solo <- bind_rows(div_tab_bs_solo, dt)
 }
@@ -851,7 +850,7 @@ for (q in Q){
 \noindent Similarly, different sorts of aggregate diversity spectrum (\Cref{app:diversity-structured}) could be computed for each outer group:
 
 \begin{lstlisting}[language=R]
-# Gamma diversity (simple diversity over each outer group0
+# Gamma diversity (simple diversity over each outer group)
 bs_tab_gamma <- bootstraps %>% group_by_(.dots = c(group_within, clone_field, "ITER")) %>% summarise(N = sum(N)) %>% group_by_(.dots = c(outer_group, "ITER"))
 div_tab_bs_gamma <- tibble()
 for (q in Q){
@@ -861,7 +860,7 @@ for (q in Q){
 }
 
 # Alpha diversity (average diversity across inner groups
-# within each outer groups)
+# within each outer group)
 bs_tab_alpha <- bootstraps %>% group_by_(.dots = c(outer_group, inner_group, "ITER"))
 div_tab_split <- tibble()
 for (q in Q){
@@ -875,7 +874,7 @@ div_tab_bs_alpha <- div_tab_bs_alpha %>% group_by_(.dots = c(outer_group, "ITER"
 div_tab_bs_beta <- full_join(div_tab_bs_gamma, div_tab_bs_alpha, by = c(outer_group, "ITER", "Q"), suffix = c("_GAMMA", "_ALPHA")) %>% mutate(D= D_GAMMA/D_ALPHA) %>% select(-D_GAMMA, -D_ALPHA)
 \end{lstlisting}
 
-\noindent Finally, each diversity spectrum was grouped by diversity order and summarised across bootstrap replicates, to obtain means and standard-deviations diversity (and therefore 95\,\% confidence intervals) at each diversity order. Solo, alpha and gamma spectra could then be plotted (and compared between groups or against other diversity metrics) directly from these summarised tables; however, as the beta diversity of an outer group depends on the number of inner groups it contains (\snippet{N_GROUP}), beta spectra of outer groups of different sizes needed to be rescaled to a common range (0 for minimum possible beta-diversity, 1 for maximum) prior to plotting in order to be comparable (\Cref{app:diversity-structured-rescaling}):
+\noindent Finally, each diversity spectrum was grouped by diversity order and summarised across bootstrap replicates, to obtain means and standard-deviations (and therefore 95\,\% confidence intervals) at each diversity order. Solo, alpha and gamma spectra could then be plotted (and compared between groups or against other diversity metrics) directly from these summarised tables; however, as the beta diversity of an outer group depends on the number of inner groups it contains (\snippet{N_GROUP}), beta spectra of outer groups of different sizes needed to be rescaled to a common range (0 for minimum possible beta-diversity, 1 for maximum) prior to plotting in order to be comparable (\Cref{app:diversity-structured-rescaling}):
 
 \begin{lstlisting}[language=R]
 beta_rescaled <- <summarised_beta_diversity> %>% mutate(D = (D-1)/(N_GROUP-1), D_UPPER = (D_UPPER-1)/(N_GROUP-1), D_LOWER = (D_LOWER-1)/(N_GROUP-1), D_SD = D_SD/(N_GROUP-1)) %>% select(-N_GROUP)
@@ -894,7 +893,7 @@ genes <- pull(<filtered_changeo_db>, <vj_call_field>)
 annots <- as.character(pull(filtered_changeo_db>, <repertoire_id_field>))
 
 # Create counts table
-counts <- calcVDJcounts(genes = genes, seqAnnot = annots, simplifyNames = TRUE, splitCommas = FALSE)
+counts <- calcVDJcounts(genes = genes, seqAnnot = annots)
 \end{lstlisting}
 
 \noindent The RDI between each pair of repertoires could then be computed as described above using the provided \snippet{calcRDI} function from the \program{rdi} package \parencite{bolen2017rdi}:
@@ -905,23 +904,12 @@ rdi <- calcRDI(counts, nIter = 100)
 
 \noindent where \snippet{nIter = 100} specifies that the RDI measurements should be averaged over 100 iterations.
 
-Following RDI computation, hierarchical (average-linkage) clustering was performed on the resulting distance matrix, and the dendrogram of the resulting clustering structure was visualised using \program{ggtree}. Principal co-ordinate analysis (PCoA) was performed using standard \program{R} \snippet{pcoa} function, then processed into standard tabular format for visualisation:
-
-\begin{lstlisting}[language=R]
-# Perform PCoA
-pc <- pcoa(rdi)
-
-# Percentage of variation in each dimension
-pc_var <- pc$values %>% pull(Broken_stick) %>% (function(x) round(x*100, 1))
-
-# Extract co-ordinates in first two axes into data frame
-pc_tab <- tibble(REPERTOIRE = rownames(as.matrix(rdi)), PCO1 = pc$vectors[,1], PCO2 = pc$vectors[,2])
-\end{lstlisting}
+Following RDI computation, hierarchical (average-linkage) clustering was performed on the resulting distance matrix, and the dendrogram of the resulting clustering structure was visualised using \program{ggtree}. Principal co-ordinate analysis (PCoA) was performed on the RDI distance matrix using the standard \program{R} \snippet{pcoa} function, then processed into standard tabular format for visualisation.
 
 \subsubsection{Analysing generative repertoire diversity with \program{IGoR}}
 \label{sec:methods_comp_igdownstream_igor}
 
-The processes generating the primary antibody repertoire include VDJ recombination, P-insertion/deletion at the ends of the selected gene segments, and N-insertion between them (\Cref{sec:intro_immunity_primary}). The enormous potential diversity of sequences generated by these processes makes it impossible to accurately model the generative processes by explicitly assigning probabilities to each possible sequence in the primary repertoire, as in any given sample of rearranged sequences the observed probability of the vast majority of possible sequences will be zero \parencite{marcou2018igor}. The program \program{IGoR} bypasses this problem by instead explicitly estimating the probability distributions of each contributing stochastic process separately, producing a generative model that can be used to estimate the entropy of the generative process, or to generate new, simulated sequences drawn from the same probability distribution \parencite{marcou2018igor}. In this thesis, I used \program{IGoR} to estimate these processes in turquoise killifish, in order to investigate the diversity and composition of the killifish generative repertoire and the changes that take place in the generative process with age.
+The processes generating the primary antibody repertoire include VDJ recombination, P-insertion or deletion at the ends of the selected gene segments, and N-insertion between them (\Cref{sec:intro_immunity_primary}). The enormous potential diversity of sequences generated by these processes makes it impossible to accurately model the generative processes by explicitly assigning probabilities to each possible sequence in the primary repertoire, as in any given sample of rearranged sequences the observed frequency of the vast majority of possible sequences will be zero \parencite{marcou2018igor}. The program \program{IGoR} bypasses this problem by instead explicitly estimating the probability distributions of each contributing stochastic process separately, producing a generative model that can be used to estimate the entropy of the generative process, or to generate new, simulated sequences drawn from the same probability distribution \parencite{marcou2018igor}. In this thesis, I used \program{IGoR} to estimate these processes in turquoise killifish, in order to investigate the diversity and composition of the killifish generative repertoire and the changes that take place in the generative process with age.
 
 \subsubsubsection{Preparing sequence databases for \program{IGoR}}
 
@@ -934,7 +922,7 @@ To begin with, the pre-processed \program{Change-O} database of all sequences in
 changeo_db <- changeo_db[!is.na(changeo_db[[clone_field]]),]
 
 # Collapse each clone to a single consensus sequence
-changeo_db_collapsed <- collapseClones(changeo_db, cloneColumn = "CLONE", sequenceColumn = "SEQUENCE_IMGT", germlineColumn = "GERMLINE_IMGT_D_MASK", method = "mostCommon", includeAmbiguous = FALSE, breakTiesStochastic = FALSE, expandedDb = NULL)
+changeo_db_collapsed <- collapseClones(changeo_db, method = "mostCommon")
 \end{lstlisting}
 
 \noindent In order to assign functional statuses to these new consensus sequences, they were then extracted into \format{FASTA} format, assigned V/J identities and CDR3 boundaries with \program{IgBLAST}, then re-imported into \program{Change-O} database format, after which functional sequences could be identified and discarded:
@@ -995,4 +983,4 @@ igor -set_wd <working_directory> -set_custom_model <default_model> -set_genomic 
 igor -set_wd <working_directory> -load_last_inferred -evaluate -output --scenarios 5 --Pgen --coverage VJ_gene
 \end{lstlisting}
 
-\noindent Finally, having inferred a generative model for each individual and pooled repertoire with \program{IGoR}, the inferred gene-choice, insertion and deletion probability distributions, along with the inferred entropy of each component of the model, were extracted from \program{IGoR}'s output files with \program[python]{pygor}, a \program{Python} package supplied as part of the \program{IGoR} program.
+\noindent Finally, having inferred a generative model for each individual and pooled repertoire with \program{IGoR}, the inferred gene-choice, insertion and deletion probability distributions, along with the inferred entropy of each component of the model, were extracted from \program{IGoR}'s output files with \program{pygor}, a \program{Python} package supplied as part of the \program{IGoR} program.
