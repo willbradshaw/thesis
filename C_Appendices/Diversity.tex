@@ -13,7 +13,7 @@ The question of how to measure the diversity of clones or sequences within an an
 
 Though in this appendix I use terminology derived from the ecological literature, the concepts and measures discussed here can be applied to any situation in which a set (or \textit{population}) of elements (\textit{individuals}) is partitioned among some number of mutually-exclusive categories (\textit{species}). Considered abstractly, these terms and denotations could be used to refer to coloured balls in an urn, species in a rainforest, or sequences in a repertoire.
 
-Let $X$ be a unitary population of individuals, each of which is assigned to some species $s$ from a set of possible species $S$. The term ``unitary'' here denotes that $X$ has no internal structure except the species identity of its constitutent individuals. Let $n_s$ denote the number of individuals in $X$ belonging to $s$, and $N$ denote the total number of individuals in $X$. Then 
+Let $X$ be a unitary population of individuals, each of which is assigned to some species $s$ from a set of possible species $S$. The term ``unitary'' here denotes that $X$ is considered to have no internal structure except the species identity of its constitutent individuals. Let $n_s$ denote the number of individuals in $X$ belonging to $s$, and $N$ denote the total number of individuals in $X$. Then 
 
 \begin{equation}
 p_s = \frac{n_s}{N}
@@ -25,7 +25,7 @@ p_s = \frac{n_s}{N}
 \subsection{Simple diversity indices}
 \label{app:diversity-unitary-simple}
 
-The diversity of a unitary population $X$ of some total size $N$ is generally considered to increase with both the richness and evenness of $X$. Different measures of within-population diversity, however, place different amounts of weight on the richness of $X$ compared to its evenness when evaluating its diversity. At one extreme, the species richness itself is used as a measure of diversity, albeit one that entirely ignores evenness; other commonly-used diversity measures, such as Simpson's index, Shannon entropy, and the Berger-Parker index are affected to varying degrees by both richness and evenness \parencite{peet1974diversity,berger1970diversity}. In addition to their relative emphasis on richness vs evenness, different indices will also place different amounts of weight on common vs rare species when computing diversity: at the extremes, species richness gives the same amount of weight to all species regardless of frequency, while the Berger-Parker index gives zero weight to all species except the most common (\Cref{app:diversity-unitary-simple-berger}). As a result, any given diversity index captures a different aspect of the diversity structure of any population of interest.
+The diversity of a unitary population $X$ of some total size $N$ is generally considered to increase with both the richness and evenness of $X$. Different measures of within-population diversity, however, place different amounts of weight on the richness of $X$ compared to its evenness when evaluating its diversity. At one extreme, the species richness itself is used as a measure of diversity, albeit one that entirely ignores evenness; other commonly-used diversity measures, such as Simpson's index, Shannon entropy, and the Berger-Parker index are affected to varying degrees by both richness and evenness \parencite{peet1974diversity,berger1970diversity}. In addition to their relative emphasis on richness vs evenness, different indices will also place different amounts of weight on common vs rare species when computing diversity: at the extremes, species richness gives the same amount of weight to all species regardless of frequency, while the Berger-Parker index gives zero weight to all species except the most common. As a result, any given diversity index captures a different aspect of the diversity structure of any population of interest.
 
 \subsubsection{Simpson's index}
 
@@ -55,14 +55,14 @@ The Berger-Parker index is a very simple measure of diversity, given by the rela
 
 In information theory, the Shannon entropy $H(Y)$ of a random variable $Y$ provides a measure of the unpredictability of that variable, and therefore of the degree to which its value can be predicted in advance \citep{shannon1948communication1}. A variable which can take only a single value has zero entropy (it is perfectly predictable), while one which can take all values in its state space with equal probability has maximum entropy (it is maximally unpredictable) for that state space. All else being equal, a variable which can take a larger number of possible values has greater entropy than one which can take fewer values; hence, the entropy of a variable increases with both the richness and evenness of its state space \citep{shannon1948communication1}.
 
-Although the concept of Shannon entropy was developed in the context of electronic communication, it can be extended quite naturally to ecology, where the process of sampling species from a population represents an  information source and each species observation represents an output. In this case, the Shannon entropy represents  ``the amount of uncertainty that exists regarding the species of an individual selected at random from the population'' \citep{peet1974diversity}. The Shannon entropy of a population $X$ is given by
+Although the concept of Shannon entropy was developed in the context of electronic communication, it can be extended quite naturally to ecology, where the process of sampling individuals from a population represents an information source and the species identity of each sampled individual represents an output. In this case, the Shannon entropy represents  ``the amount of uncertainty that exists regarding the species of an individual selected at random from the population'' \citep{peet1974diversity}. The Shannon entropy of a population $X$ is given by
 
 \begin{equation}
 H(X) = -\sum_{s \in S} p_s \cdot \log p_s
 \label{eq:shannon_infinite}
 \end{equation}
 
-\noindent Any base logarithm can be used, though bases $2$ and $e$ are most common; in these bases, the units of Shannon entropy are the bit (``binary digit'') and nat (``natural unit''), respectively.
+\noindent Any base of logarithm can be used, though bases $2$ and $e$ are most common; in these bases, the units of Shannon entropy are the bit (``binary digit'') and nat (``natural unit''), respectively.
 
 A generalisation of the Shannon entropy, also used as a diversity measure, is the R\'{e}nyi entropy \parencite{mora2016renyi}:
 
@@ -76,7 +76,7 @@ H_q(X) = \frac{1}{1-q}\,\log\right[\sum_{s \in S} p_i^q\right]
 \subsection{Effective species richness and true diversity}
 \label{app:diversity-unitary-hill}
 
-\Cref{app:diversity-unitary-simple} discusses several commonly-used diversity indices, including Simpson's index, the Gini-Simpson index, Shannon entropy (\& other R\'{e}nyi entropies), and the Berger-Parker index; many other diversity indices are possible. These indices differ importantly in their forms, numeric ranges and biological interpretation, as well as their response behaviours to different changes in population composition \citep{peet1974diversity, jost2006entropy}. For example, Simpson's index and the Berger-Parker index range from 0 to 1, with lower values indicating greater population diversity, while Shannon- and R\'{e}nyi-entropy measures range from 0 to infinity, with higher values indicating greater diversity (in log-scale). The use of different diversity indices can therefore yield importantly different results when used to compare different populations: comparing two populations using only one such measure will capture only part of the diversity structure of those populations, while comparing them using two or more raw indices will often yield results that are difficult to accurately interpret \citep{peet1974diversity, jost2006entropy}.
+\Cref{app:diversity-unitary-simple} discusses several commonly-used diversity indices, including Simpson's index, the Gini-Simpson index, Shannon entropy (\& other R\'{e}nyi entropies), and the Berger-Parker index; many other diversity indices are possible. These indices differ importantly in their forms, numeric ranges and biological interpretation, as well as their response behaviours to different changes in population composition \citep{peet1974diversity, jost2006entropy}. For example, Simpson's index and the Berger-Parker index range from 0 to 1, with lower values indicating greater population diversity, while Shannon- and R\'{e}nyi-entropy measures range from 0 to infinity, with higher values indicating greater diversity (in log-scale). The use of different diversity indices can therefore yield importantly different results when used to compare different populations: comparing two populations using only one such measure will capture only a small part of the diversity structure of those populations, while comparing them using two or more raw indices will often yield results that are difficult to accurately interpret \citep{peet1974diversity, jost2006entropy}.
 
 Fortunately, different diversity indices can be transformed into a common framework by considering, for each index, the number $D$ of \textit{equally-common} species that would be needed to produce the same diversity value using that index. This transformation gives an estimation, for each index, of the ``effective species richness'' of the population: if we corrected for differences in species abundance while holding the diversity index constant, how rich would the resulting population be? This effective richness can itself be considered a diversity measure; one that is comparable across diversity indices in a way the raw indices are not \citep{jost2006entropy}.
 
@@ -97,7 +97,7 @@ The use of Hill numbers in diversity estimation enables many different, widely-u
 \label{eq:hill_index_continuous}
 \end{equation}
 
-\noindent This equation can then be easily used to construct diversity profiles (or \textit{spectra}) spanning many different orders of diversity \citep{miho2018strategies}; since each value of $q$ captures a different aspect of a population's diversity structure, these profiles can be much more informative than any single metric when analysing and comparing the diversity structure of populations.
+\noindent This equation can then be easily used to construct diversity profiles (or \textit{spectra}) spanning many different orders of diversity \citep{miho2018computational}; since each value of $q$ captures a different aspect of a population's diversity structure, these profiles can be much more informative than any single metric when analysing and comparing the diversity structure of populations.
 
 \begin{table}
 \centering
@@ -150,7 +150,7 @@ D_\gamma(C) = D_\alpha(C) \times D_\beta(C)
 \noindent and therefore 
 
 \begin{equation}
-D_\beta = \frac{D_\gamma}{D_\alpha}
+D_\beta(C) = \frac{D_\gamma(C)}{D_\alpha(C)}
 \label{eq:diversity_relationship_beta}
 \end{equation}
 
@@ -302,7 +302,7 @@ The \textit{minimum} beta diversity of a structured population obtains when all 
 & = \exp\left[H(C) + \left(\sum_{s \in S}p_s\cdot\left[\ln M + \ln p_s\right]\right)\right]\\
 & = \exp\left[H(C) + \left(\sum_{s \in S}p_s\cdot\ln p_s\right)+ \ln M \cdot \sum_{s \in S}p_s\right]
 = \exp\left[H(C) - H(C) + \ln M\right]\\
-& = \exp\ln M = \boldsymbol{M}
+& = \exp(\ln M) = \boldsymbol{M}
 \end{split}
 \label{eq:diversity_beta_q1_max}
 \end{equation}
@@ -310,7 +310,7 @@ The \textit{minimum} beta diversity of a structured population obtains when all 
 \noindent The beta diversity for a structured population with $M$ subpopulations therefore ranges between $1$ (identical composition) and $M$ (maximally-divergent composition). The beta diversities of this population can thus be transformed onto a new scale from $0$ to $1$ as follows:
 
 \begin{equation}
-^qD_{\beta\,\mathrm{rescaled}} = \frac{^qD_\beta -\:^qD_{\beta\min}}{^qD_{\beta\max} -\: ^qD_{\beta\min}} = \frac{^qD_\beta - 1}{M - 1}
+^qD_{\beta\,\mathrm{rescaled}}(C) = \frac{^qD_\beta(C) -\:^qD_{\beta\min}(C)}{^qD_{\beta\max}(C) -\: ^qD_{\beta\min}(C)} = \frac{^qD_\beta(C) - 1}{M - 1}
 \label{eq:diversity_beta_rescale}
 \end{equation}
 

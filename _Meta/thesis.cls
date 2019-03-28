@@ -997,7 +997,9 @@ der Universit\"at zu K\"oln\\
 \vspace*{2em}
 vorgelegt von}\vspace{0.75em}\\}
 {\LARGE\bfseries{\@author}}\vspace{0.75em}
-{\usebox{\PHD@dept}}
+{\usebox{\PHD@dept}}\\
+\vspace*{5em}
+{\Large{K\"{o}ln 2019}}
 \vspace{.2\PHD@titlepagespacing}
 
 \clearpage

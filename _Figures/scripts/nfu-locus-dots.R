@@ -16,10 +16,10 @@ source("aux/ggplot2.R")
 
 # Configure input paths
 locus_path <- "../_Data/locus/complete/nfu.fasta"
-vh_ranges_path <- "../_Data/ranges/nfu/nfu_vh_ranges.tsv"
-dh_ranges_path <- "../_Data/ranges/nfu/nfu_dh_ranges.tsv"
-jh_ranges_path <- "../_Data/ranges/nfu/nfu_jh_ranges.tsv"
-ch_ranges_path <- "../_Data/ranges/nfu/nfu_ch_ranges.tsv"
+vh_ranges_path <- "../_Data/ranges/nfu/nfu-vh-ranges.tsv"
+dh_ranges_path <- "../_Data/ranges/nfu/nfu-dh-ranges.tsv"
+jh_ranges_path <- "../_Data/ranges/nfu/nfu-jh-ranges.tsv"
+ch_ranges_path <- "../_Data/ranges/nfu/nfu-ch-ranges.tsv"
 
 # Configure output
 filename <- "nfu-locus-dots"
@@ -168,7 +168,7 @@ g <- ggplot() +
   scale_colour_manual(values = as.character(colours), name = "Region") + 
   scale_fill_manual(values = as.character(colours), name = "Region") +
   coord_fixed() + theme_minimal() +
-  xlab("IGH1 Co-ordinate") + ylab("IGH2 Co-ordinate") +
+  xlab("IGH1 Co-ordinate (bp)") + ylab("IGH2 Co-ordinate (bp)") +
   theme(
     legend.position = "top",
     axis.text = element_text(size = fontsize_base, family = "CM Sans", 

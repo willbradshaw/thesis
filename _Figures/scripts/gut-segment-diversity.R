@@ -126,7 +126,7 @@ g_solo_age <-  ggplot(tab_solo_age) +
   ylab(expression(Diversity~(""[q]*D))) +
   xlim(c(0,4)) + ylim(c(0,120)) +
   scale_colour_manual(values = palette_age, name = "Age group (weeks)") +
-  scale_fill_manual(values = palette, name = "Age group (weeks)") +
+  scale_fill_manual(values = palette_age, name = "Age group (weeks)") +
   theme_classic() + theme_base +
   theme(legend.title = element_text(margin = margin(r = 1, unit = "cm")))
 

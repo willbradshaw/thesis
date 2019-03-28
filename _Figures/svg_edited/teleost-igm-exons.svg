@@ -68,15 +68,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="1132.8227"
-     inkscape:cy="669.09882"
+     inkscape:cx="926.2465"
+     inkscape:cy="507.47441"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g5906"
      showgrid="false"
-     inkscape:window-width="3840"
-     inkscape:window-height="2136"
-     inkscape:window-x="2560"
-     inkscape:window-y="0"
+     inkscape:window-width="2560"
+     inkscape:window-height="1545"
+     inkscape:window-x="0"
+     inkscape:window-y="31"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
@@ -86,7 +86,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -330,7 +330,7 @@
              y="36.636097"
              x="64"
              id="tspan5468"
-             sodipodi:role="line">IgM constant region (genomic configuration)</tspan></text>
+             sodipodi:role="line">IGHM constant region (genomic configuration)</tspan></text>
       </g>
       <g
          transform="translate(0,1.8424072)"
@@ -346,7 +346,7 @@
              id="tspan5474"
              x="64"
              y="157.80087"
-             style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:22.5px;font-family:'CMU Sans Serif';-inkscape-font-specification:'CMU Sans Serif Medium'">Secreted IgM</tspan></text>
+             style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:22.5px;font-family:'CMU Sans Serif';-inkscape-font-specification:'CMU Sans Serif Medium'">Secreted IGHM</tspan></text>
         <path
            style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
            d="m 131.19027,186.20675 10.92227,-12.3038 11.04854,12.3038"
@@ -814,7 +814,7 @@
              y="406.28644"
              x="64"
              id="tspan5735"
-             sodipodi:role="line">Transmembrane IgM (most teleosts)</tspan></text>
+             sodipodi:role="line">Transmembrane IGHM (most teleosts)</tspan></text>
       </g>
       <g
          transform="translate(0,4.3149455)"
@@ -1065,14 +1065,14 @@
              id="tspan5739"
              x="64"
              y="278.71817"
-             style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:22.5px;font-family:'CMU Sans Serif';-inkscape-font-specification:'CMU Sans Serif Medium'">Transmembrane IgM (tetrapods)</tspan></text>
+             style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:22.5px;font-family:'CMU Sans Serif';-inkscape-font-specification:'CMU Sans Serif Medium'">Transmembrane IGHM (tetrapods)</tspan></text>
       </g>
       <g
          transform="translate(0,3.316977e-6)"
          id="g5906">
         <path
            style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           d="m 329.84605,568.72603 114.07946,-53.04805 115.39833,53.04805"
+           d="m 329.84605,568.72603 114.07946,-40.92622 115.39833,40.92622"
            id="path5163"
            inkscape:connector-curvature="0"
            sodipodi:nodetypes="ccc" />
@@ -1294,7 +1294,7 @@
              id="tspan5743"
              x="64"
              y="540.21039"
-             style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:22.5px;font-family:'CMU Sans Serif';-inkscape-font-specification:'CMU Sans Serif Medium'">Transmembrane IgM (medaka)</tspan></text>
+             style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:22.5px;font-family:'CMU Sans Serif';-inkscape-font-specification:'CMU Sans Serif Medium'">Transmembrane IGHM (medaka)</tspan></text>
       </g>
     </g>
   </g>

@@ -53,6 +53,6 @@ colours_igseq <- list(
   gut_group4 = "#fc8d62", # SMT_16wk
   gut_group5 = "#a6d854", # YMT_16wk
   #gut_allold = "#b3b3b3" # All 16-week groups
-  gut_allold = "#ffd92f" # All 16-week groups
+  gut_allold = "#F5C800" # All 16-week groups
   
 )
