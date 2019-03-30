@@ -100,7 +100,7 @@ treeplot_vh <- function(treedata, outgroup_node, hilight_nodes, hilight_fills,
 
 treeplot_nt <- treeplot_vh(treedata_nt, outgroup_nt,
                            c(group1_mrca_nt, group2_mrca_nt),
-                           c("steelblue", "mediumseagreen"), 2)
+                           c(colours[["HL1"]], colours[["HL2"]]), 2)
 
 #------------------------------------------------------------------------------
 # SAVE PLOT
