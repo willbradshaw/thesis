@@ -143,7 +143,8 @@ g_nrep <- tab_cl_nrep %>% group_by(CLNCOUNT, N_PRESENT) %>%
                               colour = as.factor(N_PRESENT),
                               fill = as.factor(N_PRESENT)), 
                           method = "loess", formula = y~x) + 
-  scale_x_log10(name = "# Unique sequences per clone") + ylab("% of clones") +
+  scale_x_log10(name = "# Unique sequences per clone") + 
+  scale_y_continuous(name = "% of clones", labels = function(x) round(x*100)) +
   scale_fill_discrete(name = "Number of Replicates") + 
   scale_colour_discrete(name = "Number of Replicates") +
   coord_cartesian(ylim=c(0,1)) + theme_classic() + theme_base +

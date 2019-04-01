@@ -121,7 +121,7 @@ g_h_group <- plot_entropy_table(h_group) + theme(
 # Save output
 g <- plot_grid(g_h_group, ncol = 1, nrow = 1, labels = "N. furzeri",
                rel_heights = c(0.2,1), label_y = 1, label_x = 0.02,
-               label_fontfamily = titlefont, label_fontface = "plain",
+               label_fontfamily = titlefont, label_fontface = "italic",
                label_size = fontsize_base * 2,
                hjust = 0)
 savefig(g, filename_base, height = 6, width = 28)

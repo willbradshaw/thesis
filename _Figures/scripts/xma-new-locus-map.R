@@ -16,9 +16,9 @@ source("aux/gviz.R")
 
 # Install Gviz version with tick-decreasing option
 gvizV1 <- packageVersion("Gviz")
-install.packages("http://bioconductor.org/packages/devel/bioc/src/contrib/Gviz_1.27.5.tar.gz", repos=NULL)
+install.packages("http://bioconductor.org/packages/devel/bioc/src/contrib/Gviz_1.27.6.tar.gz", repos=NULL)
 library(Gviz)
-if (packageVersion("Gviz") != "1.27.5") stop("Wrong Gviz version loaded.")
+if (packageVersion("Gviz") != "1.27.6") stop("Wrong Gviz version loaded.")
 
 # Configure input paths
 locus_path <- "../_Data/locus/complete/xma_new.fasta"
