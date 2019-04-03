@@ -43,7 +43,7 @@ L^*(X) = \frac{\sum_{s \in S} n_s^2}{N^2} = \sum_{s \in S} p_s^2
 \label{eq:simpson_finite}
 \end{equation} 
 
-\noindent As originally formulated, Simpson's index can be considered a \textit{dominance index} (also known as a concentration  index \citep{simpson1949diversity}), measuring the degree to which a population is dominated by a small number of species; as such, a higher Simpson's index indicates a less-diverse population. Conversely, the complement $1-L(P)$ of Simpson's index, known as the Gini-Simpson index \citep{jost2006entropy}, represents the ``probability of interspecific encounter'' \citep{peet1974diversity}, and is also widely used as a diversity index in the literature.
+\noindent As originally formulated, Simpson's index can be considered a \textit{dominance index} (also known as a concentration  index \citep{simpson1949diversity}), measuring the degree to which a population is dominated by a small number of species; as such, a higher Simpson's index indicates a less-diverse population. Conversely, the complement $1-L(X)$ of Simpson's index, known as the Gini-Simpson index \citep{jost2006entropy}, represents the ``probability of interspecific encounter'' \citep{peet1974diversity}, and is also widely used as a diversity index in the literature.
 
 \subsubsection{The Berger-Parker index}
 \label{app:diversity-unitary-simple-berger}
@@ -78,7 +78,7 @@ H_q(X) = \frac{1}{1-q}\,\log\right[\sum_{s \in S} p_i^q\right]
 
 \Cref{app:diversity-unitary-simple} discusses several commonly-used diversity indices, including Simpson's index, the Gini-Simpson index, Shannon entropy (\& other R\'{e}nyi entropies), and the Berger-Parker index; many other diversity indices are possible. These indices differ importantly in their forms, numeric ranges and biological interpretation, as well as their response behaviours to different changes in population composition \citep{peet1974diversity, jost2006entropy}. For example, Simpson's index and the Berger-Parker index range from 0 to 1, with lower values indicating greater population diversity, while Shannon- and R\'{e}nyi-entropy measures range from 0 to infinity, with higher values indicating greater diversity (in log-scale). The use of different diversity indices can therefore yield importantly different results when used to compare different populations: comparing two populations using only one such measure will capture only a small part of the diversity structure of those populations, while comparing them using two or more raw indices will often yield results that are difficult to accurately interpret \citep{peet1974diversity, jost2006entropy}.
 
-Fortunately, different diversity indices can be transformed into a common framework by considering, for each index, the number $D$ of \textit{equally-common} species that would be needed to produce the same diversity value using that index. This transformation gives an estimation, for each index, of the ``effective species richness'' of the population: if we corrected for differences in species abundance while holding the diversity index constant, how rich would the resulting population be? This effective richness can itself be considered a diversity measure; one that is comparable across diversity indices in a way the raw indices are not \citep{jost2006entropy}.
+Fortunately, different diversity indices can be transformed into a common framework by considering, for each index, the number $D$ of \textit{equally-common} species that would be needed to produce the same diversity value using that index. This transformation gives an estimation, for each index, of the \textit{effective species richness} of the population: if we corrected for differences in species abundance while holding the diversity index constant, how rich would the resulting population be? This effective richness can itself be considered a diversity measure; one that is comparable across diversity indices in a way the raw indices are not \citep{jost2006entropy}.
 
 For many important diversity indices, the equation for the effective richness $D$ takes a common form, known as the Hill number or ``true diversity'' for some parameter $q$ \citep{hill1973diversity, jost2006entropy}:
 
@@ -196,7 +196,7 @@ Under this framework, the diversities of order $q$ for a structured population $
 \begin{equation}
 ^qD_\gamma(C)
 = \left[\frac{\displaystyle\sum_{s \in S}\left(\sum_{X \in C} wp_{X,\,s}\right)^q}{\displaystyle\left(\sum_{X \in C} w\right)^q}\right]^\frac{1}{1-q}
-= \left[\frac{\displaystyle w^q\sum_{s \in S}\left(\sum_{X \in C} p_{P,s}\right)^q}{\displaystyle M^qw^q}\right]^\frac{1}{1-q}
+= \left[\frac{\displaystyle w^q\sum_{s \in S}\left(\sum_{X \in C} p_{X,\,s}\right)^q}{\displaystyle M^qw^q}\right]^\frac{1}{1-q}
 = \left[\frac{\displaystyle\sum_{s \in S}\left(\sum_{X \in C} p_{X,\,s}\right)^q}{\displaystyle M^q}\right]^\frac{1}{1-q}
 \label{eq:diversity_gamma_even}
 \end{equation}
@@ -244,7 +244,7 @@ Under this framework, the diversities of order $q$ for a structured population $
 
 \begin{equation}
 \begin{split}
-^1D_\beta(C) & = \frac{^1D_\gamma(C)}{^1D_\alpha(C)} = \frac{\exp\left[-\sum_{s \in S}p_s \cdot\ln p_s\right]}{\exp\left[\frac{1}{M}\sum_{X \in C}\left(-\sum_{s \in S_X}(p_{X,\,s}\cdot\ln p_{X,\,s})\right)\right]} = \frac{\exp\left[\frac{1}{M}\sum_{X \in C}\ln\,^1D(X)\right]}{^1D(C)}
+^1D_\beta(C) & = \frac{^1D_\gamma(C)}{^1D_\alpha(C)} = \frac{\exp\left[-\sum_{s \in S}p_s \cdot\ln p_s\right]}{\exp\left[\frac{1}{M}\sum_{X \in C}\left(-\sum_{s \in S_X}(p_{X,\,s}\cdot\ln p_{X,\,s})\right)\right]} = \frac{^1D(C)}{\exp\left[\frac{1}{M}\sum_{X \in C}\ln\,^1D(X)\right]}
 \end{split}
 \label{eq:diversity_beta_q1}
 \end{equation}

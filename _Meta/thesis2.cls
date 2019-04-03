@@ -526,11 +526,11 @@ zur\\
 Erlangung des Doktorgrades\\
 der Mathematisch-Naturwissenschaftlichen Fakult\"at\\
 der Universit\"at zu K\"oln\\
-\vspace*{2em}
+\vspace*{3em}
 vorgelegt von}\vspace{0.75em}\\}
 {\LARGE\bfseries{\@author}}\vspace{0.75em}
 {\usebox{\PHD@dept}}\\
-\vspace*{5em}
+\vspace*{4.5em}
 {\Large{K\"{o}ln \@degreeyear{}}}
 \vspace{.2\PHD@titlepagespacing}
 
@@ -548,7 +548,9 @@ vorgelegt von}\vspace{0.75em}\\}
 \fi
 
 \vspace*{1em}
-{\usebox{\PHD@pruefung}}
+{\usebox{\PHD@pruefung}
+\thispagestyle{empty}
+}
 \vspace*{2em}
 
 \end{singlespace}
