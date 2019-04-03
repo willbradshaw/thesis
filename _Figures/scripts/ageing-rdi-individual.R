@@ -222,18 +222,22 @@ g_intra_nn_annot <- g_intra_nn +
   geom_text(aes(x=X,y=Y,label=LAB), family=font, size=3.5, data = kwt_grid_nn)
 
 #------------------------------------------------------------------------------
-# COMBINE BOXPLOT FIGURES WITH SINGLE LEGEND
+# COMBINE FIGURES WITH SINGLE LEGEND
 #------------------------------------------------------------------------------
 
 # Extract legend
-g <- ggplotGrob(g_intra_all_annot)$grobs
+g <- ggplotGrob(g_pcoa_all + 
+                  guides(colour = guide_legend(override.aes = list(size=4))))$grobs
 legend <- g[[which(sapply(g, function(x) x$name) == "guide-box")]]
 lheight <- sum(legend$height)
 lwidth <- sum(legend$width)
+
 # Combine plots without legend
 plt_intra <- plot_grid(g_intra_all_annot + theme(legend.position = "none"),
-                 g_intra_nn_annot + theme(legend.position = "none"), 
-                 ncol = 2, nrow = 1, labels="AUTO",
+                 g_intra_nn_annot + theme(legend.position = "none"),
+                 g_pcoa_all + theme(legend.position = "none"),
+                 g_pcoa_facet + theme(legend.position = "none"),
+                 ncol = 2, nrow = 2, labels="AUTO",
                  label_fontfamily = titlefont, label_fontface = "plain",
                  label_size = fontsize_base * fontscale_label)
 combined <- arrangeGrob(plt_intra,
@@ -243,7 +247,7 @@ combined <- arrangeGrob(plt_intra,
 
 # Visualise plot
 plot_unit = "cm"
-plot_height <- 15
+plot_height <- 27
 plot_width <- 25
 map_layout <- grid.layout(
   ncol = 1,
@@ -258,61 +262,11 @@ pushViewport(viewport(layout.pos.col = 1, layout.pos.row = 1))
 grid.draw(combined)
 popViewport(1)
 
-plt_intra <- grid.grab()
-
-
-#------------------------------------------------------------------------------
-# COMBINE PCOA FIGURES WITH SINGLE LEGEND
-#------------------------------------------------------------------------------
-
-# Extract legend
-g <- ggplotGrob(g_pcoa_all)$grobs
-legend <- g[[which(sapply(g, function(x) x$name) == "guide-box")]]
-lheight <- sum(legend$height)
-lwidth <- sum(legend$width)
-# Combine plots without legend
-plt_pcoa <- plot_grid(g_pcoa_all + theme(legend.position = "none"),
-                       g_pcoa_facet + theme(legend.position = "none"), 
-                       ncol = 2, nrow = 1, labels="AUTO",
-                       label_fontfamily = titlefont, label_fontface = "plain",
-                       label_size = fontsize_base * fontscale_label)
-combined <- arrangeGrob(plt_pcoa,
-                        legend,
-                        ncol = 1, nrow = 2,
-                        heights = unit.c(unit(1, "npc") - lheight, lheight))
-
-# Visualise plot
-plot_unit = "cm"
-map_layout <- grid.layout(
-  ncol = 1,
-  nrow = 1,
-  heights = unit(plot_height, plot_unit),
-  widths = unit(plot_width, plot_unit)
-)
-vtop <- viewport(layout = map_layout)
-grid.newpage()
-pushViewport(vtop)
-pushViewport(viewport(layout.pos.col = 1, layout.pos.row = 1))
-grid.draw(combined)
-popViewport(1)
-
-plt_pcoa <- grid.grab()
+plt_out <- grid.grab()
 
 #------------------------------------------------------------------------------
 # COMBINE AND SAVE PLOTS
 #------------------------------------------------------------------------------
 
-# plt_intra <- plot_grid(g_intra_all_annot, g_intra_nn_annot,
-#                  ncol = 2, nrow = 1, labels="AUTO",
-#                  label_fontfamily = titlefont, label_fontface = "plain",
-#                  label_size = fontsize_base * fontscale_label)
-# plt_pcoa <- plot_grid(g_pcoa_all, g_pcoa_facet,
-#                        ncol = 2, nrow = 1, labels="AUTO",
-#                        label_fontfamily = titlefont, label_fontface = "plain",
-#                        label_size = fontsize_base * fontscale_label)
-
-
-savefig(plt_intra, paste0(filename_base, "-groupdist"), 
-        width = plot_width, height = plot_height)
-savefig(plt_pcoa, paste0(filename_base, "-pcoa"),
+savefig(plt_out, filename_base, 
         width = plot_width, height = plot_height)

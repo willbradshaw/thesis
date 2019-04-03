@@ -18,7 +18,7 @@ source("aux/ggplot2.R")
 source("aux/changeo.R")
 
 # Input paths
-tab_path <- "../_Data/changeo/ctabs/pilot_filtered.tab"
+tab_path <- "../_Data/changeo/ctabs/pilot-final.tab"
 
 # Output paths
 filename_nn <- "igseq-pilot-filtered-nn"
@@ -62,8 +62,8 @@ tab_n_pretty[7,2] <- sum(tab_n_pretty[-(1:6), 2])
 tab_n_pretty[7,3] <- sum(tab_n_pretty[-(1:6), 3])
 tab_n_pretty[7,4] <- sum(tab_n_pretty[-(1:6), 4])
 tab_n_pretty <- tab_n_pretty[1:7,]
-tab_n_pretty[,3] <- signif(tab_n_pretty[,3], 3)
-tab_n_pretty[,4] <- signif(tab_n_pretty[,4], 3)
+tab_n_pretty[,3] <- round(tab_n_pretty[,3], 3)
+tab_n_pretty[,4] <- round(tab_n_pretty[,4], 2)
 
 # Save table
 savetab(tab_n_pretty, filename_nn)

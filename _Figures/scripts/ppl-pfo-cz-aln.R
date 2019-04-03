@@ -52,6 +52,9 @@ ighz_lineages <- list(
   "cto_IGHZ4" = "B"
 )
 
+# Set parameters
+significance_level <- 0.05
+
 #------------------------------------------------------------------------------
 # IDENTIFY SUBLOCUS RANGES
 #------------------------------------------------------------------------------
@@ -106,32 +109,75 @@ make_tab <- function(score_table){
 }
 cz_tab_nt <- make_tab(cz_id_nt)
 cz_tab_aa <- make_tab(cz_id_aa)
-cz_tab_comb <- bind_rows(cz_tab_nt %>% mutate(TYPE = "NT"),
-                         cz_tab_aa %>% mutate(TYPE = "AA"))
+#cz_tab_comb <- bind_rows(cz_tab_nt %>% mutate(TYPE = "NT"),
+#                         cz_tab_aa %>% mutate(TYPE = "AA"))
 
+#------------------------------------------------------------------------------
+# TEST FOR SIGNIFICANCE
+#------------------------------------------------------------------------------
+
+# Prepare significance annotations
+signif_stars <- function(p){
+  l <- rep("n.s.", length(p))
+  l <- ifelse(p <= 0.05, "*", l)
+  l <- ifelse(p <= 0.01, "**", l)
+  l <- ifelse(p <= 0.001, "***", l)
+  return(l)
+}
+annotate_sigtable <- function(ztab, scale = 8, width = 0.16){
+  ptab <- lapply(seq(3), function(x) lapply(seq(4), function(n) 
+    ztab %>% filter(EXON_PPL == n, LINEAGE_OTHER %in% LETTERS[1:3][-x]) %>%
+      wilcox.test(formula = SCORE ~ LINEAGE_OTHER, data = .) %>%
+      (function(x) x$p.value) %>%
+      tibble(EXON_PPL = n, P = ., LIN1 = LETTERS[1:3][-x][1],
+             LIN2 = LETTERS[1:3][-x][2])) %>% bind_rows) %>% bind_rows %>%
+    filter(P <= significance_level)
+  ytab <- ztab %>% group_by(EXON_PPL, LINEAGE_OTHER) %>%
+    summarise(SCORE = max(SCORE))
+  qtab <- ytab %>% rename(LIN1 = LINEAGE_OTHER, Y1 = SCORE) %>%
+    inner_join(ptab, by = c("EXON_PPL", "LIN1")) %>%
+    inner_join(ytab %>% rename(LIN2 = LINEAGE_OTHER, Y2 = SCORE),
+             by = c("EXON_PPL", "LIN2")) %>%
+    group_by(EXON_PPL) %>% arrange(LIN1, LIN2) %>%
+  mutate(Y = pmax(Y1, Y2) + scale * (1 + row_number() / 2),
+         Y_LAB = Y + (scale * 0.3),
+         X1 = EXON_PPL + ifelse(LIN1 == "A", -width, 0),
+         X2 = EXON_PPL + ifelse(LIN2 == "C", width, 0),
+         X_AVG = (X1 + X2)/2,
+         LABEL = signif_stars(P))
+  # select(-Y1, -Y2)
+  return(qtab)
+}
+
+p_aa <- annotate_sigtable(cz_tab_aa)
+p_nt <- annotate_sigtable(cz_tab_nt)
+
+         
 #------------------------------------------------------------------------------
 # PLOT SCORE DISTRIBUTIONS
 #------------------------------------------------------------------------------
 
-cz_score_box <- function(tab){
-  ggplot(tab) + 
+cz_score_box <- function(ztab, ptab){
+  ggplot(ztab) + 
     geom_boxplot(aes(x = factor(EXON_PPL), y = SCORE, colour = LINEAGE_OTHER),
                  width = 0.4, position = position_dodge(0.5)) +
+    geom_segment(aes(x=X1, xend=X2, y=Y, yend=Y), data = ptab) +
+    geom_text(aes(x=X_AVG, y=Y_LAB, label=LABEL), data = ptab, size = 6) +
     xlab("CZ exon") + ylab("Alignment score") + 
     scale_colour_discrete(name = "IGHZ lineage") +
     theme_base + theme(legend.justification = "centre")
 }
-g_cz_nt <- cz_score_box(cz_tab_nt)
-g_cz_aa <- cz_score_box(cz_tab_aa)
-g_cz_comb <- cz_score_box(cz_tab_comb) + facet_wrap(~TYPE, ncol=1)
+g_cz_nt <- cz_score_box(cz_tab_nt, p_nt)
+g_cz_aa <- cz_score_box(cz_tab_aa, p_aa)
+#g_cz_comb <- cz_score_box(cz_tab_comb) + facet_wrap(~TYPE, ncol=1)
 
 #------------------------------------------------------------------------------
 # SAVE PLOT
 #------------------------------------------------------------------------------
 
-plot_height <- 20
-plot_ratio <- 1/1.3
+plot_height <- 12
+plot_width <- 18
 
-savefig(g_cz_nt, filename_nt, height = plot_height, ratio = plot_ratio)
-savefig(g_cz_aa, filename_aa, height = plot_height, ratio = plot_ratio)
-savefig(g_cz_comb, filename_base, height = plot_height, ratio = plot_ratio * 1.65)
+savefig(g_cz_aa, filename_aa, height = plot_height, width = plot_width)
+savefig(g_cz_nt, filename_nt, height = plot_height, width = plot_width)
+# savefig(g_cz_comb, filename_base, height = plot_height, ratio = plot_ratio * 1.65)
