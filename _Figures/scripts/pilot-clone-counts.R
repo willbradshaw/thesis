@@ -189,8 +189,8 @@ g_cor <- ggplot(tab_cl_cor, aes(x=COMPARISON, y=R)) +
   theme(legend.position = "none", 
         axis.text.x = element_text(size = fontsize_base))
 
-savefig(g_cor, paste0(filename_base, "-cor-boxplots"), 
-        height = 10*1.2, width = 15*1.2)
+# savefig(g_cor, paste0(filename_base, "-cor-boxplots"), 
+#         height = 10*1.2, width = 15*1.2)
 
 #------------------------------------------------------------------------------
 # PLOT INTER-REPLICATE CORRELATIONS ON SCATTER PLOTS
@@ -204,7 +204,13 @@ g_inter <- ggplot(tab_cl_spread) +
   scale_x_log10() + scale_y_log10() +
   theme_classic() + theme_base + theme(legend.position = "none")
 
-savefig(g_inter, paste0(filename_base, "-cor-scatter"), 
-        height = 20, width = 20)
+# savefig(g_inter, paste0(filename_base, "-cor-scatter"), 
+#         height = 20, width = 20)
+
+g_cor_grid <- plot_grid(g_cor, g_inter, ncol = 1, nrow = 2, labels = "AUTO",
+                        label_fontfamily = titlefont, label_fontface = "plain",
+                        label_size = fontsize_base * fontscale_label,
+                        rel_heights = c(12,20))
+savefig(g_cor_grid, paste0(filename_base, "-cor"), height = 32, width = 20)
 
   

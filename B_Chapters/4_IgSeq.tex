@@ -178,7 +178,7 @@ One disadvantage of single-linkage clustering in this context is that non-inform
 \input{_Figures/tables/igseq-pilot-filtered-nn}
 \end{table}
 
-In total, \embed{_Figures/txt/pilot-nclones-individual-min.txt} to \embed{_Figures/txt/pilot-nclones-individual-max.txt} clones were identified per individual fish in the pilot dataset. As expected, the clone-size distribution is overwhelmingly dominated by small clones (\Cref{fig:igseq-pilot-clone-sizes-sizes}): across all individuals, \embed{_Figures/txt/pilot-nclones-pc-1count.txt}\,\% of clones are observed as just a single unique sequence across all replicates, while \embed{_Figures/txt/pilot-nclones-pc-small.txt}\,\% contain fewer than five unique sequences. As a result, the great majority of clones (\embed{_Figures/txt/pilot-nclones-pc-1rep.txt}\,\%) are observed in only a single replicate per individual, with \embed{_Figures/txt/pilot-nclones-pc-2rep.txt}\,\% present in two replicates and only  \embed{_Figures/txt/pilot-nclones-pc-3rep.txt}\,\% shared across all three. Unsurprisingly, however, larger clones are much more likely to be shared across multiple replicates (\Cref{fig:igseq-pilot-clone-sizes-reps}), consistent with a model in which a very large number of small clones are sampled only rarely while a much smaller number of large clones is sampled much more often \parencite{mora2016diversity}. Overall, the level of agreement between the replicates is high (\Cref{fig:igseq-pilot-clone-sizes-cor-boxplots,fig:igseq-pilot-clone-sizes-cor-scatter}), with an average inter-replicate correlation in clone size of $r=\embed{_Figures/txt/pilot-clone-sizes-cor-avg.txt}$, indicating that, despite the problem of undersampling many very small clones, the clonal composition of the killifish can be captured reproducibly by \Igseq.
+In total, \embed{_Figures/txt/pilot-nclones-individual-min.txt} to \embed{_Figures/txt/pilot-nclones-individual-max.txt} clones were identified per individual fish in the pilot dataset. As expected, the clone-size distribution is overwhelmingly dominated by small clones (\Cref{fig:igseq-pilot-clone-sizes-sizes}): across all individuals, \embed{_Figures/txt/pilot-nclones-pc-1count.txt}\,\% of clones are observed as just a single unique sequence across all replicates, while \embed{_Figures/txt/pilot-nclones-pc-small.txt}\,\% contain fewer than five unique sequences. As a result, the great majority of clones (\embed{_Figures/txt/pilot-nclones-pc-1rep.txt}\,\%) are observed in only a single replicate per individual, with \embed{_Figures/txt/pilot-nclones-pc-2rep.txt}\,\% present in two replicates and only  \embed{_Figures/txt/pilot-nclones-pc-3rep.txt}\,\% shared across all three. Unsurprisingly, however, larger clones are much more likely to be shared across multiple replicates (\Cref{fig:igseq-pilot-clone-sizes-reps}), consistent with a model in which a very large number of small clones are sampled only rarely while a much smaller number of large clones is sampled much more often \parencite{mora2016diversity}. Overall, the level of agreement between the replicates is high (\Cref{fig:igseq-pilot-clone-sizes-cor}), with an average inter-replicate correlation in clone size of $r=\embed{_Figures/txt/pilot-clone-sizes-cor-avg.txt}$, indicating that, despite the problem of undersampling many very small clones, the clonal composition of the killifish can be captured reproducibly by \Igseq.
 
 \begin{figure}
 \centering
@@ -197,16 +197,17 @@ In total, \embed{_Figures/txt/pilot-nclones-individual-min.txt} to \embed{_Figur
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.7\textwidth]{_Figures/png/pilot-clone-sizes-cor-boxplots}
-\Caption{Clone-size correlation between pilot replicates, part 1}{Boxplots showing distribution of Pearson's product-moment correlation coefficients of clone sizes for each pair of replicates, as measured by the number of unique sequences per clone in each replicate. Clones absent in a given replicate were given a size of zero.}
+\includegraphics[width = 0.7\textwidth]{_Figures/png/pilot-clone-sizes-cor}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
 \label{fig:igseq-pilot-clone-sizes-cor-boxplots}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width = 0.7\textwidth]{_Figures/png/pilot-clone-sizes-cor-scatter}
-\Caption{Clone-size correlation between pilot replicates, part 2}{Scatter plots comparing clone sizes across biological replicates for each individual in the pilot dataset.}
+\end{subfigure}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
 \label{fig:igseq-pilot-clone-sizes-cor-scatter}
+\end{subfigure}
+\Caption{Clone-size correlation between pilot replicates}{(A) Boxplots showing distribution of Pearson's product-moment correlation coefficients of clone sizes for each pair of replicates, as measured by the number of unique sequences per clone in each replicate. (B) Scatter plots comparing clone sizes across biological replicates for each individual in the pilot dataset. In both subfigures, clones absent in a given replicate were given a size of zero.}
+\label{fig:igseq-pilot-clone-sizes-cor}
 \end{figure}
 
 One of the most strikingly reproducible findings of immune-repertoire-sequencing studies has been the approximately power-law distribution of the clonal repertoire, a phenomenon observed in both antibody and TCR repertoires across multiple different species \parencite{desponds2016fluctuating,mora2016diversity}. More precisely, the frequency of the $k$th largest clone in a repertoire dataset containing $N$ total clones can often be roughly predicted by a Zipf distribution \parencite{mora2010mentropy} of the form:
@@ -561,36 +562,6 @@ The finding that a significant age-related change in VJ-alpha diversity is only 
 
 While the alpha diversity of the entire VJ-repertoire (reflecting average diversity within each individual repertoire) does not change significantly with age in the turquoise killifish, the beta diversity (reflecting inter-individual variability in VJ-expression) shows dramatic differences between age groups, especially at higher diversity orders, for both the entire repertoire (\Cref{fig:igseq-ageing-VJ-diversity-beta}), and the subset of the repertoire contained in large clones (\Cref{fig:igseq-ageing-VJ-diversity-large-beta}): in both cases, while the diversity of the 5.5-week-old group is close to the theoretical minimum for that sample size, the 10.5-week-old group exhibits a substantial increase in inter-individual variability across a wide range of diversity orders, and the 18-week old group shows an even more dramatic increase. This increase in inter-individual diversity with age is corroborated by inter-individual RDI distances computed on VJ-repertoires within each age group: both the overall distribution of inter-individual distances (\Cref{fig:igseq-ageing-rdi-VJ-individual-groupdist-all}), and the distribution of nearest-neighbour distances within each age group (\Cref{fig:igseq-ageing-rdi-VJ-individual-groupdist-nn}), increase significantly with age. This tendency for individuals from increasing age groups to become more distinct in their VJ-repertoires can also be observed using principal co-ordinate analysis:  in \Cref{fig:igseq-ageing-rdi-VJ-individual-pcoa-facet}, the great majority of individuals from younger age groups are visibly more tightly clustered than those from older age groups, which drift apart progressively as age-at-death increases. As in ageing humans (\Cref{sec:intro_immunosenescence}), therefore, the ageing killifish appears to become more individualised and distinct in its antibody repertoire, presumably as the result of an accumulating history of unique individual responses to antigen exposure.
 
-%\begin{figure}
-%\centering
-%\includegraphics[width = 0.9\textwidth]{_Figures/png/ageing-rdi-VJ-individual-groupdist}
-%\begin{subfigure}{0em}
-%\phantomsubcaption{}
-%\label{fig:igseq-ageing-rdi-VJ-individual-groupdist-all}
-%\end{subfigure}
-%\begin{subfigure}{0em}
-%\phantomsubcaption{}
-%\label{fig:igseq-ageing-rdi-VJ-individual-groupdist-nn}
-%\end{subfigure}
-%\Caption{Inter-individual VJ-RDI distances in the \igseq ageing dataset, part 1}{Boxplots of overall (A) and nearest-neighbour (B) inter-individual VJ-RDI distances for each age group in the \igseq ageing dataset. Pairwise $p$-values are computed using nonparametric Mann-Whitney $U$ tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$). $P(KWT)$ indicates the $p$-value of a Kruskal-Wallis analysis of variance test for a difference in RDI distribution with age.}
-%\label{fig:igseq-ageing-rdi-VJ-individual-groupdist}
-%\end{figure}
-%
-%\begin{figure}
-%\centering
-%\includegraphics[width = 0.8\textwidth]{_Figures/png/ageing-rdi-VJ-individual-pcoa}
-%\begin{subfigure}{0em}
-%\phantomsubcaption{}
-%\label{fig:igseq-ageing-rdi-VJ-individual-pcoa-all}
-%\end{subfigure}
-%\begin{subfigure}{0em}
-%\phantomsubcaption{}
-%\label{fig:igseq-ageing-rdi-VJ-individual-pcoa-facet}
-%\end{subfigure}
-%\Caption{Inter-individual VJ-RDI distances in the \igseq ageing dataset, part 2}{Principal co-ordinate analysis (PCoA) of pairwise inter-individual VJ-RDI distances in the \igseq ageing dataset, coloured by age group and displayed together (A) or separately by age group (B).}
-%\label{fig:igseq-ageing-rdi-VJ-individual-pcoa}
-%\end{figure}
-
 \begin{figure}
 \centering
 \includegraphics[width = 0.9\textwidth]{_Figures/png/ageing-rdi-VJ-individual}
@@ -602,8 +573,16 @@ While the alpha diversity of the entire VJ-repertoire (reflecting average divers
 \phantomsubcaption{}
 \label{fig:igseq-ageing-rdi-VJ-individual-groupdist-nn}
 \end{subfigure}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
+\label{fig:igseq-ageing-rdi-VJ-individual-pcoa-all}
+\end{subfigure}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
+\label{fig:igseq-ageing-rdi-VJ-individual-pcoa-facet}
+\end{subfigure}
 \Caption{Inter-individual VJ-RDI distances in the \igseq ageing dataset}{ (A-B) Boxplots of overall (A) and nearest-neighbour (B) inter-individual VJ-RDI distances for each age group in the \igseq ageing dataset. Pairwise $p$-values are computed using nonparametric Mann-Whitney $U$ tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$). $P(KWT)$ indicates the $p$-value of a Kruskal-Wallis analysis of variance test for a difference in RDI distribution with age. (C-D) Principal co-ordinate analysis (PCoA) of pairwise inter-individual VJ-RDI distances in the \igseq ageing dataset, coloured by age group and displayed together (C) or separately by age group (D).}
-\label{fig:igseq-ageing-rdi-VJ-individual-pcoa}
+\label{fig:igseq-ageing-rdi-VJ-individual}
 \end{figure}
 
 
