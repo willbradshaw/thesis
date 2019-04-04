@@ -187,7 +187,8 @@ g_cor <- ggplot(tab_cl_cor, aes(x=COMPARISON, y=R)) +
                    limits = c(0,1), name = "Correlation coefficient (r)") + 
   theme_classic() + theme_base +
   theme(legend.position = "none", 
-        axis.text.x = element_text(size = fontsize_base))
+        axis.text.x = element_text(size = fontsize_base),
+        plot.margin = margin(t=2, l = 0.5, r = 0.5, b = 0.5, unit = "cm"))
 
 # savefig(g_cor, paste0(filename_base, "-cor-boxplots"), 
 #         height = 10*1.2, width = 15*1.2)
@@ -210,7 +211,7 @@ g_inter <- ggplot(tab_cl_spread) +
 g_cor_grid <- plot_grid(g_cor, g_inter, ncol = 1, nrow = 2, labels = "AUTO",
                         label_fontfamily = titlefont, label_fontface = "plain",
                         label_size = fontsize_base * fontscale_label,
-                        rel_heights = c(12,20))
-savefig(g_cor_grid, paste0(filename_base, "-cor"), height = 32, width = 20)
+                        rel_heights = c(13,20))
+savefig(g_cor_grid, paste0(filename_base, "-cor"), height = 33, width = 20)
 
   

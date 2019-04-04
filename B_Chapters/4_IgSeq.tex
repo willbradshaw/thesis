@@ -197,7 +197,7 @@ In total, \embed{_Figures/txt/pilot-nclones-individual-min.txt} to \embed{_Figur
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.7\textwidth]{_Figures/png/pilot-clone-sizes-cor}
+\includegraphics[width = 0.75\textwidth]{_Figures/png/pilot-clone-sizes-cor}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-pilot-clone-sizes-cor-boxplots}
@@ -229,17 +229,34 @@ f(k | N, s) = \frac{k^{-s}}{H_{N,s}}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.8\textwidth]{_Figures/png/pilot-clones-zipf-fit}
-\Caption{Best-fit Zipf distributions of pilot clonal repertoires (filtered)}{Log-log scatter plots of the rank/frequency distributions for each clonal repertoire in the pilot dataset, overlaid with a maximum-likelihood estimate of the underlying Zipf distribution when the five largest clones in each repertoire (plotted as crosses) are excluded.}
+\includegraphics[width=0.7\textwidth]{_Figures/png/pilot-clones-zipf-fit-grid}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
 \label{fig:igseq-pilot-clones-zipf-fit}
+\end{subfigure}
+\begin{subfigure}{0em}
+\phantomsubcaption{}
+\label{fig:igseq-pilot-clones-zipf-fit-null}
+\end{subfigure}
+\Caption{Best-fit Zipf distributions of pilot clonal repertoires}{Log-log scatter plots of the rank/frequency distributions for each clonal repertoire in the pilot dataset, overlaid with a maximum-likelihood estimate of the underlying Zipf distribution computed (A) with the five largest clones excluded or (B) with all clones included. In (A), the clones excluded from the Zipf estimation are plotted as crosses.}
+\label{fig:igseq-pilot-clones-zipf-fit-grid}
 \end{figure}
 
-\begin{figure}
-\centering
-\includegraphics[width=0.8\textwidth]{_Figures/png/pilot-clones-zipf-fit-null}
-\Caption{Best-fit Zipf distributions of pilot clonal repertoires (all clones)}{Log-log scatter plots of the rank/frequency distributions for each clonal repertoire in the pilot dataset, overlaid with a maximum-likelihood estimate of the underlying Zipf distribution when all clones (including the largest in each repertoire) are included in the inference process.}
-\label{fig:igseq-pilot-clones-zipf-fit-null}
-\end{figure}
+
+%
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.8\textwidth]{_Figures/png/pilot-clones-zipf-fit}
+%\Caption{Best-fit Zipf distributions of pilot clonal repertoires (filtered)}{Log-log scatter plots of the rank/frequency distributions for each clonal repertoire in the pilot dataset, overlaid with a maximum-likelihood estimate of the underlying Zipf distribution when the five largest clones in each repertoire (plotted as crosses) are excluded.}
+%\label{fig:igseq-pilot-clones-zipf-fit}
+%\end{figure}
+%
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.8\textwidth]{_Figures/png/pilot-clones-zipf-fit-null}
+%\Caption{Best-fit Zipf distributions of pilot clonal repertoires (all clones)}{Log-log scatter plots of the rank/frequency distributions for each clonal repertoire in the pilot dataset, overlaid with a maximum-likelihood estimate of the underlying Zipf distribution when all clones (including the largest in each repertoire) are included in the inference process.}
+%\label{fig:igseq-pilot-clones-zipf-fit-null}
+%\end{figure}
 
 In addition to the exponent of the best-fit Zipf distribution, another quick and simple way to measure the extent to which a clonal repertoire is dominated by the largest clones is to measure the P20, the proportion of all unique sequences in the repertoire belonging to the 20 largest clones; in humans, for example, the P20 is typically a few percent in healthy individuals, but can reach up to 90\,\% in patients with B-cell malignancies \parencite{rosenfeld2018clonesize}. In the killifish pilot dataset, the P20 of the clonal repertoires ranges from \embed{_Figures/txt/pilot-clones-zipf-p20-obs-min.txt}\,\% to \embed{_Figures/txt/pilot-clones-zipf-p20-obs-max.txt}\,\% (\Cref{fig:igseq-pilot-clones-zipf-p20}), much higher than that observed in healthy humans. These high P20 values are primarily due to the highly expanded state of the largest few clones in each repertoire; when the expected clonal frequencies from the Zipf distributions fitted in \Cref{fig:igseq-pilot-clones-zipf-fit} are used instead of the actual values, the P20 values fall to between \embed{_Figures/txt/pilot-clones-zipf-p20-exp-min.txt}\,\% and \embed{_Figures/txt/pilot-clones-zipf-p20-exp-max.txt}\,\% (\Cref{fig:igseq-pilot-clones-zipf-p20}).
 
@@ -354,7 +371,7 @@ As with the clonal repertoire, the diversity of the VJ-repertoire can be assesse
 \phantomsubcaption{}
 \label{fig:igseq-pilot-vj-diversity-beta}
 \end{subfigure}
-\Caption{VJ-diversity spectra for \igseq pilot dataset}{Bootstrapped Hill diversity spectra of VJ usage (as measured by number of unique sequences per unambiguous V/J combination) over replicates for each individual in the \igneq pilot dataset. (A) alpha diversity across replicates; (B) beta diversity across replicates, rescaled to between 0 (minimum) and 1 (maximum) for each individual. Shaded regions in both subfigures represent 95\,\% confidence intervals, estimated using bootstrapping.}
+\Caption{VJ-diversity spectra for the \igseq pilot dataset}{Bootstrapped Hill diversity spectra of VJ usage (as measured by number of unique sequences per unambiguous V/J combination) over replicates for each individual in the \igneq pilot dataset. (A) alpha diversity across replicates; (B) beta diversity across replicates, rescaled to between 0 (minimum) and 1 (maximum) for each individual. Shaded regions in both subfigures represent 95\,\% confidence intervals, estimated using bootstrapping.}
 \label{fig:igseq-pilot-vj-diversity}
 \end{figure}
 
@@ -397,7 +414,7 @@ In order to obtain something as close as possible to \naive, nonfunctional seque
 \begin{figure}
 \centering
 \includegraphics[width = 0.8\textwidth]{_Figures/png/pilot-igor-segments}
-\Caption{Segment-choice distributions during primary diversification in the \igseq pilot dataset}{Probability distributions of segment choice for (A) \vh-, (B) \dh- and (C) \jh-segments during VDJ recombination in adult male turquoise killifish, inferred from the \igseq pilot dataset using \program{IGoR}. Thin dashed lines represent the distributions inferred for individual killifish, while the thick solid line represents those inferred from pooled data from all individuals. \dh and \jh segments with identical sequences (which cannot be distinguished in the repertoire data even in principle) are collapsed together.}
+\Caption{Generative segment-choice distributions in the \igseq pilot dataset}{Probability distributions of segment choice for (A) \vh-, (B) \dh- and (C) \jh-segments during VDJ recombination in adult male turquoise killifish, inferred from the \igseq pilot dataset using \program{IGoR}. Thin dashed lines represent the distributions inferred for individual killifish, while the thick solid line represents those inferred from pooled data from all individuals. \dh and \jh segments with identical sequences (which cannot be distinguished in the repertoire data even in principle) are collapsed together.}
 \label{fig:igseq-pilot-igor-segments}
 \end{figure}
 
@@ -428,7 +445,7 @@ In order to obtain something as close as possible to \naive, nonfunctional seque
 \phantomsubcaption{}
 \label{fig:igseq-pilot-igor-indels-jdel}
 \end{subfigure}
-\Caption{Insertion/deletion distributions during primary diversification in the \igseq pilot dataset}{Probability distributions of the number of N-insertions (A-B) or P-insertions/deletions (C-F) following VDJ recombination in adult male turquoise killifish, inferred from the \igseq pilot dataset using \program{IGoR}. P-insertions are modelled as negative deletions. Thin dashed lines represent the distributions inferred for individual killifish, while the thick solid line represents those inferred from pooled data from all individuals.}
+\Caption{Generative insertion/deletion distributions in the \igseq pilot dataset}{Probability distributions of the number of N-insertions (A-B) or P-insertions/deletions (C-F) following VDJ recombination in adult male turquoise killifish, inferred from the \igseq pilot dataset using \program{IGoR}. P-insertions are modelled as negative deletions. Thin dashed lines represent the distributions inferred for individual killifish, while the thick solid line represents those inferred from pooled data from all individuals.}
 \label{fig:igseq-pilot-igor-indels}
 \end{figure}
 
@@ -599,7 +616,7 @@ Smith \textit{et al.} \parencite{smith2017microbiota} demonstrated that gut micr
 \begin{figure}
 \centering
 \includegraphics[width = 0.8\textwidth]{_Figures/png_edited/gut-design}
-\Caption{Experimental design of the killifish \gut-microbiota transfer study}{Schematic of the design of the gut-microbiota transfer experiment in Smith \textit{et al.} \parencite{smith2017microbiota}. Groups YI\_6 and WT\_16 were sacrificed without experimental intervention at 6 and 16 weeks, respectively, while the others recieved antibiotic treatment at 9.5 weeks followed by either no further intervention (ABX\_16) or gut-microbiota transfer from a 6-week-old (YMT\_16) or 9.5-week-old (SMT\_16) donor. Adapted from \parencite{smith2017microbiota}, Figure 4.}
+\Caption{Experimental design of the killifish gut-microbiota transfer study}{Schematic of the design of the gut-microbiota transfer experiment in Smith \textit{et al.} \parencite{smith2017microbiota}. Groups YI\_6 and WT\_16 were sacrificed without experimental intervention at 6 and 16 weeks, respectively, while the others recieved antibiotic treatment at 9.5 weeks followed by either no further intervention (ABX\_16) or gut-microbiota transfer from a 6-week-old (YMT\_16) or 9.5-week-old (SMT\_16) donor. Adapted from \parencite{smith2017microbiota}, Figure 4.}
 \label{fig:igseq-gut-design}
 \end{figure}
 

@@ -100,6 +100,9 @@ zplot_null <- zplot_point(clntab_null, "INDIVIDUAL", palette, 16, ymax = 0.1) +
   geom_text(aes(label = paste0("s = ", S), x = zexp_annot_x, y = zexp_annot_y),
             data = zexp_null, size = 4, family = font)
 
+# Make grid plot
+zplot_grid <- gplot_grid(zplot, zplot_null, ncol = 1, nrow = 2)
+
 #------------------------------------------------------------------------------
 # PLOT P20
 #------------------------------------------------------------------------------
@@ -148,6 +151,7 @@ g20_plt <- gplot_grid(g20, g20_cor, nrow = 1)
 savefig(zplot_over, paste0(filename_base, "-lines"), height = 15, ratio = 1.5)
 savefig(zplot, paste0(filename_base, "-fit"), height = 20, ratio = 1)
 savefig(zplot_null, paste0(filename_base, "-fit-null"), height = 20, ratio = 1)
+savefig(zplot_grid, paste0(filename_base, "-fit-grid"), height = 40, ratio = 0.5)
 savefig(g20_plt, paste0(filename_base, "-p20-obs-exp"), height = 15, ratio = 1.8)
 
 #------------------------------------------------------------------------------
