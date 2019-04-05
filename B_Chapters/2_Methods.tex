@@ -243,7 +243,7 @@ Demultiplexed, adapter-trimmed MiSeq sequencing data were uploaded by the sequen
 trimmomatic PE -phred33 <forward_reads_fastq> <reverse_reads_fastq> <output_paths> ILLUMINACLIP:<adapter_directory>/TruSeq3-PE.fa:2:30:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:4:30 MINLEN:36
 \end{lstlisting}
 
-\noindent Following this, the trimmed reads were filtered to remove \textit{E. coli} genomic DNA and other contaminants by aligning them using \program{Bowtie2} \parencite{langmead2012bowtie2} and retaining read pairs that did not align concordantly:
+\noindent Following this, the trimmed reads were filtered to remove \textit{E. coli} genomic DNA and other contaminants by aligning them using \program{Bowtie 2} \parencite{langmead2012bowtie2} and retaining read pairs that did not align concordantly:
 
 \begin{lstlisting}
 bowtie2 --very-sensitive-local --local --reorder --un-conc <output_prefix> -x <ecoli_genome_index_path> -1 <forward_reads_fastq> -2 <reverse_reads_fastq> -S <sam_file_prefix>
@@ -746,7 +746,7 @@ dzipf <- function(r, s, N){
 }
 
 compute_zipf_slope <- function(frequencies, n_exclude){
-  # Estimate a Zipf exponent for a frequency vector using MLE
+  # Estimate a Zipf exponent for a frequency vector
   m <- mle(function(s) lzipf(frequencies[-(1:n_exclude)], s), start = list(s=1))
   return(m@coef[["s"]])
 }

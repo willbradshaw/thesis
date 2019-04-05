@@ -3,7 +3,7 @@
 
 \normalsize
 
-The question of how to measure the diversity of clones or sequences within an antibody repertoire, as well as the degree of divergence in composition between pairs or groups of repertoires, closely parallels related questions in ecology, information theory, and elsewhere. Over time, a great many different conceptions of diversity have been developed in these fields \citep{peet1974diversity}, each with its own cohort of measurement and approximation methods. Many of these diversity indices, however, can be unified into a common framework of so-called ``true diversities'' based on Hill numbers, providing a more intuitive and comprehensive insight into the diversity structure of a population. In this appendix, I describe the concepts and motivations underlying this conception of population of diversity, both for individual (unitary) populations (\Cref{app:diversity-unitary}) and for more complex populations with internal subpopulation structure (\Cref{app:diversity-structured}).
+The question of how to measure the diversity of clones or sequences within an antibody repertoire, as well as the degree of divergence in composition between pairs or groups of repertoires, closely parallels related questions in ecology, information theory, and other fields. Over time, a great many different conceptions of diversity have been developed in these fields \citep{peet1974diversity}, each with its own cohort of measurement and approximation methods. Many of these diversity indices, however, can be unified into a common framework of so-called ``true diversities'' based on Hill numbers \citep{hill1973diversity, jost2006entropy}, providing a more intuitive and comprehensive insight into the diversity structure of a population. In this appendix, I describe the concepts and motivations underlying this conception of population of diversity, both for individual (unitary) populations (\Cref{app:diversity-unitary}) and for more complex populations with internal subpopulation structure (\Cref{app:diversity-structured}).
 
 \section{Diversity in unitary populations}
 \label{app:diversity-unitary}
@@ -11,7 +11,7 @@ The question of how to measure the diversity of clones or sequences within an an
 \subsection{Terminology}
 \label{app:diversity-unitary-terminology}
 
-Though in this appendix I use terminology derived from the ecological literature, the concepts and measures discussed here can be applied to any situation in which a set (or \textit{population}) of elements (\textit{individuals}) is partitioned among some number of mutually-exclusive categories (\textit{species}). Considered abstractly, these terms and denotations could be used to refer to coloured balls in an urn, species in a rainforest, or sequences in a repertoire.
+Though in this appendix I use terminology derived from the ecological literature, the concepts and measures discussed here can be applied to any situation in which a set (or \textit{population}) of elements (or \textit{individuals}) is partitioned among some number of mutually-exclusive categories (or \textit{species}). Considered abstractly, these terms could be used to refer to coloured balls in an urn, species in a rainforest, or sequences in a repertoire.
 
 Let $X$ be a unitary population of individuals, each of which is assigned to some species $s$ from a set of possible species $S$. The term ``unitary'' here denotes that $X$ is considered to have no internal structure except the species identity of its constitutent individuals. Let $n_s$ denote the number of individuals in $X$ belonging to $s$, and $N$ denote the total number of individuals in $X$. Then 
 
@@ -36,7 +36,7 @@ L(X) = \frac{\sum_{s \in S} n_s(n_s-1)}{N(N-1)}
 \label{eq:simpson_finite}
 \end{equation} 
 
-\noindent As the population size tends to infinity, this value simplifies to
+\noindent As the population size tends to infinity, this simplifies to
 
 \begin{equation}
 L^*(X) = \frac{\sum_{s \in S} n_s^2}{N^2} = \sum_{s \in S} p_s^2
@@ -48,7 +48,7 @@ L^*(X) = \frac{\sum_{s \in S} n_s^2}{N^2} = \sum_{s \in S} p_s^2
 \subsubsection{The Berger-Parker index}
 \label{app:diversity-unitary-simple-berger}
 
-The Berger-Parker index is a very simple measure of diversity, given by the relative frequency $p_x$ of the most abundant species $x$ in the population \parencite{berger1970diversity,caruso2008bergerparker}. Like Simpson's index, the Berger-Parker is a dominance index, measuring the degree to which the population is dominated by the single largest species. Despite its simplicity, the Berger-Parker is a true diversity index, responding to both the richness and the evenness of a population, and can be used to distinguish different diversity structures in real populations \parencite{caruso2008bergerparker}. As it focuses only on the most common species in each population, it also has the particular advantage of being much less vulnerable to sampling bias than other diversity metrics, especially compared to the species richness itself \parencite{berger1970diversity}.
+The Berger-Parker index is a very simple measure of diversity, given by the relative frequency $p_x$ of the most abundant species $x$ in the population \parencite{berger1970diversity,caruso2008bergerparker}. Like Simpson's index, the Berger-Parker index is a dominance index, measuring the degree to which the population is dominated by the single largest species. Despite its simplicity, the Berger-Parker is a true diversity index, responding to both the richness and the evenness of a population, and can be used to distinguish different diversity structures in real populations \parencite{caruso2008bergerparker}. As it focuses only on the most common species in each population, it also has the particular advantage of being much less vulnerable to sampling bias than other diversity metrics, especially compared to the species richness itself \parencite{berger1970diversity}.
 
 \subsubsection{Entropic diversity indices}
 \label{app:diversity-unitary-simple-entropy}
@@ -101,7 +101,7 @@ The use of Hill numbers in diversity estimation enables many different, widely-u
 
 \begin{table}
 \centering
-\caption[Summary of effective-richness measures for some common diversity indices]{Summary of effective-richness measures for some common diversity indices (adapted and expanded from Jost (2006) \citep{jost2006entropy})}
+\caption[Summary of effective-richness measures for some common diversity indices]{Summary of effective-richness measures for some common diversity indices (adapted and expanded from \citep{jost2006entropy}).}
 \begin{tabular}{lll}\toprule
 Diversity index, $f(X)$ & Effective species richness,~$^qD(X)$ & Diversity order, $q$\\\midrule
 Species richness & $^0D(X) = f(X)$ & 0 \\
@@ -161,7 +161,7 @@ In the rest of this section, I will primarily consider only subpopulations with 
 \subsection{Calculating alpha, beta, and gamma diversity}
 \label{app:diversity-structured-calc}
 
-The alpha, beta and gamma diversities of structured populations can be calculated analogously to the unitary true diversities discussed in \Cref{app:diversity-unitary-hill}. In this framework, the alpha diversity represents the effective number of equally-abundant species present in the ``average'' subpopulation drawn from $C$, while the gamma diversity represents the effective number of such species present in the population as a whole (ignoring subpopulation membership). Beta diversity also represents an effective number of groupings, but in this case the unit is subpopulations rather than species: given an alpha diversity value for $C$, the beta diversity gives the number of equally-weighted subpopulations, with no species in common, that would give rise to the gamma diversity of $C$.
+The alpha, beta and gamma diversities of structured populations can be calculated analogously to the unitary true diversities discussed in \Cref{app:diversity-unitary-hill}. In this framework, the alpha diversity represents the effective number of equally-abundant species present in the ``average'' subpopulation drawn from $C$, while the gamma diversity represents the effective number of species present in the population as a whole (ignoring subpopulation membership). The beta diversity also represents an effective number of groupings, but in this case the unit is subpopulations rather than species: given an alpha diversity value for $C$, the beta diversity gives the number of equally-weighted subpopulations, with no species in common, that would give rise to the gamma diversity of $C$.
 
 Under this framework, the diversities of order $q$ for a structured population $C$ are given \parencite{jost2007partitioning} by
 
@@ -222,7 +222,7 @@ Under this framework, the diversities of order $q$ for a structured population $
 \label{eq:diversity_beta_even}
 \end{equation}
 
-\noindent These equations are valid for all values of $q \in \mathbb{R}$ except 1, providing a spectrum of alpha, beta or gamma diversity measures analogous to the diversity spectra provided for unitary populations in \Cref{app:diversity-unitary-hill}. As in the unitary case, a special case needs to be made for $q = 1$ in order to make these functions continuous\footnote{Note that, when $w = \frac{1}{M}$ and $N_X = \frac{N}{M}$ for all populations, $\displaystyle\sum_{X \in C}wp_{X,\,s} = \sum_{X \in C}\frac{1}{M}\frac{n_{X,\,s}}{N_X} = \frac{1}{M}\frac{M \sum_{X \in C} n_{X,\,s}}{N} = \frac{n_{s}}{N} = p_s$} \parencite{jost2007partitioning}:
+\noindent These equations are valid for all values of $q \in \mathbb{R}$ except 1, providing a spectrum of alpha-, beta- or gamma-diversity measures analogous to the diversity spectra provided for unitary populations in \Cref{app:diversity-unitary-hill}. As in the unitary case, a special case needs to be made for $q = 1$ in order to make these functions continuous\footnote{Note that, when $w = \frac{1}{M}$ and $N_X = \frac{N}{M}$ for all populations, $\displaystyle\sum_{X \in C}wp_{X,\,s} = \sum_{X \in C}\frac{1}{M}\frac{n_{X,\,s}}{N_X} = \frac{1}{M}\frac{M \sum_{X \in C} n_{X,\,s}}{N} = \frac{n_{s}}{N} = p_s$} \parencite{jost2007partitioning}:
 
 \begin{equation}
 \begin{split}
@@ -307,11 +307,11 @@ The \textit{minimum} beta diversity of a structured population obtains when all 
 \label{eq:diversity_beta_q1_max}
 \end{equation}
 
-\noindent The beta diversity for a structured population with $M$ subpopulations therefore ranges between $1$ (identical composition) and $M$ (maximally-divergent composition). The beta diversities of this population can thus be transformed onto a new scale from $0$ to $1$ as follows:
+\noindent The beta diversity for a structured population with $M$ subpopulations therefore ranges between $1$ (identical composition) and $M$ (maximally-divergent composition). The beta diversities of such a population can thus be transformed onto a new scale from $0$ to $1$ as follows:
 
 \begin{equation}
 ^qD_{\beta\,\mathrm{rescaled}}(C) = \frac{^qD_\beta(C) -\:^qD_{\beta\min}(C)}{^qD_{\beta\max}(C) -\: ^qD_{\beta\min}(C)} = \frac{^qD_\beta(C) - 1}{M - 1}
 \label{eq:diversity_beta_rescale}
 \end{equation}
 
-\noindent By transforming the beta diversity spectra of different structured populations onto this common scale, the inter-subpopulation variability of those populations can be meaningfully compared, even if they differ in the number of subpopulations they contain.
+\noindent By transforming the beta-diversity spectra of different structured populations onto this common scale, the inter-subpopulation variability of those populations can be meaningfully compared, even if they differ in the number of subpopulations they contain.
