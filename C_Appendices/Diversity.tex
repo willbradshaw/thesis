@@ -40,7 +40,7 @@ L(X) = \frac{\sum_{s \in S} n_s(n_s-1)}{N(N-1)}
 
 \begin{equation}
 L^*(X) = \frac{\sum_{s \in S} n_s^2}{N^2} = \sum_{s \in S} p_s^2
-\label{eq:simpson_finite}
+\label{eq:simpson_infinite}
 \end{equation} 
 
 \noindent As originally formulated, Simpson's index can be considered a \textit{dominance index} (also known as a concentration  index \citep{simpson1949diversity}), measuring the degree to which a population is dominated by a small number of species; as such, a higher Simpson's index indicates a less-diverse population. Conversely, the complement $1-L(X)$ of Simpson's index, known as the Gini-Simpson index \citep{jost2006entropy}, represents the ``probability of interspecific encounter'' \citep{peet1974diversity}, and is also widely used as a diversity index in the literature.
@@ -67,7 +67,7 @@ H(X) = -\sum_{s \in S} p_s \cdot \log p_s
 A generalisation of the Shannon entropy, also used as a diversity measure, is the R\'{e}nyi entropy \parencite{mora2016renyi}:
 
 \begin{equation}
-H_q(X) = \frac{1}{1-q}\,\log\right[\sum_{s \in S} p_i^q\right]
+H_q(X) = \frac{1}{1-q}\,\log\left[\sum_{s \in S} p_i^q\right]
 \label{eq:renyi}
 \end{equation}
 
