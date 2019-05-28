@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Thesis document class
-% Simplified from Krishna Kumar's thesis2 class
+% Simplified from Krishna Kumar's thesis class
 % (github.com/kks32/phd-thesis-template/)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -8,7 +8,7 @@
 \newcommand\fileversion{w}
 \newcommand\filedate{2019-04-01}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{thesis2}
+\ProvidesClass{thesis}
 
 % ******************************************************************************
 % **************************** Class Definition ********************************
@@ -24,7 +24,7 @@
 \newif\ifPHD@chapter\PHD@chapterfalse
 \DeclareOption{chapter}{
   \PHD@chaptertrue
-  \ClassWarning{thesis2}{You have chosen an option that generates only 
+  \ClassWarning{thesis}{You have chosen an option that generates only 
     selected chapters with references, if this was intentional, ignore this
     warning. If not, please remove the option `chapter' from the document class
     and recompile. Good luck with your writing!}
@@ -40,7 +40,7 @@
 \DeclareOption{11pt}{\renewcommand\PHD@ptsize{11pt}}%
 \DeclareOption{12pt}{\renewcommand\PHD@ptsize{12pt}}%
 \PassOptionsToClass{\PHD@ptsize}{book}%
-\message{thesis2: Font size is set as \PHD@ptsize}
+\message{thesis: Font size is set as \PHD@ptsize}
 
 % Page Size
 \newcommand\PHD@papersize{a4paper} % Set Default as a4paper
@@ -63,7 +63,7 @@
 
 % Generates Warning for unknown options
 \DeclareOption*{
-  \ClassWarning{thesis2}{Unknown or non-standard option
+  \ClassWarning{thesis}{Unknown or non-standard option
 '\CurrentOption'. I'll see if I can load it from the book class. If you get a
 warning unused global option(s): `\CurrentOption` then the option is not
 supported!}
@@ -445,7 +445,7 @@ supported!}
 \newcommand{\advisorlinewidth}[1]{\renewcommand{\@advisorlinewidth}{#1}}
 
 % Submission Text
-\newcommand{\submissiontext}{\Large{Inaugural-Disseration\\
+\newcommand{\submissiontext}{\Large{Inaugural-Dissertation\\
 zur\\
 Erlangung des Doktorgrades\\
 der Mathematisch-Naturwissenschaftlichen Fakult\"at\\
@@ -521,7 +521,7 @@ vorgelegt von}\\}
 % Submission Text
 \vspace*{1em}
 {\onehalfspacing
-\Large{Inaugural-Disseration\\
+\Large{Inaugural-Dissertation\\
 zur\\
 Erlangung des Doktorgrades\\
 der Mathematisch-Naturwissenschaftlichen Fakult\"at\\
@@ -728,5 +728,3 @@ vorgelegt von}\vspace{0.75em}\\}
 			- \totalheightof{\usebox{\PHD@submission}}
 			- \totalheightof{\usebox{\PHD@collegedate}}
 }
-}
-

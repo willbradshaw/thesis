@@ -1,0 +1,884 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="96.550064mm"
+   height="84.615067mm"
+   viewBox="0 0 342.10653 299.81717"
+   id="svg5075"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="igrace-pipeline-wide.svg">
+  <defs
+     id="defs5077">
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible;"
+       id="marker5727"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend">
+      <path
+         transform="scale(0.4) rotate(180) translate(10,0)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path5729" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="marker5603"
+       style="overflow:visible;"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         id="path5605"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#e40060;stroke-width:1pt;stroke-opacity:1;fill:#e40060;fill-opacity:1"
+         transform="scale(0.4) rotate(180) translate(10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="marker5593"
+       style="overflow:visible;"
+       inkscape:isstock="true">
+      <path
+         id="path5595"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#e40060;stroke-width:1pt;stroke-opacity:1;fill:#e40060;fill-opacity:1"
+         transform="scale(0.4) rotate(180) translate(10,0)" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible;"
+       id="marker5469"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:collect="always">
+      <path
+         transform="scale(0.4) rotate(180) translate(10,0)"
+         style="fill-rule:evenodd;stroke:#e40060;stroke-width:1pt;stroke-opacity:1;fill:#e40060;fill-opacity:1"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path5471" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Mend"
+       style="overflow:visible;"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         id="path4255"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#e40060;stroke-width:1pt;stroke-opacity:1;fill:#e40060;fill-opacity:1"
+         transform="scale(0.4) rotate(180) translate(10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="marker5265"
+       style="overflow:visible;"
+       inkscape:isstock="true">
+      <path
+         id="path5267"
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#e40060;stroke-opacity:1;fill:#e40060;fill-opacity:1"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) rotate(180) translate(1,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="marker5183"
+       style="overflow:visible;"
+       inkscape:isstock="true">
+      <path
+         id="path5185"
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#e40060;stroke-opacity:1;fill:#e40060;fill-opacity:1"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) rotate(180) translate(1,0)" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible;"
+       id="marker5019"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend">
+      <path
+         transform="scale(1.1) rotate(180) translate(1,0)"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#e40060;stroke-opacity:1;fill:#e40060;fill-opacity:1"
+         id="path5021" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Mstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Mstart"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4270"
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(0.6) translate(0,0)" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible;"
+       id="marker4760"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend">
+      <path
+         transform="scale(0.4) rotate(180) translate(10,0)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path4763" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible;"
+       id="marker4626"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend">
+      <path
+         transform="scale(0.4) rotate(180) translate(10,0)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path4628" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible;"
+       id="marker4580"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend">
+      <path
+         transform="scale(0.4) rotate(180) translate(10,0)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path4582" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible;"
+       id="marker4540"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend">
+      <path
+         transform="scale(0.4) rotate(180) translate(10,0)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path4542" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="TriangleOutM"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3949"
+         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="scale(0.4,0.4)" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker11408"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend">
+      <path
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#e40060;fill-opacity:1;fill-rule:evenodd;stroke:#e40060;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path11410"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker4421"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="TriangleOutM">
+      <path
+         inkscape:connector-curvature="0"
+         transform="scale(0.4,0.4)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         id="path4423" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.8"
+     inkscape:cx="20.199691"
+     inkscape:cy="93.019206"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="1"
+     fit-margin-left="1"
+     fit-margin-right="1"
+     fit-margin-bottom="1"
+     inkscape:window-width="2560"
+     inkscape:window-height="1545"
+     inkscape:window-x="0"
+     inkscape:window-y="31"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5080">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-0.11306536,-753.58969)">
+    <text
+       sodipodi:linespacing="125%"
+       id="text5038"
+       y="766.29547"
+       x="49.119137"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.31635165px;line-height:125%;font-family:'CMU Sans Serif Demi Condensed';-inkscape-font-specification:'CMU Sans Serif Demi Condensed';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.13818131;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       xml:space="preserve"
+       inkscape:export-filename="/home/will/Documents/reports/_images/projects/igseq/pipelines/igrace-pipeline-narrow.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:12.5px;font-family:'CMU Sans Serif';-inkscape-font-specification:'CMU Sans Serif Medium';stroke:none;stroke-width:0.13818131;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         y="766.29547"
+         x="49.119137"
+         id="tspan5040"
+         sodipodi:role="line">RNA isolation from killifish samples</tspan></text>
+    <path
+       inkscape:connector-curvature="0"
+       id="path8930"
+       d="m 142.53906,915.93008 0,8.80459"
+       style="fill:none;stroke:#000000;stroke-width:1.382;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleOutM)"
+       inkscape:export-filename="/home/will/Documents/reports/_images/projects/igseq/pipelines/igrace-pipeline-narrow.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path9809"
+       d="m 142.53906,773.38958 0,8.80459"
+       style="fill:none;stroke:#000000;stroke-width:1.382;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleOutM)"
+       inkscape:export-filename="/home/will/Documents/reports/_images/projects/igseq/pipelines/igrace-pipeline-narrow.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4189"
+       width="11.334336"
+       height="6.9085269"
+       x="304.62885"
+       y="819.35846" />
+    <path
+       sodipodi:nodetypes="cccc"
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       inkscape:connector-curvature="0"
+       id="path4193"
+       d="m 304.99394,822.7648 -227.198394,0 0,0 -62.892786,0"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:8, 4;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker5727)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.01814556px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.13818131;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       x="316.16064"
+       y="838.55786"
+       id="text4654"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         x="316.16064"
+         y="838.55786"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:12.5px;font-family:'CMU Sans Serif';-inkscape-font-specification:'CMU Sans Serif Medium';text-align:end;text-anchor:end;stroke:none;stroke-width:0.13818131;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="tspan4658">Cμ2 primer</tspan></text>
+    <text
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.01814556px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.13818131;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       x="65.117973"
+       y="839.65198"
+       id="text4185"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4187"
+         x="65.117973"
+         y="839.65198"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:12.5px;font-family:'CMU Sans Serif';-inkscape-font-specification:'CMU Sans Serif Medium';stroke:none;stroke-width:0.13818131;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">Reverse transcription (RACE)</tspan></text>
+    <rect
+       y="806.97253"
+       x="13.112026"
+       height="6.9085269"
+       width="13.622587"
+       id="rect4646-0"
+       style="opacity:1;fill:#00e4e4;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       ry="0"
+       rx="0"
+       y="806.97064"
+       x="39.475048"
+       height="6.9085269"
+       width="180.46115"
+       id="rect4163"
+       style="opacity:1;fill:#e41a1c;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       y="806.97253"
+       x="219.9362"
+       height="6.9085269"
+       width="9.4153643"
+       id="rect4167"
+       style="opacity:1;fill:#377eb8;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       y="806.97253"
+       x="229.35156"
+       height="6.9085269"
+       width="32.169163"
+       id="rect4169"
+       style="opacity:1;fill:#4daf4a;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       y="806.97253"
+       x="261.52072"
+       height="6.9085269"
+       width="65.720139"
+       id="rect4175"
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       y="806.97253"
+       x="24.732714"
+       height="6.9085269"
+       width="1.4571391"
+       id="rect4191"
+       style="opacity:1;fill:#ab00ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       style="opacity:1;fill:#a6a6a6;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect9811"
+       width="11.334336"
+       height="6.9085269"
+       x="28.333532"
+       y="806.97253" />
+    <text
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.67551136px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.36812106;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;"
+       x="318.91415"
+       y="864.2558"
+       id="text9789"
+       sodipodi:linespacing="125%"
+       transform="scale(1.0657006,0.93834984)"><tspan
+         sodipodi:role="line"
+         x="318.91415"
+         y="864.2558"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:13.25235844px;font-family:'CMU Sans Serif';-inkscape-font-specification:'CMU Sans Serif Medium';text-align:end;text-anchor:end;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.36812106;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;"
+         id="tspan9793">...</tspan></text>
+    <text
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       sodipodi:linespacing="125%"
+       id="text8072"
+       y="799.75519"
+       x="12.67453"
+       style="font-style:normal;font-weight:normal;font-size:10.01814556px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#00e4e4;fill-opacity:1;stroke:none;stroke-width:0.13818131;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         id="tspan10333"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:12.5px;line-height:125%;font-family:'CMU Sans Serif';-inkscape-font-specification:'CMU Sans Serif, Medium';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#00e4e4;fill-opacity:1;stroke:none;stroke-width:0.13818131;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         y="799.75519"
+         x="12.67453"
+         sodipodi:role="line">Template-switch adaptor + <tspan
+   id="tspan10329"
+   style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:12.5px;line-height:125%;font-family:'CMU Sans Serif';-inkscape-font-specification:'CMU Sans Serif, Medium';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#ab00ff;fill-opacity:1;stroke:none;stroke-width:0.13818131;stroke-opacity:1">UMI</tspan></tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.382;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleOutM)"
+       d="m 142.53906,847.43359 0,8.80459"
+       id="path5042"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/will/Documents/reports/_images/projects/igseq/pipelines/igrace-pipeline-narrow.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <rect
+       y="864.70679"
+       x="-26.21748"
+       height="6.9085269"
+       width="11.334336"
+       id="rect9781"
+       style="opacity:1;fill:#e40060;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       transform="scale(-1,1)" />
+    <path
+       sodipodi:nodetypes="cccc"
+       style="fill:none;fill-rule:evenodd;stroke:#e40060;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:8, 4;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker5593)"
+       d="m 23.513899,868.33531 252.832501,0 0,0 3.31015,0"
+       id="path9783"
+       inkscape:connector-curvature="0" />
+    <rect
+       style="opacity:1;fill:#e40060;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect8736"
+       width="11.334336"
+       height="6.9085269"
+       x="268.25128"
+       y="889.50348" />
+    <path
+       sodipodi:nodetypes="cccc"
+       inkscape:connector-curvature="0"
+       id="path9181"
+       d="m 270.95485,893.13199 -252.832504,0 0,0 -1.655073,0"
+       style="fill:none;fill-rule:evenodd;stroke:#e40060;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:8, 4;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker5603)" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text9785"
+       y="908.836"
+       x="94.933212"
+       style="font-style:normal;font-weight:normal;font-size:10.01814556px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.13818131;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       xml:space="preserve"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:12.5px;font-family:'CMU Sans Serif';-inkscape-font-specification:'CMU Sans Serif Medium';stroke:none;stroke-width:0.13818131;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         y="908.836"
+         x="94.933212"
+         id="tspan9787"
+         sodipodi:role="line">PCR amplification</tspan></text>
+    <rect
+       y="877.16162"
+       x="14.883144"
+       height="6.9085269"
+       width="13.622587"
+       id="rect8124"
+       style="opacity:1;fill:#00e4e4;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       y="877.17035"
+       x="261.52072"
+       height="6.9085269"
+       width="17.553434"
+       id="rect5270"
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect8738"
+       width="11.334336"
+       height="6.9085269"
+       x="280.4866"
+       y="877.17035"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       y="877.15289"
+       x="279.04395"
+       height="6.9085269"
+       width="1.4571391"
+       id="rect5312"
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       ry="0"
+       rx="0"
+       y="877.16846"
+       x="39.475048"
+       height="6.9085269"
+       width="180.46115"
+       id="rect5264"
+       style="opacity:1;fill:#e41a1c;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       y="877.17035"
+       x="219.9362"
+       height="6.9085269"
+       width="9.4153643"
+       id="rect5266"
+       style="opacity:1;fill:#377eb8;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       y="877.17035"
+       x="229.35156"
+       height="6.9085269"
+       width="32.169163"
+       id="rect5268"
+       style="opacity:1;fill:#4daf4a;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       ry="0"
+       rx="0"
+       y="877.16846"
+       x="39.475048"
+       height="6.9085269"
+       width="180.46115"
+       id="rect8086"
+       style="opacity:1;fill:#e41a1c;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       y="877.16846"
+       x="219.9362"
+       height="6.9085269"
+       width="9.4153643"
+       id="rect8088"
+       style="opacity:1;fill:#377eb8;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       y="877.16846"
+       x="229.35156"
+       height="6.9085269"
+       width="32.169163"
+       id="rect8090"
+       style="opacity:1;fill:#4daf4a;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       y="877.16846"
+       x="261.52072"
+       height="6.846787"
+       width="54.138344"
+       id="rect8092"
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       y="877.16846"
+       x="26.503832"
+       height="6.9085269"
+       width="1.4571391"
+       id="rect8094"
+       style="opacity:1;fill:#ab00ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       style="opacity:1;fill:#a6a6a6;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect8096"
+       width="11.334336"
+       height="6.9085269"
+       x="28.333532"
+       y="877.16846" />
+    <rect
+       inkscape:export-ydpi="150.00615"
+       inkscape:export-xdpi="150.00615"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igrace-pipeline-narrow.png"
+       y="933.19794"
+       x="3.6563725"
+       height="6.9085274"
+       width="11.334335"
+       id="rect10432"
+       style="opacity:1;fill:#ff92f6;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <rect
+       inkscape:export-ydpi="150.00615"
+       inkscape:export-xdpi="150.00615"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igrace-pipeline-narrow.png"
+       transform="scale(-1,1)"
+       style="opacity:1;fill:#e40060;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect10386"
+       width="11.334335"
+       height="6.9085274"
+       x="-26.217491"
+       y="933.19794" />
+    <path
+       inkscape:export-ydpi="150.00615"
+       inkscape:export-xdpi="150.00615"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igrace-pipeline-narrow.png"
+       inkscape:connector-curvature="0"
+       id="path10388"
+       d="m 23.513907,936.82645 252.832493,0 0,0 3.31015,0"
+       style="fill:none;fill-rule:evenodd;stroke:#e40060;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:8, 4;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker5469)"
+       sodipodi:nodetypes="cccc" />
+    <rect
+       inkscape:export-ydpi="150.00615"
+       inkscape:export-xdpi="150.00615"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igrace-pipeline-narrow.png"
+       y="957.99457"
+       x="268.25125"
+       height="6.9085274"
+       width="11.334335"
+       id="rect10392"
+       style="opacity:1;fill:#e40060;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <path
+       inkscape:export-ydpi="150.00615"
+       inkscape:export-xdpi="150.00615"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igrace-pipeline-narrow.png"
+       style="fill:none;fill-rule:evenodd;stroke:#e40060;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:8, 4;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       d="m 270.95484,961.62311 -252.832491,0 0,0 -1.655073,0"
+       id="path10394"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
+    <rect
+       inkscape:export-ydpi="150.00615"
+       inkscape:export-xdpi="150.00615"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igrace-pipeline-narrow.png"
+       style="opacity:1;fill:#ff92f6;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect10430"
+       width="11.334335"
+       height="6.9085274"
+       x="279.46274"
+       y="957.99457" />
+    <text
+       inkscape:export-ydpi="150.00615"
+       inkscape:export-xdpi="150.00615"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igrace-pipeline-narrow.png"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.01814556px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.13818131;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       x="142.88017"
+       y="979.68152"
+       id="text10396"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan10398"
+         x="142.88017"
+         y="979.68152"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:12.5px;font-family:'CMU Sans Serif';-inkscape-font-specification:'CMU Sans Serif Medium';text-align:center;text-anchor:middle;stroke:none;stroke-width:0.13818131;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">Addition of Illumina adaptors + further amplification</tspan></text>
+    <rect
+       y="945.65277"
+       x="14.883144"
+       height="6.9085269"
+       width="13.622587"
+       id="rect10402"
+       style="opacity:1;fill:#00e4e4;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect10406"
+       width="17.888256"
+       height="6.9085269"
+       x="261.52072"
+       y="945.6615" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       style="opacity:1;fill:#e41a1c;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect10412"
+       width="180.46115"
+       height="6.9085269"
+       x="39.475048"
+       y="945.65961"
+       rx="0"
+       ry="0" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       style="opacity:1;fill:#377eb8;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect10414"
+       width="9.4153643"
+       height="6.9085269"
+       x="219.9362"
+       y="945.6615" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       style="opacity:1;fill:#4daf4a;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect10416"
+       width="32.169163"
+       height="6.9085269"
+       x="229.35156"
+       y="945.6615" />
+    <rect
+       style="opacity:1;fill:#e41a1c;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect10418"
+       width="180.46115"
+       height="6.9085269"
+       x="39.475048"
+       y="945.65961"
+       rx="0"
+       ry="0"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:1;fill:#377eb8;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect10420"
+       width="9.4153643"
+       height="6.9085269"
+       x="219.9362"
+       y="945.65961"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:1;fill:#4daf4a;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect10422"
+       width="32.169163"
+       height="6.9085269"
+       x="229.35156"
+       y="945.65961"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:1;fill:#ab00ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect10426"
+       width="1.4571391"
+       height="6.9085269"
+       x="26.503832"
+       y="945.65961"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       y="945.65961"
+       x="28.333532"
+       height="6.9085269"
+       width="11.334336"
+       id="rect10428"
+       style="opacity:1;fill:#a6a6a6;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:export-filename="/home/will/Documents/reports/_images/pipelines/igseq-pipeline-wide.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       inkscape:export-ydpi="150"
+       inkscape:export-xdpi="150"
+       inkscape:export-filename="/home/will/Documents/reports/_images/projects/igseq/pipelines/igrace-pipeline-narrow.png"
+       style="fill:none;stroke:#000000;stroke-width:1.382;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleOutM)"
+       d="m 142.53906,986.77562 0,8.8046"
+       id="path4557"
+       inkscape:connector-curvature="0" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text9803"
+       y="1013.4163"
+       x="75.199211"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.31635165px;line-height:125%;font-family:'CMU Sans Serif Demi Condensed';-inkscape-font-specification:'CMU Sans Serif Demi Condensed';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.13818131;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       xml:space="preserve"
+       inkscape:export-filename="/home/will/Documents/reports/_images/projects/igseq/pipelines/igrace-pipeline-narrow.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;font-family:'CMU Sans Serif';-inkscape-font-specification:'CMU Sans Serif 10';stroke:none;stroke-width:0.13818131;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         y="1013.4163"
+         x="75.199211"
+         id="tspan9805"
+         sodipodi:role="line">Quality control &amp; pooling</tspan></text>
+    <path
+       inkscape:connector-curvature="0"
+       id="path4762"
+       d="m 142.53906,1020.6479 0,8.8046"
+       style="fill:none;stroke:#000000;stroke-width:1.382;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleOutM)"
+       inkscape:export-filename="/home/will/Documents/reports/_images/projects/igseq/pipelines/igrace-pipeline-narrow.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <text
+       inkscape:export-ydpi="150"
+       inkscape:export-xdpi="150"
+       inkscape:export-filename="/home/will/Documents/reports/_images/projects/igseq/pipelines/igrace-pipeline-narrow.png"
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.31635165px;line-height:125%;font-family:'CMU Sans Serif Demi Condensed';-inkscape-font-specification:'CMU Sans Serif Demi Condensed';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.13818131;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       x="22.611715"
+       y="1047.2886"
+       id="text4764"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4766"
+         x="22.611715"
+         y="1047.2886"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:12.5px;font-family:'CMU Sans Serif';-inkscape-font-specification:'CMU Sans Serif Medium';stroke:none;stroke-width:0.13818131;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">High-throughput sequencing &amp; pre-processing</tspan></text>
+  </g>
+</svg>

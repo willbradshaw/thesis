@@ -241,6 +241,8 @@ g_solofit_igauss <- plot_solo_diversity(qvals, family = inverse.gaussian()) +
 # SAVE FIGURES
 #------------------------------------------------------------------------------
 
+savefig(plot = g_alpha, filename = paste0(filename_base, "-alpha"),
+        height = 15, ratio = 1.5)
 savefig(g_solo, paste0(filename_base, "-solo-spectra"),
         height = 15, width = 20)
 savefig(plot = g_solofit_gamma, height = 20, ratio = 1.5,

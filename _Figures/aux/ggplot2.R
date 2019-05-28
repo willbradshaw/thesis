@@ -49,7 +49,7 @@ theme_base <-   theme(
 gplot_grid <- function(..., ncol = 2, nrow = 1, labels = "AUTO"){
   plot_grid(..., ncol = ncol, nrow = nrow, labels = labels,
             label_fontfamily = titlefont, label_fontface = "plain",
-            label_size = fontsize_base * fontscale_label)
+            label_size = fontsize_base*fontscale_label)
 }
 
 # Plot two plots side-by-side with a common legend
