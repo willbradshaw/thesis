@@ -1,0 +1,282 @@
+##############################################################################
+## LOCUS ASSEMBLY FIGURES SNAKEFILE                                         ##
+##############################################################################
+
+rule locus_species_cladogram:
+    input:
+        tree = "input_files/data/trees/species-tree-cladogram.tre",
+        annot = "input_files/data/species_data/species-tree-large.csv"
+    output: "output_files/figures/svg/locus-species-cladogram.svg"
+    params:
+        aux = aux_dir
+    log: "log_files/locus_species_cladogram.dbg"
+    script: os.path.join(script_dir, "locus-species-cladogram.R")
+
+rule locus_species_phenotypes:
+    input:
+        tree = "input_files/data/trees/Hughes18_31Calibrations_Chronogram_nexus.tre",
+        annot = "input_files/data/species_data/igh-tree-phenotypes.csv"
+    output: "output_files/figures/svg/locus-species-phenotypes.svg"
+    params:
+        aux = aux_dir
+    log: "log_files/locus_species_phenotypes.dbg"
+    script: os.path.join(script_dir, "locus-species-phenotypes.R")
+
+rule locus_species_cladogram_ighz:
+    """Show IGHZ status on species cladogram."""
+    input:
+        tree = "input_files/data/trees/species-tree-cladogram.tre",
+        annot = "input_files/data/species_data/species-tree-large.csv"
+    output: "output_files/figures/svg/locus-species-cladogram-ighz.svg"
+    params:
+        aux = aux_dir
+    log: "log_files/locus_species_cladogram_ighz.dbg"
+    script: os.path.join(script_dir, "locus-species-cladogram-ighz.R")
+
+rule locus_species_cladogram_cz_subclasses:
+    """Show IGHZ subclass status on species cladogram."""
+    input:
+        tree = "input_files/data/trees/species-tree-cladogram.tre",
+        annot = "input_files/data/species_data/cz-subclasses.csv"
+    output: "output_files/figures/svg/locus-species-cladogram-cz-subclasses.svg"
+    params:
+        aux = aux_dir
+    log: "log_files/locus_species_cladogram_cz_subclasses.dbg"
+    script: os.path.join(script_dir, "locus-species-cladogram-cz-subclasses.R")
+
+#-----------------------------------------------------------------------------
+# Nfu locus
+#-----------------------------------------------------------------------------
+
+rule locus_nfu_aln:
+    """Align Nfu locus sequences to final assembly."""
+    input:
+        bacs = "input_files/data/alignments/nfu-bacs-refiltered-spread.tsv",
+        aln  = "input_files/data/alignments/nfu-locus-blastn.tab",
+        ranges = "input_files/data/ranges/nfu/nfu-locus-ranges.tsv",
+    output: "output_files/figures/svg/locus-nfu-aln.svg"
+    log: "log_files/locus_nfu_aln.dbg"
+    params:
+        aux = aux_dir
+    script: os.path.join(script_dir, "locus-nfu-aln.R")
+
+rule locus_nfu_map:
+    """Create map of Nfu IGH locus."""
+    input:
+        vh   = "input_files/data/ranges/nfu/nfu-vh-ranges.tsv",
+        dh   = "input_files/data/ranges/nfu/nfu-dh-ranges.tsv",
+        jh   = "input_files/data/ranges/nfu/nfu-jh-ranges.tsv",
+        ch   = "input_files/data/ranges/nfu/nfu-ch-ranges.tsv",
+    output: "output_files/figures/svg/locus-nfu-map.svg"
+    log: "log_files/locus-nfu-nfu.dbg"
+    params:
+        aux = aux_dir
+    script: os.path.join(script_dir, "locus-nfu-map.R")
+
+rule locus_nfu_dots:
+    """Create dotplot of Nfu IGH locus regions."""
+    input:
+        locus = "input_files/data/loci/complete/nfu.fasta",
+        vh    = "input_files/data/ranges/nfu/nfu-vh-ranges.tsv",
+        dh    = "input_files/data/ranges/nfu/nfu-dh-ranges.tsv",
+        jh    = "input_files/data/ranges/nfu/nfu-jh-ranges.tsv",
+        ch    = "input_files/data/ranges/nfu/nfu-ch-ranges.tsv",
+    output: "output_files/figures/svg/locus-nfu-dots.svg"
+    log: "log_files/locus-nfu-dots.dbg"
+    params:
+        aux = aux_dir
+    script: os.path.join(script_dir, "locus-nfu-dots.R")
+
+rule locus_nfu_sashimi:
+    """Create Sashimi plot of Nfu IgM splicing."""
+    input:
+        ch  = "input_files/data/ranges/nfu/nfu-ch-ranges.tsv",
+        bam = "input_files/data/bam/nfu_igh2_c_098.sorted.bam",
+    output: "output_files/figures/svg/locus-nfu-sashimi.svg"
+    log: "log_files/locus-nfu-sashimi.dbg"
+    params:
+        aux = aux_dir
+    script: os.path.join(script_dir, "locus-nfu-sashimi.R")
+
+rule locus_nfu_ch_aln:
+    """Create Nfu cross-sublocus alignment figure."""
+    input:
+        nt = "input_files/data/constant/nfu/nfu_ch_nt_exons.fasta",
+        aa = "input_files/data/constant/nfu/nfu_ch_aa_exons.fasta",
+    output: "output_files/figures/svg/locus-nfu-ch-aln.svg"
+    log: "log_files/locus-nfu-ch-aln.dbg"
+    params:
+        aux = aux_dir
+    script: os.path.join(script_dir, "locus-nfu-ch-aln.R")
+
+rule locus_nfu_vh_families:
+    """Show Nfu VH family relationships."""
+    input: "input_files/data/segments/nfu/nfu_vh_nt.fasta"
+    output: "output_files/figures/svg/locus-nfu-vh-families.svg"
+    log: "log_files/locus-nfu-vh-families.dbg"
+    params:
+        pid_type = "PID2",
+        clust_method = "single",
+        id_threshold = 80,
+        fontscale_small_label = 0.5,
+        aux = aux_dir,
+    script: os.path.join(script_dir, "locus-nfu-vh-families.R")
+
+rule locus_nfu_dj_aln:
+    """Create Nfu cross-sublocus alignment figure (D/J segments)."""
+    input:
+        dh = "input_files/data/segments/nfu/nfu_dh_nt.fasta",
+        jh = "input_files/data/segments/nfu/nfu_jh_nt.fasta",
+    output: "output_files/figures/svg/locus-nfu-dj-aln.svg"
+    log: "log_files/locus-nfu-dj-aln.dbg"
+    params:
+        aux = aux_dir
+    script: os.path.join(script_dir, "locus-nfu-dj-aln.R")
+
+rule locus_nfu_rss_seqlogo:
+    """Create RSS sequence logos for Nfu gene segments."""
+    input:
+        vh = "input_files/data/rss/nfu/nfu_vh_rss.fasta",
+        dh = "input_files/data/rss/nfu/nfu_dh_rss.fasta",
+        jh = "input_files/data/rss/nfu/nfu_jh_rss.fasta",
+    output:
+        all = "output_files/figures/svg/locus-nfu-rss-seqlogo-all.svg",
+        sep = "output_files/figures/svg/locus-nfu-rss-seqlogo-sep.svg",
+    log: "log_files/locus-nfu-rss-seqlogo.dbg"
+    params:
+        aux = aux_dir
+    script: os.path.join(script_dir, "locus-nfu-rss-seqlogo.R")
+
+#-----------------------------------------------------------------------------
+# Xma locus
+#-----------------------------------------------------------------------------
+
+rule locus_xma_map:
+    """Create map of xma IGH locus."""
+    input:
+        vh   = "input_files/data/ranges/xma/xma-vh-ranges.tsv",
+        dh   = "input_files/data/ranges/xma/xma-dh-ranges.tsv",
+        jh   = "input_files/data/ranges/xma/xma-jh-ranges.tsv",
+        ch   = "input_files/data/ranges/xma/xma-ch-ranges.tsv",
+    output: "output_files/figures/svg/locus-xma-map.svg"
+    log: "log_files/locus-xma-map.dbg"
+    params:
+        aux = aux_dir
+    script: os.path.join(script_dir, "locus-xma-map.R")
+
+rule locus_xma_sashimi:
+    """Create Sashimi plot of xma IgM splicing."""
+    input:
+        ranges  = "input_files/data/ranges/xma/xma-ch-ranges.tsv",
+        bam_cmd = "input_files/data/bam/xma_cmd_098.sorted.bam",
+        bam_cz1 = "input_files/data/bam/xma_cz1_098.sorted.bam",
+        bam_cz2 = "input_files/data/bam/xma_cz2_098.sorted.bam",
+    output: "output_files/figures/svg/locus-xma-sashimi.svg"
+    log: "log_files/locus-xma-sashimi.dbg"
+    params:
+        aux = aux_dir
+    script: os.path.join(script_dir, "locus-xma-sashimi.R")
+
+rule locus_xma_rss_seqlogo:
+    """Create RSS sequence logos for xma gene segments."""
+    input:
+        vh = "input_files/data/rss/xma/xma_vh_rss.fasta",
+        dh = "input_files/data/rss/xma/xma_dh_rss.fasta",
+        jh = "input_files/data/rss/xma/xma_jh_rss.fasta",
+    output:
+        all = "output_files/figures/svg/locus-xma-rss-seqlogo-all.svg",
+        sep = "output_files/figures/svg/locus-xma-rss-seqlogo-sep.svg",
+    log: "log_files/locus-xma-rss-seqlogo.dbg"
+    params:
+        aux = aux_dir
+    script: os.path.join(script_dir, "locus-xma-rss-seqlogo.R")
+
+rule locus_xma_vh_families:
+    """Show Xma VH family relationships."""
+    input: "input_files/data/segments/xma/xma_vh_nt.fasta"
+    output:
+        tree = "output_files/figures/svg/locus-xma-vh-families-tree.svg",
+        map = "output_files/figures/svg/locus-xma-vh-families-map.svg",
+    log: "log_files/locus-xma-vh-families.dbg"
+    params:
+        pid_type = "PID2",
+        clust_method = "single",
+        id_threshold = 80,
+        fontscale_small_label = 0.4,
+        aux = aux_dir,
+    script: os.path.join(script_dir, "locus-xma-vh-families.R")
+
+#-----------------------------------------------------------------------------
+# Comparative analysis
+#-----------------------------------------------------------------------------
+
+rule locus_comp_vh_tree:
+    """Visualise Nfu/Xma comparative VH tree."""
+    input: "input_files/data/trees/nfu-xma-vh-nt.tre"
+    output: "output_files/figures/svg/locus-comp-vh-tree.svg"
+    log: "log_files/locus-comp-vh-tree.dbg"
+    params:
+        aux = aux_dir,
+        fontscale_small_label = 0.5,
+    script: os.path.join(script_dir, "locus-comp-vh-tree.R")
+
+rule locus_comp_cz_tree:
+    """Visualise multispecies comparative IgZ tree."""
+    input: "input_files/data/trees/multispecies-cz-nt.tre"
+    output: "output_files/figures/svg/locus-comp-cz-tree.svg"
+    log: "log_files/locus-comp-cz-tree.dbg"
+    params:
+        aux = aux_dir,
+        fontscale_small_label = 0.5,
+        min_support = 65,
+        rootedge_length = 0.1,
+        treeline_width = 1.1,
+        tiplab_offset = 0.035,
+    script: os.path.join(script_dir, "locus-comp-cz-tree.R")
+
+rule locus_ppl_cz_aln:
+    """Align CZ exons to P. playfairii sequences"""
+    input: expand("input_files/data/constant/{species}/{species}_ch_aa.fasta",\
+        species = ["xma","pre","pfo","fhe","cva","kma","ppl","cto"])
+    output: "output_files/figures/svg/locus-ppl-cz-aln.svg"
+    log: "log_files/locus-ppl-cz-aln.dbg"
+    params:
+        aux = aux_dir,
+        significance_level = 0.05,
+        species = ["xma","pre","pfo","fhe","cva","kma","ppl","cto"], # Should match input list
+    script: os.path.join(script_dir, "locus-ppl-cz-aln.R")
+
+#-----------------------------------------------------------------------------
+# Collate all figures
+#-----------------------------------------------------------------------------
+
+rule convert_svg_pdf:
+    """Convert SVG figures to PDF for display."""
+    input: "output_files/figures/svg/{name}.svg"
+    output: "output_files/figures/pdf/{name}.pdf"
+    shell:
+        "rsvg-convert -f pdf -o {output} {input}"
+
+rule convert_svg_pdf_raw:
+    """Convert handmade SVG figures to PDF for display."""
+    input: "input_files/figures_raw/{name}.svg"
+    output: "output_files/figures/pdf/{name}.pdf"
+    shell:
+        "rsvg-convert -f pdf -o {output} {input}"
+
+locus_figures_new = ["locus-species-cladogram", "locus-species-phenotypes", \
+            "locus-species-cladogram-ighz", "locus-ppl-cz-aln",\
+            "locus-species-cladogram-cz-subclasses",\
+            "locus-nfu-aln", "locus-nfu-map", "locus-nfu-dots", \
+            "locus-nfu-sashimi", "locus-nfu-vh-families", \
+            "locus-nfu-ch-aln", "locus-nfu-dj-aln", "locus-nfu-rss-seqlogo-all", \
+            "locus-xma-map", "locus-xma-sashimi", "locus-xma-rss-seqlogo-all",\
+            "locus-xma-vh-families-tree", "locus-comp-vh-tree","locus-comp-cz-tree"]
+locus_figures_raw = ["locus-teleost-igm-exons", "locus-multispecies-ch-regions"] # Handmade
+
+rule locus_figures_all:
+    """Collate all figures for locus chapter."""
+    input:
+        expand("output_files/figures/svg/{name}.svg", name=locus_figures_new),
+        expand("output_files/figures/pdf/{name}.pdf", name=locus_figures_new),
+        expand("output_files/figures/pdf/{name}.pdf", name=locus_figures_raw),

@@ -27,3 +27,5 @@ thesis-log.txt
 *.gls
 *.glsdefs
 *.ist
+Rplots.pdf
+.snakemake

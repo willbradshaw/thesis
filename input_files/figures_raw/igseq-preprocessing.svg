@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="300mm"
+   height="300mm"
+   viewBox="0 0 1062.9921 1062.9921"
+   id="svg4342"
+   version="1.1"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="igseq-preprocessing.svg"
+   inkscape:export-filename="/home/will/Documents/thesis/_Figures/png_edited/igseq-preprocessing.png"
+   inkscape:export-xdpi="300.02487"
+   inkscape:export-ydpi="300.02487">
+  <defs
+     id="defs4344">
+    <marker
+       inkscape:stockid="Arrow2Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Mend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path5137"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="scale(-0.6,-0.6)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path5131"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path5119"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="1"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="492.12613"
+     inkscape:cy="512.72071"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     width="300mm"
+     inkscape:window-width="3840"
+     inkscape:window-height="2049"
+     inkscape:window-x="0"
+     inkscape:window-y="55"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata4347">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,10.629918)">
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5005"
+       style="font-style:normal;font-weight:normal;line-height:0.01%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="translate(-340.42141,3.0304576)"><flowRegion
+         id="flowRegion5007"><rect
+           id="rect5009"
+           width="245.46707"
+           height="453.5585"
+           x="-744.48242"
+           y="-488.12042" /></flowRegion><flowPara
+         id="flowPara5011"
+         style="font-size:40px;line-height:1.25"> </flowPara></flowRoot>    <g
+       id="g5685"
+       transform="matrix(1.0354065,0,0,1.0354065,-16.984133,-7.4603959)">
+      <text
+         id="text4922"
+         y="988.64532"
+         x="387.66165"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-size:34.9293251px;line-height:1.25;text-align:center;text-anchor:middle"
+           y="988.64532"
+           x="387.66165"
+           id="tspan4924"
+           sodipodi:role="line">Clonotyping &amp; downstream analysis</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="296.12567"
+         y="52.423882"
+         id="text4926"><tspan
+           sodipodi:role="line"
+           id="tspan4928"
+           x="296.12567"
+           y="52.423882"
+           style="font-size:34.9293251px;line-height:1.25">Raw reads</tspan></text>
+      <text
+         id="text4969"
+         y="409.95709"
+         x="774.5719"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-size:50px;line-height:1.25;fill:#ff0000;fill-opacity:1"
+           y="409.95709"
+           x="774.5719"
+           id="tspan4971"
+           sodipodi:role="line">pRESTO</tspan></text>
+      <text
+         id="text4973"
+         y="770.18799"
+         x="769.70129"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#007dff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-size:50px;line-height:1.25;fill:#007dff;fill-opacity:1"
+           y="770.18799"
+           x="769.70129"
+           id="tspan4975"
+           sodipodi:role="line">IgBLAST</tspan></text>
+      <text
+         id="text4977"
+         y="860.19373"
+         x="762.66516"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#00b133;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-size:45px;line-height:1.25;fill:#00b133;fill-opacity:1"
+           y="860.19373"
+           x="762.66516"
+           id="tspan4979"
+           sodipodi:role="line">Change-O</tspan></text>
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path5104"
+         d="m 387.73301,72.110561 0,869.453839"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Mend)" />
+      <rect
+         style="opacity:0.9;fill:#d2e8ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect4954"
+         width="626.29456"
+         height="74.751282"
+         x="74.633766"
+         y="719.45789" />
+      <rect
+         y="810.4035"
+         x="74.633766"
+         height="74.751282"
+         width="626.29456"
+         id="rect4956"
+         style="opacity:0.9;fill:#d2ffdf;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text4914"
+         y="766.46979"
+         x="196.87216"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           y="766.46979"
+           x="196.87216"
+           id="tspan4916"
+           sodipodi:role="line"
+           style="font-size:34.9293251px;line-height:1.25">Assign V/D/J identities</tspan></text>
+      <text
+         id="text4918"
+         y="860.8009"
+         x="163.11964"
+         style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           y="860.8009"
+           x="163.11964"
+           id="tspan4920"
+           sodipodi:role="line"
+           style="font-size:34.9293251px;line-height:1.25">Convert to tabular format</tspan></text>
+      <g
+         id="g5667">
+        <rect
+           style="opacity:0.9;fill:#ffd2d2;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect4952"
+           width="626.29456"
+           height="602.0509"
+           x="74.633781"
+           y="95.577133" />
+        <g
+           id="g4913"
+           transform="translate(-3.4920956,0.5050162)">
+          <text
+             id="text4890"
+             y="146.045"
+             x="188.16544"
+             style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               y="146.045"
+               x="188.16544"
+               id="tspan4892"
+               sodipodi:role="line"
+               style="font-size:34.9293251px;line-height:1.25">Filter low-quality reads</tspan></text>
+          <text
+             id="text4894"
+             y="233.7365"
+             x="200.30884"
+             style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               y="233.7365"
+               x="200.30884"
+               id="tspan4896"
+               sodipodi:role="line"
+               style="font-size:34.9293251px;line-height:1.25">Extract UMI barcodes</tspan></text>
+          <text
+             id="text4898"
+             y="402.34836"
+             x="140.21437"
+             style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               y="402.34836"
+               x="140.21437"
+               id="tspan4900"
+               sodipodi:role="line"
+               style="font-size:34.9293251px;line-height:1.25">Align and merge UMI clusters</tspan></text>
+          <text
+             id="text4902"
+             y="490.03976"
+             x="238.95622"
+             style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               y="490.03976"
+               x="238.95622"
+               id="tspan4904"
+               sodipodi:role="line"
+               style="font-size:34.9293251px;line-height:1.25">Merge read pairs</tspan></text>
+          <text
+             id="text4906"
+             y="577.7312"
+             x="128.1136"
+             style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               y="577.7312"
+               x="128.1136"
+               id="tspan4908"
+               sodipodi:role="line"
+               style="font-size:34.9293251px;line-height:1.25">Collapse duplicate sequences</tspan></text>
+          <text
+             id="text4910"
+             y="665.42267"
+             x="221.04811"
+             style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               y="665.42267"
+               x="221.04811"
+               id="tspan4912"
+               sodipodi:role="line"
+               style="font-size:34.9293251px;line-height:1.25">Remove singletons</tspan></text>
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             x="200.30884"
+             y="314.65695"
+             id="text4909"><tspan
+               sodipodi:role="line"
+               id="tspan4911"
+               x="200.30884"
+               y="314.65695"
+               style="font-size:34.9293251px;line-height:1.25">Perform UMI clustering</tspan></text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,73 @@
+##############################################################################
+## INITIAL SETUP SNAKEFILE                                                  ##
+##############################################################################
+
+#------------------------------------------------------------------------------
+# Import python libraries
+#------------------------------------------------------------------------------
+
+import os, random
+
+#------------------------------------------------------------------------------
+# Configure run directories
+#------------------------------------------------------------------------------
+
+# Main directories
+script_dir = "../scripts"
+aux_dir = "scripts/aux"
+env_dir = "../../envs"
+out_dir = "output_files"
+in_dir  = "input_files"
+log_dir = "logs"
+
+# Create log directory (otherwise workflow won't start)
+os.makedirs(log_dir, exist_ok = True)
+
+#------------------------------------------------------------------------------
+# Set conda environment
+#------------------------------------------------------------------------------
+
+#env_main = os.path.join(env_dir, "igh.yaml")
+
+#------------------------------------------------------------------------------
+# Set run variables
+#------------------------------------------------------------------------------
+
+# BLAST tabular format
+blast_fmt = "6 qseqid sseqid pident qcovhsp length mismatch gapopen gaps sstrand qstart qend sstart send evalue bitscore qlen slen"
+
+# Orientation information
+ends = ["prefixes", "suffixes"] # Terminal region ends
+sides = ["5", "3"] # 5' vs 3'
+
+# Segment types
+segtypes_long = ["vh", "jh"] # With long RSS
+segtypes_short = ["dh"] # With short RSS
+segtypes_var = segtypes_long + segtypes_short # In variable region
+segtypes_con = ["ch"]
+segtypes = segtypes_var + segtypes_con # All
+
+# Isotypes / subtypes
+isotypes_var = segtypes_var
+isotypes_con = ["ighm", "ighd", "ighz"]
+isotypes = isotypes_var + isotypes_con
+lengths_true = ["short", "long"]
+lengths = lengths_true + ["all"]
+
+# RSS subseqs
+subseqs = ["heptamer", "nonamer", "spacer"]
+
+# Sequence types
+seqtypes = ["nt", "aa"]
+
+#------------------------------------------------------------------------------
+# Set wildcard constraints
+#------------------------------------------------------------------------------
+
+wildcard_constraints:
+    side = "|".join(sides),
+    end = "|".join(ends),
+    length = "|".join(lengths),
+    segtype = "|".join(segtypes),
+    isotype = "|".join(isotypes),
+    subseq = "|".join(subseqs)

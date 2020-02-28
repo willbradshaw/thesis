@@ -1,0 +1,257 @@
+##############################################################################
+## LOCUS ASSEMBLY FIGURES SNAKEFILE                                         ##
+##############################################################################
+
+#-----------------------------------------------------------------------------
+# Pilot study
+#-----------------------------------------------------------------------------
+
+rule igseq_pilot_read_survival:
+    input: "input_files/data/changeo/survival/pilot-survival.tsv"
+    output:
+        init = "output_files/figures/svg/igseq-pilot-read-survival-init.svg",
+        all = "output_files/figures/svg/igseq-pilot-read-survival-all.svg",
+        nreads_raw_total = "output_files/txt/igseq-pilot-nreads-raw-total.txt",
+        nreads_raw_replicate_min = "output_files/txt/igseq-pilot-nreads-raw-replicate_min.txt",
+        nreads_raw_replicate_max = "output_files/txt/igseq-pilot-nreads-raw-replicate_max.txt",
+        nreads_raw_individual_min = "output_files/txt/igseq-pilot-nreads-raw-individual_min.txt",
+        nreads_raw_individual_max = "output_files/txt/igseq-pilot-nreads-raw-individual_max.txt",
+        surv_init_min = "output_files/txt/igseq-pilot-read-survival-init-min.txt",
+        surv_init_max = "output_files/txt/igseq-pilot-read-survival-init-max.txt",
+        rel_loss_min = "output_files/txt/igseq-pilot-rel-loss-min.txt",
+        rel_loss_max = "output_files/txt/igseq-pilot-rel-loss-max.txt",
+        rel_loss_total = "output_files/txt/igseq-pilot-rel-loss-total.txt",
+        surv_all_min = "output_files/txt/igseq-pilot-read-survival-all-min.txt",
+        surv_all_max = "output_files/txt/igseq-pilot-read-survival-all-max.txt",
+        n_lost_cl = "output_files/txt/igseq-pilot-nseq-lost-clonotyping.txt",
+        pc_lost_cl = "output_files/txt/igseq-pilot-pc-reads-lost-clonotyping.txt",
+        
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-pilot-read-survival.dbg"
+    script: os.path.join(script_dir, "igseq-pilot-read-survival.R")
+
+rule igseq_pilot_functional:
+    input: "input_files/data/changeo/db/pilot-named.tab"
+    output:
+        prop = "output_files/figures/svg/igseq-pilot-functional-prop.svg",
+        vscores = "output_files/figures/svg/igseq-pilot-functional-vscores.svg",
+        nseq_total = "output_files/txt/igseq-pilot-nseq-init-total.txt",
+        nseq_individual_min = "output_files/txt/igseq-pilot-nseq-init-individual-min.txt",
+        nseq_individual_max = "output_files/txt/igseq-pilot-nseq-init-individual-max.txt",
+        nseq_replicate_min = "output_files/txt/igseq-pilot-nseq-init-replicate-min.txt",
+        nseq_replicate_max = "output_files/txt/igseq-pilot-nseq-init-replicate-max.txt",
+        nseq_pc_functional = "output_files/txt/igseq-pilot-nseq-init-pc-functional.txt",
+        nseq_pc_noj = "output_files/txt/igseq-pilot-nseq-init-pc-noj.txt",
+        nseq_pc_other = "output_files/txt/igseq-pilot-nseq-init-pc-other.txt",
+        nreads_pc_functional = "output_files/txt/igseq-pilot-nreads-init-pc-functional.txt",
+        nreads_pc_noj = "output_files/txt/igseq-pilot-nreads-init-pc-noj.txt",
+        nreads_pc_other = "output_files/txt/igseq-pilot-nreads-init-pc-other.txt",
+        vmean_functional = "output_files/txt/igseq-pilot-vscore-mean-functional.txt",
+        vmean_noj = "output_files/txt/igseq-pilot-vscore-mean-noj.txt",
+        vmean_other = "output_files/txt/igseq-pilot-vscore-mean-other.txt",
+        vsd_functional = "output_files/txt/igseq-pilot-vscore-sd-functional.txt",
+        vsd_noj = "output_files/txt/igseq-pilot-vscore-sd-noj.txt",
+        vsd_other = "output_files/txt/igseq-pilot-vscore-sd-other.txt",
+        nseq_functional_filtered = "output_files/txt/igseq-pilot-nseq-init-functional-filtered.txt",
+        nseq_noj_filtered = "output_files/txt/igseq-pilot-nseq-init-noj-filtered.txt",
+        nseq_other_filtered = "output_files/txt/igseq-pilot-nseq-init-other-filtered.txt",
+        nseq_pc_functional_filtered = "output_files/txt/igseq-pilot-nseq-init-pc-functional-filtered.txt",
+        nseq_pc_noj_filtered = "output_files/txt/igseq-pilot-nseq-init-pc-noj-filtered.txt",
+        nseq_pc_other_filtered = "output_files/txt/igseq-pilot-nseq-init-pc-other-filtered.txt",
+        nseq_kept_vscore = "output_files/txt/igseq-pilot-nseq-init-kept-vscore.txt",
+        nseq_dropped_vscore = "output_files/txt/igseq-pilot-nseq-init-dropped-vscore.txt",
+        nreads_kept_vscore = "output_files/txt/igseq-pilot-nreads-init-pc-kept-vscore.txt",
+        nreads_dropped_vscore = "output_files/txt/igseq-pilot-nreads-init-pc-dropped-vscore.txt",
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-pilot-functional.dbg"
+    script: os.path.join(script_dir, "igseq-pilot-functional.R")
+
+rule igseq_pilot_clone_sizes:
+    input: "input_files/data/changeo/db/pilot-final.tab"
+    output:
+        sizes = "output_files/figures/svg/igseq-pilot-clone-sizes.svg",
+        cor = "output_files/figures/svg/igseq-pilot-clone-sizes-cor.svg",
+        clones = "output_files/txt/igseq-pilot-nseq-assigned-clones.txt",
+        nclones_indiv_min = "output_files/txt/igseq-pilot-nclones-individual-min.txt",
+        nclones_indiv_max = "output_files/txt/igseq-pilot-nclones-individual-max.txt",
+        nclones_indiv_med = "output_files/txt/igseq-pilot-nclones-individual-med.txt",
+        nclones_pc_1count = "output_files/txt/igseq-pilot-nclones-pc-1count.txt",
+        nclones_pc_small = "output_files/txt/igseq-pilot-nclones-pc-small.txt",
+        nclones_pc_1rep = "output_files/txt/igseq-pilot-nclones-pc-1rep.txt",
+        nclones_pc_2rep = "output_files/txt/igseq-pilot-nclones-pc-2rep.txt",
+        nclones_pc_3rep = "output_files/txt/igseq-pilot-nclones-pc-3rep.txt",
+        interrep = "output_files/txt/igseq-pilot-clones-interrep-cor-avg.txt",
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-pilot-clone-sizes.dbg"
+    script: os.path.join(script_dir, "igseq-pilot-clone-sizes.R")
+
+rule igseq_pilot_clone_zipf:
+    input: "input_files/data/changeo/db/pilot-final.tab"
+    output:
+        lines = "output_files/figures/svg/igseq-pilot-clone-zipf-lines.svg",
+        grad = "output_files/figures/svg/igseq-pilot-clone-zipf-grad.svg",
+        p20 = "output_files/figures/svg/igseq-pilot-clone-p20.svg",
+        exp_min = "output_files/txt/igseq-pilot-clone-zipf-exp-min.txt",
+        exp_max = "output_files/txt/igseq-pilot-clone-zipf-exp-max.txt",
+        exp_null_min = "output_files/txt/igseq-pilot-clone-zipf-exp-null-min.txt",
+        exp_null_max = "output_files/txt/igseq-pilot-clone-zipf-exp-null-max.txt",
+        p20_obs_min = "output_files/txt/igseq-pilot-clone-zipf-p20-obs-min.txt",
+        p20_obs_max = "output_files/txt/igseq-pilot-clone-zipf-p20-obs-max.txt",
+        p20_exp_min = "output_files/txt/igseq-pilot-clone-zipf-p20-exp-min.txt",
+        p20_exp_max = "output_files/txt/igseq-pilot-clone-zipf-p20-exp-max.txt",
+        stats_indiv = "output_files/tsv/igseq-pilot-clone-stats-indiv.tsv",
+        stats_rep = "output_files/tsv/igseq-pilot-clone-stats-rep.tsv",
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-pilot-clone-zipf.dbg"
+    script: os.path.join(script_dir, "igseq-pilot-clone-zipf.R")
+
+rule igseq_pilot_clone_expansions:
+    input: "input_files/data/changeo/db/pilot-final.tab"
+    output:
+        all = "output_files/figures/svg/igseq-pilot-clone-expansions.svg",
+        rep = "output_files/figures/svg/igseq-pilot-clone-expansions-rep.svg",
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-pilot-clone-expansions.dbg"
+    script: os.path.join(script_dir, "igseq-pilot-clone-expansions.R")
+
+rule igseq_pilot_clone_diversity:
+    input:
+        grouped = "input_files/data/changeo/spectra/pilot-clone-diversity-grouped.tsv",
+        solo = "input_files/data/changeo/spectra/pilot-clone-diversity-solo.tsv",
+        stats_indiv = "output_files/tsv/igseq-pilot-clone-stats-indiv.tsv",
+        stats_rep = "output_files/tsv/igseq-pilot-clone-stats-rep.tsv",
+    output:
+        spectra_grouped = "output_files/figures/svg/igseq-pilot-clone-diversity.svg",
+        spectra_solo = "output_files/figures/svg/igseq-pilot-clone-diversity-solo.svg",
+        box_solo = "output_files/figures/svg/igseq-pilot-clone-diversity-solo-box.svg",
+        metrics_cor = "output_files/figures/svg/igseq-pilot-clone-diversity-metrics-cor.svg",
+        rep_best_metric = "output_files/txt/igseq-pilot-clone-diversity-cor-rep-best-metric.txt",
+        rep_best_q = "output_files/txt/igseq-pilot-clone-diversity-cor-rep-best-q.txt",
+        rep_best_r = "output_files/txt/igseq-pilot-clone-diversity-cor-rep-best-r.txt",
+        avg_best_metric = "output_files/txt/igseq-pilot-clone-diversity-cor-avg-best-metric.txt",
+        avg_best_q = "output_files/txt/igseq-pilot-clone-diversity-cor-avg-best-q.txt",
+        avg_best_r = "output_files/txt/igseq-pilot-clone-diversity-cor-avg-best-r.txt",
+        avg_cross_q = "output_files/txt/igseq-pilot-clone-diversity-cor-avg-cross-q.txt",
+        avg_sfilter_best_q = "output_files/txt/igseq-pilot-clone-diversity-cor-avg-sfilter-best-q.txt",
+        avg_sfilter_best_r = "output_files/txt/igseq-pilot-clone-diversity-cor-avg-sfilter-best-r.txt",
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-pilot-clone-diversity.dbg"
+    script: os.path.join(script_dir, "igseq-pilot-clone-diversity.R")
+
+rule igseq_pilot_segment_metrics:
+    input: 
+        tab = "input_files/data/changeo/db/pilot-final.tab",
+        vnames = "input_files/data/segments/nfu/nfu_vh_name_conversion.csv",
+        dnames = "input_files/data/segments/nfu/nfu_dh_name_conversion.csv",
+        jnames = "input_files/data/segments/nfu/nfu_jh_name_conversion.csv",
+    output:
+        rf = "output_files/figures/svg/igseq-pilot-vj-rank-frequency.svg",
+        stats_indiv = "output_files/tsv/igseq-pilot-vj-stats-indiv.tsv",
+        stats_rep = "output_files/tsv/igseq-pilot-vj-stats-rep.tsv",
+        one_vj_n_pc = "output_files/txt/igseq-pilot-one-vj-n-pc.txt",
+        one_vj_conscount_pc = "output_files/txt/igseq-pilot-one-vj-conscount-pc.txt",
+        one_vdj_n_pc = "output_files/txt/igseq-pilot-one-vdj-n-pc.txt",
+        one_vdj_conscount_pc = "output_files/txt/igseq-pilot-one-vdj-conscount-pc.txt",
+        ambig_d_n_pc = "output_files/txt/igseq-pilot-ambig-d-n-pc.txt",
+        ambig_d_conscount_pc = "output_files/txt/igseq-pilot-ambig-d-conscount-pc.txt",
+        n_vj_theoretical =  "output_files/txt/igseq-pilot-vj-n-theoretical.txt",
+        n_vj_any =  "output_files/txt/igseq-pilot-vj-n-any.txt",
+        pc_vj_any =  "output_files/txt/igseq-pilot-vj-pc-any.txt",
+        n_vj_min =  "output_files/txt/igseq-pilot-vj-n-min.txt",
+        n_vj_max =  "output_files/txt/igseq-pilot-vj-n-max.txt",
+        pc_vj_min =  "output_files/txt/igseq-pilot-vj-pc-min.txt",
+        pc_vj_max =  "output_files/txt/igseq-pilot-vj-pc-max.txt",
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-pilot-segment-metrics.dbg"
+    script: os.path.join(script_dir, "igseq-pilot-segment-metrics.R")
+
+rule igseq_pilot_segment_diversity:
+    input:
+        grouped = "input_files/data/changeo/spectra/pilot-vj-diversity-grouped.tsv",
+        solo = "input_files/data/changeo/spectra/pilot-vj-diversity-solo.tsv",
+    output:
+        spectra_grouped = "output_files/figures/svg/igseq-pilot-vj-diversity.svg",
+        spectra_solo = "output_files/figures/svg/igseq-pilot-vj-diversity-solo.svg",
+        box_solo = "output_files/figures/svg/igseq-pilot-vj-diversity-solo-box.svg",
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-pilot-segment-diversity.dbg"
+    script: os.path.join(script_dir, "igseq-pilot-segment-diversity.R")
+
+rule igseq_pilot_rdi:
+    input: "input_files/data/changeo/db/pilot-final.tab"
+    output: "output_files/figures/svg/igseq-pilot-rdi-replicate.svg"
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-pilot-rdi.dbg"
+    script: os.path.join(script_dir, "igseq-pilot-rdi.R")
+
+rule igseq_pilot_igor_distributions:
+    input:
+        segments_indiv = "input_files/data/igor/segments/pilot-individual-segments.tsv",
+        segments_group = "input_files/data/igor/segments/pilot-group-segments.tsv",
+        indels_indiv = "input_files/data/igor/indels/pilot-individual-indels.tsv",
+        indels_group = "input_files/data/igor/indels/pilot-group-indels.tsv",
+        vnames = "input_files/data/segments/nfu/nfu_vh_name_conversion.csv",
+        dnames = "input_files/data/segments/nfu/nfu_dh_name_conversion.csv",
+        jnames = "input_files/data/segments/nfu/nfu_jh_name_conversion.csv",
+    output: 
+        segments = "output_files/figures/svg/igseq-pilot-igor-segments.svg",
+        indels = "output_files/figures/svg/igseq-pilot-igor-indels.svg",
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-pilot-igor-distributions.dbg"
+    script: os.path.join(script_dir, "igseq-pilot-igor-distributions.R")
+
+rule igseq_pilot_igor_entropies:
+    input:
+        entropies_indiv = "input_files/data/igor/entropies/pilot-individual-entropies.tsv",
+        entropies_group = "input_files/data/igor/entropies/pilot-group-entropies.tsv",
+    output:
+        plot = "output_files/figures/svg/igseq-pilot-igor-entropies.svg",
+        diversity_oom = "output_files/txt/igseq-pilot-igor-diversity-oom.txt",
+        human_oom_low = "output_files/txt/igseq-pilot-igor-human-oom-low.txt",
+        human_oom_high = "output_files/txt/igseq-pilot-igor-human-oom-high.txt",
+        h_total = "output_files/txt/igseq-pilot-igor-entropy-total.txt",
+        h_gene = "output_files/txt/igseq-pilot-igor-entropy-gene.txt",
+        h_ins = "output_files/txt/igseq-pilot-igor-entropy-ins.txt",
+        h_del = "output_files/txt/igseq-pilot-igor-entropy-del.txt",
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-pilot-igor-entropies.dbg"
+    script: os.path.join(script_dir, "igseq-pilot-igor-entropies.R")
+
+igseq_pilot_figures_new = ["igseq-pilot-read-survival-init",
+            "igseq-pilot-functional-prop", "igseq-pilot-functional-vscores",
+            "igseq-pilot-clone-sizes", "igseq-pilot-clone-sizes-cor",
+            "igseq-pilot-clone-zipf-lines", "igseq-pilot-clone-zipf-grad",
+            "igseq-pilot-clone-p20", "igseq-pilot-clone-expansions",
+            "igseq-pilot-clone-diversity", "igseq-pilot-clone-diversity-solo-box",
+            "igseq-pilot-vj-diversity", "igseq-pilot-vj-diversity-solo-box",
+            "igseq-pilot-vj-rank-frequency", "igseq-pilot-rdi-replicate",
+            "igseq-pilot-igor-segments", "igseq-pilot-igor-indels",
+            "igseq-pilot-igor-entropies"]
+
+#-----------------------------------------------------------------------------
+# Collate all figures
+#-----------------------------------------------------------------------------
+
+igseq_figures_new = igseq_pilot_figures_new + []
+igseq_figures_raw = ["igseq-umi-consensus", "igseq-igrace-pipeline",
+            "igseq-pilot-design", "igseq-template-switch",
+            "igseq-preprocessing", "igseq-human-repertoire-entropy",
+            ]
+
+rule igseq_figures_all:
+    """Collate all figures for igseq chapter."""
+    input:
+        expand("output_files/figures/svg/{name}.svg", name=igseq_figures_new),
+        expand("output_files/figures/pdf/{name}.pdf", name=igseq_figures_new),
+        expand("output_files/figures/pdf/{name}.pdf", name=igseq_figures_raw),

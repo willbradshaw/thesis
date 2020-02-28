@@ -1,5 +1,0 @@
-tree_name,genus,species,scientific_name,common_name,has_ighz,has_inverted_sublocus,n_ighm_tm_exons,cd234_duplications
-Nothobranchiidae_Nothobranchius_furzeri,Nothobranchius,furzeri,Nothobranchius furzeri,Turquoise killifish,FALSE,TRUE,4,2
-Poeciliidae_Xiphophorus_maculatus,Xiphophorus,maculatus,Xiphophorus maculatus,Southern platyfish,TRUE,FALSE,5,2
-Adrianichthyidae_Oryzias_latipes,Oryzias,latipes,Oryzias latipes,Medaka,FALSE,TRUE,4,1
-Gasterosteidae_Gasterosteus_aculeatus,Gasterosteus,aculeatus,Gasterosteus aculeatus,Three-spined stickleback,TRUE,FALSE,5,1
