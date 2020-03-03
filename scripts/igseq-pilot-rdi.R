@@ -2,6 +2,7 @@
 ## FIGURES & DATA                                                            ##
 ## Visualise cross-replicate RDI for pilot data                              ##
 ###############################################################################
+
 aux_dir <- snakemake@params[["aux"]]
 source(file.path(aux_dir, "aux.R"))
 parse_snakemake(snakemake)

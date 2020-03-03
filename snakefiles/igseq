@@ -12,8 +12,8 @@ rule igseq_pilot_read_survival:
         init = "output_files/figures/svg/igseq-pilot-read-survival-init.svg",
         all = "output_files/figures/svg/igseq-pilot-read-survival-all.svg",
         nreads_raw_total = "output_files/txt/igseq-pilot-nreads-raw-total.txt",
-        nreads_raw_replicate_min = "output_files/txt/igseq-pilot-nreads-raw-replicate_min.txt",
-        nreads_raw_replicate_max = "output_files/txt/igseq-pilot-nreads-raw-replicate_max.txt",
+        nreads_raw_replicate_min = "output_files/txt/igseq-pilot-nreads-raw-replicate-min.txt",
+        nreads_raw_replicate_max = "output_files/txt/igseq-pilot-nreads-raw-replicate-max.txt",
         nreads_raw_individual_min = "output_files/txt/igseq-pilot-nreads-raw-individual_min.txt",
         nreads_raw_individual_max = "output_files/txt/igseq-pilot-nreads-raw-individual_max.txt",
         surv_init_min = "output_files/txt/igseq-pilot-read-survival-init-min.txt",
@@ -25,7 +25,6 @@ rule igseq_pilot_read_survival:
         surv_all_max = "output_files/txt/igseq-pilot-read-survival-all-max.txt",
         n_lost_cl = "output_files/txt/igseq-pilot-nseq-lost-clonotyping.txt",
         pc_lost_cl = "output_files/txt/igseq-pilot-pc-reads-lost-clonotyping.txt",
-        
     params:
         aux = aux_dir
     log: "log_files/igseq-pilot-read-survival.dbg"
@@ -187,7 +186,7 @@ rule igseq_pilot_segment_diversity:
 
 rule igseq_pilot_rdi:
     input: "input_files/data/changeo/db/pilot-final.tab"
-    output: "output_files/figures/svg/igseq-pilot-rdi-replicate.svg"
+    output: "output_files/figures/svg/igseq-pilot-rdi.svg"
     params:
         aux = aux_dir
     log: "log_files/igseq-pilot-rdi.dbg"
@@ -235,19 +234,267 @@ igseq_pilot_figures_new = ["igseq-pilot-read-survival-init",
             "igseq-pilot-clone-p20", "igseq-pilot-clone-expansions",
             "igseq-pilot-clone-diversity", "igseq-pilot-clone-diversity-solo-box",
             "igseq-pilot-vj-diversity", "igseq-pilot-vj-diversity-solo-box",
-            "igseq-pilot-vj-rank-frequency", "igseq-pilot-rdi-replicate",
+            "igseq-pilot-vj-rank-frequency", "igseq-pilot-rdi",
             "igseq-pilot-igor-segments", "igseq-pilot-igor-indels",
             "igseq-pilot-igor-entropies"]
+
+#-----------------------------------------------------------------------------
+# Ageing dataset
+#-----------------------------------------------------------------------------
+
+rule igseq_ageing_read_survival:
+    input: "input_files/data/changeo/survival/ageing-survival.tsv"
+    output:
+        init = "output_files/figures/svg/igseq-ageing-read-survival-init.svg",
+        all = "output_files/figures/svg/igseq-ageing-read-survival-all.svg",
+        nreads_raw_total = "output_files/txt/igseq-ageing-nreads-raw-total.txt",
+        nreads_raw_replicate_min = "output_files/txt/igseq-ageing-nreads-raw-replicate-min.txt",
+        nreads_raw_replicate_max = "output_files/txt/igseq-ageing-nreads-raw-replicate-max.txt",
+        nreads_raw_individual_min = "output_files/txt/igseq-ageing-nreads-raw-individual_min.txt",
+        nreads_raw_individual_max = "output_files/txt/igseq-ageing-nreads-raw-individual_max.txt",
+        surv_init_min = "output_files/txt/igseq-ageing-read-survival-init-min.txt",
+        surv_init_max = "output_files/txt/igseq-ageing-read-survival-init-max.txt",
+        rel_loss_min = "output_files/txt/igseq-ageing-rel-loss-min.txt",
+        rel_loss_max = "output_files/txt/igseq-ageing-rel-loss-max.txt",
+        rel_loss_total = "output_files/txt/igseq-ageing-rel-loss-total.txt",
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-ageing-read-survival.dbg"
+    script: os.path.join(script_dir, "igseq-ageing-read-survival.R")
+
+rule igseq_ageing_clone_diversity:
+    input:
+        grouped = "input_files/data/changeo/spectra/ageing-clone-diversity-grouped.tsv",
+        solo = "input_files/data/changeo/spectra/ageing-clone-diversity-solo.tsv",
+    output:
+        spectra_grouped = "output_files/figures/svg/igseq-ageing-clone-diversity.svg",
+        spectra_solo = "output_files/figures/svg/igseq-ageing-clone-diversity-solo.svg",
+        solofit_gamma = "output_files/figures/svg/igseq-ageing-clone-diversity-solo-fit-gamma.svg",
+        solofit_linear = "output_files/figures/svg/igseq-ageing-clone-diversity-solo-fit-linear.svg",
+        solofit_igauss = "output_files/figures/svg/igseq-ageing-clone-diversity-solo-fit-igauss.svg",
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-ageing-clone-diversity.dbg"
+    script: os.path.join(script_dir, "igseq-ageing-clone-diversity.R")
+
+rule igseq_ageing_segment_diversity_all:
+    """Compute V/J diversity spectra across age for all clones."""
+    input:
+        grouped = "input_files/data/changeo/spectra/ageing-vj-diversity-grouped-all.tsv",
+        solo = "input_files/data/changeo/spectra/ageing-vj-diversity-solo-all.tsv",
+    output:
+        alpha_beta = "output_files/figures/svg/igseq-ageing-vj-diversity-all-alpha-beta.svg",
+        spectra_grouped = "output_files/figures/svg/igseq-ageing-vj-diversity-all.svg",
+        spectra_solo = "output_files/figures/svg/igseq-ageing-vj-diversity-all-solo.svg",
+        solofit_gamma = "output_files/figures/svg/igseq-ageing-vj-diversity-all-solo-fit-gamma.svg",
+        solofit_linear = "output_files/figures/svg/igseq-ageing-vj-diversity-all-solo-fit-linear.svg",
+        solofit_igauss = "output_files/figures/svg/igseq-ageing-vj-diversity-all-solo-fit-igauss.svg",
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-ageing-segment-diversity-all.dbg"
+    script: os.path.join(script_dir, "igseq-ageing-segment-diversity.R")
+
+rule igseq_ageing_segment_diversity_large:
+    """Compute V/J diversity spectra across age for expanded clones."""
+    input:
+        grouped = "input_files/data/changeo/spectra/ageing-vj-diversity-grouped-large.tsv",
+        solo = "input_files/data/changeo/spectra/ageing-vj-diversity-solo-large.tsv",
+    output:
+        alpha_beta = "output_files/figures/svg/igseq-ageing-vj-diversity-large-alpha-beta.svg",
+        spectra_grouped = "output_files/figures/svg/igseq-ageing-vj-diversity-large.svg",
+        spectra_solo = "output_files/figures/svg/igseq-ageing-vj-diversity-large-solo.svg",
+        solofit_gamma = "output_files/figures/svg/igseq-ageing-vj-diversity-large-solo-fit-gamma.svg",
+        solofit_linear = "output_files/figures/svg/igseq-ageing-vj-diversity-large-solo-fit-linear.svg",
+        solofit_igauss = "output_files/figures/svg/igseq-ageing-vj-diversity-large-solo-fit-igauss.svg",
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-ageing-segment-diversity-large.dbg"
+    script: os.path.join(script_dir, "igseq-ageing-segment-diversity.R")
+
+rule igseq_ageing_igor_entropies:
+    input:
+        entropies_indiv = "input_files/data/igor/entropies/ageing-individual-entropies.tsv",
+        entropies_group = "input_files/data/igor/entropies/ageing-group-entropies.tsv",
+    output:
+        plot = "output_files/figures/svg/igseq-ageing-igor-entropies.svg",
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-ageing-igor-entropies.dbg"
+    script: os.path.join(script_dir, "igseq-ageing-igor-entropies.R")
+
+rule igseq_ageing_igor_distributions:
+    input:
+        segments_indiv = "input_files/data/igor/segments/ageing-individual-segments.tsv",
+        segments_group = "input_files/data/igor/segments/ageing-group-segments.tsv",
+        indels_indiv = "input_files/data/igor/indels/ageing-individual-indels.tsv",
+        indels_group = "input_files/data/igor/indels/ageing-group-indels.tsv",
+        vnames = "input_files/data/segments/nfu/nfu_vh_name_conversion.csv",
+        dnames = "input_files/data/segments/nfu/nfu_dh_name_conversion.csv",
+        jnames = "input_files/data/segments/nfu/nfu_jh_name_conversion.csv",
+    output: 
+        segments = "output_files/figures/svg/igseq-ageing-igor-segments.svg",
+        indels = "output_files/figures/svg/igseq-ageing-igor-indels.svg",
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-ageing-igor-distributions.dbg"
+    script: os.path.join(script_dir, "igseq-ageing-igor-distributions.R")
+
+rule igseq_ageing_rdi:
+    input: "input_files/data/changeo/db/ageing-final.tab"
+    output: "output_files/figures/svg/igseq-ageing-rdi.svg"
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-ageing-rdi.dbg"
+    script: os.path.join(script_dir, "igseq-ageing-rdi.R")
+
+igseq_ageing_figures_new = ["igseq-ageing-read-survival-init",
+            "igseq-ageing-clone-diversity", "igseq-ageing-clone-diversity-solo-fit-gamma",
+            "igseq-ageing-vj-diversity-all-alpha-beta",
+            "igseq-ageing-vj-diversity-all-solo-fit-gamma",
+            "igseq-ageing-vj-diversity-large-alpha-beta",
+            "igseq-ageing-vj-diversity-large-solo-fit-gamma",
+            "igseq-ageing-igor-entropies", "igseq-ageing-rdi"]
+
+#-----------------------------------------------------------------------------
+# Ageing dataset
+#-----------------------------------------------------------------------------
+
+rule igseq_gut_read_survival:
+    input: 
+        survival = "input_files/data/changeo/survival/gut-survival.tsv",
+        metadata = "input_files/data/fish_data/gut-samples.csv",
+    output:
+        init = "output_files/figures/svg/igseq-gut-read-survival-init.svg",
+        all = "output_files/figures/svg/igseq-gut-read-survival-all.svg",
+        rin = "output_files/figures/svg/igseq-gut-read-survival-rin.svg",
+        nreads_raw_total = "output_files/txt/igseq-gut-nreads-raw-total.txt",
+        nreads_raw_min = "output_files/txt/igseq-gut-nreads-raw-min.txt",
+        nreads_raw_max = "output_files/txt/igseq-gut-nreads-raw-max.txt",
+        surv_init_min = "output_files/txt/igseq-gut-read-survival-init-min.txt",
+        surv_init_max = "output_files/txt/igseq-gut-read-survival-init-max.txt",
+        rel_loss_min = "output_files/txt/igseq-gut-rel-loss-min.txt",
+        rel_loss_max = "output_files/txt/igseq-gut-rel-loss-max.txt",
+        rel_loss_total = "output_files/txt/igseq-gut-rel-loss-total.txt",
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-gut-read-survival.dbg"
+    script: os.path.join(script_dir, "igseq-gut-read-survival.R")
+
+rule igseq_gut_clone_counts:
+    input:
+        pilot = "input_files/data/changeo/db/pilot-final.tab",
+        age = "input_files/data/changeo/db/ageing-final.tab",
+        gut = "input_files/data/changeo/db/gut-final.tab",
+        survival = "input_files/data/changeo/survival/gut-survival.tsv",
+        metadata = "input_files/data/fish_data/gut-samples.csv",
+    output:
+        comparative = "output_files/figures/svg/igseq-nclones-comparative.svg",
+        nclones = "output_files/figures/svg/igseq-gut-nclones.svg",
+        has_clone = "output_files/txt/igseq-gut-pc-seq-assigned-clones.txt",
+        clones_indiv_min = "output_files/txt/igseq-gut-clones-individual-min.txt",
+        clones_indiv_max = "output_files/txt/igseq-gut-clones-individual-max.txt",
+        clones_indiv_med = "output_files/txt/igseq-gut-clones-individual-med.txt",
+        counts_kruskal_age = "output_files/txt/igseq-clones-kruskal-age-p.txt",
+        counts_kruskal_group = "output_files/txt/igseq-clones-kruskal-group-p.txt",
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-gut-clone-counts.dbg"
+    script: os.path.join(script_dir, "igseq-gut-clone-counts.R")
+
+rule igseq_gut_clone_diversity:
+    input:
+        grouped_group = "input_files/data/changeo/spectra/gut-group-clone-diversity-grouped.tsv",
+        solo_group = "input_files/data/changeo/spectra/gut-group-clone-diversity-solo.tsv",
+        grouped_age = "input_files/data/changeo/spectra/gut-age-clone-diversity-grouped.tsv",
+        solo_age = "input_files/data/changeo/spectra/gut-age-clone-diversity-solo.tsv",
+    output:
+        solo = "output_files/figures/svg/igseq-gut-clone-diversity-solo.svg",
+        alpha_age = "output_files/figures/svg/igseq-gut-clone-diversity-alpha-age.svg",
+        alpha_group = "output_files/figures/svg/igseq-gut-clone-diversity-alpha-groups.svg",
+        alpha_all = "output_files/figures/svg/igseq-gut-clone-diversity-alpha.svg",
+        solo_box = "output_files/figures/svg/igseq-gut-clone-diversity-solo-boxplots.svg",
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-gut-clone-diversity.dbg"
+    script: os.path.join(script_dir, "igseq-gut-clone-diversity.R")
+
+rule igseq_gut_segment_diversity:
+    input:
+        grouped_group = "input_files/data/changeo/spectra/gut-group-vj-diversity-grouped.tsv",
+        solo_group = "input_files/data/changeo/spectra/gut-group-vj-diversity-solo.tsv",
+        grouped_age = "input_files/data/changeo/spectra/gut-age-vj-diversity-grouped.tsv",
+        solo_age = "input_files/data/changeo/spectra/gut-age-vj-diversity-solo.tsv",
+    output:
+        solo = "output_files/figures/svg/igseq-gut-vj-diversity-solo.svg",
+        alpha = "output_files/figures/svg/igseq-gut-vj-diversity-alpha.svg",
+        beta = "output_files/figures/svg/igseq-gut-vj-diversity-beta.svg",
+        solo_box = "output_files/figures/svg/igseq-gut-vj-diversity-solo-boxplots.svg",
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-gut-segment-diversity.dbg"
+    script: os.path.join(script_dir, "igseq-gut-segment-diversity.R")
+
+rule igseq_gut_rdi:
+    input: "input_files/data/changeo/db/gut-final.tab"
+    output:
+        age = "output_files/figures/svg/igseq-gut-rdi-age.svg",
+        group = "output_files/figures/svg/igseq-gut-rdi-group.svg",
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-gut-rdi.dbg"
+    script: os.path.join(script_dir, "igseq-gut-rdi.R")
+
+igseq_gut_figures_new = ["igseq-gut-read-survival-all",
+        "igseq-gut-nclones", "igseq-nclones-comparative",
+        "igseq-gut-clone-diversity-alpha", "igseq-gut-clone-diversity-solo-boxplots",
+        "igseq-gut-vj-diversity-alpha", "igseq-gut-vj-diversity-beta",
+        "igseq-gut-vj-diversity-solo-boxplots",
+        "igseq-gut-rdi-age", "igseq-gut-rdi-group"]
+
+#-----------------------------------------------------------------------------
+# Cross-study rarefied clone plots
+#-----------------------------------------------------------------------------
+
+rule igseq_rarefy_clones:
+    """Perform rarefaction analysis of clone counts from IgSeq datasets."""
+    input:
+        pilot = "input_files/data/changeo/db/pilot-final.tab",
+        age = "input_files/data/changeo/db/ageing-final.tab",
+        gut = "input_files/data/changeo/db/gut-final.tab",
+    output: "output_files/data/igseq-rarefied-clones.tab"
+    log: "log_files/igseq-rarefy-clones.dbg"
+    params:
+        aux = aux_dir,
+        n_repeats = 20, # Iterations per sample size
+        sample_sizes = [x*100 for x in range(101)][1:],
+        individuals_excluded = ["1274", "1309"],
+        scale = "DUPCOUNT", # scale by UMI groups
+        p = 20, # Compute P20 statistic
+    script: os.path.join(script_dir, "igseq-rarefy-clones.R")
+
+rule igseq_plot_rarefied_clones:
+    """Perform rarefaction analysis of clone counts from IgSeq datasets."""
+    input: "output_files/data/igseq-rarefied-clones.tab"
+    output:
+       counts = "output_files/figures/svg/igseq-rarefied-clones.svg",
+       sizes  = "output_files/figures/svg/igseq-rarefied-clone-count-size.svg",
+    log: "log_files/igseq-rarefy-clones.dbg"
+    params:
+        aux = aux_dir,
+        P = 20, # P-statistic computed in previous rule
+    script: os.path.join(script_dir, "igseq-rarefy-clones.R")
 
 #-----------------------------------------------------------------------------
 # Collate all figures
 #-----------------------------------------------------------------------------
 
-igseq_figures_new = igseq_pilot_figures_new + []
+igseq_figures_new = igseq_pilot_figures_new + igseq_ageing_figures_new + \
+            igseq_gut_figures_new + \
+            ["igseq-rarefied-clones", "igseq-rarefied-clone-count-size"]
 igseq_figures_raw = ["igseq-umi-consensus", "igseq-igrace-pipeline",
             "igseq-pilot-design", "igseq-template-switch",
             "igseq-preprocessing", "igseq-human-repertoire-entropy",
-            ]
+            "igseq-gut-design"]
 
 rule igseq_figures_all:
     """Collate all figures for igseq chapter."""

@@ -29,3 +29,4 @@ thesis-log.txt
 *.ist
 Rplots.pdf
 .snakemake
+log_files/*

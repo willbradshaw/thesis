@@ -2,6 +2,7 @@
 ## FIGURE                                                                    ##
 ## Plot diversity spectra of pilot clonal repertoires                        ##
 ###############################################################################
+
 aux_dir <- snakemake@params[["aux"]]
 source(file.path(aux_dir, "aux.R"))
 parse_snakemake(snakemake)
