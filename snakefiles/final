@@ -4,20 +4,18 @@
 
 # TEX input files
 tex_cls = "thesis" # or "thesis2"; make sure to change in thesis.tex too
-tex_inputs = ["A1_preamble.tex", "A2_thesis-info.tex", "B1_dedication.tex",
-            "B2_abstract-de.tex", "B3_abstract-en.tex", "B4_acknowledgements.tex",
-            "B5_abbreviations.tex", "C1_Introduction.tex", "C2_Methods.tex",
-            "C3_Locus.tex", "C4_IgSeq.tex", "C5_Conclusion.tex",
-            "D1_Solutions.tex", "D2_Primers.tex", "D3_Diversity.tex",
-            "D4_Figures.tex", "D5_Tables.tex", "E1_Declaration.tex",
-            "E2_Lebenslauf.tex", "thesis.tex"]
+tex_inputs = ["A1_preamble", "A2_thesis-info", "B1_dedication",
+            "B2_abstract-de", "B3_abstract-en", "B4_acknowledgements",
+            "B5_abbreviations", "C1_Introduction", "C2_Methods",
+            "C3_Locus", "C4_IgSeq", "C5_Conclusion",
+            "D1_Solutions", "D2_Primers", "D3_Diversity",
+            "D4_Figures", "D5_Tables", "E1_Declaration",
+            "E2_Lebenslauf"]
 
 # Figures
 intro_figures = ["intro-antibody-structure", "intro-primary-diversity",
             "intro-teleost-loci", "intro-bcell-repertoire-primary-secondary",
             "intro-turquoise-killifish"]
-
-
 
 #-----------------------------------------------------------------------------
 # Generate files
@@ -41,7 +39,7 @@ rule compile_thesis:
     """Assemble all input files and compile thesis."""
     input:
         expand("input_files/tex/{name}.tex", name=tex_inputs),
-        expand("input_files/cls/{name}.cls, name=tex_cls),
+        expand("input_files/cls/{name}.cls", name=tex_cls),
         "input_files/References.bib",
         expand("output_files/figures/pdf/{name}.pdf", name=intro_figures),
         expand("output_files/figures/pdf/{name}.pdf", name=locus_figures),
@@ -53,3 +51,36 @@ rule compile_thesis:
         expand("output_files/tables/{name}.tex", name=igseq_tables),
         expand("output_files/tables/{name}.tex", name=igseq_tables_si),
         expand("output_files/txt/{name}.txt", name=igseq_text_embeds),
+        thesis = "input_files/tex/thesis.tex",
+    output:
+        "thesis.pdf",
+        temp("thesis.aux"), temp("thesis.bbl"), temp("thesis.blg"),
+        temp("thesis.glo"), temp("thesis.ist"), temp("thesis.log"),
+        temp("thesis.lof"),
+        temp("thesis.lot"), temp("thesis.out"), temp("thesis.toc"),
+        temp("thesis.tex"), temp("thesis.bcf"), temp("thesis.glg"),
+        temp("thesis.gls"),
+        temp("thesis.run.xml"),
+    log: "log_files/compile_thesis.dbg"
+    params:
+        texdir = config["texdir"],
+    shell:
+        "cp {input.thesis} thesis.tex;"
+        "echo 'Compiling thesis...\n' > {log}; "
+        "{params.texdir}/pdflatex -interaction=nonstopmode -halt-on-error thesis.tex &>> {log}; "
+        "echo '\n...done.\n' >> {log}; "
+        "echo '\nCompiling bibliography...\n' >> {log}; "
+        "{params.texdir}/biber thesis &>> {log}; "
+        "echo '\n...done.\n' >> {log}; "
+        "echo '\nCompiling glossaries...\n' >> {log}; "
+        "{params.texdir}/makeglossaries thesis &>> {log}; "
+        "echo '\n...done.\n' >> {log}; "
+        "echo '\nRecompiling thesis...\n' >> {log}; "
+        "{params.texdir}/pdflatex -interaction=nonstopmode -halt-on-error thesis.tex &>> {log}; "
+        "echo '\n...done.\n' >> {log}; "
+        "echo '\nRecompiling glossaries...\n' >> {log}; "
+        "{params.texdir}/makeglossaries thesis &>> {log}; "
+        "echo '\n...done.\n' >> {log}; "
+        "echo '\nRecompiling thesis...\n' >> {log}; "
+        "{params.texdir}/pdflatex -interaction=nonstopmode -halt-on-error thesis.tex &>> {log}; "
+        "echo '\n...done.' >> {log}; "

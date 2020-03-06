@@ -3,8 +3,7 @@
 
 % **************************** Formatting & Metadata ***************************
 
-\documentclass[a4paper,12pt,print]{input_files/cls/thesis}
-%\documentclass[a4paper,12pt,print]{input_files/cls/thesis2}
+\documentclass[a4paper,12pt,print]{input_files/cls/thesis2}
 % See README.md for option details
 
 \input{input_files/tex/A1_preamble} %Contains packages and user-defined commands and settings
@@ -12,6 +11,7 @@
 %% ************************ Thesis Information & Meta-data **********************
 %
 \input{input_files/tex/A2_thesis-info} % Thesis title and author information, other metadata
+\include{input_files/tex/A3_abbreviations} % List of abbreviations for glossary
 
 % ***************************** Chapter Mode ***********************************
 % The chapter mode allows user to only print particular chapters with references
@@ -22,6 +22,7 @@
 \ifdefineChapter
 \include{input_files/tex/C1_Introduction}
 \fi
+
 
 \begin{document}
 \maketitle
@@ -34,7 +35,6 @@
 \include{input_files/tex/B2_abstract-de}
 \include{input_files/tex/B3_abstract-en}
 \include{input_files/tex/B4_acknowledgements}
-\include{input_files/tex/B5_abbreviations}
 
 %% *********************** Adding TOC and List of Figures ***********************
 %%%
@@ -81,4 +81,5 @@
 \include{input_files/tex/E2_Lebenslauf}
 
 \glsaddallunused
+
 \end{document}

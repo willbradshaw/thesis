@@ -2,6 +2,8 @@
 ## THREADING
 ##############################################################################
 
+texdir: "/usr/bin"
+
 # ----------------------------------------------------------------------------
 # Number of threads to use for large, medium, and small multithreaded jobs;
 #       if number passed to job is larger than number passed to whole

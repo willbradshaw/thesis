@@ -18,7 +18,7 @@ aux_dir = "scripts/aux"
 env_dir = "../../envs"
 out_dir = "output_files"
 in_dir  = "input_files"
-log_dir = "logs"
+log_dir = "log_files"
 
 # Create log directory (otherwise workflow won't start)
 os.makedirs(log_dir, exist_ok = True)

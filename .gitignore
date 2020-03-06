@@ -31,3 +31,5 @@ Rplots.pdf
 .snakemake
 log_files/*
 scripts/scripts_old
+old_files
+output_files

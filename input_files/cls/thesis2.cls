@@ -589,7 +589,6 @@ vorgelegt von}\vspace{0.75em}\\}
 
 \newcommand{\computeTitlePageSpacing}{
 
-
 % Title Box
 \newsavebox{\PHD@Title}
 \begin{lrbox}{\PHD@Title}
@@ -727,4 +726,5 @@ vorgelegt von}\vspace{0.75em}\\}
 			- \totalheightof{\usebox{\PHD@dept}}
 			- \totalheightof{\usebox{\PHD@submission}}
 			- \totalheightof{\usebox{\PHD@collegedate}}
+}
 }

@@ -20,7 +20,7 @@
 % NB: Packages (without options) loaded in thesis class:
 %  lscape, setspace, calc, ifthen, ifpdf, ifxetex, epstopdf, datetime,
 %  everypage, textcomp, mathptmx, fourier, lmodern, amsmath, fontspec,
-%  unicode-math, amsfonts, amssymb, url, breakurl, fancyhdr, makeidx,
+%  unicode-math, amsfonts, amssymb, url, breakurl, fancyhdr,
 % NB: Packages (with [options]) loaded in thesis class:
 %  tocbibind[nottoc], appendix[title,titletoc], color[usenames, dvipsnames],
 %  lineno[switch,pagewise,mathlines], textpos[absolute], graphicx[pdftex,demo],
@@ -46,6 +46,7 @@
 \usepackage{array}
 \usepackage[docdef=true,nonumberlist]{glossaries-extra}
 \usepackage{textgreek}
+\usepackage{makeidx}
 %\usepackage{subfiles}
 % ************************* Algorithms and Pseudocode **************************
 
@@ -115,6 +116,8 @@
 % *************************** Bibliography  and References ********************
 
 \usepackage{cleveref} %Referencing without need to explicitly state fig /table
+\RequirePackage[backend=biber, citestyle=numeric-comp, style=nature, intitle=true, sorting=none, natbib=true, maxnames=3, minnames=1, url=false, giveninits=true, sortcites=true, date=year, doi=false,isbn=false]{biblatex}
+
 \bibliography{input_files/References.bib}
 
 % ******************************************************************************
@@ -335,5 +338,5 @@
 \newcommand{\Caption}[2]{\caption[#1]{\textbf{#1:} #2}}
 
 
-% Generate the glossary
+% Generate glossary
 \makeglossaries
