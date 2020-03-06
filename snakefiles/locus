@@ -206,6 +206,21 @@ rule locus_xma_vh_families:
         aux = aux_dir,
     script: os.path.join(script_dir, "locus-xma-vh-families.R")
 
+rule locus_xma_cz_aln:
+    """Plot alignment strength between Xma IgZ exons."""
+    input:
+        nt = "input_files/data/constant/xma/xma_ch_nt_4trim.fasta",
+        aa = "input_files/data/constant/xma/xma_ch_aa.fasta",
+    output:
+        map = "output_files/figures/svg/locus-xma-cz-aln.svg",
+        tab = "output_files/tables/locus-xma-cz-aln.tex",
+    log: "log_files/locus-xma-vh-families.dbg"
+    params:
+        pid_type = "PID2",
+        clust_method = "single",
+        aux = aux_dir,
+    script: os.path.join(script_dir, "locus-xma-cz-aln.R")
+
 #-----------------------------------------------------------------------------
 # Comparative analysis
 #-----------------------------------------------------------------------------
@@ -246,6 +261,16 @@ rule locus_ppl_cz_aln:
         species = ["xma","pre","pfo","fhe","cva","kma","ppl","cto"], # Should match input list
     script: os.path.join(script_dir, "locus-ppl-cz-aln.R")
 
+rule locus_comp_ch_tree:
+    """Visualise multispecies CH exon tree."""
+    input: "input_files/data/trees/ch-nt.tre"
+    output: "output_files/figures/svg/locus-comp-ch-tree.svg"
+    log: "log_files/locus-comp-ch-tree.dbg"
+    params:
+        aux = aux_dir,
+        fontscale_small_label = 0.5,
+    script: os.path.join(script_dir, "locus-comp-ch-tree.R")
+
 #-----------------------------------------------------------------------------
 # Collate all figures
 #-----------------------------------------------------------------------------
@@ -272,11 +297,16 @@ locus_figures_new = ["locus-species-cladogram", "locus-species-phenotypes", \
             "locus-nfu-ch-aln", "locus-nfu-dj-aln", "locus-nfu-rss-seqlogo-all", \
             "locus-xma-map", "locus-xma-sashimi", "locus-xma-rss-seqlogo-all",\
             "locus-xma-vh-families-tree", "locus-comp-vh-tree","locus-comp-cz-tree"]
+locus_figures_si = ["locus-nfu-rss-seqlogo-sep", "locus-xma-rss-seqlogo-sep",
+            "locus-xma-vh-families-map", "locus-comp-ch-tree", "locus-xma-cz-aln"]
+
 locus_figures_raw = ["locus-teleost-igm-exons", "locus-multispecies-ch-regions"] # Handmade
 
 rule locus_figures_all:
     """Collate all figures for locus chapter."""
     input:
         expand("output_files/figures/svg/{name}.svg", name=locus_figures_new),
+        expand("output_files/figures/svg/{name}.svg", name=locus_figures_si),
         expand("output_files/figures/pdf/{name}.pdf", name=locus_figures_new),
+        expand("output_files/figures/pdf/{name}.pdf", name=locus_figures_si),
         expand("output_files/figures/pdf/{name}.pdf", name=locus_figures_raw),

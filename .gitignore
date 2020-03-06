@@ -30,3 +30,4 @@ thesis-log.txt
 Rplots.pdf
 .snakemake
 log_files/*
+scripts/scripts_old

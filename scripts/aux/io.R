@@ -49,10 +49,7 @@ savetab <- function(tab, filename, auto = TRUE, align=NULL, digits = NULL,
   }
 
     # Print to file
-  xtable::print.xtable(xt, 
-                       file = ifelse(is.null(filename), "", 
-                                     file.path("tables", 
-                                               paste0(filename, ".tex"))),
+  xtable::print.xtable(xt, file = filename,
                        floating = FALSE,
                        hline.after = hline.after,
                        include.rownames = include.rownames,

@@ -13,6 +13,9 @@ write_log("Loaded packages and auxiliary functions.")
 # Specify parameters
 palette_exp <- c(colours_igseq[["exp_pilot"]], colours_igseq[["exp_ageing"]],
                  colours_igseq[["exp_gut"]])
+clone_field <- "CLONE"
+plot_height <- 15
+plot_width <- 25
 
 # Output paths
 outpath <- "igseq-rarefied-clone"
@@ -172,8 +175,6 @@ outplot_both <- gplot_grid_onelegend(plot_nclones_sd,plot_p_sd,
                                         plot_height=plot_height, 
                                         plot_width=plot_width)
 
-plot_height <- 15
-plot_width <- 25
 ggsave(plot = outplot_both, filename = outpath_counts,
        device = "svg", units = "cm",
        height=plot_height, width = plot_width)

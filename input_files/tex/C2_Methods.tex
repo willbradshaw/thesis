@@ -1,0 +1,962 @@
+\chapter{Materials and methods}  
+\onehalfspacing
+
+\ifdefineChapter
+	{\LARGE Second Draft, \today}
+\fi
+
+\pagebreak
+
+\section{Killifish husbandry and sample-preparation methods}
+\label{sec:methods_husbandry}
+
+Male turquoise killifish (\nfu, GRZ-AD strain) from a single hatching were raised under standard husbandry conditions \parencite{dodzian2018husbandry} and housed from four weeks post-hatching in individual \lt{2.8} tanks connected to a water-recirculation system. Fish received \hr{12} of light per day on a regular light/dark cycle, and were fed blood
+worm larvae and brine shrimp nauplii twice a day during the week and once a day during the weekend \parencite{dodzian2018husbandry,smith2017microbiota}.
+
+Sacrificed fish (\Cref{tab:igseq-cohorts-fish}) were killed by anaesthetisation in \gl{1.5} Tricaine solution in room-temperature tank water \parencite{carter2011tricaine}, then flash-frozen in liquid nitrogen and ground to a homogenous powder with a pestle in a liquid-nitrogen-filled mortar. The powder was mixed thoroughly and stored at \degC{-80} prior to RNA isolation.
+
+\section{Biochemistry and molecular-biology methods}
+
+\subsection{Standard laboratory techniques}
+
+\subsubsection{PCR}
+\label{sec:methods_molec_standard_pcr}
+
+The polymerase chain reaction is a well-established method for rapid amplification of a DNA sequence through repeated cycles of denaturation, primer-annealing and replication by a high-temperature-tolerant DNA polymerase enzyme \parencite{paul2010hotstartpcr}. Unless otherwise specified, all PCRs in this chapter were performed using \x{2} Kapa HiFi HotStart ReadyMix PCR Kit (\Cref{app:solutions_enzymes}) according to the manufacturer's instructions. Briefly, for a \ul{25} reaction, \ul{12.5} Kapa ReadyMix was combined with \ul{12.5} total of template, nuclease-free water, and \umol{10} primers; these volumes were scaled linearly for reactions of different volumes. The mixture was then heated in a thermocycler as described in \Cref{tab:kapa}.
+
+\begin{table}[h]
+\centering
+\caption{Thermocycler protocol for Kapa high-fidelity hot-start PCR}
+\label{tab:kapa}
+\begin{threeparttable}
+\begin{tabular}{cccc}\toprule
+\textbf{Step} & \textbf{Temperature (\degC{})} & \textbf{Duration (\secs{})} & \textbf{\# Cycles}\\\midrule
+Initial denaturation & 95 & 180 & 1 \\\midrule
+Denaturation & 98 & 20 & \multirow{3}{*}{$n_c$\tnote{a}}\\
+Annealing & $T_a$\tnote{a} \tnote{} & 15 & \\
+Extension & 72 & $t_{ext}$\tnote{a} & \\\midrule
+Final extension & 72 & $t_{ext} \times 4$\tnote{a} & 1\\
+\bottomrule\end{tabular}
+\begin{tablenotes}
+\item[a] Annealing temperature ($T_a$), extension time ($t_{ext}$) and cycle number ($n_c$) determined separately for each reaction.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\subsubsection{Nucleic-acid purification with SeraSure magnetic beads}
+\label{sec:methods_molec_standard_serasure}
+
+Nucleic-acid isolation, size-selection and concentration in the \igseq library-preparation protocol (and elsewhere where necessary) were performed using SeraSure SPRI (solid-phase reversible immobilisation) bead preparations \parencite{hawkins1994spri,deangelis1995spri,lennon2010cleanup,fisher2011cleanup}. In SPRI, carboxyl-coated paramagnetic beads bind DNA in the presence of polyethylene glycol (PEG), with the affinity of the beads for DNA depending on the concentration of PEG in the binding buffer. As a result, the range of nucleic-acid sequence lengths retained by SPRI bead purification depends primarily on the concentration of PEG, which in turn depends on the relative volume of SeraSure bead suspension added to a sample; the higher the concentration, the shorter the minimum fragment length retained during the purification process. In combination with a magnetic rack to remove the DNA-bound beads from suspension, this allows DNA of the desired size range to be isolated from a solution and resuspended in the desired volume of fresh buffer.
+
+To prepare \ml{50} of SeraSure bead suspension for DNA (or DNA:RNA heteroduplex) isolation, a stock of SeraMag beads (\Cref{app:solutions_reagents}) was vortexed thoroughly, and \ml{1} was transferred to a new tube. This tube was then transferred to a magnetic rack and incubated at room temperature for \mins{1}, then the supernatant was removed and replaced with \ml{1} TET buffer (\Cref{app:solutions_buffers}) and the tube was removed from the rack and vortexed thoroughly. This washing process was repeated twice more, for a total of three washes in TET. A fourth cycle was used to replace the TET with incomplete SeraBind buffer (iSB, \Cref{app:solutions_buffers}). The vortexed \ml{1} aliquot of beads in iSB was then transferred to a conical tube containing \ml{28} iSB and mixed by inversion. To add the PEG, \ml{20} \pc{50} (w/v) PEG 8000 solution was dispensed slowly down the side of the conical tube, bringing the total volume to \ml{49}. Finally, this was brought to \ml{50} by adding \ul{250} \pc{10} (w/v) Tween 20 solution and \ul{750} autoclaved water to complete the SeraSure bead suspension.
+
+To perform a bead cleanup, an aliquot of prepared SeraSure suspension was vortexed thoroughly to completely resuspend the beads, then the appropriate relative volume of SeraSure suspension was added to a sample, mixing thoroughly by gentle pipetting. The sample was incubated at room temperature for \mins{5} to allow the beads to bind the DNA, then transferred to a magnetic rack and incubated for a further \mins{5} to draw as many beads as possible out of suspension. The supernatant was removed and discarded and replaced with \pc{80} ethanol, to a volume sufficient to completely submerge the bead pellet. The sample was incubated for 0.5-\mins{1}, then the ethanol was replaced and incubated for a further 0.5-\mins{1}. The second ethanol wash was removed, and the tube left on the rack until the bead pellet was almost, but not completely, dry, after which it was removed from the rack. The bead pellet was resuspended in a suitable volume of elution buffer (EB, \Cref{app:solutions_buffers}) then incubated at room temperature for at least 5 minutes to allow the nucleic-acid molecules to elute from the beads.
+
+Unless otherwise specified, the beads from a cleanup were left in a sample during subsequent applications. To remove beads from a sample, the sample was mixed gently but thoroughly to resuspend the beads, incubated for an extended time period (at least \mins{10}) to maximise nucleic-acid elution, then transferred to a magnetic rack and incubated for 2-\mins{5} to remove the beads from suspension. The supernatant (containing the eluted nucleic-acid molecules) was then transferred to a new tube, and the beads discarded.
+
+\subsubsection{Phenol-chloroform extraction and ethanol precipitation of DNA}
+\label{sec:methods_molec_standard_phenol}
+
+Phenol-chloroform extraction is a well-established method for removing proteins and other hydrophobic or amphipathic contaminants from nucleic-acid solutions \parencite{zumbo2012phenolchloroform}. By thoroughly mixing an aqueous solution of nucleic acid with an organic solvent (phenol), hydrophobic contaminants are dissolved into the organic phase while proteins are denatured at the organic/aqueous boundary. The addition of chloroform further encourages the denaturation of proteins, as well as improving separation of the aqueous and organic phases following centrifugation. The effect on nucleic acids depends upon the pH of the phenol: under acidic conditions, the negatively-charged DNA phosphate backbone is neutralised and so primarily dissolves in the organic phase, while RNA is kept in the aqueous phase through hydrogen bonding between water and exposed bases; under neutral or basic conditions, both DNA and RNA are retained in the aqueous phase \parencite{zumbo2012phenolchloroform}.
+
+To remove protein from isolated DNA samples, each sample was diluted to \ul{500} in nuclease-free water and mixed with \ul{500} of equilibrated (non-acidic) phenol:chloroform:isoamyl alcohol (PCI) mixture (\Cref{app:solutions_reagents}) in a fume hood. The sample/PCI mixture was shaken vigorously by hand for \secs{15} to thoroughly mix the different components, then centrifuged in a benchtop centrifuge (\mins{5}, room temperature, top speed). Again in a fume hood, the mixed sample was held at an angle, and the upper aqueous phase containing the DNA was removed and transferred to a new tube while the lower organic phase was discarded. A second aliquot of \ul{500} PCI was added and the sample was mixed, centrifuged and separated as before. Finally, in order to remove residual phenol in the sample, \ul{500} pure chloroform was added to the newly-separated aqueous phase and the sample was once again mixed, centrifuged and separated. 
+
+Following this final round of separation, the DNA in the aqueous phase was re-isolated using ethanol precipitation, another widely-used protocol exploiting the ability of alcohols to precipitate nucleic acids in the presence of monovalant cations \parencite{zumbo2012ethanol}. 0.1 volumes of \mol{3} sodium acetate solution was added to each sample, followed by 2.5 volumes of fresh \pc{100} ethanol. The mixture was mixed gently by inversion, then incubated for 1-\hr{3} at \degC{-80} or at \degC{-20} overnight. The suspension of precipitated DNA was pelleted through centrifugation in a benchtop centrifuge (\mins{30}, \degC{4}, top speed). The supernatant was discarded and replaced with \ul{500} chilled \pc{70} ethanol, and the sample centrifuged again (\mins{5}, \degC{4}, top speed). After this, the supernatant was again discarded, and the samples allowed to air-dry before being resuspended in 30-\ul{50} EB (\Cref{app:solutions_buffers}). 
+
+\subsubsection{Guanidinium thiocyanate-phenol-chloroform extraction of RNA}
+\label{sec:methods_molec_standard_qiazol}
+
+Guanidinium thiocyanate-phenol-chloroform extraction is a technique for purifying RNA samples closely related to the phenol-chloroform-extraction method described in \Cref{sec:methods_molec_standard_phenol} \parencite{zumbo2012phenolchloroform}. By using acid rather than equilibrated phenol, DNA in the sample is dissolved in the organic rather than the aqueous phase and so is removed from the aqueous solution along with proteins and other contaminants \parencite{zumbo2012phenolchloroform,chomczynski2006trizol}. Meanwhile, the addition of guanidinium thiocyanate, a chaotropic agent which disrupts hydrogen bonds in aqueous solution, strongly encourages the rapid denaturation of proteins and so helps protect the RNA from degradation by RNase enzymes \parencite{zumbo2012phenolchloroform,chomczynski2006trizol}.
+
+To isolate total RNA from homogenised killifish tissues, \ml{1} of QIAzol lysis reagent (\Cref{app:solutions_reagents}, containing acid phenol and guanidinium thiocyanate) was added to \gr{0.1} of tissue, mixed gently but thoroughly by inversion, then incubated at room temperature for \mins{5} to allow the QIAzol to penetrate the tissue. 0.2 volumes of chloroform was added and the mixture was shaken vigorously for \secs{15}, then incubated at room temperature for \mins{3}. The mixture was then centrifuged (\mins{15}, \degC{4}, \g{12000}). Holding the tube at an angle, the upper aqueous phase containing the RNA was removed and transferred to a new tube, while the lower organic phase was discarded.
+
+Following phase separation, the RNA was precipitated using isopropanol precipitation, which works on the same principles as ethanol precipitation (\Cref{sec:methods_molec_standard_phenol}) but requires shorter incubation times and lower relative volumes of alcohol \parencite{zumbo2012ethanol}. 0.5 volumes of room-temperature isopropanol was added to each sample, mixing gently by inversion and incubating for \mins{5} at room temperature. The suspension was centrifuged (\mins{10}, \degC{4}, \g{12000}) and the supernatant discarded. 1 volume of freshly prepared \pc{75} ethanol was added and the tube was vortexed briefly and centrifuged again (\mins{5}, \degC{4}, \g{7500}). The supernatant was discarded and the RNA pellet allowed to air-dry for 5-\mins{10}, then resuspended in \ul{50} EB (\Cref{app:solutions_buffers}). The concentration and quality of the resulting total-RNA solution were assayed with the Qubit 2.0 flourometer (Thermo Fisher, RNA BR assay kit) and TapeStation 4200 (Agilent, RNA tape), respectively, according to the manufacturer's instructions.
+
+\subsection{Library size-selection with the BluePippin}
+\label{sec:methods_molec_standard_bluepippin}
+
+The BluePippin (Sage Science) is a DNA size-selection system based on agarose gel electrophoresis, which uses timed switching between positively-charged electrodes at a forked gel channel in an agarose cassette to redirect DNA of a desired size range into a separate lane from the rest of the sample \parencite{sage2016bluepippin}. The timing of the switch is determined based on the size range input by the user and calibrated using flourescent internal standards, which are added to the sample during the preparation process and designed to run well ahead of the possible size ranges for that cassette type. The combination of the choice of cassette and the choice of standards determines which fragment lengths can be effectively isolated using the machine.
+
+For the experiments described in this thesis, a \pc{1.5} cassette with R2 markers was used, enabling size selection of targets in the range of 250--\bp{1500} \parencite{sage2016bluepippin}. Machine calibration and testing, cassette preparation, and protocol design were performed in accordance with the BluePippin documentation and instructions given by the machine software. During this process, the elution wells of the lanes to be used in the size-selection run were emptied and refilled with \ul{40} of electrophoresis buffer (\Cref{app:solutions_reagents}), then sealed for the duration of the run, and a broad-range size-selection protocol with a target range of 400 to \bp{800} was specified. \ul{30} of sample was then combined with \ul{10} of loading solution (\Cref{app:solutions_reagents}) and vortexed to mix, then \ul{40} of buffer was removed from the appropriate loading well and replaced, slowly, with the prepared sample mixture. The protocol was started and run until the final elution was complete. Finally, the eluted samples were removed from the elution wells of the appropriate lanes, and the unused lanes of the cassette were re-sealed for future use.
+
+\subsection{Isolation and sequencing of bacterial artificial chromosomes}
+\label{sec:methods_molec_bacs}
+
+All BAC clones that were sequenced for this research were provided by the FLI in Jena as plate or stab cultures of transformed \textit{E. coli}, which were replated and stored at \degC{4}. Prior to isolation, the clones of interest were cultured overnight in at least \ml{100} LB medium. The resulting liquid cultures were transferred to \ml{50} conical tubes and centrifuged (10-\mins{25}, \degC{4}, \g{3500}) to pellet the cells. The supernatant was carefully discarded and the cells were resuspended in \ml{18} buffer P1 (\Cref{app:solutions_buffers}).
+
+After resuspension, the cultures underwent alkaline lysis \parencite{birnboim1979alkalinelysis} to release the BAC DNA and precipitate genomic DNA and cellular debris. \ml{18} buffer P2 (\Cref{app:solutions_buffers}) was added to each tube, which was then mixed gently but thoroughly by inversion and incubated at room temperature for \mins{5}. \ml{10} ice-chilled neutralisation buffer P3 (\Cref{app:solutions_buffers}) was added to precipitate genomic DNA and cellular debris, and each tube was mixed gently but thoroughly by inversion and incubated on ice for \mins{15}. The tubes were then centrifuged (20-\mins{30}, \degC{4}, \g{12000}) to pellet cellular debris and the supernatant was transferred to new conical tubes. This process was repeated at least two more times, until no more debris was visible in any tube; this repeated pelleting was necessary to minimise contamination in each sample, as the normal column- or paper-based filtering steps used during alkaline lysis resulted in the loss of the BAC DNA.
+
+Following alkaline lysis, the DNA in each sample underwent isopropanol precipitation: 0.6 volumes of room-temperature isopropanol were added to the clean supernatant in each tube, followed by 0.1 volumes of \mol{3} sodium acetate solution. Each tube was mixed well by inversion, incubated for 10-\mins{15} at room temperature, then centrifuged (\mins{30}, \degC{4}, \g{12000}) to pellet the DNA. The supernatant was discarded and the resulting DNA smear was ``resuspended'' in \ml{1} \pc{100} ethanol and transferred to a \ml{1.5} tube, which was re-centrifuged (\mins{5}, \degC{4}, top speed) to obtain a concentrated pellet. Finally, the pelleted samples were resuspended in EB (\Cref{app:solutions_buffers}) and purified of proteins and RNA using phenol-chloroform extraction and ethanol precipitation (\Cref{sec:methods_molec_standard_phenol}).
+
+The resuspended BAC isolates were sent to the Cologne Center for Genomics, where they underwent Illumina Nextera XT library preparation and were sequenced on an Illumina MiSeq sequencing machine (MiSeq Reagent Kit v3, 2$\times$\bp{300} reads).
+
+\subsection{Immunoglobulin sequencing of killifish samples}
+\label{sec:methods_molec_igseq}
+
+\subsubsection{RNA template quantification and quality control}
+\label{sec:methods_molec_igseq_template}
+
+Total RNA from whole-body killifish samples was isolated as described in \Cref{sec:methods_molec_standard_qiazol}; gut RNA from microbiota-transfer experiments \parencite{smith2017microbiota} was already prepared and available. Quantification of RNA samples was performed with the Qubit 2.0 flourometer (Thermo Fisher, RNA BR assay kit), while quality control and integrity measurement was performed using the TapeStation 4200 (Agilent, RNA tape), both according to the manufacturer's instructions.
+
+\subsubsection{Reverse transcription and template switching}
+\label{sec:methods_molec_igseq_rt}
+
+Reverse transcription of total RNA and template switching for \igseq library preparation was performed using SMARTScribe Reverse Transcriptase (\Cref{app:solutions_enzymes}), in line with the protocol specified in Turchaninova \textit{et al.} \parencite{turchaninova2016igprep}. Briefly, \ng{750} total RNA from a killifish sample was combined with \ul{2} \umol{10} gene-specific primer (GSP), homologous with the second \ch exon of \Nfu \igh{M} (\Cref{app:oligos_primers}, designed using \program{Primer3} \parencite{untergasser2012primer3}). The reaction volume was brought to a total of \ul{8} with nuclease-free water, and the resulting mixture was incubated for 2 minutes at \degC{70} to denature the RNA, then cooled to \degC{42} to anneal the GSP \parencite{turchaninova2016igprep}.
+
+Following annealing, the RNA-primer mixture was combined with \ul{12} of reverse-transcription master-mix (\Cref{tab:methods_rt_mm}), including the reverse-transcriptase enzyme and template-switch adapter (\Cref{app:oligos_tsa}, sequence provided in \parencite{turchaninova2016igprep}). The complete reaction mixture was incubated for \hr{1} at \degC{42} for the reverse-transcription reaction, then mixed with \ul{1} of uracil DNA glycosylase (UDG, \Cref{app:solutions_enzymes}) and incubated for a further \mins{40} at \degC{37} to digest the template-switch adapter. Finally, the reaction product was purified using SeraSure beads (\Cref{sec:methods_molec_standard_serasure}, \Cref{tab:methods_igseq_beads}).
+
+\begin{table}[h]
+\begin{center}\small
+\begin{threeparttable}
+\caption[Master-mix components for SMARTScribe reverse transcription]{Master-mix components for SMARTScribe reverse transcription (per sample)}
+\begin{tabular}{llll}\toprule
+\textbf{Volume (\ul{})} & \textbf{Component} & \textbf{Initial concentration} & \textbf{Reference}\\\midrule
+2 & SMARTScribe reverse transcriptase & \unitsul{100} & \Cref{app:solutions_enzymes} \\
+4 & SMARTScribe first-strand buffer & \x{5} & \Cref{app:solutions_reagents} \\
+2 & SmartNNNa barcoded TSA & \umol{10} & \Cref{app:oligos_tsa}\\
+2 & DTT & \mmol{20} & \Cref{app:solutions_reagents}\\
+2 & dNTP mix & \umol{10} per nucleotide & \Cref{app:solutions_reagents}\\
+0.5 & RNasin RNase inhibitor & \unitsul{40} & \Cref{app:solutions_enzymes}\\\bottomrule
+\end{tabular}
+\label{tab:methods_rt_mm}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+\subsubsection{PCR amplification and adapter addition} 
+\label{sec:methods_molec_igseq_pcr}
+
+Following reverse transcription, UDG digestion, and cleanup, the reaction mixture underwent three successive rounds of Kapa PCR (\Cref{sec:methods_molec_standard_pcr}, \Cref{tab:methods_igseq_pcr}) each of which was followed by a further round of bead cleanups (\Cref{sec:methods_molec_standard_serasure}, \Cref{tab:methods_igseq_beads}). The first of these PCR reactions added a second strand to the reverse-transcribed cDNA and amplified the resulting DNA molecules; the second added partial Illumina sequencing adapters and further amplified the library, and the third added complete Illumina adapters (\Cref{app:oligos_illumina}, including i5 and i7 indices \parencite{illumina2018adapters}). Primer sequences (\Cref{app:oligos_primers}) homologous to the template-switch adapter (M1SS and M1S) were provided by Turchaninova \textit{et al.} \parencite{turchaninova2016igprep}, while those homologous to the \cm{1} constant-region exon (IGHC-B and IGHC-C) were designed using \program{Primer3} \parencite{untergasser2012primer3}.
+
+\begin{table}[h]
+\def\arraystretch{1.3}
+\centering\small
+\begin{threeparttable}
+\caption{PCR protocols for \Nfu immunoglobulin sequencing}
+\begin{tabular}{c|ccc|cc|ccccc}\toprule
+\multirow{2}{*}{\textbf{PCR}} & \multicolumn{3}{c|}{\textbf{Protocol details}} & \multicolumn{2}{c|}{\textbf{Primers}} & \multicolumn{4}{c}{\textbf{Volumes (\ul{})\tnote{b}}}\\
+ & \# cycles & $T_m$ (\degC{}) & $t_\mathrm{ext}$ (\secs{}) & F & R & Template & Primers\tnote{c} & Kapa & H\textsubscript{2}O \\\midrule
+1 & 18 & 65 & 15 & IGHC-B & M1SS & 10.5 & 1 (\x{}2) & 12.5 & 0 \\\midrule
+2 & 13 & 65 & 15 & M1S+P2 & IGHC-C+P1 & 1 & 0.5 (\x{}2) & 12.5 & 10.5 \\\midrule
+3 & 8 to 12\tnote{d} & 68 & 15 & D50*\tnote{a} & D7**\tnote{a} & 2 & 0.75 (\x{}2) & 12.5 & 9 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item[a] PCR3 primers selected as appropriate for each library's assigned indices; see \Cref{app:oligos_illumina} for more information.
+\item[b] If the number of samples to be sequenced was small, all volumes of PCR 3 were doubled for a \ul{50} total PCR volume.
+\item[c] The stated volumes apply separately to both forward and reverse primers for each reaction. All primers were diluted to and stored at an initial concentration of \umol{10}.
+\item[d] See \Cref{tab:methods_igseq_cycles} for specific cycle numbers used in each experiment.
+\end{tablenotes}
+\label{tab:methods_igseq_pcr}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[h]
+\def\arraystretch{1.5}
+\centering\small
+\caption{Bead cleanups during \Nfu immunoglobulin sequencing}
+\begin{threeparttable}
+\begin{tabular}{l|c|cc|c}\toprule
+\multirow{2}{*}{\textbf{Stage}\tnote{a}} & \multirow{2}{*}{\textbf{Sample volume}} & \multicolumn{2}{c|}{\textbf{Beads volume (\ul{})}} & \multirow{2}{*}{\textbf{Elution volume (\ul{})}\tnote{c}}\\
+& & \ul{} & \x{}\tnote{b} & \\\midrule
+RT & 21 & 14.7 & 0.7 & 16.5\\
+PCR 1 & 25 & 17.5 & 0.7 & 25\\
+PCR 2 & 25 & 17.5 & 0.7 & 15\\
+PCR 3 & 25\tnote{d} & 20\tnote{d} & 0.8 & 15\tnote{d}\\
+Pooling & Varies\tnote{e} & Varies\tnote{e} & 2.5 & 35\\ 
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item[a] Each bead cleanup takes place immediately \textit{after} its corresponding stage.
+\item[b] Bead volumes are usually given as multiples of the sample volume.
+\item[c] All elutions performed in the specified volume of elution buffer (EB, \Cref{app:solutions_buffers}).
+\item[d] If the PCR 3 reaction volume differed from \ul{25}, bead and elution volumes were rescaled proportionally to sample volume as appropriate.
+\item[e] Samples are pooled in equimolar ratio.
+\end{tablenotes}
+\label{tab:methods_igseq_beads}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[h]
+\def\arraystretch{1.3}
+\centering\small
+\caption{PCR cycle numbers during \Nfu immunoglobulin sequencing}
+\begin{threeparttable}
+\begin{tabular}{c|ccc|cc|ccccc}\toprule
+\multirow{2}{*}{\textbf{Experiment}} & \multicolumn{3}{c|}{\textbf{Number of PCR cycles}} & \multirow{2}{*}{\textbf{Reference}}\\
+& PCR 1 & PCR 2 & PCR 3 &\\\midrule
+Pilot & 18 & 13 & 9 & \Cref{sec:igseq_pilot}\\
+Ageing & 18 & 13 & 8 & \Cref{sec:igseq_ageing}\\
+Gut & 18 & 13 & 12 &\Cref{sec:igseq_gut}\\
+\bottomrule
+\end{tabular}
+\label{tab:methods_igseq_cycles}
+\end{threeparttable}
+\end{table}
+
+\subsubsection{Library pooling, size selection and sequencing} 
+\label{sec:methods_molec_igseq_seq}
+
+Following PCR3 and its attendant bead cleanup, the total concentration of each library was assayed with the Qubit 2.0 (Thermo Fisher, DNA HS assay kit), while the size distribution of each library was obtained using the TapeStation 4200 (Agilent, D1000 tape). To obtain the concentration of complete library molecules in each case (as opposed to primer dimers or other off-target bands), the ratio between the concentration of the desired library band (c. 620-\bp{680}) and the total concentration of the sample was calculated for each TapeStation lane, and the total concentration of each library as measured by the Qubit was multiplied by this ratio to obtain an estimate of the desired quantity:
+
+\begin{equation}
+\mathrm{Library~concentration}~(L) = \mathrm{Qubit~concentration} \times \frac{\mathrm{TapeStation~concentration~[main~band]}}{\mathrm{TapeStation~concentration~[total]}}
+\label{eq:library-conc}
+\end{equation}
+
+\noindent All the libraries for a given experiment were then pooled, such that the estimated concentration $L$ of each library in the final pooled sample was equal and the total mass of nucleic acid in the pooled sample was at least \ng{240}. The pooled libraries underwent a final bead cleanup (\Cref{sec:methods_molec_standard_serasure}, \Cref{tab:methods_igseq_beads}) to concentrate the samples, then underwent size selection with the BluePippin (\Cref{sec:methods_molec_standard_bluepippin}, \pc{1.5} DF Marker R2, broad 400-800bp). The size-selected pooled samples underwent a final round of quality control with the Qubit and TapeStation (as above) to confirm their collective concentration (at least \nmol{1.5}) and size distribution (one peak at c. 620-\bp{680}). Finally, the pooled and size-selected libraries were sequenced on an Illumina MiSeq System (MiSeq Reagent Kit v3, 2$\times$\bp{300} reads, 30\,\% PhiX spike-in), either at the Cologne Center for Genomics (pilot and ageing experiments) or with Admera Health (gut experiment).
+
+\section{Computational and analytic methods}
+\label{sec:methods_comp}
+
+Version details for software used in this section are given in \Cref{tab:software-versions}.
+
+\subsection{General data processing, pipeline structure, and data visualisation}
+\label{sec:methods_comp_general}
+
+Unless otherwise specified, processing and analysis of biological data was performed using standard Bioconductor \parencite{huber2015bioconductor} packages: \program{Biostrings} \parencite{pages2017biostrings} and \program{BSgenome} \parencite{pages2018bsgenome} for biological sequence data, \program{GenomicRanges} \parencite{lawrence2013genomicranges} for sequence ranges, and \program{genbankr} \parencite{becker2018genbankr} and \program{rentrez} \parencite{winter2017rentrez} for GenBank files. 
+
+Smith-Waterman and Needleman-Wunsch exhaustive alignments \parencite{needleman1970alignment,waterman1981alignment} were performed using the \snippet{pairwiseAlignment} function from \program{Biostrings}; percentage sequence identities were computed using the \snippet{pid} function from the same package.
+
+Processing of tabular data was performed using the Tidyverse suite of tools, especially \program{readr} \parencite{wickham2018readr}, \program{dplyr} \parencite{wickham2018dplyr}, \program{tidyr} \parencite{wickham2018tidyr} and \program{stringr} \parencite{wickham2018stringr}. \program{Snakemake} \parencite{koster2012snakemake} was used to design and run data-processing pipelines.
+
+Unless otherwise specified, standard statistical operations and comparisons were performed using built-in functions from the \program{stats} package in \program{R} \parencite{rcore2018rcore}: \snippet{wilcox.test} for two-sample Mann-Whitney $U$ tests, \snippet{kruskal.test} for multisample Kruskal-Wallis analysis-of-variance tests, \snippet{lm} for linear models, \snippet{glm} for generalised linear models, \snippet{cor} for Pearson product-moment correlation coefficients and \snippet{hclust} for hierarchical clustering. Principal co-ordinate analysis was performed using \snippet{pcoa} from the \program{ape} package \parencite{paradis2018ape}.
+
+Unless otherwise specified, data were visualised using \program{ggplot2} \parencite{wickham2016ggplot2}. Chromosome ideograms, locus structure visualisations, and Sashimi plots \parencite{katz2013sashimi} were constructed using \program{Gviz} \parencite{hahne2016gviz}. Cluster dendrograms and phylogenetic trees were drawn with \program{ggtree} \parencite{guangchuang2018ggtree}, using utilities from \program{ape} \parencite{paradis2018ape} and \program{tidytree} \parencite{guangchuang2018tidytree}. Sequence logos were drawn with \program{ggseqlogo} \parencite{wagih2017ggseqlogo}. 
+
+\subsection{BAC insert assembly}
+\label{sec:methods_comp_bacs}
+
+\subsubsection{Identifying BAC candidates for the \nfu \igh{} locus}
+\label{sec:methods_comp_bacs_ident}
+
+The first group of candidate BAC clones \parencite{reichwald2015genome} to be used in the \Nfu locus assembly was identified by searching for scaffolds in a previous assembly of the \Nfu genome (\texttt{NotFur1}, GenBank accession GCA\_000878545.1 \parencite{valenzano2015genome}) that contained either \igh{} gene fragments (GapFilledScaffold\_8761, 8571, 16121) or genes homologous to those flanking the \igh{} locus in stickleback and medaka (GapFilledScaffold\_2443 and 292). Subsequences from these scaffolds were sent to Dr Kathrin Reichwald at the FLI in Jena, who identified four BAC clones (193A03, 276N03, 209K12, 181N10) with sequenced ends close to the query sequences.
+
+Following sequencing and assembly of these BAC inserts, a further group of BACs was identified using a second, independent genome assembly (GenBank accession 	GCA\_001465895.2, \parencite{reichwald2015genome}) and the database of BAC end sequences, which by then were publically available. The assembled BAC sequences were found to map within or near a large, gapped region on synteny group 3 of this genome assembly, and BACs were selected that either intruded into this gapped region or had end sequences that mapped to another scaffold aligning to the assembled BAC inserts (scaffold01427, scaffold02214, scaffold01820). In total, 11 further BACs were sequenced and assembled in this second round (223M21, 162F04, 220O06, 248A22, 165M01, 206K13, 154G24, 208A08, 277J10, 109B21, 216D12).
+
+\subsubsection{Sequence trimming, filtering and correction}
+\label{sec:methods_comp_bacs_trim}
+
+Demultiplexed, adapter-trimmed MiSeq sequencing data were uploaded by the sequencing provider to Illumina BaseSpace and accessed via the Illumina utility program \program{BaseMount}. Reads from each library were processed with \program{Trimmomatic} \parencite{bolger2014trimmomatic} to remove adapter sequences, trim low-quality sequence regions, and discard any trimmed reads below a minimum length:
+
+\begin{lstlisting}
+trimmomatic PE -phred33 <forward_reads_fastq> <reverse_reads_fastq> <output_paths> ILLUMINACLIP:<adapter_directory>/TruSeq3-PE.fa:2:30:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:4:30 MINLEN:36
+\end{lstlisting}
+
+\noindent Following this, the trimmed reads were filtered to remove \textit{E. coli} genomic DNA and other contaminants by aligning them using \program{Bowtie 2} \parencite{langmead2012bowtie2} and retaining read pairs that did not align concordantly:
+
+\begin{lstlisting}
+bowtie2 --very-sensitive-local --local --reorder --un-conc <output_prefix> -x <ecoli_genome_index_path> -1 <forward_reads_fastq> -2 <reverse_reads_fastq> -S <sam_file_prefix>
+\end{lstlisting}
+
+\noindent Before sequence assembly, the filtered reads then underwent correction, to reduce the impact of errors occurring during the library preparation and sequencing process. In order to increase the reliability of the resulting scaffolds and reduce the impact of ideosyncracies of any given correction tool, the reads were corrected in parallel using two different programs; \program{QuorUM} \parencite{marcais2015quorum}:
+
+\begin{lstlisting}
+quorum -d -q "33" -p <output_path> <interleaved_reads_files>
+\end{lstlisting}
+
+\noindent and \program{BayesHammer} (the built-in correction tool of the \program{SPAdes} genome-assembly software \parencite{bankevich2012spades,nikolenko2013bayeshammer}):
+
+\begin{lstlisting}
+spades.py -1 <forward_reads_fastq> -2 <reverse_reads_fastq> -o <output_path> --disable-gzip-output --only-error-correction --careful --cov-cutoff auto -k 21,33,55,77,99,127 --phred-offset 33
+\end{lstlisting}
+
+\subsubsection{Sequence assembly and scaffolding}
+\label{sec:methods_comp_bacs_assembly}
+
+Following read correction, each pair of independently-corrected reads files was passed to \program{SPAdes} \parencite{bankevich2012spades} for \textit{de novo} genome assembly:
+
+\begin{lstlisting}
+spades.py -1 <forward_reads_fastq> -2 <reverse_reads_fastq> -o <output_path> --disable-gzip-output --only-assembler --careful --cov-cutoff auto -k 21,33,55,77,99,127 --phred-offset 33
+\end{lstlisting}
+
+Following assembly, any \textit{E. coli} scaffolds resulting from residual contaminating reads were identified by aligning scaffolds to the \textit{E. coli} genome using \program{BLASTN} \parencite{altschul1990blast,altschul1997blast}, and scaffolds containing significant matches were discarded. The remaining scaffolds were then scaffolded using \program{SSPACE} \parencite{boetzer2011sspace}, using jumping libraries from the two killifish genome assemblies mentioned in \Cref{sec:methods_comp_bacs_ident} \parencite{valenzano2015genome,reichwald2015genome}:
+
+\begin{lstlisting}
+SSPACE_Standard_v3.0.pl -x 0 -k 5 -a 0.7 -n 15 -z 200 -g 1 -p 0 -l <jumping_library_config_file> -s <spades_scaffolds_file>
+\end{lstlisting}
+
+In order to guarantee the reliability of the assembled scaffolds, the assemblies produced with \program{BayesHammer}- and \program{QuorUM}-corrected reads were compared, and scaffolds were broken into segments whose contiguity was agreed on between both assemblies. To integrate these fragments into a contiguous insert assembly, points of agreement between BAC assemblies from the same genomic region (e.g. two scaffolds from one assembly aligning concordantly to one scaffold from another) and between BAC assemblies and genome scaffolds, were used to combine scaffolds where possible. Any still-unconnected scaffolds were assembled together through pairwise end-to-end PCR (\Cref{sec:methods_molec_standard_pcr}, with one primer on the end of each scaffold designed using \program{Primer3} \parencite{untergasser2012primer3}) and Sanger sequencing (Eurofins) \parencite{sanger1977sequencing}.
+
+\subsection{Locus characterisation and assembly}
+\label{sec:methods_comp_locus}
+
+\subsubsection{Collating reference sequences}
+\label{sec:methods_comp_locus_reference}
+
+Most publications presenting characterisations of \igh{} loci do not provide easy-to-use databases of trimmed and curated gene segments, and the data that is available is often partial and heterogeneous between publications. In order to obtain standardised reference databases for locus characterisation, further analysis was performed on publically-available data from three reference species with previously-characterised \igh{} loci: medaka (\species{Oryzias}{latipes}) \parencite{magadan2011medaka}, zebrafish (\species{Danio}{rerio}) \parencite{danilova2005zebrafish} and three-spined stickleback (\species{Gasterosteus}{aculeatus}) \parencite{bao2010stickleback,gambondeza2011stickleback}, as described below. Following automatic sequence extraction, the reference sequences were checked manually for any severely pathological (e.g. out-of-frame) sequences and edited before being used for inference in novel loci.
+
+\subsubsubsection{Medaka}
+
+\noindent GenBank files of the annotated medaka \igh{} locus were downloaded from the supplementary information of the medaka locus paper (\parencite{magadan2011medaka}, additional file 6) and corrected to make them parsable by \program{genbankr}. Locus sequence and annotation ranges were extracted from these GenBank files into \fmt{FASTA} and tab-separated tabular formats, respectively, and segment annotations were renamed to match the naming conventions used in other species. \vh, \dh, \jh and constant-region-exon nucleotide sequences were extracted from the locus sequence using these annotations. Amino-acid sequences for \vh, \jh and constant-region sequences were obtained automatically by identifying the reading frames which minimised the number of stop codons in each sequence.
+
+\subsubsubsection{Stickleback}
+
+\noindent Limited sequence information on the \igh{} locus in stickleback, including \vh segments and bulk (non-exon-separated) constant regions was provided in a GenBank file in the locus characterisation paper for medaka (\parencite{magadan2011medaka}, additional file 6), while additional sequence information (including \dh and \jh nucleic-acid sequences and amino-acid sequences of constant-region exons) was extracted manually from one of the stickleback locus papers (\parencite{bao2010stickleback},  Figure S1 to S4) into \fmt{FASTA} files. As with medaka, the GenBank reference file was downloaded, corrected and parsed to yield a \fmt{FASTA} file of the locus sequence and tab-separated tabular files of annotation ranges. \vh sequences were extracted from the locus sequence using these annotation ranges and translated as specified for medaka above; \jh sequences provided by Bao \textit{et al.} \parencite{bao2010stickleback} were translated such that the final nucleotide formed the last position of the final codon.
+
+To obtain nucleic-acid sequences of the constant-region exons, the amino-acid sequences from Bao \textit{et al.} \parencite{bao2010stickleback} were aligned to the locus sequence with \program{TBLASTN} \parencite{gertz2006tblastn}, with a query coverage threshold of 40\,\% and a maximum of three HSPs per query sequence:
+
+\begin{lstlisting}
+tblastn -query <ch_aa_fasta> -subject <gac_locus_fasta> -qcov_hsp_perc 40 -max_hsps 3 -outfmt '<output_format>' > <output_path>
+\end{lstlisting}
+
+\noindent with the following standardised tabular output format: 
+
+\begin{lstlisting}
+6 qseqid sseqid pident qcovhsp length mismatch gapopen gaps sstrand qstart qend sstart send evalue bitscore qlen slen
+\end{lstlisting}
+
+\noindent To filter out alignments across subloci, any alignment of an exon upstream of the annotated boundaries of its corresponding bulk constant region (whose ranges were specified in the GenBank file) was discarded; the alignment with the highest score for each exon was then used to extract the corresponding nucleic-acid sequence from the locus. In order to control for any errors, either during manual copying of locus sequences from the source paper or in the paper itself, these nucleic-acid sequences were then re-translated to generate new amino-acid sequences, again using the translation frame producing the fewest stop codons.
+
+\subsubsubsection{Zebrafish}
+
+\noindent GenBank files corresponding to the zebrafish \igh{} locus were provided (without segment annotations) on GenBank by Danilova \textit{et al.} \parencite{danilova2005zebrafish}; this publication also provided detailed co-ordinates for the \vh, \dh and \jh segments (but not constant exons) on these sequences. Aligned amino-acid sequences were provided for the exons of \igh{M} and \igh{Z}, but no detailed information about \igh{D} exons could be found; as a result, reference information about \igh{D} was not used from this species.
+
+As with stickleback, the amino-acid sequences provided were aligned to the locus sequences  with \program{TBLASTN} to identify and extract exon nucleic-acid sequences, which were then translated using the frame yielding the fewest stop codons for each sequence. \vh sequences were obtained using the ranges provided in Danilova \textit{et al.} \parencite{danilova2005zebrafish} and translated in the same manner. \dh and \jh nucleotide sequences were obtained directly from Danilova \textit{et al.} \parencite{danilova2005zebrafish}; as with stickleback, \jh amino-acid sequences were obtained by translating the nucleotide sequences in the frame such that the final nucleotide formed the last position of the final codon.
+
+\subsubsection{Identifying putative locus sequences}
+\label{sec:methods_comp_locus_scaffolds}
+
+In order to identify sequences in a genome assembly potentially containing part of an \igh{} locus, reference \vh, \jh and constant-region nucleotide and amino-acid sequences were mapped to the assembly using \program{BLAST} \parencite{altschul1990blast,altschul1997blast}. Nucleotide sequences were aligned to the locus using the relatively permissive \snippet{blastn} algorithm:
+
+\begin{lstlisting}
+blastn -task blastn -query <reference_exon_fasta> -subject <locus_fasta> -outfmt '<output_format>'
+\end{lstlisting}
+
+\noindent Protein sequences, meanwhile, were aligned using the standard \snippet{blastp} algorithm:
+
+\begin{lstlisting}
+blastp -query <reference_exon_fasta> -subject <locus_fasta> -outfmt '<output_format>'
+\end{lstlisting}
+
+\noindent In both cases, the tabular output format specified in \Cref{sec:methods_comp_locus_reference} was used, to provide a predictable format for downstream processing of \program{BLAST} alignment tables.
+
+Following alignment of reference sequences, overlapping alignments to reference segments of the same segment type, isotype (if applicable) and exon number (if applicable) were collapsed together, keeping track of the number of collapsed alignments and the best E-values and bitscores obtained for each alignment group. Alignment groups with a very poor maximum E-value ($> 0.001$) were discarded, as were groups consisting of fewer than two alignments and groups overlapping with much better alignments to a different sequence type, where ``much better'' was defined as a bitscore difference of at least 33. Following resolution of conflicts, \vh and \ch alignments underwent a second filtering step of increased stringency, requiring a minimum E-value of $10^{-10}$ to be retained. 
+
+Following alignment filtering, scaffolds containing surviving alignments to at least two distinct segment types (where \vh, \jh, and each type of constant-region exon each counted as one segment type), or alignments to one segment type covering at least 1\,\% of the scaffold's total length were retained as potential locus scaffolds. To reduce computational runtime spent processing irrelevant sequence on long scaffolds, each candidate scaffold so identified was trimmed to 100kb before the first putative gene segment and 100kb after the last one; in the case of \nfu and \xma, these ranges were further reduced following more thorough segment characterisation (\Cref{sec:methods_comp_locus_segments}).
+
+The exact set of reference sequences used for this extraction process differed depending on the genome being analysed. For \nfu (\Cref{sec:nfu-locus}), the reference sequences extracted from medaka, stickleback and zebrafish (\Cref{sec:methods_comp_locus_reference}) were used; for \xma (\Cref{sec:xma-locus}), gene segments inferred for \Nfu were also included; and for other species (\Cref{sec:locus_comparative}), the reference sequences plus those inferred for both \Nfu and \Xma were used.
+
+\subsubsection{Locus sequence finalisation}
+\label{sec:methods_comp_locus_final}
+
+In the case of both \nfu and \xma, a single chromosome (chromosome 6 in \Nfu, chromosome 16 in \Xma) was identified as bearing the \igh{} locus in that species. In the case of \Xma, this was the only segment-bearing scaffold identified in the genome, and the completed locus sequence was obtained by simply trimming the chromosomal sequence at either end of the segment-bearing region. In contrast, multiple scaffolds from the \Nfu genome were also identified as bearing at least one potential \igh{} segment (\Cref{tab:nfu-locus-scaffolds}). In order to identify which of these were in fact part of the locus and integrate them into a contiguous sequence, BAC candidates identified and assembled as described in \Cref{sec:methods_comp_bacs} were incorporated into the assembly.
+
+To do this, all assembled BAC inserts were screened for \igh{} locus segments in the same manner described for genome scaffolds (\Cref{sec:methods_comp_locus_scaffolds}). Passing BACs (\Cref{tab:nfu-locus-bacs}) were aligned to the candidate genome scaffolds with \program{BLASTN} and integrated manually together, giving priority in the event of a sequence conflict to (i) any sequence containing a gene segment missing from the other, and (ii) the genome scaffold sequence if neither sequence contained such a segment. BACs and scaffolds which could not be integrated into the locus sequence in this way were discarded as orphons.
+
+\subsubsection{Locus segment characterisation}
+\label{sec:methods_comp_locus_segments}
+
+Detailed characterisation of \igh{} gene segments was performed on finished \igh{} locus sequences for \xma and \nfu, and on isolated candidate scaffolds for other species, using the same reference segment databases used to identify candidate scaffolds for that species in \Cref{sec:methods_comp_locus_scaffolds}. The specific methods used depended on segment type.
+
+\subsubsubsection{\vh}
+
+\noindent To identify \vh segments on newly characterised loci, reference \vh segments were used to construct a multiple-sequence alignment with \program{PRANK} \parencite{loytynoja2014prank}:
+
+\begin{lstlisting}[language=bash]
+prank -d=<reference_vh_db> -o=<output_path> -gaprate=0.00001 -gapext=0.00001 -F -termgap
+\end{lstlisting}
+
+\noindent The resulting alignment was used as an input to \program{NHMMER} \parencite{wheeler2013nhmmer,eddy2011hmm,eddy2009homology,eddy2008alignment}, which constructs a Hidden Markov Model from a multiple-sequence alignment and uses it to identify matching sequences in a reference sequence:
+
+\begin{lstlisting}[language=bash]
+nhmmer --dna --notextw --tblout <output_path> -T 80 <vh_alignment> <locus_sequence_path>
+\end{lstlisting}
+
+\noindent where \snippet{-T 80} specified the minimum alignment score required to report a match. The resulting match table was used to identify candidate ranges in the locus sequence corresponding to \vh segments; these ranges were extended by 9bp at either end to account for boundary errors, and the corresponding nucleotide sequences were extracted to a FASTA file. Each sequence was then checked and refined manually: 3' ends were identified by the start of the RSS heptamer sequence (consensus \sequence{CACAGTG} \parencite{hesse1989rss}), if present, while 5' ends and FR/CDR boundaries were identified using IMGT/DomainGapAlign \parencite{ehrenmann2011domaingapalign} with the default settings. Where necessary, IMGT/DomainGapAlign was also used to IMGT-gap the \vh segments in accordance with the IMGT unique numbering \parencite{lefranc2003vnumbering}.
+
+An initial amino-acid sequence for each \vh segment was produced automatically from the extracted nucleotide sequence by identifying the reading frame which minimised the number of stop codons in the sequence; this worked well for most segments. \vh amino-acid sequences were then refined (and in a few cases re-translated) using the manually-refined nucleotide sequences, including end-refinement and FR/CDR boundary identification.
+
+Following extraction and manual curation, \vh segments were grouped into families based on their pairwise sequence identity. In order to assign segments to families, the nucleotide sequence of each \vh segment in a locus was aligned to every other segment using Needleman-Wunsch global alignment, and the resulting matrix of pairwise sequence identities was used to perform single-linkage hierarchical clustering on the \vh segments. The resulting dendrogram was cut at 80\,\% sequence identity to obtain \vh families. These families were then numbered based on the order of the first-occurring \vh segment from that family in the first \igh{} sublocus in which the family is represented, and each \vh segment was named based on its parent sublocus, its family, and its order among elements of that family in that sublocus (\Cref{tab:nfu-vh-coords} and \Cref{tab:xma-vh-coords-1,tab:xma-vh-coords-2,tab:xma-vh-coords-3,tab:xma-vh-coords-4,tab:xma-vh-coords-5}).
+
+\subsubsubsection{\jh}
+
+\noindent As with \vh segments, \jh segments were identified by building a multiple-sequence alignment with \program{PRANK} and using it to construct an HMM with \program{NHMMER}; the parameters used were the same as for \vh segments, except that there was no minimum score for \program{NHMMER} to report a sequence match (\snippet{-T 0} instead of \snippet{-T 80}). The resulting sequence ranges were extended by \bp{20} on either end and extracted into FASTA format. These sequences were then trimmed automatically by identifying the RSS heptamer sequence at the 5' end and the splice junction motif (\sequence{GTA}) at the 3' end, then checked and refined manually.
+
+\begin{wraptable}{r}{4cm}
+\caption{Regular expressions used to search for conserved W118 residues in \jh sequences}\label{tab:jh-aux-patterns}
+\begin{tabular}{rl}\toprule  
+\# & Pattern \\\midrule
+1 & \sequence{TGGGBNNNNGBN}\\
+2 & \sequence{TGGGBNNNGBN}\\
+3 & \sequence{TGGGBNNNNNGBN}\\
+4 & \sequence{TGGGBNNNNNNGBN}\\
+5 & \sequence{TGGGBN}\\\bottomrule
+\end{tabular}
+\end{wraptable}
+
+\program{IgBLAST} \parencite{ye2013igblast} identifies CDR3 boundaries for recombined \igh{} VDJ sequences using an auxiliary file specifying the reading frame of each \jh segment, along with the co-ordinate of the conserved \sequence{TGG} codon (corresponding to the conserved W118 residue in the recombined sequence \parencite{lefranc2014immunoglobulins}) marking the CDR3/FR4 boundary. An auxiliary file for the inferred \jh segments was generated automatically by searching for the conserved sequence using a series of regular-expression patterns of decreasing stringency (\Cref{tab:jh-aux-patterns}), taking the first match in each sequence as the desired residue; this determined both the reading frame and the W118 sequence co-ordinate. Once generated, the auxiliary file was then used to determine the reading frame for automatically translating the \jh sequences; both the auxiliary file and amino-acid \fmt{FASTA} file were then edited to incorporate any manual refinements made to the \jh nucleotide sequences. Curated \jh sequences were named based on their order within their parent sublocus and, where applicable, on whether they were upstream of \igh{Z} or \igh{M} constant regions (\Cref{tab:nfu-jh-coords-seg,tab:xma-jh-coords-seg}).
+
+\subsubsubsection{\dh}
+
+\noindent Unlike \vh and \jh gene segments, \dh segments are too short and unstructured to be found effectively using an HMM-based search strategy. Instead, \dh segments in assembled loci were located using their distinctive pattern of flanking recombination signal sequences (\Cref{sec:intro_immunity_primary}): an antisense RSS in 5', then a short D-segment, then a sense RSS in 3'. Potential matches to this pattern were searched for using \program{FUZZNUC} from the EMBOSS collection of bioinformatics tools \parencite{rice2000emboss}, with a high error tolerance to account for deviations from the conserved sequence in either or both of the RSSs:
+
+\begin{lstlisting}
+fuzznuc -pattern 'GGTTTTTGTN(10,14)CACTGTGN(1,25)CACAGTGN(10,14)ACAAAAACC' -pmismatch 8 -rformat gff -outfile <output_path> <locus_sequence_path>
+\end{lstlisting}
+
+\noindent This generated a \fmt{GFF} file of permissive matches, representing potential \dh segments; these were then arranged by sequence co-ordinate, and higher-mismatch candidates overlapping with a lower-mismatch alternative were discarded.
+
+Automatic orientation of \dh segments based on their own sequence is challenging, as the segments themselves have no clear conserved structure and the flanking RSSs are rotationally symmetric. To overcome this problem and orientate the \dh segments on the locus, the table of \dh candidate ranges was combined with previously-identified \vh and \jh ranges. Each \dh candidate was then orientated based on the orientations of its flanking segments: segments with an oriented segment immediately upstream or downstream adopted the orientation of that segment, while segments with contradictory orientation information were discarded. This process was repeated until all \dh candidates had either been orientated or discarded.
+
+After orientation, the \dh ranges were used to extract \dh sequences in FASTA format from the locus sequence; these sequences then underwent a second, more stringent filtering step, in which sequences lacking the most conserved positions in each RSS \parencite{hesse1989rss} were discarded:
+
+\begin{lstlisting}
+grep -B 1 '[ACTG]\{{25,27\}}TG[ACTG]\{{1,25\}}CA[ACTG]\{{25,27\}}' <dh_fasta> | sed '/^--$'/d > <output_fasta>
+\end{lstlisting}
+
+\noindent Finally, the identified \dh candidates were checked manually, candidates without good RSS sequences were discarded, and flanking RSS sequences were trimmed to obtain the \dh segment sequences themselves. As with the \jh segments, these were numbered based on their order within their parent sublocus and, when applicable, on whether they were upstream of \igh{Z} or \igh{M} constant regions (\Cref{tab:nfu-dh-coords-seg,tab:xma-dh-coords-seg}).
+
+\subsubsubsection{CH}
+
+\noindent To detect and identify constant-region exons in the characterised loci, constant-region nucleotide and protein sequences from reference species were mapped to the locus sequence using \program{BLAST} \parencite{altschul1990blast,altschul1997blast}, in the same manner described for putative locus scaffolds in \Cref{sec:methods_comp_locus_scaffolds}.
+Following alignment of reference sequences, overlapping alignments to reference segments of the same isotype and exon number were collapsed together, keeping track of the number of collapsed alignments and the best E-values and bitscores obtained for each alignment group. Alignment groups with a very poor maximum E-value ($> 0.001$) were discarded, as were groups overlapping with a much better alignment to a different isotype or exon type, where ``much better'' was here defined as a bitscore difference of at least 16.5. Where conflicting alignments to different isotypes or exon types co-occurred without a sufficiently large difference in bitscore, both alignment groups were retained for manual resolution of exon identity.
+
+Following resolution of conflicts, alignment groups underwent a second filtering step of increased stringency, requiring a minimum E-value of $10^{-8}$ and at least two aligned reference exons over all reference species to be retained. Each surviving alignment group was then converted to a sequence range, extended by \bp{10} at each end to account for truncated alignments failing to cover the ends of the exon, and used to extract the corresponding exon sequence into \format{FASTA} format. These sequences then underwent manual curation to resolve conflicting exon identities, assign exon names and perform initial end refinement based on putative splice junctions.
+
+In order to validate intron/exon boundaries and investigate splicing behaviour among \igh{} constant-region exons in \Nfu and \Xma, published RNA-sequencing data (\Cref{tab:rnaseq-sources}) were aligned to the annotated locus using STAR \parencite{dobin2013star}. In both cases, reads files from multiple individuals were concatenated and aligned together, in order to make the intron/exon boundary changes in mapping behaviour as clear as possible. 
+
+Before aligning the RNA-seq reads, each locus underwent basic repeat masking, using the built-in zebrafish repeat parameters from \program{RepeatMasker} \parencite{smith2016repeatmasker}:
+
+\begin{lstlisting}[language=bash]
+RepeatMasker -species danio -dir <masked_locus_dir> -s <unmasked_locus_path>
+\end{lstlisting}
+
+\noindent After masking, a \program{STAR} genome index was generated from each locus:
+
+\begin{lstlisting}[language=bash]
+STAR --runMode genomeGenerate --genomeDir <star_index_directory_path> --genomeFastaFiles <masked_locus_path> --genomeSAindexNbases <sa_index>
+\end{lstlisting}
+
+\noindent where the \snippet{--genomeSAindexNbases} option determined the size of the suffix-array index and was dependent on the length of the reference sequence being indexed: 
+
+\begin{equation}
+\mathrm{SA~index~size~(bits)} = \left\lfloor\frac{\log_2(\mathrm{length~of~reference~sequence})}{2} - 1\right\rfloor
+\label{eq:sa_index}
+\end{equation}
+
+\noindent Following index generation, the RNA-seq reads were mapped to the generated index as follows:
+
+\begin{lstlisting}[language=bash]
+STAR --genomeDir <star_index_directory_path> --readFilesIn <input_reads> --outFilterMultimapNmax 5 --alignIntronMax 10000 --alignMatesGapMax 10000
+\end{lstlisting}
+
+\noindent where the \snippet{--outFilterMultimapNmax} option excludes read pairs mapping to more than five distinct co-ordinates in the reference sequence, the \snippet{--alignIntronMax} option excludes reads spanning predicted introns of more than \kb{10}, and the \snippet{--alignMatesGapMax} option excludes read pairs mapping more than \kb{10} apart. Following alignment, the resulting \format{SAM} files were processed into sorted, indexed \format{BAM} files using \program{SAMtools} \parencite{li2009samtools} and visualised with Integrated Genomics Viewer (\program{IGV} \parencite{robinson2011igv,thorvaldsdottir2013igv}) to determine intron/exon boundaries of predicted exons, as well as the major splice isoforms present in each dataset.
+
+In order to reduce time and memory requirements for generating alignment figures (\Cref{fig:nfu-locus-sashimi,fig:xma-locus-sashimi}), secondary alignments were performed on truncated loci consisting only of the \igh{M/D} or (where present) \igh{Z} constant regions, plus a few flanking kilobases on each side. In these cases, the additional parameters constraining multimapping, intron length and mate distance were not necessary due to the much shorter and less-repetitive reference sequence.
+
+For species other than \Nfu or \Xma, intron/exon boundaries were predicted manually based on BLASTN and BLASTP alignments to closely-related species and the presence of conserved splice-site motifs (\sequence{AG} at the 5' end of the intron, \sequence{GT} at the 3' end \parencite{shapiro1987splice}). In cases where no 3' splice site was expected to be present (e.g. for CM4 or TM2 exons), the nucleotide exon sequence was terminated at the first canonical polyadenylation site (\sequence{AATAAA} if present, otherwise one of \sequence{ATTAAA}, \sequence{AGTAAA} or \sequence{TATAAA} \parencite{ulitsky2012polya}), while the amino-acid sequence was terminated at the first stop codon. In many cases, it was not possible to locate a TM2 exon due to its very short conserved coding sequence (typically only 2 to 4 amino-acid residues \parencite{bao2010stickleback,danilova2005zebrafish}).
+
+\subsubsection{Cross-sublocus sequence comparison}
+\label{sec:methods_comp_locus_synteny}
+
+Synteny between subloci in the \Nfu locus was analysed using the standard synteny pipeline from the \program{R} package \program{DECIPHER} \parencite{wright2016decipher}, which searches for chains of exact $k$-mer matches within two sequences:
+
+\begin{lstlisting}[language=R]
+DBPath <- tempfile()
+DBConn <- dbConnect(SQLite(), DBPath)
+
+Seqs2DB(seqs = <sublocus_1_sequence>, type = "XStringSet", dbFile = DBConn, identifier = "IGH1", verbose = FALSE)
+Seqs2DB(seqs = <sublocus_2_sequence>, type = "XStringSet", dbFile = DBConn, identifier = "IGH2", verbose = FALSE)
+
+dbDisconnect(DBConn)
+
+SyntenyObject <- FindSynteny(dbFile = DBPath, verbose = FALSE)
+\end{lstlisting}
+
+\noindent Cross-locus sequence comparisons between gene segments were performed analogously to the comparisons involved in \vh family assignment, with \snippet{pairwiseAlignment} and \snippet{pid} from \program{Biostrings}.
+
+
+\subsection{Phylogenetic trees}
+\label{sec:methods_comp_trees}
+
+
+\subsubsection{Species tree construction and annotation}
+\label{sec:methods_comp_trees_species}
+
+Information about the interrelationships of most of the teleost taxa discussed in this thesis was obtained from the comprehensive teleost phylogeny of Hughes \textit{et al.} \parencite{hughes2018teleostphylo}, while additional, higher-resolution information on the interrelationships of African killifishes missing from that tree was provided by Cui \textit{et al.} \parencite{cui2019annual}. As no single published tree covered all the species of interest, a simple cladogram of relationships was constructed manually from the information provided by these two sources. Annotations (e.g. of clade membership or isotype status) were added using \program{tidytree} \parencite{guangchuang2018tidytree}.
+
+\subsubsection{Phylogenetic inference on \igh{} locus sequences}
+\label{sec:methods_comp_trees_phylo}
+
+Three phylogenetic trees were inferred from molecular data of \igh{Z} gene segments: one on the \vh segments on \nfu and \xma, one on \ch exons from all species, and one on \igh{Z} constant-regions of \igh{Z} bearing species. In all cases, a sequence \format{FASTA} database was assembled from the relevant species. As identical sequences can cause problems during phylogenetic analysis, entries with completely identical sequences  were then collapsed together into a single \format{FASTA} sequence, which was relabelled with the names of all its parent sequences. 
+
+A multiple-sequence alignment of the remaining sequences was then constructed with \program{PRANK}:
+
+\begin{lstlisting}
+prank -d=<sequence_fasta> -o=<output_prefix> -DNA -termgap
+\end{lstlisting}
+
+\noindent The resulting alignment was passed to the maximum-likelihood phylogenetic inference program \program{RAxML} \parencite{stamatakis2005raxml3,stamatakis2006raxml6,stamatakis2014raxml8}, using the SSE3-enabled parallelised version of the software, the standard GTR-Gamma nucleotide substitution model, and built-in rapid bootstrapping:
+
+\begin{lstlisting}
+raxmlHPC-PTHREADS-SSE3 -f a -m GTRGAMMA -s <ch_prank_alignment> -w <output_dir> -N <n_bootstrap_replicates> -x <bootstrap_seed> -p <parsimony_seed> -n <output_suffix>
+\end{lstlisting} 
+
+\noindent Finally, the bootstrap-annotated \snippet{RAxML_bipartitions} file was inspected and rooted manually in \program{Figtree} \parencite{rambaut2012figtree}, before being annotated and visualised in \program{R} with \program{tidytree} and \program{ggtree}, respectively.
+
+\subsubsubsection{\vh-segment tree}
+
+\noindent In order to build a phylogenetic tree of \vh segments from the \Nfu and \Xma \igh{} loci, all \vh sequences from those loci were labelled with their origin species and combined together into a single \format{FASTA} file. Sequences with more than 25\,\% missing characters were discarded prior to \program{PRANK} alignment. During tree-inference with \program{RAxML}, 100 bootstrap replicates were used.
+
+\subsubsubsection{\ch exon tree}
+
+\noindent To build a phylogenetic tree of \ch exons, nucleotide sequences of constant exons from all species involved in this study were labelled with their origin species and combined into a single \format{FASTA} file, which was then filtered to discard transmembrane exons, secretory tails, and sequences with more than 25\,\% missing characters. In addition, CM4 nucleotide sequences were trimmed to the coding region, removing the 3'-UTR. As with the \vh-segment tree, 100 bootstrap replicates were used during tree-inference with \program{RAxML}. As the outgroup among \ch exon groups is unknown, the tree was visualised in unrooted format (\Cref{fig:ch-tree-all}).
+
+\subsubsubsection{\igh{Z} tree}
+
+\noindent To investigate the evolution of \igh{Z}, the \cz{1-4} exons from each \igh{Z} constant region found in any of the analysed genomes from \Cref{sec:methods_comp_locus_segments} were concatenated together into a single sequence and labelled with the source species and constant region. In the event of partial constant regions missing one or more \cz{} exons, the remaining exons were concatenated together in the usual order. Following database processing and alignment, \program{RAxML} tree-inference was run using 1000 bootstrap replicates, in order to increase the reliability and precision of the support values obtained. During tree visualisation, nodes with bootstrap support of less than 65\,\% were collapsed into polytomies.
+
+\subsection{\igseq data pre-processing}
+\label{sec:methods_comp_igpreproc}
+
+Unless otherwise specified, pre-processing utilities used in the following sections were provided by the \program{pRESTO} \parencite{vanderheiden2014presto} and \program{Change-O} \parencite{gupta2015changeo} suites of \igseq processing tools.
+
+\subsubsection{Sequence uploading and annotation}
+\label{sec:methods_comp_igpreproc_annot}
+
+Demultiplexed, adapter-trimmed MiSeq sequencing data were uploaded by the sequencing provider to Illumina BaseSpace and accessed via the Illumina utility program \program{BaseMount}. Library annotation information (fish ID, sex, strain, age at death, death weight, etc.) was added to the read headers of each library \format{FASTQ} file:
+
+\begin{lstlisting}
+ParseHeaders add -f <field_keys> -u <field_values> -s <input_reads_file>
+\end{lstlisting}
+
+\noindent The replicate and individual identity of each library were then added as additional annotations, by concatenating sets of other annotations together as specified by the user:
+
+\begin{lstlisting}
+ParseHeaders.py merge -f <field_keys> -k INDIVIDUAL --act cat -s <annotated_reads_file>
+ParseHeaders.py merge -f <field_keys> -k REPLICATE --act cat -s <individual_annotated_reads>
+\end{lstlisting}
+
+\noindent Following annotations, reads from different libraries were pooled together, then split by replicate identity:
+
+\begin{lstlisting}
+SplitSeq.py group -f REPLICATE -s <pooled_reads_file>
+\end{lstlisting}
+
+\noindent This pooling and re-splitting process enables all reads considered to be a single replicate to be processed together even if sequenced separately, maximising the effectiveness of UMI-based pre-processing, while also allowing all replicates to be processed in parallel.
+
+\subsubsection{Quality control, primer masking and UMI extraction}
+\label{sec:methods_comp_igpreproc_mask}
+
+After pooling and re-splitting, the raw read set underwent quality control, discarding any read with an average Phred score \parencite{ewing1998phred} of less than 20:
+
+\begin{lstlisting}
+FilterSeq quality -q 20 -s <split_reads_file>
+\end{lstlisting}
+
+\noindent Following quality filtering, the reads underwent processing to identify and remove invariant primer sequences. To do this, known primer sequences were aligned to each read from a fixed starting position, and the best match on each read was identified and trimmed. To begin with, the primer sequences from the third PCR step of the library prep protocol were used, trimming off primer sequences corresponding to part of the constant \cm{1} exon and the 5' invariant part of the template-switch adapter:
+
+\begin{lstlisting}
+MaskPrimers score --mode cut --start 0 -s <split_reads_3prime> -p <CM1_primer_file>;
+MaskPrimers score --mode cut --start 0 -s <split_reads_5prime> -p <TSA_primer_file>
+\end{lstlisting}
+
+\noindent Following this, the forward reads underwent a second round of masking using the 3' invariant part of the TSA sequence (\sequence{CTTGGGG}), and the intervening 16 bases were extracted and recorded in each read header as that read's unique molecular identifier (UMI):
+
+\begin{lstlisting}
+MaskPrimers score --mode cut --barcode --start 16 --maxerror 0.5 -s <masked_reads_5prime> -p <TSA_3prime_sequence_file>
+\end{lstlisting}
+
+\noindent As the match sequence for this second round of masking is shorter and more error-prone than the primer sequences used in the first round, an increased mismatch tolerance (\snippet{--maxerror 0.5}) was permitted, increasing the number of reads with successfully-extracted UMIs.
+
+\subsubsection{Barcode error handling}
+\label{sec:methods_comp_igpreproc_correct}
+
+In order to reduce the level of barcode errors in each dataset, primer-masked \igseq reads underwent barcode clustering, in which reads with the same replicate identity and highly similar UMI sequences were grouped together into the same molecular identifier group (MIG). To do this, 5'-reads were clustered by UMI sequence using  \program{CD-HIT-EST} \parencite{li2006cdhit,fu2012cdhit} with a 90\,\% sequence identity cutoff, with cluster identities being recorded in a new CLUSTER field in each read header \parencite{vanderheiden2018perscomm}:
+
+\begin{lstlisting}
+ClusterSets barcode -f BARCODE -k CLUSTER --cluster cd-hit-est --prefix B --ident 0.9 -s <remasked_reads_5prime>
+\end{lstlisting}
+
+\noindent In order to split any genuinely distinct MIGs accidentally united by this process, as well as to reduce the level of barcode collisions, the reads then underwent a second round of clustering, this time separately on the read sequences within each barcode cluster using \program{VSEARCH} (an open-source alternative to \program{USEARCH} \parencite{edgar2010usearch,rognes2016vsearch}).
+This time, the cluster dendrogram was cut at 75\,\% total sequence identity, and each subcluster was separated into its own distinct MIG \parencite{vanderheiden2018perscomm}:
+
+\begin{lstlisting}
+ClusterSets set -f CLUSTER -k CLUSTER --cluster vsearch --prefix S --ident 0.75 -s <clustered_reads_5prime>
+\end{lstlisting}
+
+\noindent These clustering thresholds (90\,\% for barcode clustering, 75\,\% for barcode splitting) were identified empirically as the values that maximise the number of reads passing downstream quality checks in turquoise-killifish data.
+
+The cluster annotations from these two clustering steps were combined into a single annotation, uniquely identifying each MIG in each replicate. These annotations were further modified to designate the replicate identity of each read, giving each MIG a unique annotation across the entire dataset. These annotations were copied to the reverse reads, such that each read pair had a matching MIG annotation, and reads without a mate (due to differential processing of the two reads files) were discarded:
+
+\begin{lstlisting}
+ParseHeaders collapse -s <reclustered_reads_5prime> -f CLUSTER --act cat;
+ParseHeaders merge -f REPLICATE CLUSTER -k RCLUSTER --act set -s <annotated_reads_5prime>;
+PairSeq -1 <reannotated_reads_5prime> -2 <masked_reads_3prime> --1f BARCODE CLUSTER RCLUSTER --coord illumina
+\end{lstlisting}
+
+\subsubsection{Consensus-read generation and pair merging}
+\label{sec:methods_comp_igpreproc_consensus}
+
+Following barcode clustering, the \igseq forward reads were grouped based on cluster identity, and the reads in each cluster grouping were aligned and collapsed into a consensus read sequence:
+
+\begin{lstlisting}
+BuildConsensus --bf RCLUSTER --cf <header_fields> --act <copy_actions> --maxerror 0.1 --maxgap 0.5 -s <paired_reads_file>
+\end{lstlisting}
+
+\noindent Positions at which at least half the aligned reads in the MIG had a gap character were deleted from the consensus (\snippet{--maxgap 0.5}), while MIGs with a mismatch rate from the consensus of more than 10\,\% were discarded from the dataset (\snippet{--maxerror 0.1}). The resulting \format{FASTQ} file contained a single consensus sequence for each cluster annotation, labelled with its CONSCOUNT (the total number of reads contributing to that consensus sequence),  the number of reads allocated to each barcode in the cluster, and various header fields (\snippet{<header_fields>}) propagated from the contributing reads by summing or concatenating the values from each contributing read (\snippet{<copy_actions>}). An identical consensus-read-generation step was performed on the reverse reads.
+
+After consensus-read generation had been performed for both 5' and 3' reads, the annotations attached to each read were again unified across read pairs with matching cluster identities, and consensus reads without a mate of the same cluster identity were dropped:
+
+\begin{lstlisting}
+PairSeq -1 <consensus_reads_5prime> -2 <consensus_reads_3prime> -coord presto
+\end{lstlisting}
+
+\noindent Following consensus-read generation and annotation unification, consensus-read pairs with matching cluster annotations were aligned and merged into a single contiguous sequence. Where possible, this was done by simply aligning the two mate sequences against each other; where this was not possible (e.g. due to the lack of a significant sequence overlap) the consensus reads were instead aligned with \program{BLASTN} \parencite{altschul1990blast,altschul1997blast} to a reference database of \vh sequences to generate a merged sequence, with \sequence{N} characters used to separate pairs that aligned in a non-overlapping manner on the same \vh segment \parencite{vanderheiden2014presto}:
+
+\begin{lstlisting}
+AssemblePairs sequential --coord presto --scanrev --aligner blastn --rc tail --1f <header_fields> -1 <paired_consensus_5prime> -2 <paired_consensus_3prime> -r <vh_fasta_file>
+\end{lstlisting}
+
+\noindent In either case, annotation fields were copied to the new merged sequence from the forward consensus read, with the fields to be copied specified by \snippet{--1f <header_fields>}. Sequence pairs for which both alignment approaches failed were discarded.
+
+\subsubsection{Collapsing identical sequences and singleton removal}
+\label{sec:methods_comp_igpreproc_collapse}
+
+To convert a dataset of MIGs (representing distinct RNA molecules) into one of unique sequences, merged consensus sequences from \Cref{sec:methods_comp_igpreproc_consensus} with identical insert sequences but distinct cluster identities were collapsed together into a single \format{FASTQ} entry, recording the number, size and UMI makeup of contributing MIGs in each case in the sequence header alongside any existing annotation information:
+
+\begin{lstlisting}
+CollapseSeq --inner --cf <header_fields> --act <copy_actions> -n 20 -s <merged_consensus_seqs>
+\end{lstlisting}
+
+\noindent The collapsed sequences from each replicate identity in the dataset were then concatenated into a single file for easier downstream processing. 
+
+As sequences represented by only a single read across all MIGs in the dataset (so-called \textit{singleton} sequences, with a total CONSCOUNT of no more than 1) could not be corrected by UMI clustering or consensus building, they are not considered reliable for downstream processing and analysis \parencite{vanderheiden2018perscomm}; as such, they were identified and separated from the other collapsed sequences:
+
+\begin{lstlisting}
+SplitSeq group -f CONSCOUNT --num 2 -s <collapsed_consensus_seqs>
+\end{lstlisting}
+
+\noindent Finally, the non-singleton sequences so identified were converted into \format{FASTA} format with \program{seqtk} \parencite{li2016seqtk} for downstream processing:
+
+\begin{lstlisting}
+seqtk seq -a <non_singleton_consensus_seqs> > <presto_fasta_output>
+\end{lstlisting}
+
+\subsubsection{Assigning VDJ identities with IgBLAST}
+\label{sec:methods_comp_igpreproc_igblast}
+
+To assign \vh, \dh and \jh identities to the sequences output by the \program{pRESTO} pipeline, the format{FASTA} output from \Cref{sec:methods_comp_igpreproc_collapse} was aligned to databases of reference segments with \program{IgBLAST} \parencite{ye2013igblast}. To do this, each reference file was converted into a \program{BLAST} database with \snippet{makeblastdb}, and the output \format{FASTA} file was aligned to these databases with \snippet{igblastn}:
+
+\begin{lstlisting}
+makeblastdb -parse_seqids -dbtype nucl -in <vh_reference_fasta> -out <vh_db_prefix>;
+makeblastdb -parse_seqids -dbtype nucl -in <dh_reference_fasta> -out <dh_db_prefix>;
+makeblastdb -parse_seqids -dbtype nucl -in <jh_reference_fasta> -out <jh_db_prefix>;
+igblastn -ig_seqtype Ig -domain_system imgt -query <presto_fasta_output> -out <igblast_output> -germline_db_V <vh_db_prefix> -germline_db_D <dh_db_prefix> -germline_db_J <jh_db_prefix> -auxiliary_data <jh_aux_file> -outfmt '7 std qseq sseq btop'
+\end{lstlisting}
+
+\noindent A \jh auxiliary file (\Cref{sec:methods_comp_locus_segments}) was used to indicate the reading frame and CDR3 boundary co-ordinate of each \jh sequence in the reference database (\snippet{-auxiliary_data <jh_aux_file>}).
+
+\subsubsection{Clonotype inference with Change-O}
+\label{sec:methods_comp_igpreproc_clones}
+
+Following V/D/J identity assignment, the output \format{FASTA} file from \Cref{sec:methods_comp_igpreproc_collapse}, raw reference segment databases from \Cref{sec:methods_comp_locus_segments} and segment assignments from \Cref{sec:methods_comp_igpreproc_igblast} were used to construct a tab-delimited \program{Change-O} sequence database:
+
+\begin{lstlisting}
+MakeDb igblast --regions --scores --failed --partial --cdr3 -i <igblast_output> -s <presto_fasta_output> -r <vh_reference_fasta> <dh_reference_fasta> <jh_reference_fasta>
+\end{lstlisting}
+
+\noindent where \snippet{--failed} indicates that invalid sequences should be included in a separate database rather than discarded outright, \snippet{--regions} and \snippet{--cdr3} indicate that the database should include comprehensive FR and CDR annotations, \snippet{--scores} indicates that the database should include alignment score metrics, and \snippet{--partial} indicates that sequences with incomplete V/D/J alignments (e.g. those without an unambiguous V- or J-assignment) should not automatically qualify as failed. Following database construction, each entry was given a unique name on the basis of its replicate identity and ordering, and the database was filtered to exclude sequences with a V-alignment score of less than 100 (\Cref{sec:igseq_pilot_composition}).
+
+In order to compute the appropriate distance threshold for clonotype assignment, each sequence was assigned a nearest-neighbour Hamming distance within the repertoire, using the related \program{R} packages \program{SHazaM} and \program{Alakazam} \parencite{gupta2015changeo}:
+
+\begin{lstlisting}[language=R]
+tab <- readChangeoDb(<named_db_path>) %>% mutate(ROW = seq(n()))
+dist_pass <- distToNearest(tab, model = "ham", normalize = "len", fields = "INDIVIDUAL", first = FALSE)
+dist_fail <- tab %>% filter(! ROW %in% dist_pass$ROW) %>%·mutate(DIST_NEAREST = NA) 
+writeChangeoDb(bind_rows(dist_pass, dist_fail), <db_output_path>)
+\end{lstlisting}
+
+\noindent where \snippet{model = "ham"} indicates that a single-nucleotide Hamming distance metric is to be used, \snippet{normalize = "len"} that distances should be normalised by total sequence length, \snippet{first = FALSE} determines how to handle ambiguous V/J calls, and \snippet{fields = "INDIVIDUAL"} specifies that only distances between sequences from the same source individual should be considered.
+
+Following assignment of nearest-neighbour distances, a distance threshold for clonotyping was computed by fitting a pair of unimodal distributions to the nearest-neighbour distribution over all sequences and selecting the threshold that maximises the average of sensitivity and specificity when assigning an observation to one of these two distributions (\Cref{sec:igseq_pilot_clones}) \parencite{nouri2018threshold}. As with nearest-neighbour distance assignment, this was done in \program{R} using \program{SHazaM} and \program{Alakazam}; all four possible models (fitting either a normal or gamma distribution to each of the two peaks) were tried, and the one with the highest maximum likelihood was used to compute the threshold value:
+
+\begin{lstlisting}[language=R]
+tab <- readChangeoDb(<changeo_db_path_with_distances>)
+models <- c("gamma-gamma", "gamma-norm", "norm-gamma", "norm-norm")
+thresholds <- numeric(length(models))
+likelihoods <- numeric(length(models))
+for(n in 1:length(models)){
+  obj <- tryCatch(findThreshold(as.numeric(tab$DIST_NEAREST), method = "gmm", model = "hmm", cutoff = "opt"), error = function(e) return(e$message), warning = function(w) return(w$message))
+  thresholds[n] <- ifelse(isS4(obj), obj@threshold, NA)
+  likelihoods[n] <- ifelse(isS4(obj), obj@loglk, NA)
+}
+if (!all(is.na(thresholds))) write(thresholds[last(which(likelihoods == max(likelihoods, na.rm = TRUE))], <threshold_output_path>)
+\end{lstlisting} 
+
+\noindent Following inference of the correct distance threshold, clonotype inference was performed on the sequence database by grouping sequences by V- and J-assignment and CDR3 length, computing pairwise Hamming distances between each pair of CDR3 sequences in each group, and performing single-linkage clustering on the resulting distance matrix \parencite{gupta2017hierarchical}, with a maximum of one ambiguous \sequence{N} character permitted in the CDR3 junctional sequence:
+
+\begin{lstlisting}
+DefineClones --act set --model ham --sym min --norm len --failed -d <changeo_db> --dist <cluster_distance_threshold> --gf INDIVIDUAL --link single --maxmiss 1
+\end{lstlisting}
+
+\noindent where \snippet{--maxmiss 1} specifies a maximum of 1 junctional \sequence{N} character per sequence; \snippet{--act set} tells the program how to handle ambiguous V/D/J assignments; \snippet{--model ham} specifies the clustering metric as the pairwise Hamming distance; \snippet{--norm len} indicates that the Hamming distances should be normalised by sequence length; \snippet{--sym min} specifies that, in the event of asymmetric \texttt{A -> B} and \texttt{B -> A} distances (e.g. arising from length normalisation) the minimum distance should be used; \snippet{--dist} specifies the distance threshold at which to cut the clustering dendrogram; and \snippet{--gf INDIVIDUAL} states that only sequences from the same individual can belong to the same clone.
+
+Finally, the clonotype numbers assigned to each individual were combined with the ID of the corresponding source individual, giving a unique ID for each clonotype in the dataset.
+
+\subsubsection{Germline inference and segment annotation}
+\label{sec:methods_comp_igpreproc_germ}
+
+After threshold determination and clonotyping, a so-called ``full-length germline sequence'' is constructed for each sequence. To do this for a given sequence, germline V/J sequences are trimmed of deleted positions and concatenated together, separated by a masked region with length corresponding to the inserted nucleotides and intervening \dh sequence:
+
+\begin{lstlisting}
+CreateGermlines -g dmask --cloned -d <clonotyped_changeo_db> -r <vh_reference_fasta> <dh_reference_fasta> <jh_reference_fasta> --failed
+\end{lstlisting}
+
+\noindent where \snippet{-g dmask} indicates that \dh nucleotides should be masked in the germline sequence, and \snippet{--failed} indicates that sequences that fail germline assignment should be retained in a separate database. Importantly, \snippet{--cloned} indicates that sequences from the same clone should receive the same germline assignment, based on a simple majority rule among sequences in the clone; this process also enables assignment of unambiguous segment identities to ambiguously-assigned sequences within larger clones, improving segment calls in the dataset. 
+
+Following germline inference, each sequence in the dataset was annotated according to whether or not it possessed V/D/J assignments and whether these assignments were ambiguous (i.e. whether multiple possible assignments were given rather than just one), and combined VJ and VDJ assignments were obtained by concatenating the individual segment assignments as appropriate. The processed sequence databases were then passed on to downstream analysis pipelines as outlined in \Cref{sec:methods_comp_igdownstream}.
+
+\subsubsection{Tracking read survival}
+\label{sec:methods_comp_igpreproc_readsurv}
+
+Read survival during the pre-processing pipeline was tracked for each replicate at each stage from importation of raw reads to clonotyping (no sequences were lost during germline inference). During the \program{pRESTO} pipeline, read counting was performed by extracting sequence headers into a tab-delimited table
+
+\begin{lstlisting}
+ParseHeaders.py table -s <input_seqs> -f INDIVIDUAL REPLICATE <other_fields>
+\end{lstlisting}  
+
+\noindent with other fields (e.g. CONSCOUNT) as appropriate to the stage in the pipeline. \program{Change-O} databases, meanwhile, were already in tab-delimited tabular format. Following conversion to tabular format where necessary, read survival for each replicate was assessed by aggregating the CONSCOUNT fields of all sequences assigned to each replicate; prior to consensus-building, each sequence was assigned a CONSCOUNT of 1, making this equivalent to simply counting the number of sequences.
+
+\subsection{Downstream analysis of antibody repertoires}
+\label{sec:methods_comp_igdownstream}
+
+\subsubsection{Clonal counts and inter-replicate correlations}
+\label{sec:methods_comp_igdownstream_clones}
+
+Following the completion of the pipeline from \Cref{sec:methods_comp_igpreproc}, the number and proportion of sequences successfully assigned clonotypes was evaluated by counting the number and proportion of unique sequences in the final \program{Change-O} database with missing (\snippet{NA}) clonal identities. The size of each clone in the dataset was found by counting the number of unique sequences assigned to that clonal identity, either in total or for each replicate separately; a clone was designated to be present in a replicate if at least one sequence in that replicate was assigned to that clone. Following inference of clone sizes in each replicate, the correlation between replicates was computed using a simple Pearson's product-moment correlation coefficient (implemented in \snippet{cor} in \program{R}) comparing their respective clone-size vectors.
+
+\subsubsection{Zipf approximation of rank/frequency distributions}
+\label{sec:methods_comp_igdownstream_zipf}
+
+To obtain the rank/frequency distributions of clones in a \program{Change-O} database, the size of each clone in each repertoire (\Cref{sec:methods_comp_igdownstream_clones}) was divided by the total number of unique sequences in that repertoire to obtain a relative frequency for each clone; these frequencies were then ranked in descending order within each repertoire. The resulting distributions were then plotted on a log-log plot to visualise the underlying distribution. Best-fit Zipf distributions could then be obtained for each repertoire using maximum-likelihood estimation, either on all clones or after excluding some number of the largest clones in each repertoire:
+
+\begin{lstlisting}[language=R]
+lzipf <- function(f, s){
+  # Compute the negative log-likelihood of a set of frequencies
+  # under a Zipf distribution with parameter s
+  s * sum(f * log(1:length(f))) + sum(f) * log(H(length(f), s))
+}
+
+dzipf <- function(r, s, N){
+  # Return the predicted frequency of a rank r under a Zipf 
+  # distribution for a population with total size N
+  (1/(r^s))/H(N, s)
+}
+
+compute_zipf_slope <- function(frequencies, n_exclude){
+  # Estimate a Zipf exponent for a frequency vector
+  m <- mle(function(s) lzipf(frequencies[-(1:n_exclude)], s), start = list(s=1))
+  return(m@coef[["s"]])
+}
+
+# Add Zipf slope and predicted clonal frequencies to a
+# pre-computed clone table
+clone_table <- clntab %>% group_by(INDIVIDUAL) %>% arrange(CLONE_RANK) %>% mutate(S = compute_zipf_slope(CLONE_SIZE, n_exclude), EXP_FREQUENCY = dzipf(CLONE_RANK, S, n()), EXP_SIZE = sum(CLONE_SIZE) * EXP_FREQUENCY))
+\end{lstlisting}
+
+\noindent The resulting expected frequency from the fitted Zipf distribution could then be overlaid on the actual observed frequency to compare the fit of the inferred distribution to the actual clonal repertoire (\Cref{sec:igseq_pilot_clones}). Meanwhile, the ranks and frequencies computed as part of the estimation process could be used to compute the observed P20 of the repertoire (i.e. the sum of frequencies of all clones with rank 20 or less), as well as the expected P20 (i.e. the sum of frequencies for those top-20 clones predicted by the fitted Zipf distribution).
+
+
+\subsubsection{Rarefaction analysis for inter-experiment comparison}
+\label{sec:methods_comp_igdownstream_rarefaction}
+
+Inter-individual comparisons of metrics such as clonal counts, P20, or the proportion of large clones in the repertoire make the implicit assumption that the sampling process (in particular, the sampling effort) used to obtain each repertoire was similar between the individuals being compared. When this is not the case -- when the number of cycles used to amplify each library or the number of sequencing reads per library differs between individuals, for example -- sample composition is liable to differ systematically between repertoires, making comparisons using such metrics unreliable. In the case of immune-repertoire sequencing, the very large number of small clones in most immune repertoires \parencite{mora2016diversity} means that increased sampling depth is likely to lead to larger clonal counts, lower P20 values, and smaller proportions of large clones.
+
+In order to compare the clonal richness and P20 values of antibody repertoires from different \igseq experiments in the turquoise killifish in a more reliable manner, rarefaction analysis \parencite{gotelli2001rarefaction} was performed on these repertoires at the level of unique sequences. For each of a range of sample sizes (from $10^2$ to $10^4$ unique sequences), sequence entries in the pre-processed \program{Change-O} database were repeatedly subsampled without replacement from the repertoire of each individual in each experiment, for a total of 20 iterations per sample size. For each experiment, individual, and sample size, the number of small (fewer than 5 unique sequences), large (5 or more unique sequences) and total clones for each individual, as well as the P20, was computed for each subsample, and the mean and standard deviation of each measurement was computed across subsamples. The resulting rarefaction curves (of clonal count or P20 vs sample size) could then be plotted and used to compare repertoires of different experiments at any given sample size (\Cref{sec:igseq_gut}).
+
+\subsubsection{Hill diversity spectra}
+\label{sec:methods_comp_igdownstream_spectra}
+
+The procedure for computing Hill diversity spectra (\Cref{app:diversity}) from a \program{Change-O} sequence database was adapted (and substantially expanded) from the code for the same purpose provided in the \program{R} package \program{Alakazam} \parencite{gupta2015changeo,stern2014bcells}. To begin with, columns in the database were specified designating how to divide the entries into an outer group (e.g. an age group), a finer inner group (e.g. an individual), and an even-finer ``clone'' group (by default the clonal identity of each sequence entry, but could also be a V(D)J identity or any other set of sequence categories). Counts of unique sequences were then computed for each ``clone'' within each inner group (\snippet{clone_tab}), and aggregated to find total sequence counts for each inner group (\snippet{group_tab}):
+
+\begin{lstlisting}[language=R]
+clone_tab <- data %>% group_by_(.dots = c(outer_group, inner_group, clone_field)) %>% dplyr::summarize(COUNT = n())
+group_tab <- clone_tab %>% group_by_(.dots = c(outer_group, inner_group)) %>% dplyr::summarize_(SEQUENCES = interp(~sum(x, na.rm = TRUE), x = as.name("COUNT")))
+\end{lstlisting}
+
+\noindent The size of the bootstrap replicates (\snippet{NSAM}) for each sample was then computed as the minimum total sequence count across all inner groups, and a table of \snippet{nboot} bootstrap replicates of ``clonal'' frequencies, each of size \snippet{NSAM}, was computed for each outer-group/inner-group combination through multinomial resampling:
+
+\begin{lstlisting}[language=R]
+bootstrap_abundance <- function(nboot, clone_tab, group_tab, outer_group_name, outer_group_value, inner_group_name, inner_group_value, clone_field){
+	# Generate independent bootstrap samples for a given
+	# group combination in a clone table
+	gtab <- group_tab[group_tab[[outer_group_name]] == 
+		outer_group_value & 
+		group_tab[[inner_group_name]] == 
+		inner_group_value,]
+	ctab <- clone_tab[clone_tab[[inner_group_name]] == 
+		inner_group_value & 
+		clone_tab[[outer_group_name]] == 
+		outer_group_value,]
+	# Get sequence number for resampling
+	n <- gtab$NSAM
+	# Get abundances of each clone in group
+	abund_obs <- ctab$COUNT
+	# Infer abundances of observed and unseen clones using
+	# Chao's method (functions provided in alakazam)
+	p1 <- adjustObservedAbundance(abund_obs)
+	p2 <- inferUnseenAbundance(abund_obs)
+	# Adjusted vector of clonal frequencies
+	abund_inf <- c(p1, p2)
+	# Specify clone names for known and unknown clones
+	n1 <- ctab[[clone_field]]
+	n2 <- paste("UNKNOWN", inner_group_value,
+		seq_along(p2), sep = "_")
+	names_inf <- c(n1, n2)
+	# Use inferred clone distribution and resampling size to 
+	# generate independent bootstrap samples through
+	# multinomial sampling
+	sample_mat <- rmultinom(nboot, n, abund_inf)
+	sample_tab <- melt(sample_mat, varnames = 
+		c(clone_field, "ITER"), value.name = "N")
+	sample_tab[[clone_field]] <- 
+		names_inf[sample_tab[[clone_field]]]
+	sample_tab[[outer_group_name]] <- outer_group_value
+	sample_tab[[inner_group_name]] <- inner_group_value
+	return(sample_tab)
+}
+
+\end{lstlisting}
+
+\noindent Following bootstrap generation and concatenation of bootstrap tables from different inner-group/outer-group combinations, individual Hill diversity numbers (\Cref{app:diversity-unitary-hill}) could be computed for each inner group for each bootstrap replicate (using \program{alakazam}'s built-in \snippet{calcDiversity} function \parencite{gupta2015changeo,stern2014bcells}) for each diversity order in a vector of orders \snippet{Q}:
+
+\begin{lstlisting}[language=R]
+bs_tab_solo <- bootstraps %>% group_by_(.dots = c(outer_group, inner_group, "ITER"))
+div_tab_bs_solo <- tibble()
+for (q in Q){
+	dt <- summarise(bs_tab_solo, Q = q, 
+		D = calcDiversity(N, q = q), N_GROUP = 1)
+	div_tab_bs_solo <- bind_rows(div_tab_bs_solo, dt)
+}
+\end{lstlisting}
+
+\noindent Similarly, different sorts of aggregate diversity spectrum (\Cref{app:diversity-structured}) could be computed for each outer group:
+
+\begin{lstlisting}[language=R]
+# Gamma diversity (simple diversity over each outer group)
+bs_tab_gamma <- bootstraps %>% group_by_(.dots = c(group_within, clone_field, "ITER")) %>% summarise(N = sum(N)) %>% group_by_(.dots = c(outer_group, "ITER"))
+div_tab_bs_gamma <- tibble()
+for (q in Q){
+	dt <- summarise(bs_tab_gamma, Q = q,
+		D = calcDiversity(N, q = q))
+	div_tab_bs_gamma <- bind_rows(div_tab_bs_gamma, dt)
+}
+
+# Alpha diversity (average diversity across inner groups
+# within each outer group)
+bs_tab_alpha <- bootstraps %>% group_by_(.dots = c(outer_group, inner_group, "ITER"))
+div_tab_split <- tibble()
+for (q in Q){
+	dt <- summarise(bs_tab_alpha, Q = q,
+		D = calcDiversity(N, q = q))
+	div_tab_split <- bind_rows(div_tab_split, dt)
+}
+div_tab_bs_alpha <- div_tab_bs_alpha %>% group_by_(.dots = c(outer_group, "ITER", "Q")) %>% summarise(D = ifelse(dplyr::first(Q) != 1, mean(D^(1-dplyr::first(Q)))^(1/(1-dplyr::first(Q))),  exp(mean(log(D)))), N_GROUP = n())
+
+# Beta diversity (gamma divided by alpha)
+div_tab_bs_beta <- full_join(div_tab_bs_gamma, div_tab_bs_alpha, by = c(outer_group, "ITER", "Q"), suffix = c("_GAMMA", "_ALPHA")) %>% mutate(D= D_GAMMA/D_ALPHA) %>% select(-D_GAMMA, -D_ALPHA)
+\end{lstlisting}
+
+\noindent Finally, each diversity spectrum was grouped by diversity order and summarised across bootstrap replicates, to obtain means and standard deviations (and therefore 95\,\% confidence intervals) at each diversity order. Solo, alpha and gamma spectra could then be plotted (and compared between groups or against other diversity metrics) directly from these summarised tables; however, as the beta diversity of an outer group depends on the number of inner groups it contains (\snippet{N_GROUP}), beta spectra of outer groups of different sizes needed to be rescaled to a common range (0 for minimum possible beta-diversity, 1 for maximum) prior to plotting in order to be comparable (\Cref{app:diversity-structured-rescaling}):
+
+\begin{lstlisting}[language=R]
+beta_rescaled <- <summarised_beta_diversity> %>% mutate(D = (D-1)/(N_GROUP-1), D_UPPER = (D_UPPER-1)/(N_GROUP-1), D_LOWER = (D_LOWER-1)/(N_GROUP-1), D_SD = D_SD/(N_GROUP-1)) %>% select(-N_GROUP)
+\end{lstlisting}
+
+\subsubsection{Repertoire Dissimilarity Index (RDI)}
+\label{sec:methods_comp_igdownstream_rdi}
+
+The Repertoire Dissimilarity Index (RDI) \parencite{bolen2017rdi} is a pairwise distance metric between immune repertoires, based on the relative prevalence of different gene segments (or combinations of segments) in each repertoire. To compute a set of pairwise RDIs between a group of repertoires, the number of sequences assigned to each segment-choice identity is first counted for each repertoire. These counts vectors are then downsampled without replacement to the size of the repertoire with the fewest unique sequences, then normalised to sum to some constant factor. The normalised counts are then transformed with the inverse hyperbolic sine function, which is roughly linear for values close to zero and logarithmic for values greater than one \parencite{bolen2017rdi}; this transformation puts greater weight on rare segment-choice categories to prevent them being dominated by changes in the most prevalent categories \parencite{bolen2017rdi}. Finally, the distance between each pair of repertoires is calculated as the Euclidean distances between their respective transformed counts vectors. This process is then repeated multiple times with independent downsamplings, and the final RDI between each pair of repertoires is given as the arithmetic mean across all iterations.
+
+In this thesis, RDIs were computed based on the VJ-assignment of each sequence in each repertoire. To compute VJ-RDIs between repertoires in a collated \program{Change-O} database, the database was first filtered to remove sequences with missing or ambiguous V- or J-calls. The database columns denoting VJ-identity and repertoire membership (by replicate for the pilot dataset, by individual for the ageing and gut dataset) were then extracted, and used to construct a VJ-counts table in the format specified by the \program{rdi} package \parencite{bolen2017rdi} in \program{R}:
+
+\begin{lstlisting}[language=R]
+# Extract VJ and ID columns
+genes <- pull(<filtered_changeo_db>, <vj_call_field>)
+annots <- as.character(pull(<filtered_changeo_db>, <repertoire_id_field>))
+# Create counts table
+counts <- calcVDJcounts(genes = genes, seqAnnot = annots)
+\end{lstlisting}
+
+\noindent The RDI between each pair of repertoires could then be computed as described above using the provided \snippet{calcRDI} function from the \program{rdi} package \parencite{bolen2017rdi}:
+
+\begin{lstlisting}[language=R]
+rdi <- calcRDI(counts, nIter = 100)
+\end{lstlisting}
+
+\noindent where \snippet{nIter = 100} specifies that the RDI measurements should be averaged over 100 iterations.
+
+Following RDI computation, hierarchical (average-linkage) clustering was performed on the resulting distance matrix, and the dendrogram of the resulting clustering structure was visualised using \program{ggtree}. Principal co-ordinate analysis (PCoA) was performed on the RDI distance matrix (using the \snippet{pcoa} function from the R package \program{ape} \parencite{paradis2018ape}), then processed into standard tabular format for visualisation.
+
+\subsubsection{Analysing generative repertoire diversity with \program{IGoR}}
+\label{sec:methods_comp_igdownstream_igor}
+
+The processes generating the primary antibody repertoire include VDJ recombination, P-insertion or deletion at the ends of the selected gene segments, and N-insertion between them (\Cref{sec:intro_immunity_primary}). The enormous potential diversity of sequences generated by these processes makes it impossible to accurately model the generative processes by explicitly assigning probabilities to each possible sequence in the primary repertoire, as in any given sample of rearranged sequences the observed frequency of the vast majority of possible sequences will be zero \parencite{marcou2018igor}. The program \program{IGoR} bypasses this problem by instead explicitly estimating the probability distributions of each contributing stochastic process separately, producing a generative model that can be used to estimate the entropy of the generative process, or to generate new, simulated sequences drawn from the same probability distribution \parencite{marcou2018igor}. In this thesis, I used \program{IGoR} to estimate these processes in turquoise killifish, in order to investigate the diversity and composition of the killifish generative repertoire and the changes that take place in the generative process with age.
+
+\subsubsubsection{Preparing sequence databases for \program{IGoR}}
+
+Before fitting a generative model with \program{IGoR}, the pre-processed \program{Change-O} database must be further processed to exclude functional sequences and (to the greatest extent possible) sequences produced by affinity maturation rather than primary sequence generation.
+
+To begin with, the pre-processed \program{Change-O} database of all sequences in all repertoires for a given experiment is further processed with \program{SHazaM} \parencite{gupta2015changeo} in \program{R} to collapse each clone down to a single strict-majority-rule consensus sequence:
+
+\begin{lstlisting}[language=R]
+changeo_db <- changeo_db[!is.na(changeo_db[[clone_field]]),]
+changeo_db_consensus <- collapseClones(changeo_db, method = "mostCommon")
+\end{lstlisting}
+
+\noindent In order to assign functional statuses to these new consensus sequences, they were then extracted into \format{FASTA} format, assigned V/J identities and CDR3 boundaries with \program{IgBLAST}, then re-imported into \program{Change-O} database format, after which functional sequences could be identified and discarded:
+
+\begin{lstlisting}
+# Extract consensus DB into FASTA Format
+ConvertDb fasta -d <consensus_db_path> -o <consensus_fasta_path> --if SEQUENCE_ID --sf SEQUENCE_OUT --mf INDIVIDUAL REPLICATE <other fields> 
+# Assign VDJ identities etc. with IgBLAST
+makeblastdb -parse_seqids -dbtype nucl -in <vh_reference_fasta> -out <vh_db_prefix>;
+makeblastdb -parse_seqids -dbtype nucl -in <dh_reference_fasta> -out <dh_db_prefix>;
+makeblastdb -parse_seqids -dbtype nucl -in <jh_reference_fasta> -out <jh_db_prefix>;
+igblastn -ig_seqtype Ig -domain_system imgt -query <consensus_fasta_path> -out <igblast_output_path> -germline_db_V <vh_db_prefix> -germline_db_D <dh_db_prefix> -germline_db_J <jh_db_prefix> -auxiliary_data <jh_aux_file> -outfmt '7 std qseq sseq btop'
+# Re-import into Change-O and split off functional sequences
+MakeDb igblast --regions --scores --partial --asis-calls --cdr3 -i <igblast_output> -s <consensus_fasta_path> -r <vh_reference_fasta> <dh_reference_fasta> <jh_reference_fasta>
+ParseDb split -f FUNCTIONAL -d <new_consensus_db>
+\end{lstlisting}
+
+\noindent These operations produced a pooled database of nonfunctional, semi-\naive sequences from all individuals in all sample groups. Before running \program{IGoR} on these databases, they then needed to be split by INDIVIDUAL (for individual models) or sample group annotation (for pooled models):
+
+\begin{lstlisting}
+ParseDb split -d <nonfunc_consensus_db> -f <split_field> 
+\end{lstlisting}
+
+\noindent Finally, each split database was then re-extracted into \program{FASTA} format for importation by \program{IGoR}:
+
+\begin{lstlisting}
+ConvertDb fasta -d <split_nonfunc_db> -o <split_nonfunc_fasta> --if SEQUENCE_ID --sf SEQUENCE_INPUT
+\end{lstlisting}
+
+\subsubsubsection{Model inference with \program{IGoR}}
+
+Following sequence preparation, the model-inference process by \program{IGoR} took place in several steps. First, the sequences from the previous section were converted into the correct format:
+
+\begin{lstlisting}
+igor -set_wd <working_dir> -read_seqs <split_nonfunc_fasta>
+\end{lstlisting}
+
+\noindent These sequences were then aligned to reference V/D/J databases, using V/J ``anchor'' files to specify the CDR3 boundaries for each V/J identity:
+
+\begin{lstlisting}
+igor -set_wd <working_dir> -set_genomic --V <vh_reference_fasta> --D <vh_reference_fasta> --J <vh_reference_fasta> -set_CDR3_anchors --V <v_anchor_file> --J <j_anchor_file> -align --all
+\end{lstlisting}
+
+\noindent These alignments could then be used to infer a generative model for the repertoire, by fitting probability distributions for V/D/J-choice, N-insertions, P-insertions, and deletions:
+
+\begin{lstlisting}
+igor -set_wd <working_dir> -set_custom_model <default_model> -set_genomic --V <vh_reference_fasta> --D <vh_reference_fasta> --J <vh_reference_fasta> -set_CDR3_anchors --V <v_anchor_file> --J <j_anchor_file> -infer
+\end{lstlisting}
+
+\noindent The inferred model was then \textit{evaluated}, to generate parsable parameter and probability-distribution files:
+
+\begin{lstlisting}
+igor -set_wd <working_dir> -load_last_inferred -evaluate -output --scenarios 5 --Pgen --coverage VJ_gene
+\end{lstlisting}
+
+\noindent Finally, having inferred and evaluated a generative model for each individual and pooled repertoire, the inferred gene-choice, insertion and deletion probability distributions, along with the inferred entropy of each component of the model, were extracted from \program{IGoR}'s output files with \program{pygor}, a \program{Python} package supplied as part of the \program{IGoR} program \parencite{marcou2018igor}.

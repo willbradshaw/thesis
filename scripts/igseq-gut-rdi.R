@@ -31,28 +31,35 @@ palette_age <- c(colours_igseq[["gut_group1"]], colours_igseq[["gut_allold"]])
 age_groups <- c("6", "16")
 treatment_groups <- c("YI_6", "WT_16", "ABX_16", "SMT_16", "YMT_16")
 individuals_excluded <- c("1274", "1309")
+group <- "INDIVIDUAL"
+
 
 #------------------------------------------------------------------------------
 # IMPORT FINAL TABLE (WITH COMBINED CALLS)
 #------------------------------------------------------------------------------
 
+write_log("Importing data...", newline = FALSE)
 tab <- import_tab(inpath) %>% 
   mutate(GROUP = sub("YI_16", "YI_6", GROUP))  %>%
   filter(!INDIVIDUAL %in% individuals_excluded)
+log_done(newline=TRUE)
 
 #------------------------------------------------------------------------------
 # FILTER AMBIGUOUS SEGMENT CALLS
 #------------------------------------------------------------------------------
 
+write_log("Filtering ambiguous segment calls...", newline = FALSE)
 has_field <- paste0("HAS_", toupper(segments))
 ambig_field <- paste0(toupper(segments), "_AMBIG")
 
 tab_filtered <- filter(tab, !!as.name(has_field), !(!!as.name(ambig_field)))
+log_done(newline=TRUE)
 
 #------------------------------------------------------------------------------
 # COMPUTE RDI SEGMENT CALLS
 #------------------------------------------------------------------------------
 
+write_log("Computing RDI segment calls...", newline = FALSE)
 call_field <- paste0("BEST_", toupper(segments), "_CALL")
 
 genes <- pull(tab_filtered, call_field)
@@ -60,20 +67,24 @@ annots <- as.character(pull(tab_filtered, group))
 
 counts <- calcVDJcounts(genes = genes, seqAnnot = annots,
                         simplifyNames = TRUE, splitCommas = FALSE)
+log_done(newline=TRUE)
 
 #------------------------------------------------------------------------------
 # COMPUTE RDI DISTANCE MATRIX
 #------------------------------------------------------------------------------
 
+write_log("Computing RDI distance matrix...", newline = FALSE)
 rdi <- calcRDI(counts, subsample = TRUE,
                distMethod = rdi_distance, nIter = rdi_iterations,
                constScale = rdi_constant_scale,
                units = ifelse(rdi_transform, "lfc", "pct"))
+log_done(newline=TRUE)
 
 #------------------------------------------------------------------------------
 # PRINCIPLE CO-ORDINATE ANALYSIS
 #------------------------------------------------------------------------------
 
+write_log("Performing PCoA...", newline = FALSE)
 indivs <- tab %>% group_by(AGE_WEEKS, GROUP, INDIVIDUAL) %>% 
   summarise %>% ungroup
 
@@ -91,7 +102,9 @@ pc_tab <- tibble(INDIVIDUAL = rownames(as.matrix(rdi)),
 pc_var <- pc$values %>% pull(Broken_stick) %>% (function(x) round(x*100, 1))
 xrange <- c(floor(min(pc_tab$PCO1) * 5), ceiling(max(pc_tab$PCO1) * 5)) / 5
 yrange <- c(floor(min(pc_tab$PCO2) * 5), ceiling(max(pc_tab$PCO2) * 5)) / 5
+log_done(newline=TRUE)
 
+write_log("Preparing PCoA plots...", newline = FALSE)
 # Plot on single set of axes
 g_pcoa_base <- ggplot(pc_tab, aes(x=PCO1, y=PCO2)) +
   xlab(paste0("Principle co-ordinate 1 (", pc_var[1], "%)")) +
@@ -111,11 +124,13 @@ g_pcoa_age_facet <- g_pcoa_age_all +
   facet_wrap(~factor(AGE_WEEKS, levels = age_groups), scales = "free")
 g_pcoa_group_facet <- g_pcoa_group_all +
   facet_wrap(~factor(GROUP, levels = treatment_groups), scales = "free")
+log_done(newline=TRUE)
 
 #------------------------------------------------------------------------------
 # VISUALISE INTRA-GROUP DISTANCES
 #------------------------------------------------------------------------------
 
+write_log("Computing intragroup distances...", newline = FALSE)
 indivs <- tab %>% group_by(GROUP, AGE_WEEKS, INDIVIDUAL) %>% summarise %>%
   ungroup() %>% arrange(INDIVIDUAL) %>% mutate(N = row_number())
 indiv_index <- setNames(indivs$N, indivs$INDIVIDUAL)
@@ -123,7 +138,7 @@ indiv_ages  <-  setNames(indivs$AGE_WEEKS, indivs$INDIVIDUAL)
 indiv_groups <- setNames(indivs$GROUP, indivs$INDIVIDUAL)
 
 dist_tab <- rdi %>% as.matrix %>% 
-  melt(varnames = c("ID1", "ID2"), value.name = "RDI") %>% as.tibble %>%
+  melt(varnames = c("ID1", "ID2"), value.name = "RDI") %>% as_tibble %>%
   mutate(ROW = indiv_index[ID1], COL = indiv_index[ID2],
          AGE1 = indiv_ages[ID1], AGE2 = indiv_ages[ID2],
          GRP1 = indiv_groups[ID1], GRP2 = indiv_groups[ID2])
@@ -141,9 +156,11 @@ dist_tab_nn_age <- dist_tab %>% filter(ID1 != ID2, AGE1 == AGE2) %>%
 dist_tab_nn_group <- dist_tab %>% filter(ID1 != ID2, GRP1 == GRP2) %>%
   group_by(ID1) %>% filter(RDI == min(RDI)) %>% 
   select(GROUP = GRP1, INDIVIDUAL = ID1, NEIGHBOUR = ID2, RDI)
+log_done(newline=TRUE)
 
 
 # Make plots
+write_log("Preparing intragroup boxplots...", newline = FALSE)
 plot_rdi_intra <- function(dist_tab, test_by = "AGE_WEEKS",
                            reference = age_groups, palette = palette_age,
                            group_name = "Age group (weeks)",
@@ -170,11 +187,13 @@ g_intra_group_nn <- plot_rdi_intra(dist_tab_nn_group, "GROUP",
                                     treatment_groups, palette, 
                                    "Treatment group") +
   ylab("Nearest-neighbour RDI")
+log_done(newline=TRUE)
 
 #------------------------------------------------------------------------------
 # TEST FOR AGE/GROUP EFFECT AND ANNOTATE PLOTS
 #------------------------------------------------------------------------------
 
+write_log("Testing for age/group effects on RDI...", newline = FALSE)
 # Mann-Whitney-U tests
 dist_max_all_age <- dist_tab_filtered_age %>% pull(RDI) %>% max
 dist_max_nn_age <- dist_tab_nn_age %>% pull(RDI) %>% max
@@ -225,8 +244,10 @@ mwu_grid_nn_age <- dist_tab_nn_age %>% get_mwu_grid("AGE_WEEKS") %>%
   process_mwu_grid(dist_max_nn_age, age_groups, scale = 0.4)
 mwu_grid_nn_group <- dist_tab_nn_group %>% get_mwu_grid("GROUP") %>% 
   process_mwu_grid(dist_max_nn_group, treatment_groups, scale = 0.4)
+log_done(newline=TRUE)
 
 # Annotate plots with test results
+write_log("Annotating plots...", newline = FALSE)
 g_intra_age_all_annot <- g_intra_age_all +
   geom_segment(aes(x=POS1,xend=POS2,y=Y_BAR,yend=Y_BAR), data = mwu_grid_all_age) + 
   geom_text(aes(x=POS_AVG, y=Y_LAB, label=LABEL), data = mwu_grid_all_age, size=8)
@@ -239,10 +260,12 @@ g_intra_age_nn_annot <- g_intra_age_nn +
 g_intra_group_nn_annot <- g_intra_group_nn +
   geom_segment(aes(x=POS1,xend=POS2,y=Y_BAR,yend=Y_BAR), data = mwu_grid_nn_group) + 
   geom_text(aes(x=POS_AVG, y=Y_LAB, label=LABEL), data = mwu_grid_nn_group, size=8)
+log_done(newline=TRUE)
 
 #------------------------------------------------------------------------------
 # COMBINE FIGURE GROUPS WITH SINGLE LEGEND AND SAVE
 #------------------------------------------------------------------------------
+write_log("Saving output...", newline = FALSE)
 plot_height <- 15
 plot_width <- 25
 
@@ -258,3 +281,4 @@ ggsave(plot = g_age_all, filename = outpath_age, device = "svg", units = "cm",
        height=plot_height * 2, width = plot_width)
 ggsave(plot = g_group_all, filename = outpath_group, device = "svg", units = "cm",
        height=plot_height * 2, width = plot_width)
+log_done(newline=TRUE)

@@ -15,8 +15,6 @@ age_groups <- c("39", "56", "73", "128")
 individuals <- paste0("2-0", seq(3, 6))
 palette <- c(colours_igseq[["ageing_group1"]], colours_igseq[["ageing_group2"]],
              colours_igseq[["ageing_group3"]], colours_igseq[["ageing_group4"]])
-# Output path
-filename_base <- paste0(experiment, "-igor")
 
 #------------------------------------------------------------------------------
 # AUXILIARY FUNCTIONS
