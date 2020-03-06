@@ -24,7 +24,7 @@ To obtain samples for establishing and validating an immunoglobulin-sequencing p
 \begin{table}[b]
 \caption[Summary of killifish used in \igseq pilot and ageing experiments]{Summary of killifish used in \igseq pilot and ageing experiments. All fish are GRZ-AD strain and male.}
 \label{tab:igseq-cohorts-summary}
-\input{_Figures/tables/igseq-cohorts-summary}
+\input{output_files/tables/igseq-cohorts-summary}
 \end{table}
 
 In order to obtain a representative sample of the whole-body antibody repertoires from these individuals (as opposed to the specific repertoire of a particular organ), the frozen fish were homogenised in liquid nitrogen with a mortar and pestle, and total RNA was isolated from the resulting powder with guanidinium thiocyanate-phenol-chloroform extraction (\Cref{sec:methods_molec_standard_qiazol}).
@@ -41,14 +41,14 @@ In the \igseq protocol established here for the turquoise killifish, the additio
 
 \begin{figure}
 \centering
-\includegraphics[width=0.7\textwidth]{_Figures/png_edited/umi-consensus-schema}
+\includegraphics[width=0.7\textwidth]{output_files/figures/pdf/igseq-umi-consensus}
 \Caption{Correcting errors and biases with unique molecular identifiers}{In this simplified schematic, three template RNA molecules representing two distinct sequences (red and blue rectangles) are tagged with unique molecular identifiers (UMIs, coloured left-hand ends) prior to PCR-based library preparation and sequencing. As a result of differential amplification bias between the sequences, the less-abundant input sequence gives rise to a larger number of sequencing reads; however, by aligning and collapsing matching UMI groups into consensus reads, the original proportions of the sample can be reconstructed. Consensus-read generation also enables the correction of various PCR and sequencing errors (thin red/green bars), the majority of which are present in only a minority of sequence copies within a UMI group; in this example, only the dark-blue UMI group, for which only a single sequencing read was obtained, cannot be effectively corrected in this way.}
 \label{fig:umi-consensus-schema}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.7\textwidth]{_Figures/png_edited/template-switch-labelled}
+\includegraphics[width=0.7\textwidth]{output_files/figures/pdf/igseq-template-switch}
 \vspace{0.5em}
 \Caption{Addition of a known 5'-sequence to cDNA with template switching}{In this simplified schematic, an MMLV-derived reverse-transcriptase enzyme (blue oval) binds a primed RNA template and processes to the 5-prime end (A), where it deposits additional untemplated cytidine residues at the 3'-end of the cDNA (red bar) using its terminal-transferase activity (B). A template-switch adapter (TSA) with complementary terminal guanosine residues (blue bar) pairs with these terminal cytidines (C), creating a new double-stranded priming site to which the reverse-transcriptase enzyme can bind (D). Processing of the enzyme to the end of the TSA sequence produces a cDNA molecule with an additional, known 3' sequence (E).}
 \label{fig:template-switch-schema}
@@ -67,7 +67,7 @@ In the library-preparation protocol used for \Igseq in the turquoise killifish, 
 
 \begin{figure}
 \centering
-\includegraphics[width=0.7\textwidth]{_Figures/png_edited/igrace-pipeline-narrow}
+\includegraphics[width=0.7\textwidth]{output_files/figures/pdf/igseq-igrace-pipeline}
 \Caption{Summary of the \igseq library-preparation protocol for turquoise-killifish samples}{Schematic summary of library-preparation protocol used to prepare immunoglobulin-sequencing libraries from turquoise-killifish samples. In order to capture all \igh{M} transcripts (both secreted and transmembrane), the reverse-transcription primer was homologous to the \cm{2} exon, while the PCR primers were homologous to \cm{1}. The third step (``Addition of Illumina adapters + further amplification'') represents two distinct rounds of PCR amplification and bead purification, for stepwise addition of Illumina TruSeq adapter sequences.}
 \label{fig:igrace-pipeline}
 \vspace{0.5em}
@@ -82,7 +82,7 @@ Libraries to be sequenced together are then pooled in equimolar ratio and the po
 
 \begin{figure}
 \centering
-\includegraphics[width=0.6\textwidth]{_Figures/png_edited/igseq-preprocessing}
+\includegraphics[width=0.6\textwidth]{output_files/figures/pdf/igseq-preprocessing}
 \Caption{Summary of the \igseq pre-processing pipeline for turquoise-killifish data}{Schematic summary of post-sequencing analysis pipeline of killifish \igseq data, up to and including conversion from \format{FASTA} to \program{Change-O} tabular format. Clonotyping and additional downstream analysis methods are described in \Cref{sec:igseq_pilot,sec:methods_comp_igpreproc_clones,sec:methods_comp_igpreproc_clones}.}
 \label{fig:igrace-preprocessing}
 \vspace{0.5em}
@@ -112,7 +112,7 @@ In order to refine and functionally validate the library-preparation protocol an
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png_edited/igseq-pilot-design_wide.png}
+\includegraphics[width = 0.9\textwidth]{output_files/figures/pdf/igseq-pilot-design}
 \caption[Experimental design of killifish \igseq pilot study]{\textbf{Experimental design of killifish \igseq pilot study}, showing relationship between replicates for each individual. Colour denotes individual of origin, while shape denotes replicate type.}
 \label{fig:igseq-pilot-design}
 \end{figure}
@@ -124,7 +124,7 @@ In order to refine and functionally validate the library-preparation protocol an
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png/pilot-read-survival-init.png}
+\includegraphics[width = 0.9\textwidth]{output_files/figures/pdf/igseq-pilot-read-survival-init}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-pilot-read-survival-init-a}
@@ -141,7 +141,7 @@ In total, the pre-processed sequence repertoires of the pilot replicates contain
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png/pilot-functional-prop}
+\includegraphics[width = 0.9\textwidth]{output_files/figures/pdf/igseq-pilot-functional-prop}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-pilot-functional-prop-a}
@@ -158,7 +158,7 @@ As genuinely rearranged but nonfunctional sequences would be expected to have un
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png/pilot-functional-vscores}
+\includegraphics[width = 0.9\textwidth]{output_files/figures/pdf/igseq-pilot-functional-vscores}
 \Caption{V-score distributions of functional and nonfunctional sequences}{Kernel density plots of distributions of V-alignment scores among unique sequences in the \igseq pilot dataset. Vertical axes are not to scale between sequence categories.}
 \label{fig:igseq-pilot-functional-vscores}
 \end{figure}
@@ -175,14 +175,14 @@ One disadvantage of single-linkage clustering in this context is that non-inform
 \begin{table}
 \caption{Distribution of junctional \sequence{N} positions in the V-score-filtered pilot dataset}
 \label{tab:igseq-pilot-filtered-nn}
-\input{_Figures/tables/igseq-pilot-filtered-nn}
+\input{output_files/tables/igseq-pilot-filtered-nn}
 \end{table}
 
 In total, \embed{output_files/txt/igseq-pilot-nclones-individual-min.txt} to \embed{output_files/txt/igseq-pilot-nclones-individual-max.txt} clones were identified per individual fish in the pilot dataset. As expected, the clone-size distribution is overwhelmingly dominated by small clones (\Cref{fig:igseq-pilot-clone-sizes-sizes}): across all individuals, \embed{output_files/txt/igseq-pilot-nclones-pc-1count.txt}\,\% of clones are observed as just a single unique sequence across all replicates, while \embed{output_files/txt/igseq-pilot-nclones-pc-small.txt}\,\% contain fewer than five unique sequences. As a result, the great majority of clones (\embed{output_files/txt/igseq-pilot-nclones-pc-1rep.txt}\,\%) are observed in only a single replicate per individual, with \embed{output_files/txt/igseq-pilot-nclones-pc-2rep.txt}\,\% present in two replicates and only \embed{output_files/txt/igseq-pilot-nclones-pc-1rep.txt}\,\% shared across all three. Unsurprisingly, however, larger clones are much more likely to be shared across multiple replicates (\Cref{fig:igseq-pilot-clone-sizes-reps}), consistent with a model in which a very large number of small clones are sampled only rarely while a much smaller number of large clones is sampled much more often \parencite{mora2016diversity}. Overall, the level of agreement between the replicates is high (\Cref{fig:igseq-pilot-clone-sizes-cor}), with an average inter-replicate correlation in clone size of $r=\embed{output_files/txt/igseq-pilot-clones-interrep-cor-avg.txt}$, indicating that, despite the problem of undersampling many very small clones, the clonal composition of the killifish can be captured reproducibly by \Igseq.
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png/pilot-clone-sizes}
+\includegraphics[width = 0.9\textwidth]{output_files/figures/pdf/igseq-pilot-clone-sizes}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-pilot-clone-sizes-sizes}
@@ -197,7 +197,7 @@ In total, \embed{output_files/txt/igseq-pilot-nclones-individual-min.txt} to \em
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.75\textwidth]{_Figures/png/pilot-clone-sizes-cor}
+\includegraphics[width = 0.75\textwidth]{output_files/figures/pdf/igseq-pilot-clone-sizes-cor}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-pilot-clone-sizes-cor-boxplots}
@@ -222,14 +222,14 @@ f(k | N, s) = \frac{k^{-s}}{H_{N,s}}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.8\textwidth]{_Figures/png/pilot-clones-zipf-lines}
+\includegraphics[width=0.8\textwidth]{output_files/figures/pdf/igseq-pilot-clone-zipf-lines}
 \Caption{Rank/frequency distributions of pilot clonal repertoires}{Log-log line plots of rank/frequency distributions of the individual clonal repertoires in the \igseq pilot dataset, showing the roughly linear (i.e. power-law-distributed) distribution of smaller clones (roughly rank 10 onwards) and the clear deviation from this distribution in the largest clones.}
 \label{fig:igseq-pilot-clones-zipf-lines}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.7\textwidth]{_Figures/png/pilot-clones-zipf-fit-grid}
+\includegraphics[width=0.7\textwidth]{output_files/figures/pdf/igseq-pilot-clone-zipf-grad}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-pilot-clones-zipf-fit}
@@ -246,7 +246,7 @@ In addition to the exponent of the best-fit Zipf distribution, another quick and
 
 \begin{figure}
 \centering
-\includegraphics[width=0.8\textwidth]{_Figures/png/pilot-clones-zipf-p20-obs-exp}
+\includegraphics[width=0.8\textwidth]{output_files/figures/pdf/igseq-pilot-clone-p20}
 \Caption{Clonal P20 values in \Nfu pilot repertoires}{(A) Boxplots of observed and expected (from the Zipf distributions fitted in \Cref{fig:igseq-pilot-clones-zipf-fit}) P20 distributions of the clonal repertoires from the \igseq pilot dataset. Pairwise $p$-value computed using nonparametric Mann-Whitney $U$ test ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$) . (B) Scatter plot comparing observed vs expected P20 for each individual, annotated with the correlation ($r$) between the two sets of P20 values.}
 \label{fig:igseq-pilot-clones-zipf-p20}
 \end{figure}
@@ -255,7 +255,7 @@ In addition to investigating the P20, Rosenfeld \textit{et al.} \parencite{rosen
 
 \begin{figure}
 \centering
-\includegraphics[width=0.8\textwidth]{_Figures/png/pilot-clones-expansions}
+\includegraphics[width=0.8\textwidth]{output_files/figures/pdf/igseq-pilot-clone-expansions}
 \Caption{Clonal expansions in \Nfu pilot repertoires}{Scatter plots of clonal abundance for each individual in the \igseq pilot dataset, measured in terms of the proportion of unique sequences in the repertoire ($x$-axis) and the abundance relative to the next-largest clone ($y$-axis). Thresholds for identifying clonal expansions (5\,\% and 3-fold for the $x$- and $y$-axis, respectively) suggested by Rosenfeld \textit{et al.} \parencite{rosenfeld2018clonesize}.}
 \label{fig:igseq-pilot-clones-expansions}
 \end{figure}
@@ -273,7 +273,7 @@ Having investigated the clonal abundance distribution and various measures of cl
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png/pilot-clone-diversity}
+\includegraphics[width = 0.9\textwidth]{output_files/figures/pdf/igseq-pilot-clone-diversity}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-pilot-clone-diversity-alpha}
@@ -294,7 +294,7 @@ To that end, I computed the clonal diversity spectra separately for each replica
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.8\textwidth]{_Figures/png/pilot-clone-diversity-solo-box}
+\includegraphics[width = 0.8\textwidth]{output_files/figures/pdf/igseq-pilot-clone-diversity-solo-box}
 \Caption{Comparing clonal alpha diversities between individuals in the \igseq pilot dataset}{Boxplots of Hill diversity values for the clonal repertoires of replicates from each individual in the \igseq pilot dataset at a sample of diversity orders. Pairwise $p$-values were computed using nonparametric Mann-Whitney $U$ tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$). Annotated $p$-values ($P(KWT)$) indicate the statistical significance of the estimated individual effect on diversity at each order under a Kruskal-Wallis test.}
 \label{fig:igseq-pilot-clone-diversity-solo-box}
 \end{figure}
@@ -319,7 +319,7 @@ In conclusion, therefore, adult turquoise killifish express diverse clonal B-cel
 \phantomsubcaption{}
 \label{fig:igseq-pilot-clone-diversity-metrics-cor-alpha}
 \end{subfigure}
-\includegraphics[width = 0.8\textwidth]{_Figures/png/pilot-clone-diversity-metrics-cor}
+\includegraphics[width = 0.8\textwidth]{output_files/figures/pdf/igseq-pilot-clone-diversity-metrics-cor}
 \Caption{Correlation between Hill diversity and proxy metrics of clonal expansion}
 {Pearson product-moment correlation coefficients between clonal Hill diversity and various proxy metrics (P20, fitted Zipf exponent over all clones, fitted Zipf exponent excluding largest clones) over a range of diversity orders for the \igseq pilot dataset. (A) Per-replicate correlation between proxy metrics and per-replicate diversity. (B) Per-individual correlation between mean proxy metrics (averaged over replicates for each individual) and alpha diversity.}
 \label{fig:igseq-pilot-clone-diversity-metrics-cor}
@@ -341,7 +341,7 @@ In total, of the \embed{output_files/txt/igseq-pilot-vj-n-theoretical.txt} possi
 
 \begin{figure}
 \centering
-\includegraphics[width=0.8\textwidth]{_Figures/png/pilot-vj-rank-frequency}
+\includegraphics[width=0.8\textwidth]{output_files/figures/pdf/igseq-pilot-vj-rank-frequency}
 \Caption{Rank/frequency distributions of pilot VJ-repertoires}{Log-log line plots of rank/frequency distributions of the individual VJ-repertoires in the \igseq pilot dataset, showing the rapid decline in frequency of the smallest V/J-assignment categories and the resulting clear deviation from a power-law distribution.}
 \label{fig:igseq-pilot-vj-rank-frequency}
 \end{figure}
@@ -350,7 +350,7 @@ As with the clonal repertoire, the diversity of the VJ-repertoire can be assesse
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png/pilot-vj-diversity}
+\includegraphics[width = 0.9\textwidth]{output_files/figures/pdf/igseq-pilot-vj-diversity}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-pilot-vj-diversity-alpha}
@@ -365,7 +365,7 @@ As with the clonal repertoire, the diversity of the VJ-repertoire can be assesse
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.8\textwidth]{_Figures/png/pilot-vj-diversity-solo-box}
+\includegraphics[width = 0.8\textwidth]{output_files/figures/pdf/igseq-pilot-vj-diversity-solo-box}
 \Caption{Comparing VJ alpha diversities between individuals in the \igseq pilot dataset}{Boxplots of Hill diversity values for the VJ-repertoires of replicates from each individual in the \igseq pilot dataset at a sample of diversity orders. Pairwise $p$-values were computed using nonparametric Mann-Whitney $U$ tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$). Annotated $p$-values ($P(KWT)$) indicate the statistical significance of the estimated individual effect on diversity at each order under a Kruskal-Wallis test.}
 \label{fig:igseq-pilot-vj-diversity-solo-box}
 \end{figure}
@@ -374,7 +374,7 @@ The beta-diversity spectra, meanwhile, are close to the minimum value across all
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png/pilot-rdi-vj-replicate}
+\includegraphics[width = 0.9\textwidth]{output_files/figures/pdf/igseq-pilot-rdi}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-pilot-rdi-dendrogram}
@@ -403,14 +403,14 @@ sequences, or \embed{output_files/txt/igseq-pilot-igor-seqs-min.txt} to \embed{o
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.8\textwidth]{_Figures/png/pilot-igor-segments}
+\includegraphics[width = 0.8\textwidth]{output_files/figures/pdf/igseq-pilot-igor-segments}
 \Caption{Generative segment-choice distributions in the \igseq pilot dataset}{Probability distributions of segment choice for (A) \vh-, (B) \dh- and (C) \jh-segments during VDJ recombination in adult male turquoise killifish, inferred from the \igseq pilot dataset using \program{IGoR}. Thin dashed lines represent the distributions inferred for individual killifish, while the thick solid line represents those inferred from pooled data from all individuals. \dh and \jh segments with identical sequences (which cannot be distinguished in the repertoire data even in principle) are collapsed together.}
 \label{fig:igseq-pilot-igor-segments}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.8\textwidth]{_Figures/png/pilot-igor-indels}
+\includegraphics[width = 0.8\textwidth]{output_files/figures/pdf/igseq-pilot-igor-indels}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-pilot-igor-indels-vdins}
@@ -453,14 +453,14 @@ Despite its impressive diversity, this generative entropy of the killifish reper
 
 \begin{figure}
 \centering
-\includegraphics[width = \textwidth]{_Figures/png/pilot-igor-entropies}
+\includegraphics[width = \textwidth]{output_files/figures/pdf/igseq-pilot-igor-entropies}
 \Caption{Entropy composition of the killifish generative repertoire}{Entropy composition of different diversification mechanisms in the generative process of the turquoise-killifish antibody repertoire, inferred from the \igseq pilot dataset using \program{IGoR}. ``VD len'' and ``DJ len'' denote sequence variability arising from the number of N-insertions, while ``VD nts'' and ``DJ nts'' refer to variability in the nucleotide sequences so inserted; ``delV'', ``delD'' and ``delJ'' refer to variability arising from deleted (or P-inserted) nucleotides at the boundaries of the selected gene segments.}
 \label{fig:igseq-pilot-igor-entropies}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width = \textwidth]{_Figures/png_edited/human-repertoire-entropy.png}
+\includegraphics[width = \textwidth]{output_files/figures/pdf/igseq-human-repertoire-entropy}
 \Caption{Entropy composition of a human generative repertoire}{Example breakdown of the generative entropy of a human peripheral repertoire, adapted from Figure 8 of Elhanati \textit{et al.} \parencite{elhanati2015model}.} 
 \label{fig:igseq-pilot-human-entropies}
 \end{figure}
@@ -479,7 +479,7 @@ The pilot study into the antibody repertoires of mature adult turquoise killifis
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png/ageing-read-survival-all.png}
+\includegraphics[width = 0.9\textwidth]{output_files/figures/pdf/igseq-ageing-read-survival-all}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-ageing-read-survival-all-abs}
@@ -496,7 +496,7 @@ Following V-score filtering, \embed{output_files/txt/igseq-ageing-pc-seq-assigne
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.8\textwidth]{_Figures/png/ageing-clone-diversity-alpha}
+\includegraphics[width = 0.8\textwidth]{output_files/figures/pdf/igseq-ageing-clone-diversity}
 \Caption{Clonal alpha-diversity spectra for the \igseq ageing dataset}{Bootstrapped alpha-diversity spectra of clone sizes for each age group in the \igseq ageing dataset, as measured by number of unique sequences per clone. Shaded regions in both subfigures represent 95\,\% confidence intervals, estimated using bootstrapping.}
 \label{fig:igseq-ageing-clone-diversity-alpha}
 \end{figure}
@@ -507,7 +507,7 @@ In order to test the significance of these differences in clonal diversity betwe
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png/ageing-clone-diversity-solo-fit-gamma}
+\includegraphics[width = 0.9\textwidth]{output_files/figures/pdf/igseq-ageing-clone-diversity-solo-fit-gamma}
 \Caption{Comparing clonal alpha diversities between age groups in the \igseq ageing dataset}{Boxplots of Hill diversity values for the antibody repertoires of individuals of each age group in the \igseq ageing dataset at a sample of diversity orders, overlaid with the predictions of the best-fit Gamma-distributed generalised linear model at each order.  Annotated $p$-values indicate the statistical significance of the estimated age effect on diversity under the GLM ($P(GLM)$) and a Kruskal-Wallis test ($P(KWT)$) for each diversity order.}
 \label{fig:igseq-ageing-clone-diversity-solo-fit-gamma}
 \end{figure}
@@ -516,7 +516,7 @@ While a significant decline in clonal diversity  was found at various diversity 
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.8\textwidth]{_Figures/png/ageing-VJ-diversity-alpha-beta}
+\includegraphics[width = 0.8\textwidth]{output_files/figures/pdf/igseq-ageing-vj-diversity-all-alpha-beta}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-ageing-VJ-diversity-alpha}
@@ -531,14 +531,14 @@ While a significant decline in clonal diversity  was found at various diversity 
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.8\textwidth]{_Figures/png/ageing-VJ-diversity-solo-fit-gamma}
+\includegraphics[width = 0.8\textwidth]{output_files/figures/pdf/igseq-ageing-vj-diversity-all-solo-fit-gamma}
 \Caption{Comparing VJ alpha diversities between age groups in the \igseq ageing dataset}{Boxplots of Hill diversity values for the VJ-repertoires of individuals of each age group in the \igseq ageing dataset at a sample of diversity orders, overlaid with the predictions of the best-fit Gamma-distributed generalised linear model at each order.  Annotated $p$-values indicate the statistical significance of the estimated age effect on diversity under the GLM ($P(GLM)$) and a Kruskal-Wallis test ($P(KWT)$) for each diversity order.}
 \label{fig:igseq-ageing-VJ-diversity-solo-fit-gamma}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.8\textwidth]{_Figures/png/ageing-VJ-diversity-vlarge-alpha-beta}
+\includegraphics[width = 0.8\textwidth]{output_files/figures/pdf/igseq-ageing-vj-diversity-large-alpha-beta}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-ageing-VJ-diversity-large-alpha}
@@ -553,7 +553,7 @@ While a significant decline in clonal diversity  was found at various diversity 
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.8\textwidth]{_Figures/png/ageing-VJ-diversity-vlarge-solo-fit-gamma}
+\includegraphics[width = 0.8\textwidth]{output_files/figures/pdf/igseq-ageing-vj-diversity-large-solo-fit-gamma}
 \Caption{Comparing VJ alpha diversities between age groups for expanded clones in the \igseq ageing dataset}{Boxplots of Hill diversity values for the VJ-repertoires of individuals of each age group in the \igseq ageing dataset at a sample of diversity orders, excluding clonal groups with fewer than five unique sequences, overlaid with the predictions of the best-fit Gamma-distributed generalised linear model at each order.  Annotated $p$-values indicate the statistical significance of the estimated age effect on diversity under the GLM ($P(GLM)$) and a Kruskal-Wallis test ($P(KWT)$) for each diversity order.}
 \label{fig:igseq-ageing-VJ-diversity-large-solo-fit-gamma}
 \end{figure}
@@ -561,14 +561,14 @@ While a significant decline in clonal diversity  was found at various diversity 
 \begin{wraptable}{r}{6.5cm}
 \caption{Unique nonfunctional sequences from the \igseq ageing dataset available for model inference with \program{IGoR}}
 \label{tab:igseq-ageing-igor-seqs}
-\input{_Figures/tables/igseq-ageing-igor-seqs}
+\input{output_files/tables/igseq-ageing-igor-seqs}
 \end{wraptable}
 
 The finding that a significant age-related change in VJ-alpha diversity is only observed when small clones are excluded suggests that, while a the secondary antibody repertoire changes significantly with age in the turquoise killifish, the primary generative process does not, at least as far as its statistical composition is concerned. To test this, I inferred generative models for each age group with \program{IGoR} in the manner described in \Cref{sec:igseq_pilot_generative}. Following consensus-sequence inference across clones and discarding of functional sequences, the number of sequences available per individual for this purpose ranged from \embed{output_files/txt/igseq-ageing-igor-seqs-min.txt} to \embed{output_files/txt/igseq-ageing-igor-seqs-max.txt}; all far too low to infer a reliable model with \program{IGoR}. However, pooling these repertoires by age group yielded over 5000 unique sequences for the first three age groups, though the oldest, smallest group yielded only c. 700 sequences total (\Cref{tab:igseq-ageing-igor-seqs}). I therefore investigated the entropy composition of the generative repertoire for the first three age groups in the dataset (\Cref{fig:igseq-ageing-igor-entropies}). The results supported the hypothesis that the generative process remains intact throughout the killifish lifespan, with very similar entropy compositions for all three age groups; neither the total entropy nor any of the major components differs by as much as 1 bit between any two of the three models. Consistent with this, the segment-choice, insertion, and deletion distributions inferred for the generative process are highly similar across all individuals and age groups, despite the very small size of many of the datasets used to infer these models (\Cref{fig:igseq-ageing-igor-segments,fig:igseq-ageing-igor-indels}).
 
 \begin{figure}
 \centering
-\includegraphics[width = \textwidth]{_Figures/png/ageing-igor-entropies}
+\includegraphics[width = \textwidth]{output_files/figures/pdf/igseq-ageing-igor-entropies}
 \Caption{Entropy composition of the killifish generative repertoire in different age groups}{Entropy composition of different diversification mechanisms in the generative process of the turquoise-killifish antibody repertoire, inferred using \program{IGoR} for the first three age groups in the \igseq ageing dataset. ``VD len'' and ``DJ len'' denote sequence variability arising from the number of N-insertions, while ``VD nts'' and ``DJ nts'' refer to variability in the nucleotide sequences so inserted; ``delV'', ``delD'' and ``delJ'' refer to variability arising from deleted (or P-inserted) nucleotides at the boundaries of the selected gene segments. The fourth age group in the dataset (128 days) contained too few nonfunctional sequences to fit a reliable model (\Cref{tab:igseq-ageing-igor-seqs}) and was excluded from the analysis.}
 \label{fig:igseq-ageing-igor-entropies}
 \end{figure}
@@ -577,7 +577,7 @@ While the alpha diversity of the entire VJ-repertoire (reflecting average divers
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png/ageing-rdi-VJ-individual}
+\includegraphics[width = 0.9\textwidth]{output_files/figures/pdf/igseq-ageing-rdi}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-ageing-rdi-VJ-individual-groupdist-all}
@@ -611,7 +611,7 @@ Smith \textit{et al.} \parencite{smith2017microbiota} demonstrated that gut micr
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.8\textwidth]{_Figures/png_edited/gut-design}
+\includegraphics[width = 0.8\textwidth]{output_files/figures/pdf/igseq-gut-design}
 \Caption{Experimental design of the killifish gut-microbiota transfer study}{Schematic of the design of the gut-microbiota transfer experiment in Smith \textit{et al.} \parencite{smith2017microbiota}. Groups YI\_6 and WT\_16 were sacrificed without experimental intervention at 6 and 16 weeks, respectively, while the others recieved antibiotic treatment at 9.5 weeks followed by either no further intervention (ABX\_16) or gut-microbiota transfer from a 6-week-old (YMT\_16) or 9.5-week-old (SMT\_16) donor. Adapted from \parencite{smith2017microbiota}, Figure 4.}
 \label{fig:igseq-gut-design}
 \end{figure}
@@ -620,7 +620,7 @@ Smith \textit{et al.} \parencite{smith2017microbiota} demonstrated that gut micr
 \centering
 \caption[Summary of killifish used in \igseq gut experiment]{Summary of killifish used in \igseq gut experiment. All fish are GRZ-Bellemans strain and male.}
 \label{tab:gut-cohorts-summary}
-\input{_Figures/tables/gut-cohorts-summary}
+\input{output_files/tables/igseq-gut-cohorts-summary}
 \end{table}
 
 Of the twenty samples outlined in \Cref{tab:gut-cohorts-summary,tab:gut-cohorts-fish}, one (fish 400, from the WT\_16wk group) contained too little RNA to undergo \igseq library preparation, while another (fish 1005, from the OMT\_16wk group) was too degraded for a useful library to be obtained. The remaining 18 samples underwent \igseq library preparation, performed by Aleksandra Placzek and Michael Poeschla using the protocol I designed in \Cref{sec:igseq_protocol_library}. Several of the other samples were also somewhat degraded, with RNA integrity numbers between 5.5 and 7.0 (\Cref{tab:gut-cohorts-fish}), but succeeded in producing useable libraries; these samples were included in the sequencing pool, but the RNA integrity numbers (RIN values) from each sample were retained for comparison with downstream quality-control measures following \Igseq. The resulting libraries were sequenced together in two MiSeq runs, yielding a total of \embed{output_files/txt/igseq-gut-nreads-raw-total.txt} million read pairs (\embed{output_files/txt/igseq-gut-nreads-raw-min.txt} to \embed{output_files/txt/igseq-gut-nreads-raw-max.txt} million pairs per individual), and the resulting reads underwent pre-processing, filtering and clonotyping as described in \Cref{sec:igseq_pilot,sec:igseq_ageing}.
@@ -629,7 +629,7 @@ Compared to the datasets in those sections, the gut dataset exhibited highly con
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png/gut-read-survival-all.png}
+\includegraphics[width = 0.9\textwidth]{output_files/figures/pdf/igseq-gut-read-survival-all}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-gut-read-survival-all-abs}
@@ -646,14 +646,14 @@ Following V-score filtering and exclusion of high-read-loss individeals, \embed{
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.8\textwidth]{/home/will/Documents/thesis/_Figures/png/igseq-gut-nclones.png}
+\includegraphics[width = 0.8\textwidth]{output_files/figures/pdf/igseq-gut-nclones}
 \Caption{Number of clones in the \igseq gut dataset}{Boxplots of clonal counts for each individual in the \igseq gut dataset, grouped by age at death (A) or treatment group (B). The apparent decline in clonal count with age is not significant (Kruskal-Wallis analysis of variance, $p=\embed{output_files/txt/igseq-gut-nclones-kruskal-age-p.txt}$), and there is also no significant effect of treatment group on clonal count (Kruskal-Wallis analysis of variance, $p=\embed{output_files/txt/igseq-gut-nclones-kruskal-group-p.txt}$).}
 \label{fig:igseq-gut-nclones}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png/igseq-comparative-metrics}
+\includegraphics[width = 0.9\textwidth]{output_files/figures/pdf/igseq-nclones-comparative}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-comparative-metrics-abs}
@@ -670,7 +670,7 @@ In order to determine whether the apparent difference in clonal richness between
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png/igseq-rarefied-clones}
+\includegraphics[width = 0.9\textwidth]{output_files/figures/pdf/igseq-rarefied-clones}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-rarefied-clone-counts}
@@ -687,7 +687,7 @@ The combination of low clonal counts and elevated P20 indicated by \Cref{fig:igs
 
 \begin{figure}
 \centering
-\includegraphics[width = \textwidth]{_Figures/png/igseq-rarefied-clone-counts-size}
+\includegraphics[width = \textwidth]{output_files/figures/pdf/igseq-rarefied-clone-counts-size}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-rarefied-clone-counts-small}
@@ -708,7 +708,7 @@ The clonal alpha-diversity spectra for the gut dataset are shown in \Cref{fig:ig
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png/igseq-gut-clone-diversity-alpha}
+\includegraphics[width = 0.9\textwidth]{output_files/figures/pdf/igseq-gut-clone-diversity-alpha}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-gut-clone-diversity-alpha-age}
@@ -731,14 +731,14 @@ The clonal alpha-diversity spectra for the gut dataset are shown in \Cref{fig:ig
 \phantomsubcaption{}
 \label{fig:igseq-gut-clone-diversity-solo-groups}
 \end{subfigure}
-\includegraphics[width = 0.9\textwidth]{_Figures/png/igseq-gut-clone-diversity-solo-boxplots}
+\includegraphics[width = 0.9\textwidth]{output_files/figures/pdf/igseq-gut-clone-diversity-solo-boxplots}
 \Caption{Comparing clonal alpha diversities between age and treatment groups in the \igseq gut dataset}{Boxplots of clonal Hill diversity values for the antibody repertoires of individuals of each (A) age group and (B) treatment group in the \igseq gut dataset at a sample of diversity orders. Pairwise $p$-values were computed using nonparametric Mann-Whitney $U$ tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$).}
 \label{fig:igseq-gut-clone-diversity-solo-boxplots}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png/igseq-gut-VJ-diversity-alpha}
+\includegraphics[width = 0.9\textwidth]{output_files/figures/pdf/igseq-gut-vj-diversity-alpha}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-gut-VJ-diversity-alpha-age}
@@ -761,7 +761,7 @@ The clonal alpha-diversity spectra for the gut dataset are shown in \Cref{fig:ig
 \phantomsubcaption{}
 \label{fig:igseq-gut-VJ-diversity-solo-groups}
 \end{subfigure}
-\includegraphics[width = 0.9\textwidth]{_Figures/png/igseq-gut-VJ-diversity-solo-boxplots}
+\includegraphics[width = 0.9\textwidth]{output_files/figures/pdf/igseq-gut-vj-diversity-solo-boxplots}
 \Caption{Comparing VJ alpha diversities between age and treatment groups in the \igseq gut dataset}{Boxplots of VJ Hill diversity values for the antibody repertoires of individuals of each (A) age group and (B) treatment group in the \igseq gut dataset at a sample of diversity orders. Pairwise $p$-values were computed using nonparametric Mann-Whitney $U$ tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$).}
 \label{fig:igseq-gut-VJ-diversity-solo-boxplots}
 \end{figure}
@@ -770,7 +770,7 @@ In terms of beta diversity, the Hill-spectrum results (\Cref{fig:igseq-gut-VJ-di
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png/igseq-gut-VJ-diversity-beta}
+\includegraphics[width = 0.9\textwidth]{_output_files/figures/pdf/igseq-gut-vj-diversity-beta}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-gut-VJ-diversity-beta-age}
@@ -785,7 +785,7 @@ In terms of beta diversity, the Hill-spectrum results (\Cref{fig:igseq-gut-VJ-di
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png/igseq-gut-rdi-VJ-individual-age}
+\includegraphics[width = 0.9\textwidth]{output_files/figures/pdf/igseq-gut-rdi-age}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-gut-rdi-VJ-individual-age-pcoa-all}
@@ -808,7 +808,7 @@ In terms of beta diversity, the Hill-spectrum results (\Cref{fig:igseq-gut-VJ-di
 
 \begin{figure}
 \centering
-\includegraphics[width = 0.9\textwidth]{_Figures/png/igseq-gut-rdi-VJ-individual-group}
+\includegraphics[width = 0.9\textwidth]{output_files/figures/pdf/igseq-gut-rdi-group}
 \begin{subfigure}{0em}
 \phantomsubcaption{}
 \label{fig:igseq-gut-rdi-VJ-individual-group-pcoa-all}

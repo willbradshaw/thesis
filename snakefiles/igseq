@@ -267,17 +267,6 @@ rule igseq_pilot_igor_seqs:
     log: "log_files/igseq-pilot-igor-seqs.dbg"
     script: os.path.join(script_dir, "igseq-pilot-igor-seqs.R")
 
-igseq_pilot_figures_new = ["igseq-pilot-read-survival-init",
-            "igseq-pilot-functional-prop", "igseq-pilot-functional-vscores",
-            "igseq-pilot-clone-sizes", "igseq-pilot-clone-sizes-cor",
-            "igseq-pilot-clone-zipf-lines", "igseq-pilot-clone-zipf-grad",
-            "igseq-pilot-clone-p20", "igseq-pilot-clone-expansions",
-            "igseq-pilot-clone-diversity", "igseq-pilot-clone-diversity-solo-box",
-            "igseq-pilot-vj-diversity", "igseq-pilot-vj-diversity-solo-box",
-            "igseq-pilot-vj-rank-frequency", "igseq-pilot-rdi",
-            "igseq-pilot-igor-segments", "igseq-pilot-igor-indels",
-            "igseq-pilot-igor-entropies"]
-
 igseq_pilot_figures_si = ["igseq-pilot-read-survival-all",
             "igseq-pilot-clone-expansions-rep",
             "igseq-pilot-clone-diversity-solo", "igseq-pilot-vj-diversity-solo"]
@@ -457,14 +446,6 @@ rule igseq_ageing_rdi:
     log: "log_files/igseq-ageing-rdi.dbg"
     script: os.path.join(script_dir, "igseq-ageing-rdi.R")
 
-igseq_ageing_figures_new = ["igseq-ageing-read-survival-all",
-            "igseq-ageing-clone-diversity", "igseq-ageing-clone-diversity-solo-fit-gamma",
-            "igseq-ageing-vj-diversity-all-alpha-beta",
-            "igseq-ageing-vj-diversity-all-solo-fit-gamma",
-            "igseq-ageing-vj-diversity-large-alpha-beta",
-            "igseq-ageing-vj-diversity-large-solo-fit-gamma",
-            "igseq-ageing-igor-entropies", "igseq-ageing-rdi"]
-
 igseq_ageing_figures_si = ["igseq-ageing-clone-diversity-solo",
             "igseq-ageing-clone-diversity-solo-fit-linear",
             "igseq-ageing-clone-diversity-solo-fit-igauss",
@@ -536,7 +517,7 @@ rule igseq_gut_functional:
 rule igseq_gut_clone_counts:
     input:
         pilot = "input_files/data/changeo/db/pilot-final.tab",
-        age = "input_files/data/changeo/db/gut-final.tab",
+        age = "input_files/data/changeo/db/ageing-final.tab",
         gut = "input_files/data/changeo/db/gut-final.tab",
         survival = "input_files/data/changeo/survival/gut-survival.tsv",
         metadata = "input_files/data/fish_data/gut-samples.csv",
@@ -597,13 +578,6 @@ rule igseq_gut_rdi:
     log: "log_files/igseq-gut-rdi.dbg"
     script: os.path.join(script_dir, "igseq-gut-rdi.R")
 
-igseq_gut_figures_new = ["igseq-gut-read-survival-all",
-        "igseq-gut-nclones", "igseq-nclones-comparative",
-        "igseq-gut-clone-diversity-alpha", "igseq-gut-clone-diversity-solo-boxplots",
-        "igseq-gut-vj-diversity-alpha", "igseq-gut-vj-diversity-beta",
-        "igseq-gut-vj-diversity-solo-boxplots",
-        "igseq-gut-rdi-age", "igseq-gut-rdi-group"]
-
 igseq_gut_figures_si = ["igseq-gut-read-survival-rin",
             "igseq-gut-clone-diversity-solo", "igseq-gut-vj-diversity-solo",
             "igseq-gut-functional-prop"
@@ -635,7 +609,7 @@ rule igseq_plot_rarefied_clones:
     input: "output_files/data/igseq-rarefied-clones.tsv"
     output:
        counts = "output_files/figures/svg/igseq-rarefied-clones.svg",
-       sizes  = "output_files/figures/svg/igseq-rarefied-clone-count-size.svg",
+       sizes  = "output_files/figures/svg/igseq-rarefied-clone-counts-size.svg",
     log: "log_files/igseq-rarefy-clones.dbg"
     params:
         aux = aux_dir,
@@ -644,32 +618,131 @@ rule igseq_plot_rarefied_clones:
     script: os.path.join(script_dir, "igseq-plot-rarefied-clones.R")
 
 #-----------------------------------------------------------------------------
-# Collate all figures
+# Collate all figures, tables, text embeds (main chapter)
 #-----------------------------------------------------------------------------
 
-igseq_figures_new = igseq_pilot_figures_new + igseq_ageing_figures_new + \
-            igseq_gut_figures_new + \
-            ["igseq-rarefied-clones", "igseq-rarefied-clone-count-size"]
+# Figures
+igseq_figures = ["igseq-umi-consensus", "igseq-template-switch",
+            "igseq-igrace-pipeline", "igseq-preprocessing",
+            "igseq-pilot-design", "igseq-pilot-read-survival-init",
+            "igseq-pilot-functional-prop", "igseq-pilot-functional-vscores",
+            "igseq-pilot-clone-sizes", "igseq-pilot-clone-sizes-cor",
+            "igseq-pilot-clone-zipf-lines", "igseq-pilot-clone-zipf-grad",
+            "igseq-pilot-clone-p20", "igseq-pilot-clone-expansions",
+            "igseq-pilot-clone-diversity", "igseq-pilot-clone-diversity-solo-box",
+            "igseq-pilot-clone-diversity-metrics-cor", "igseq-pilot-vj-rank-frequency",
+            "igseq-pilot-vj-diversity", "igseq-pilot-vj-diversity-solo-box",
+            "igseq-pilot-rdi", "igseq-pilot-igor-segments",
+            "igseq-pilot-igor-indels", "igseq-pilot-igor-entropies",
+            "igseq-human-repertoire-entropy", "igseq-ageing-read-survival-all",
+            "igseq-ageing-clone-diversity", "igseq-ageing-clone-diversity-solo-fit-gamma",
+            "igseq-ageing-vj-diversity-all-alpha-beta",
+            "igseq-ageing-vj-diversity-all-solo-fit-gamma",
+            "igseq-ageing-vj-diversity-large-alpha-beta",
+            "igseq-ageing-vj-diversity-large-solo-fit-gamma",
+            "igseq-ageing-igor-entropies", "igseq-ageing-rdi",
+            "igseq-gut-design", "igseq-gut-read-survival-all",
+            "igseq-gut-nclones", "igseq-nclones-comparative",
+            "igseq-rarefied-clones", "igseq-rarefied-clone-counts-size",
+            "igseq-gut-clone-diversity-alpha", "igseq-gut-clone-diversity-solo-boxplots",
+            "igseq-gut-vj-diversity-alpha", "igseq-gut-vj-diversity-solo-boxplots",
+            "igseq-gut-vj-diversity-beta", "igseq-gut-rdi-age",
+            "igseq-gut-rdi-group"]
+
+# Tables
+igseq_tables = ["igseq-cohorts-summary", "igseq-pilot-filtered-nn",
+             "igseq-ageing-igor-seqs", "igseq-gut-cohorts-summary"]
+
+# Text embeds
+igseq_text_embeds = ["igseq-pilot-nreads-raw-total", 
+        "igseq-pilot-nreads-raw-replicate-min", "igseq-pilot-nreads-raw-replicate-max",
+        "igseq-pilot-nreads-raw-individual-min", "igseq-pilot-nreads-raw-individual-max",
+        "igseq-pilot-read-survival-init-min", "igseq-pilot-read-survival-init-max",
+        "igseq-pilot-nseq-init-replicate-min", "igseq-pilot-nseq-init-replicate-max",
+        "igseq-pilot-nseq-init-individual-min", "igseq-pilot-nseq-init-individual-max",
+        "igseq-pilot-nseq-init-total", "igseq-pilot-nseq-init-pc-functional",
+        "igseq-pilot-nreads-init-pc-functional", "igseq-pilot-nseq-init-pc-noj",
+        "igseq-pilot-nreads-init-pc-noj", "igseq-pilot-nseq-init-pc-other",
+        "igseq-pilot-nreads-init-pc-other", "igseq-pilot-vscore-mean-noj",
+        "igseq-pilot-vscore-sd-noj", "igseq-pilot-vscore-mean-other",
+        "igseq-pilot-vscore-sd-other", "igseq-pilot-vscore-mean-functional",
+        "igseq-pilot-vscore-sd-functional", "igseq-pilot-nseq-init-dropped-vscore",
+        "igseq-ageing-rel-loss-total", "igseq-pilot-read-survival-all-min",
+        "igseq-pilot-read-survival-all-max", "igseq-pilot-nseq-init-kept-vscore",
+        "igseq-pilot-nseq-init-functional-filtered", "igseq-pilot-nseq-init-pc-functional-filtered",
+        "igseq-pilot-nseq-init-other-filtered", "igseq-pilot-nseq-init-pc-other-filtered",
+        "igseq-pilot-nseq-init-noj-filtered", "igseq-pilot-nseq-init-pc-noj-filtered",
+        "igseq-pilot-filtered-nn-any", "igseq-pilot-filtered-1n-total",
+        "igseq-pilot-filtered-1n-withn", "igseq-pilot-nseq-assigned-clones",
+        "igseq-pilot-nseq-lost-clonotyping", "igseq-pilot-pc-reads-lost-clonotyping",
+        "igseq-pilot-nclones-individual-min", "igseq-pilot-nclones-individual-max",
+        "igseq-pilot-nclones-pc-1count", "igseq-pilot-nclones-pc-small",
+        "igseq-pilot-nclones-pc-1rep", "igseq-pilot-nclones-pc-2rep",
+        "igseq-pilot-nclones-pc-1rep", "igseq-pilot-clones-interrep-cor-avg",
+        "igseq-pilot-clone-zipf-exp-min", "igseq-pilot-clone-zipf-exp-max",
+        "igseq-pilot-clone-zipf-exp-null-min", "igseq-pilot-clone-zipf-exp-null-max",
+        "igseq-pilot-clone-zipf-p20-obs-min", "igseq-pilot-clone-zipf-p20-obs-max",
+        "igseq-pilot-clone-zipf-p20-exp-min", "igseq-pilot-clone-zipf-p20-exp-max",
+        "igseq-pilot-clone-diversity-cor-rep-best-metric",
+        "igseq-pilot-clone-diversity-cor-rep-best-q",
+        "igseq-pilot-clone-diversity-cor-rep-best-r",
+        "igseq-pilot-clone-diversity-cor-avg-best-q",
+        "igseq-pilot-clone-diversity-cor-avg-best-metric",
+        "igseq-pilot-clone-diversity-cor-avg-best-r",
+        "igseq-pilot-clone-diversity-cor-avg-cross-q",
+        "igseq-pilot-clone-diversity-cor-avg-sfilter-best-r",
+        "igseq-pilot-clone-diversity-cor-avg-sfilter-best-q", "igseq-pilot-one-vj-n-pc",
+        "igseq-pilot-one-vj-conscount-pc", "igseq-pilot-one-vdj-n-pc",
+        "igseq-pilot-one-vdj-conscount-pc", "igseq-pilot-ambig-d-n-pc",
+        "igseq-pilot-ambig-d-conscount-pc", "igseq-pilot-vj-p20-min",
+        "igseq-pilot-vj-p20-max", "igseq-pilot-vj-n-theoretical",
+        "igseq-pilot-vj-n-any", "igseq-pilot-vj-pc-any",
+        "igseq-pilot-vj-n-min", "igseq-pilot-vj-pc-min",
+        "igseq-pilot-vj-n-max", "igseq-pilot-vj-pc-max",
+        "igseq-pilot-igor-seqs-sum", "igseq-pilot-igor-seqs-min",
+        "igseq-pilot-igor-seqs-max", "igseq-pilot-igor-entropy-total",
+        "igseq-pilot-igor-entropy-gene", "igseq-pilot-igor-entropy-ins",
+        "igseq-pilot-igor-diversity-oom", "igseq-pilot-igor-human-oom-low",
+        "igseq-pilot-igor-human-oom-high", "igseq-pilot-igor-entropy-ins",
+        "igseq-ageing-nreads-raw-total", "igseq-ageing-nreads-raw-replicate-min",
+        "igseq-ageing-nreads-raw-replicate-max", "igseq-ageing-nreads-raw-individual-min",
+        "igseq-ageing-nreads-raw-individual-max", "igseq-ageing-read-survival-init-min",
+        "igseq-ageing-read-survival-init-max", "igseq-ageing-rel-loss-total",
+        "igseq-ageing-rel-loss-max", "igseq-pilot-rel-loss-total",
+        "igseq-pilot-rel-loss-max", "igseq-ageing-pc-seq-assigned-clones",
+        "igseq-ageing-nclones-individual-min", "igseq-ageing-nclones-individual-max",
+        "igseq-ageing-nclones-individual-med", "igseq-ageing-nclones-kruskal-p",
+        "igseq-pilot-nclones-individual-med", "igseq-ageing-nclones-individual-min-pilot",
+        "igseq-ageing-nclones-individual-max-pilot", "igseq-ageing-clones-pc-1count",
+        "igseq-ageing-clones-pc-small", "igseq-ageing-pc-seq-in-small-clones-avg",
+        "igseq-ageing-pc-seq-in-small-clones-kruskal-p", "igseq-ageing-igor-seqs-min",
+        "igseq-ageing-igor-seqs-max", "igseq-gut-nreads-raw-total",
+        "igseq-gut-nreads-raw-min", "igseq-gut-nreads-raw-max",
+        "igseq-gut-read-survival-init-min", "igseq-gut-read-survival-init-max",
+        "igseq-gut-rel-loss-total", "igseq-gut-rel-loss-max",
+        "igseq-gut-pc-seq-assigned-clones", "igseq-gut-nclones-individual-min",
+        "igseq-gut-nclones-individual-max", "igseq-gut-nclones-individual-med",
+        "igseq-gut-nclones-kruskal-age-p", "igseq-gut-nclones-kruskal-age-p",
+        "igseq-gut-nclones-kruskal-group-p"]
+
+#-----------------------------------------------------------------------------
+# Collate all supplementary material
+#-----------------------------------------------------------------------------
+
 igseq_figures_si = igseq_pilot_figures_si + igseq_ageing_figures_si + \
             igseq_gut_figures_si
-igseq_figures_raw = ["igseq-umi-consensus", "igseq-igrace-pipeline",
-            "igseq-pilot-design", "igseq-template-switch",
-            "igseq-preprocessing", "igseq-human-repertoire-entropy",
-            "igseq-gut-design"]
-
-igseq_tables_new = ["igseq-cohorts-summary", "igseq-gut-cohorts-summary",
-            "igseq-pilot-filtered-nn", "igseq-ageing-igor-seqs"
-]
 igseq_tables_si = ["igseq-cohorts-fish", "igseq-gut-cohorts-fish"]
+
+#-----------------------------------------------------------------------------
+# Generate files
+#-----------------------------------------------------------------------------
 
 rule igseq_figures_all:
     """Collate all figures and tables for igseq chapter."""
     input:
-        expand("output_files/figures/svg/{name}.svg", name=igseq_figures_new),
-        expand("output_files/figures/svg/{name}.svg", name=igseq_figures_si),
+        expand("output_files/figures/pdf/{name}.pdf", name=igseq_figures),
         expand("output_files/figures/pdf/{name}.pdf", name=igseq_figures_si),
-        expand("output_files/figures/pdf/{name}.pdf", name=igseq_figures_new),
-        expand("output_files/figures/pdf/{name}.pdf", name=igseq_figures_raw),
-        expand("output_files/tables/{name}.tex", name=igseq_tables_new),
+        expand("output_files/tables/{name}.tex", name=igseq_tables),
         expand("output_files/tables/{name}.tex", name=igseq_tables_si),
+        expand("output_files/txt/{name}.txt", name=igseq_text_embeds),
 
