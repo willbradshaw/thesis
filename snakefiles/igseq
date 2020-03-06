@@ -20,18 +20,6 @@ rule igseq_cohorts_table:
 #-----------------------------------------------------------------------------
 # Pilot study
 #-----------------------------------------------------------------------------
-        nreads_raw_total = "output_files/txt/igseq-pilot-nreads-raw-total.txt",
-        nreads_raw_replicate_min = "output_files/txt/igseq-pilot-nreads-raw-replicate-min.txt",
-        nreads_raw_replicate_max = "output_files/txt/igseq-pilot-nreads-raw-replicate-max.txt",
-        nreads_raw_individual_min = "output_files/txt/igseq-pilot-nreads-raw-individual-min.txt",
-        nreads_raw_individual_max = "output_files/txt/igseq-pilot-nreads-raw-individual-max.txt",
-        surv_init_min = "output_files/txt/igseq-pilot-read-survival-init-min.txt",
-        surv_init_max = "output_files/txt/igseq-pilot-read-survival-init-max.txt",
-        nseq_individual_min = "output_files/txt/igseq-pilot-nseq-init-individual-min.txt",
-        nseq_individual_max = "output_files/txt/igseq-pilot-nseq-init-individual-max.txt",
-        nseq_replicate_min = "output_files/txt/igseq-pilot-nseq-init-replicate-min.txt",
-        nseq_replicate_max = "output_files/txt/igseq-pilot-nseq-init-replicate-max.txt",
-        nseq_total = "output_files/txt/igseq-pilot-nseq-init-total.txt",
 
 rule igseq_pilot_read_survival:
     input: "input_files/data/changeo/survival/pilot-survival.tsv"
@@ -193,6 +181,8 @@ rule igseq_pilot_segment_metrics:
         n_vj_max =  "output_files/txt/igseq-pilot-vj-n-max.txt",
         pc_vj_min =  "output_files/txt/igseq-pilot-vj-pc-min.txt",
         pc_vj_max =  "output_files/txt/igseq-pilot-vj-pc-max.txt",
+        vj_p20_min = "output_files/txt/igseq-pilot-vj-p20-min.txt",
+        vj_p20_max = "output_files/txt/igseq-pilot-vj-p20-max.txt",
     params:
         aux = aux_dir
     log: "log_files/igseq-pilot-segment-metrics.dbg"
@@ -265,6 +255,17 @@ rule igseq_pilot_junctional_nn:
         aux = aux_dir
     log: "log_files/igseq-pilot-junctional-n.dbg"
     script: os.path.join(script_dir, "igseq-pilot-junctional-n.R")
+
+rule igseq_pilot_igor_seqs:
+    input: "input_files/data/changeo/db/pilot-igor.tab"
+    output:
+        min = "output_files/txt/igseq-pilot-igor-seqs-min.txt",
+        max = "output_files/txt/igseq-pilot-igor-seqs-max.txt",
+        sum = "output_files/txt/igseq-pilot-igor-seqs-sum.txt",
+    params:
+        aux = aux_dir
+    log: "log_files/igseq-pilot-igor-seqs.dbg"
+    script: os.path.join(script_dir, "igseq-pilot-igor-seqs.R")
 
 igseq_pilot_figures_new = ["igseq-pilot-read-survival-init",
             "igseq-pilot-functional-prop", "igseq-pilot-functional-vscores",
@@ -341,12 +342,12 @@ rule igseq_ageing_clone_counts:
         prop = "output_files/figures/svg/igseq-ageing-clone-proportions.svg",
         sizes = "output_files/figures/svg/igseq-ageing-clone-sizes.svg",
         has_clone = "output_files/txt/igseq-ageing-pc-seq-assigned-clones.txt",
-        clones_indiv_min = "output_files/txt/igseq-ageing-clones-individual-min.txt",
-        clones_indiv_max = "output_files/txt/igseq-ageing-clones-individual-max.txt",
-        clones_indiv_med = "output_files/txt/igseq-ageing-clones-individual-med.txt",
-        clones_indiv_min_pilot = "output_files/txt/igseq-ageing-clones-individual-min-pilot.txt",
-        clones_indiv_max_pilot = "output_files/txt/igseq-ageing-clones-individual-max-pilot.txt",
-        counts_kruskal = "output_files/txt/igseq-ageing-clones-kruskal-p.txt",
+        clones_indiv_min = "output_files/txt/igseq-ageing-nclones-individual-min.txt",
+        clones_indiv_max = "output_files/txt/igseq-ageing-nclones-individual-max.txt",
+        clones_indiv_med = "output_files/txt/igseq-ageing-nclones-individual-med.txt",
+        clones_indiv_min_pilot = "output_files/txt/igseq-ageing-nclones-individual-min-pilot.txt",
+        clones_indiv_max_pilot = "output_files/txt/igseq-ageing-nclones-individual-max-pilot.txt",
+        counts_kruskal = "output_files/txt/igseq-ageing-nclones-kruskal-p.txt",
         pc_1count = "output_files/txt/igseq-ageing-clones-pc-1count.txt",
         pc_small = "output_files/txt/igseq-ageing-clones-pc-small.txt",
         seq_small = "output_files/txt/igseq-ageing-pc-seq-in-small-clones-avg.txt",
@@ -543,11 +544,11 @@ rule igseq_gut_clone_counts:
         comparative = "output_files/figures/svg/igseq-nclones-comparative.svg",
         nclones = "output_files/figures/svg/igseq-gut-nclones.svg",
         has_clone = "output_files/txt/igseq-gut-pc-seq-assigned-clones.txt",
-        clones_indiv_min = "output_files/txt/igseq-gut-clones-individual-min.txt",
-        clones_indiv_max = "output_files/txt/igseq-gut-clones-individual-max.txt",
-        clones_indiv_med = "output_files/txt/igseq-gut-clones-individual-med.txt",
-        counts_kruskal_age = "output_files/txt/igseq-gut-clones-kruskal-age-p.txt",
-        counts_kruskal_group = "output_files/txt/igseq-gut-clones-kruskal-group-p.txt",
+        clones_indiv_min = "output_files/txt/igseq-gut-nclones-individual-min.txt",
+        clones_indiv_max = "output_files/txt/igseq-gut-nclones-individual-max.txt",
+        clones_indiv_med = "output_files/txt/igseq-gut-nclones-individual-med.txt",
+        counts_kruskal_age = "output_files/txt/igseq-gut-nclones-kruskal-age-p.txt",
+        counts_kruskal_group = "output_files/txt/igseq-gut-nclones-kruskal-group-p.txt",
     params:
         aux = aux_dir
     log: "log_files/igseq-gut-clone-counts.dbg"

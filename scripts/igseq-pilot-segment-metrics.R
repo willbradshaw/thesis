@@ -97,8 +97,8 @@ ggsave(plot = vj_rf, filename = outpath_rf, device = "svg", units = "cm",
 # P20
 p20_vj <- vjtab %>% filter(CLNRANK <= 20) %>% group_by(INDIVIDUAL) %>% 
   summarise(P20 = sum(CLNFREQ) * 100)
-savetxt(p20_vj %>% pull(P20) %>% min %>% round(1), "pilot-segments-vj-p20-min")
-savetxt(p20_vj %>% pull(P20) %>% max %>% round(1), "pilot-segments-vj-p20-max")
+savetxt(p20_vj %>% pull(P20) %>% min %>% round(1), outpath_vj_p20_min)
+savetxt(p20_vj %>% pull(P20) %>% max %>% round(1), outpath_vj_p20_max)
 
 # Theoretical and actual VJ combinations
 n_vj_theoretical <- nrow(v_names) * nrow(j_names)
