@@ -59,7 +59,7 @@ make_sublocus_tab <- function(id_table, seqs_igh1, seqs_igh2){
            ISO2 = sub("-.*", "", IGH2),
            ISO = ifelse(ISO1 != ISO2, "GR", paste0("C", ISO1)),
            ISO = factor(ISO, levels = names(colours))
-    ) %>% as.tibble %>% select(-ISO1, -ISO2)
+    ) %>% as_tibble %>% select(-ISO1, -ISO2)
 }
 ch_tab_nt <- make_sublocus_tab(ch_id_nt, ch_seqs_igh1_nt, ch_seqs_igh2_nt)
 ch_tab_aa <- make_sublocus_tab(ch_id_aa, ch_seqs_igh1_aa, ch_seqs_igh2_aa)
@@ -103,7 +103,7 @@ g_ch_comb <- ch_heatmap(ch_tab_cut_comb) + facet_grid(.~TYPE)
 plot_height <- 20
 plot_ratio <- 1/1.1 * 1.65
 
-ggsave(plot = g_ch_comb, filename = outpath, device = "svg",
+ggsave(plot = g_ch_comb, filename = outpath_fig, device = "svg",
        height=plot_height,
        width = plot_height*plot_ratio, units = "cm")
 
@@ -127,7 +127,7 @@ ch_out_tab <- full_join(ch_retab_nt, ch_retab_aa, by=c("IGH1", "IGH2")) %>%
          AA = round(AA, 2)) %>%
   select(Isotype, Exon, NT, AA)
 
-#savetab(ch_out_tab, filename_base)
+savetab(ch_out_tab, outpath_tab)
 
 #------------------------------------------------------------------------------
 # CALCULATE AVERAGE IDENTITIES

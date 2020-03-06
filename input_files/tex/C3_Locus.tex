@@ -16,7 +16,7 @@ To further investigate the history of \igh{Z} and other surprising features of \
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.9\textwidth]{_Figures/png/species-tree-large-taxa}
+	\includegraphics[width=0.9\textwidth]{output_files/figures/pdf/locus-species-cladogram}
 	\Caption{Cladogram of species included in the \igh{} locus analysis}{Boldface type indicates species for which new, complete \igh{} locus assemblies were generated for this study; other species were either previously-characterised reference species (\species{G.}{aculeatus}, \species{O.}{latipes}) or underwent constant-region characterisation only (all other species). Labelled vertical bars designate higher taxa of interest.}
 	\label{fig:species-tree-large-taxa}
 \end{figure}
@@ -33,7 +33,16 @@ In order to locate and characterise the \nfu \igh{} locus, I collated databases 
 \centering
 \caption{\Nfu genome scaffolds containing putative \igh{} locus fragments}
 \begin{threeparttable}
-\input{_Figures/tables/nfu-locus-scaffolds}
+\begin{tabular}{cccccccc}\toprule
+\textbf{Scaffold} & \textbf{Total length (kb)} & \textbf{V} & \textbf{J} & \textbf{\cm{}} & \textbf{\cd{}} & \textbf{\cz{}} & \textbf{Included in locus?}\\\midrule
+chr6 & 6195.6 & 15 & 7 & 5 & 11 & 0 & Yes\\\midrule
+scf10901 & 1.4 & 0 & 0 & 0 & 3 & 0 & Yes\\
+scf21863 & 13.5 & 1 & 0 & 0 & 0 & 0 & No\\
+scf35954 & 16.3 & 3 & 0 & 0 & 0 & 0 & No\\
+scf36277 & 18.9 & 2 & 1 & 0 & 0 & 0 & No\\
+scf37083 & 17.7 & 1 & 0 & 0 & 0 & 0 & No\\
+scf9157 & 7.2 & 0 & 7 & 4 & 0 & 0 & Yes\\\bottomrule
+\end{tabular}
 \end{threeparttable}
 \label{tab:nfu-locus-scaffolds}
 \end{table}
@@ -42,7 +51,20 @@ In order to locate and characterise the \nfu \igh{} locus, I collated databases 
 \centering
 \caption{\Nfu BAC-library inserts containing putative \igh{} locus fragments}
 \begin{threeparttable}
-\input{_Figures/tables/nfu-locus-bacs}
+\begin{tabular}{cccccccc}\toprule
+\textbf{BAC ID} & \textbf{Insert length (kb)} & \textbf{V} & \textbf{J} & \textbf{\cm{}} & \textbf{\cd{}} & \textbf{\cz{}} & \textbf{Included in locus?}\\\midrule
+154G24 & 106.6 & 17 & 1 & 0 & 0  & 0 & No\\
+162F04 & 119.4 & 5  & 1 & 0 & 0  & 0 & No\\
+165M01 & 110.7 & 15 & 1 & 0 & 0  & 0 & Yes\\
+206K13 & 106.7 & 17 & 1 & 0 & 0  & 0 & No\\
+208A08 & 103.2 & 17 & 1 & 0 & 0  & 0 & Yes\\
+209K12 & 133.0 & 1  & 8 & 4 & 20 & 0 & Yes\\
+220O06 & 104.8 & 4  & 1 & 0 & 0  & 0 & No\\
+223M21 & 99.3  & 17 & 1 & 0 & 0  & 0 & No\\
+248A22 & 47.3  & 7  & 0 & 0 & 0  & 0 & No\\
+276N03 & 127.9 & 7  & 0 & 0 & 0  & 0 & Yes\\
+277J10 & 120.8 & 17 & 1 & 0 & 0  & 0 & Yes\\
+\bottomrule\end{tabular}
 \end{threeparttable}
 \label{tab:nfu-locus-bacs}
 \end{table}
@@ -53,7 +75,7 @@ Having obtained complete insert sequences for promising BAC candidates, I screen
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{_Figures/png/nfu-locus-aln}
+\includegraphics[width=\textwidth]{output_files/figures/pdf/locus-nfu-aln}
 \Caption{Assembling the \nfu \igh{} locus}{Schematic of genome scaffolds and BAC inserts contributing to the \Nfu \igh{} locus sequence, with their corresponding place within the locus sequence (bottom axis). Internal gaps with dotted lines indicate regions on chromosome 16 with no corresponding locus sequence, as a result of intercalation of BAC or scaffold sequences.}
 \label{fig:nfu-locus-aln}
 \end{figure}
@@ -69,7 +91,7 @@ The two subloci in the turquoise-killifish locus are generally highly similar in
 	
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{_Figures/png/nfu-locus-map}
+	\includegraphics[width=\textwidth]{output_files/figures/pdf/locus-nfu-map}
 			    \begin{subfigure}{0em}
         \phantomsubcaption{}
         \label{fig:nfu-locus-map-a}
@@ -88,7 +110,7 @@ The two subloci in the turquoise-killifish locus are generally highly similar in
 	
 \begin{figure}
 	\centering
-	\includegraphics[width=0.9\textwidth]{_Figures/png/nfu-locus-dots}
+	\includegraphics[width=0.9\textwidth]{output_files/figures/pdf/locus-nfu-dots}
 	\Caption{Sequence homology between subloci in \Nfu \igh{}}{Synteny dot plot of sequential best matches between \igh{1} and \igh{2} subloci, with gene segment regions indicated by coloured rectangles along each axis.}
 	\label{fig:nfu-locus-synteny}
 \end{figure}
@@ -134,7 +156,7 @@ In order to investigate constant regions in the \nfu \igh{} locus, I identified 
         \phantomsubcaption{}
         \label{fig:teleost-igm-exons-e}
     \end{subfigure}
-	\includegraphics[width=0.8\textwidth]{_Figures/png_edited/teleost-igm-exons}
+	\includegraphics[width=0.8\textwidth]{output_files/figures/pdf/locus-teleost-igm-exons}
 	\Caption{\igh{M} exon usage in bony vertebrates}{Schematic of \igh{M} splice patterns in different isoforms and taxonomic groups; (A) standard genomic (pre-splicing) configuration of \igh{M}, following VDJ recombination; (B) exon configuration of secreted \igh{M} (\igh{M-S}) in tetrapods and teleosts; (C) exon configuration of transmembrane \igh{M} (\igh{M-TM}) in tetrapods, demonstrating the use of a cryptic splice site in \cm{4}; (D) standard \igh{M-TM} exon configuration in teleosts, demonstrating the direct splicing of \cm{3} to TM1 and exclusion of \cm{4}; (E) unusual \igh{M-TM} exon configuration observed in medaka, in which both \cm{3} and \cm{4} are excluded. Adapted from Figure 3 of \parencite{fillatreau2013astonishing}.}
 	\label{fig:teleost-igm-exons}
 	\end{figure}
@@ -149,21 +171,21 @@ In order to investigate constant regions in the \nfu \igh{} locus, I identified 
         \phantomsubcaption{}
         \label{fig:nfu-locus-sashimi-b}
     \end{subfigure}
-	\includegraphics[width=\textwidth]{_Figures/png/nfu-locus-sashimi}
+	\includegraphics[width=\textwidth]{output_files/figures/pdf/locus-nfu-sashimi}
 	\Caption{Constant-region isoforms in \Nfu}{Coverage and Sashimi plots \parencite{katz2013sashimi} of \program{STAR}-aligned RNA-seq reads from \Nfu gut samples \parencite{smith2017microbiota}, demonstrating the splicing behaviour of \igh{1} constant-region isoforms and showing the read coverage of each exon and splice junction. (A) \igh{M} exon splicing, showing alternative splicing patterns of \igh{M-TM} and \igh{M-S}; (B) \igh{D} exon splicing, showing chimeric splicing of \cm{1} to \cd{1}.}
 	\label{fig:nfu-locus-sashimi}
 	\end{figure}
 	
 	\begin{figure}
 	\centering
-	\includegraphics[width = \textwidth]{_Figures/png/nfu-ch-aln}
+	\includegraphics[width = \textwidth]{output_files/figures/pdf/locus-nfu-ch-aln}
 	\Caption{Cross-sublocus sequence similarity of constant-region exons in \Nfu \igh{}}{Heatmap of percentage sequence identity between amino-acid (left) and nucleotide (right) sequences of constant-region exons (excluding \igh{M-TM2} and \igh{D-TM2}) from the two subloci of \Nfu \igh{}, calculated using pairwise Needleman-Wunsch global alignments.}
 	\label{fig:nfu-ch-aln}
 	\end{figure}
 	
 	\begin{table}\centering
 		\Caption{Cross-sublocus sequence similarity of constant-region exons in \Nfu}{Percentage sequence identities of pairwise Needleman-Wunsch global alignments between nucleotide (NT) or amino-acid (AA) sequences of corresponding exons from the two subloci of \Nfu \igh{}.}
-	\input{_Figures/tables/nfu-ch-aln}
+	\input{output_files/tables/locus-nfu-ch-aln}
 	\label{tab:nfu-ch-aln}
 	\end{table}
 	
@@ -221,7 +243,7 @@ Nevertheless, as is clear from \Cref{fig:nfu-locus-synteny}, there are large por
     \phantomsubcaption{}
     \label{fig:nfu-vh-families-b}
     \end{subfigure}
-	\includegraphics[width=0.8\textwidth]{_Figures/png/nfu-vh-families.png}
+	\includegraphics[width=0.8\textwidth]{output_files/figures/pdf/locus-nfu-vh-families}
 	\Caption{\vh families in the \Nfu \igh{} locus}{(A) Dendrogram of sequence similarity of \vh segments in the \Nfu \igh{} locus, arranged by single-linkage clustering on nucleotide sequence identity. The red line indicates the 80\,\% cutoff point for family assignment. (B) Heatmap of family relationships among \Nfu \vh segments, with shaded squares indicating families and red dots indicating pairwise nucleotide sequence identity of at least 80\,\%. In both subfigures, \vh families containing multiple segments are uniquely coloured, single-segment families are in grey, and segments from the \igh{2} sublocus are displayed in boldface.}
 	\label{fig:nfu-vh-families}
 	\end{figure}
@@ -237,14 +259,14 @@ Nevertheless, as is clear from \Cref{fig:nfu-locus-synteny}, there are large por
     \phantomsubcaption{}
     \label{fig:nfu-dj-alignment-b}
     \end{subfigure}
-\includegraphics[width=0.6\textwidth]{_Figures/png/nfu-dj-aln}
+\includegraphics[width=0.6\textwidth]{output_files/figures/pdf/locus-nfu-dj-aln}
 \Caption{Cross-sublocus sequence similarity of \dh and \jh gene segments in \Nfu \igh{}}{Heatmap of percentage nucleotide sequence identities of Needleman-Wunsch global alignments between (A) \dh and (B) \jh gene segments in \igh{1} vs \igh{2}, revealing syntenic runs of highly similar sequences across both subloci.}
 \label{fig:nfu-dj-alignment}
 \end{figure}	
 	
 	\begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{_Figures/png/nfu-rss-seqlogo-all}
+	\includegraphics[width=\textwidth]{output_files/figures/pdf/locus-nfu-rss-seqlogo-all}
 	\Caption{Recombination signal sequences in \Nfu \igh{}}{(A) Sequence composition of conserved heptamer sequences across all \Nfu heavy-chain RSSs; (B) length distribution of unconserved spacer sequences in \Nfu heavy-chain RSSs; (C) sequence composition of conserved heptamer sequences across all \Nfu heavy-chain RSSs.}
 	\label{fig:nfu-rss-seqlogo-all}
 	\end{figure}
@@ -272,7 +294,7 @@ Even cursory examination of the \Xma \igh{} locus is therefore sufficient to rev
  
 	\begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{_Figures/png/xma-new-locus-map}
+	\includegraphics[width=\textwidth]{output_files/figures/pdf/locus-xma-map}
 	\Caption{The immunoglobulin heavy chain (\igh{}) locus in \xma}{(A) Position of the \igh{} locus on chromosome (group) 16 of the \Xma genome. (B) Arrangement of \vh, \dh, \jh and constant-region gene segments on the \Xma \igh{} locus. (C) Detailed map of the \igh{Z1}, \igh{Z2} and \igh{M/D} constant regions, indicating the position and identity of the constant-region exons and the exon composition of expressed \igh{} isoforms in \Xma. Note change of orientation between subfigures (A) and (B-C).}
 	\begin{subfigure}{0em}
         \phantomsubcaption{}
@@ -291,7 +313,7 @@ Even cursory examination of the \Xma \igh{} locus is therefore sufficient to rev
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{_Figures/png/species-tree-small}
+\includegraphics[width=\textwidth]{_output_files/figures/pdf/locus-species-phenotypes}
 \vspace{0.5em}
 \Caption{Important \igh{} phenotypes in turquoise killifish, southern platyfish, and medaka}{Cladogram of the evolutionary relationship between southern platyfish (\xma), turquoise killifish (\nfu) and medaka (\species{Oryzias}{latipes}), with three-spined stickleback (\species{Gasterosteus}{aculeatus}) as an outgroup. The state of various \igh{} phenotypes of interest are annotated to the right of the tree; states deviating from the expected teleost configuration are in bold.}
 \label{fig:species-tree-small}
@@ -305,7 +327,7 @@ As discussed briefly in \Cref{sec:xma-locus-structure}, the \Xma \igh{} locus co
 \begin{table}
 	\centering
 	\Caption{Sequence similarity between \igh{Z} constant-regions in \Xma}{Percentage sequence identities of pairwise Needleman-Wunsch global alignments between nucleotide (NT) or amino-acid (AA) sequences of corresponding \cz{} exons from the two \igh{Z} constant regions of \Xma \igh{}.}
-	\input{_Figures/tables/xma-new-cz-aln}
+	\input{output_files/tables/locus-xma-cz-aln}
 	\label{tab:xma-cz-aln}
 \end{table}
 
@@ -316,7 +338,7 @@ In order to investigate the expressed isoforms present in \Xma, I aligned publis
 Meanwhile, the results for \igh{D} (\Cref{fig:xma-locus-sashimi-d}) indicate a similar configuration to that observed in turquoise killifish, with a chimeric \cm{1} followed by 10 \cd{} exons and two transmembrane exons; as in \Nfu, neither a dedicated \igh{D} secretory exon nor a post-\cd{7} secretory tail was identified, suggesting that \igh{D} may be produced solely in transmembrane form in \Xma. Secretory \igh{M} (\igh{M-S}) was also found to occupy the same four-exon configuration seen in turquoise killifish and elsewhere. However, the configuration observed for transmembrane \igh{M} (\igh{M-TM}) did not correspond to the four-exon structure shared between turquoise killifish and medaka (\Cref{fig:xma-locus-sashimi-m,fig:nfu-locus-sashimi-a}); rather, \igh{M-TM} in \Xma occupies the five-exon configuration seen in most characterised teleosts (\Cref{fig:teleost-igm-exons-d}). This surprising difference indicates that two different splice configurations of \igh{M-TM} persist in the cyprinodontiform lineage, and raises the question of what, if any, functional difference arises from the presence or absence of \cm{3} in transmembrane \igh{M} in different species. However, it remains unclear whether this pattern of exon usage (\Cref{fig:species-tree-small}) is the result of independent changes in medaka and turquoise killifish or of a reversion in \Xma to the primitive teleost configuration.
 	
 \begin{figure}
-	\includegraphics[width=\textwidth]{_Figures/png/xma-new-locus-sashimi}
+	\includegraphics[width=\textwidth]{output_files/figures/pdf/locus-xma-sashimi}
 	    \begin{subfigure}{0em}
         \phantomsubcaption{}
         \label{fig:xma-locus-sashimi-z1}
@@ -363,7 +385,7 @@ Finally, as is the case with \Nfu, the recombination signal sequences (RSSs) in 
         \phantomsubcaption{}
         \label{fig:xma-rss-seqlogo-all-nonamer}
     \end{subfigure}
-	\includegraphics[width=\textwidth]{_Figures/png/xma-new-rss-seqlogo-all}
+	\includegraphics[width=\textwidth]{output_files/figures/pdf/locus-xma-rss-seqlogo-all}
 	\Caption{Recombination signal sequences in the \Xma \igh{} locus}{(A) Sequence composition of conserved heptamer sequences across all \Xma heavy-chain RSSs; (B) length distribution of unconserved spacer sequences in \Xma heavy-chain RSSs; (C) sequence composition of conserved heptamer sequences across all \Xma heavy-chain RSSs.}
 	\label{fig:xma-rss-seqlogo-all}
 	\vspace{1em}
@@ -371,14 +393,14 @@ Finally, as is the case with \Nfu, the recombination signal sequences (RSSs) in 
 	
 	\begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{_Figures/png/xma-vh-families-tree}
+	\includegraphics[width=\textwidth]{output_files/figures/pdf/locus-xma-vh-families-tree}
 	\Caption{Dendrogram of \vh families in the \Xma \igh{} locus}{Dendrogram of sequence similarity of \vh segments in the \Xma locus, arranged by single-linkage clustering on nucleotide sequence identity. The red line indicates the 80\,\% cutoff point for family assignment, while branch colour indicates family membership:  \vh families containing multiple segments are uniquely coloured, while single-segment families are in grey.}
 	\label{fig:xma-vh-families-tree}
 	\end{figure}
 	
 	\begin{figure}
 	\centering
-	\includegraphics[width=0.8\textwidth]{_Figures/png/nfu-xma-vh-tree-nt.png}
+	\includegraphics[width=0.8\textwidth]{output_files/figures/pdf/locus-comp-vh-tree}
 	\Caption{Evolutionary relationships between \vh families in \Xma and \Nfu}{Phylogenetic tree of evolutionary relationships between \igh{} \vh segments in \Nfu and \Xma, as inferred from the nucleotide sequences of \vh segments from both loci. Note the close interrelationship between the largest \vh families in each species (red zone), and similarly between the second-largest families in each species (blue zone). The red diamond indicates the location of the outgroup, which is composed of zebrafish \textit{TRB} V-segments.}
 	\label{fig:nfu-xma-vh-tree-nt}
 	\end{figure}
@@ -397,7 +419,22 @@ In order to investigate a subset of these questions with a greater degree of phy
 \begin{table}[bh!]
 \centering
 \begin{threeparttable}
-\input{_Figures/tables/cyprinodontiform-genomes}
+\begin{tabular}{>{\itshape}l>{\itshape}llc}\toprule
+\textnormal{\textbf{Genus}} & \textnormal{\textbf{Species}} & \textbf{Common Name} & \textbf{GenBank Assembly Accession}\\\midrule
+Nothobranchius & furzeri & Turquoise killifish & NA\tnote{1}\\\midrule
+Xiphophorus & maculatus & Southern platyfish & GCA\_002775205.2\\
+Austrofundulus & limnaeus & -- & GCA\_001266775.1\\
+Fundulus & heteroclitus & Mummichog & GCA\_000826765.1\\
+Poecilia & formosa & Amazon molly & GCA\_000485575.1\\
+Poecilia & reticulata & Guppy & GCA\_000633615.1\\
+Cyprinodon & variegatus & Sheepshead minnow & GCA\_000732505.1\\
+Kryptolebias & marmoratus & Mangrove rivulus & GCA\_001649575.1\\\midrule
+Aphyosemion & australe & Lyretail panchax & NA\tnote{2}\\
+Callopanchax & toddi & -- & NA\tnote{2}\\
+Pachypanchax & playfairii & Golden panchax & NA\tnote{2}\\
+Nothobranchius & orthonotus & Spotted killifish & NA\tnote{2}\\\midrule
+Oryzias & latipes & Medaka & GCA\_002234675.1\\
+\bottomrule\end{tabular}
 \begin{tablenotes}
 \item[1] Willemsen \textit{et al.} \parencite{willemsen2019popgen}
 \item[2] Cui \textit{et al.} \parencite{cui2019annual}
@@ -410,7 +447,7 @@ In order to investigate a subset of these questions with a greater degree of phy
 
 \begin{figure}
 \centering
-\includegraphics[width=0.9\textwidth]{_Figures/png_edited/multispecies-ch-regions}
+\includegraphics[width=0.9\textwidth]{output_files/figures/pdf/locus-multispecies-ch-regions}
 \Caption{Constant-region organisation in the Atherinomorpha}{Schematic of \igh{} constant regions in the genomes of thirteen species from the Atherinomorpha. Scaffold orientation is given by the black arrows; constant regions are oriented left-to-right unless otherwise specified (red arrows). Links between regions on different scaffolds indicate that exons from what appears to be the same constant region are distributed across multiple scaffolds in the order indicated; the order of unlinked scaffolds is arbitrary. The isotype of each region is given by its colour; \igh{Z} regions are further annotated with their subclass (\Cref{fig:species-tree-large-ighz}). Clearly pseudogenised constant regions are indicated by $\Psi$. Isotype length, scaffold length, and scaffold position are not to scale. Variable regions and lone, isolated constant-region exons are not shown.}
 \label{fig:multispecies-ch-regions}
 \end{figure}
@@ -419,7 +456,7 @@ In addition to at least one \igh{M} and \igh{D} constant region, the majority of
 
 \begin{figure}
 \centering
-\includegraphics[width=0.9\textwidth]{_Figures/png/species-tree-large-ighz}
+\includegraphics[width=0.9\textwidth]{output_files/figures/pdf/locus-species-cladogram-ighz}
 \Caption{\igh{Z} has been lost multiple times independently in the Atherinomorpha}{Cladogram of species reproduced from \Cref{fig:species-tree-large-taxa}, annotated according to the known (tip nodes) or inferred (internal nodes) presence or absence of intact \igh{Z} constant regions in each species. Large coloured points on the cladogram denote sites of hypothesised state changes; \igh{Z} is assumed to be primitively present in the clade and losses to be irreversible. The currently-available genome assembly of \textit{A. limnaeus} (dark pink) contains one pseudogenised \igh{Z-TM1} exon and no \cz{} exons.}
 \label{fig:species-tree-large-ighz}
 \end{figure}
@@ -428,14 +465,14 @@ Apart from its repeated loss within the lineage, a second striking feature of \i
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.9\textwidth]{_Figures/png/multispecies-cz-tree}
+	\includegraphics[width=0.9\textwidth]{output_files/figures/pdf/locus-comp-cz-tree}
 	\Caption{\igh{Z} constant regions in the Cyprinodontiformes constitute three distinct subclasses}{Phylogram of concatenated \cz{1}--\cz{4} nucleotide sequences from \igh{Z}-bearing species in \Cref{tab:cyprinodontiform-genomes}, with \cm{1}--\cm{4} sequences from two species as an outgroup (in orange). Nodes with bootstrap support of less than 65\,\% are collapsed into polytomies. Major clades (A--C) are annotated on the right. Support values indicate the result of rapid bootstrapping by \program{RAxML} across 1000 replicates.}
 	\label{fig:multispecies-cz-tree}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.8\textwidth]{_Figures/png/multispecies-cz-subclasses}
+\includegraphics[width=0.8\textwidth]{output_files/figures/pdf/locus-species-cladogram-cz-subclasses}
 \begin{minipage}{0.7\textwidth}
 \footnotesize
 \begin{threeparttable}
@@ -453,7 +490,7 @@ Only one \igh{Z} constant region from the analysed species could not be confiden
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.8\textwidth]{_Figures/png/ppl-cz-aln-aa.png}
+	\includegraphics[width=0.8\textwidth]{output_files/figures/pdf/locus-ppl-cz-aln}
 	\Caption{Subclass affinity of \igh{Z} in \species{Pachypanchax}{playfairii}}{Boxplots of Needleman-Wunsch alignment scores between the amino-acid sequences of \species{P.}{playfairii} \cz{} exons and those of seven other \igh{Z}-bearing cyprinodontiform species, demonstrating the differing affinity of different \species{P.}{playfairii} exons for each of the three \igh{Z} subclasses. Pairwise $p$-values were computed using nonparametric Mann-Whitney $U$ tests ($*: 0.01 < p \leq 0.05;~**: 0.001 < p \leq 0.01;~***: p \leq 0.001$).}
 	\label{fig:ppl-cz-aln}
 \end{figure}

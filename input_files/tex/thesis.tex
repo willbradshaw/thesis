@@ -1,0 +1,84 @@
+% ******************************* PhD Thesis Template **************************
+% Please have a look at the README.md file for info on how to use the template
+
+% **************************** Formatting & Metadata ***************************
+
+\documentclass[a4paper,12pt,print]{input_files/cls/thesis}
+%\documentclass[a4paper,12pt,print]{input_files/cls/thesis2}
+% See README.md for option details
+
+\input{input_files/tex/A1_preamble} %Contains packages and user-defined commands and settings
+%
+%% ************************ Thesis Information & Meta-data **********************
+%
+\input{input_files/tex/A2_thesis-info} % Thesis title and author information, other metadata
+
+% ***************************** Chapter Mode ***********************************
+% The chapter mode allows user to only print particular chapters with references
+% Title, Contents, Frontmatter are disabled by default
+% Useful option to review a particular chapter or to send it to supervisior.
+% To use choose `chapter' option in the document class
+
+\ifdefineChapter
+\include{input_files/tex/C1_Introduction}
+\fi
+
+\begin{document}
+\maketitle
+
+%% ******************************** Front Matter ********************************
+%% Dedication, abstracts, acknowledgements etc. - do this last.
+
+\frontmatter
+\include{input_files/tex/B1_dedication}
+\include{input_files/tex/B2_abstract-de}
+\include{input_files/tex/B3_abstract-en}
+\include{input_files/tex/B4_acknowledgements}
+\include{input_files/tex/B5_abbreviations}
+
+%% *********************** Adding TOC and List of Figures ***********************
+%%%
+\renewcommand{\baselinestretch}{0.9}%
+\tableofcontents%
+\renewcommand{\baselinestretch}{1.0}%
+%%
+\listoffigures
+%%
+\listoftables
+%%
+\setlength{\glslistdottedwidth}{4cm}
+\setglossarystyle{listdotted}
+\printglossary[title={List of abbreviations},nonumberlist=true,nogroupskip=true]
+
+%% ******************************** Main Matter *********************************
+\mainmatter\onehalfspacing
+%
+\include{input_files/tex/C1_Introduction}
+\include{input_files/tex/C2_Methods}
+\include{input_files/tex/C3_Locus}
+\include{input_files/tex/C4_IgSeq}
+\include{input_files/tex/C5_Conclusion}
+
+% ********************************** Bibliography ******************************
+
+\begin{spacing}{0.9}
+\printbibliography[heading=bibintoc, title={References}]
+\end{spacing}
+
+% ********************************** Appendices ********************************
+
+\begin{appendices} % Using appendices environment for more functionality
+\appendix
+\include{input_files/tex/D1_Solutions}
+\include{input_files/tex/D2_Primers}
+\include{input_files/tex/D3_Diversity}
+\include{input_files/tex/D4_Figures}
+\include{input_files/tex/D5_Tables}
+\end{appendices}
+
+% ******************************** CV & Declaration ****************************
+\include{input_files/tex/E1_Declaration}
+\include{input_files/tex/E2_Lebenslauf}
+
+\glsaddallunused
+\end{document}

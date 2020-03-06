@@ -1,0 +1,96 @@
+%\afterpage{\begin{landscape}
+
+\chapter{Primers and oligonucleotides}
+\label{app:oligos}
+
+\section{Template-switch-adapter oligos for reverse transcription}
+\label{app:oligos_tsa}
+
+\begin{threeparttable}
+\begin{tabular}{cp{11cm}cc}\toprule
+\textbf{Name} & \textbf{Sequence} & \textbf{Source} \\\midrule
+SmartNNNa & AAGCAGUGGTAUCAACGCAGAGUNNNNUNNNNUNNNNUCTTrGrGrGrG & \parencite{turchaninova2016igprep}\\
+\bottomrule
+\end{tabular}
+\end{threeparttable}
+
+\section{PCR and reverse-transcription primers}
+\label{app:oligos_primers}
+
+\begin{threeparttable}
+\begin{tabular}{cp{7cm}cccc}\toprule
+\textbf{Name} & \textbf{Sequence} & \textbf{Purpose} & \textbf{Source}\tnote{a} \\\midrule
+\multirow{2}{*}{RT1} & \multirow{2}{*}{TGGTCTTGCCAGCTGGTGATTTCCGCC} & \igseq \cm{2} & \multirow{2}{*}{--} \\
+ & & reverse-transcription primer & \\\midrule
+M1SS & AAGCAGTGGTATCAACGCA & \igseq PCR1 forward primer & \parencite{turchaninova2016igprep} \\
+IGH-B & CCACATGGCACCAGAGGAAAC & \igseq PCR1 reverse primer & --\\
+M1S+P2 & GTGACTGGAGTTCAGACGTGTGCTCTTC--CGATCTCAGTGGTATCAACGCAGAG  & \igseq PCR2 forward primer & \parencite{turchaninova2016igprep} \\ % Plus Illumina adapters
+IGH-C+P1 & ACACTCTTTCCCTACACGACGCTCTTC--CGATCTATGGCACCAGAGGAAACACAAC & \igseq PCR2 reverse primer & --\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item[a] Items without a specified source were designed by the author using \program{Primer3} \parencite{untergasser2012primer3}.
+\end{tablenotes}
+\end{threeparttable}
+
+\newpage
+\section{Illumina TruSeq adaptor sequences}
+\label{app:oligos_illumina}
+
+\subsection*{P1/i5 adaptor sequences}
+
+\begin{tabular}{rm{10cm}}
+\textbf{Base sequence:} & AATGATACGGCGACCACCGAGATCTACAC\textbf{NNNNNNNN}--ACACTCTTTCCCTACACGACGC\\
+\textbf{Index sequences:} & \\
+\end{tabular}\vspace{-2ex}
+
+\begin{center}
+\begin{threeparttable}
+\begin{tabular}{cccc}\toprule
+\textbf{Name} & \textbf{Index sequence}\tnote{a}\\\midrule
+D501 & AGGCTATA\\
+D502 & GCCTCTAT\\
+D503 & AGGATAGG\\
+D504 & TCAGAGCC\\
+D505 & CTTCGCCT\\
+D506 & TAAGATTA\\
+D507 & ACGTCCTG\\
+D508 & GTCAGTAC\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item[a] \parencite{illumina2018adapters}
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+
+\subsection*{P2/i7 adaptor sequences}
+
+\begin{tabular}{rm{10cm}}
+\textbf{Base sequence:} & ACAAGCAGAAGACGGCATACGAGAT\textbf{NNNNNNNN}--GTGACTGGAGTTCAGACGTGTGC\\
+\textbf{Index sequences:} & \\
+\end{tabular}\vspace{-2ex}
+
+\begin{center}
+\begin{threeparttable}
+\begin{tabular}{cccc}\toprule
+\textbf{Name} & \textbf{Index sequence}\tnote{a}\\\midrule
+D701 & CGAGTAAT\\
+D702 & TCTCCGGA\\
+D703 & AATGAGCG\\
+D704 & GGAATCTC\\
+D705 & TTCTGAAT\\
+D706 & ACGAATTC\\
+D707 & AGCTTCAG\\
+D708 & GCGCATTA\\
+D709 & CATAGCCG\\
+D710 & TTCGCGGA\\
+D711 & GCGCGAGA\\
+D712 & CTATCGCT\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item[a] \parencite{illumina2018adapters}
+\end{tablenotes}
+\end{threeparttable}
+\end{center}

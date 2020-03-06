@@ -5,7 +5,7 @@
 rule locus_species_cladogram:
     input:
         tree = "input_files/data/trees/species-tree-cladogram.tre",
-        annot = "input_files/data/species_data/species-tree-large.csv"
+        annot = "input_files/data/species_data/species-tree-large.csv",
     output: "output_files/figures/svg/locus-species-cladogram.svg"
     params:
         aux = aux_dir
@@ -68,7 +68,7 @@ rule locus_nfu_map:
         jh   = "input_files/data/ranges/nfu/nfu-jh-ranges.tsv",
         ch   = "input_files/data/ranges/nfu/nfu-ch-ranges.tsv",
     output: "output_files/figures/svg/locus-nfu-map.svg"
-    log: "log_files/locus-nfu-nfu.dbg"
+    log: "log_files/locus-nfu-map.dbg"
     params:
         aux = aux_dir
     script: os.path.join(script_dir, "locus-nfu-map.R")
@@ -103,7 +103,9 @@ rule locus_nfu_ch_aln:
     input:
         nt = "input_files/data/constant/nfu/nfu_ch_nt_exons.fasta",
         aa = "input_files/data/constant/nfu/nfu_ch_aa_exons.fasta",
-    output: "output_files/figures/svg/locus-nfu-ch-aln.svg"
+    output:
+        fig = "output_files/figures/svg/locus-nfu-ch-aln.svg",
+        tab = "output_files/tables/locus-nfu-ch-aln.tex",
     log: "log_files/locus-nfu-ch-aln.dbg"
     params:
         aux = aux_dir
@@ -272,41 +274,117 @@ rule locus_comp_ch_tree:
     script: os.path.join(script_dir, "locus-comp-ch-tree.R")
 
 #-----------------------------------------------------------------------------
-# Collate all figures
+# Co-ordinate tables etc
 #-----------------------------------------------------------------------------
 
-rule convert_svg_pdf:
-    """Convert SVG figures to PDF for display."""
-    input: "output_files/figures/svg/{name}.svg"
-    output: "output_files/figures/pdf/{name}.pdf"
-    shell:
-        "rsvg-convert -f pdf -o {output} {input}"
+rule locus_nfu_segment_tables:
+    """Generate co-ordinate tables for NFu IGH gene segments."""
+    input:
+        locus = "input_files/data/loci/complete/nfu.fasta",
+        vh_nt = "input_files/data/segments/nfu/nfu_vh_nt_annotated.fasta",
+        dh_nt = "input_files/data/segments/nfu/nfu_dh_nt.fasta",
+        jh_nt = "input_files/data/segments/nfu/nfu_jh_nt.fasta",
+        jh_aa = "input_files/data/segments/nfu/nfu_jh_aa.fasta",
+        ch_nt = "input_files/data/constant/nfu/nfu_ch_nt_exons.fasta",
+        vh_rss = "input_files/data/rss/nfu/nfu_vh_rss.fasta",
+        dh_rss = "input_files/data/rss/nfu/nfu_dh_rss.fasta",
+        jh_rss = "input_files/data/rss/nfu/nfu_jh_rss.fasta",
+    output:
+        ch = "output_files/tables/locus-nfu-ch-coords.tex",
+        vh = "output_files/tables/locus-nfu-vh-coords.tex",
+        dh_seg = "output_files/tables/locus-nfu-dh-coords-seg.tex",
+        dh_rss5 = "output_files/tables/locus-nfu-dh-coords-rss5.tex",
+        dh_rss3 = "output_files/tables/locus-nfu-dh-coords-rss3.tex",
+        jh_seg = "output_files/tables/locus-nfu-jh-coords-seg.tex",
+        jh_rss = "output_files/tables/locus-nfu-jh-coords-rss.tex",
+    log: "log_files/locus-nfu-segment-tables.dbg"
+    params:
+        aux = aux_dir
+    script: os.path.join(script_dir, "locus-nfu-segment-tables.R")
 
-rule convert_svg_pdf_raw:
-    """Convert handmade SVG figures to PDF for display."""
-    input: "input_files/figures_raw/{name}.svg"
-    output: "output_files/figures/pdf/{name}.pdf"
-    shell:
-        "rsvg-convert -f pdf -o {output} {input}"
+rule locus_xma_segment_tables:
+    """Generate co-ordinate tables for xma IGH gene segments."""
+    input:
+        locus = "input_files/data/loci/complete/xma.fasta",
+        vh_nt = "input_files/data/segments/xma/xma_vh_nt_annotated.fasta",
+        dh_nt = "input_files/data/segments/xma/xma_dh_nt.fasta",
+        jh_nt = "input_files/data/segments/xma/xma_jh_nt.fasta",
+        jh_aa = "input_files/data/segments/xma/xma_jh_aa.fasta",
+        ch_nt = "input_files/data/constant/xma/xma_ch_nt.fasta",
+        vh_rss = "input_files/data/rss/xma/xma_vh_rss.fasta",
+        dh_rss = "input_files/data/rss/xma/xma_dh_rss.fasta",
+        jh_rss = "input_files/data/rss/xma/xma_jh_rss.fasta",
+    output:
+        ch = "output_files/tables/locus-xma-ch-coords.tex",
+        vh1 = "output_files/tables/locus-xma-vh-coords-1.tex",
+        vh2 = "output_files/tables/locus-xma-vh-coords-2.tex",
+        vh3 = "output_files/tables/locus-xma-vh-coords-3.tex",
+        vh4 = "output_files/tables/locus-xma-vh-coords-4.tex",
+        vh5 = "output_files/tables/locus-xma-vh-coords-5.tex",
+        dh_seg = "output_files/tables/locus-xma-dh-coords-seg.tex",
+        dh_rss5 = "output_files/tables/locus-xma-dh-coords-rss5.tex",
+        dh_rss3 = "output_files/tables/locus-xma-dh-coords-rss3.tex",
+        jh_seg = "output_files/tables/locus-xma-jh-coords-seg.tex",
+        jh_rss = "output_files/tables/locus-xma-jh-coords-rss.tex",
+    log: "log_files/locus-xma-segment-tables.dbg"
+    params:
+        aux = aux_dir
+    script: os.path.join(script_dir, "locus-xma-segment-tables.R")
 
-locus_figures_new = ["locus-species-cladogram", "locus-species-phenotypes", \
-            "locus-species-cladogram-ighz", "locus-ppl-cz-aln",\
-            "locus-species-cladogram-cz-subclasses",\
-            "locus-nfu-aln", "locus-nfu-map", "locus-nfu-dots", \
-            "locus-nfu-sashimi", "locus-nfu-vh-families", \
-            "locus-nfu-ch-aln", "locus-nfu-dj-aln", "locus-nfu-rss-seqlogo-all", \
-            "locus-xma-map", "locus-xma-sashimi", "locus-xma-rss-seqlogo-all",\
-            "locus-xma-vh-families-tree", "locus-comp-vh-tree","locus-comp-cz-tree"]
+#-----------------------------------------------------------------------------
+# Collate all figures and tables (main chapter)
+#-----------------------------------------------------------------------------
+
+locus_figures = ["locus-species-cladogram", "locus-nfu-aln",
+              "locus-nfu-map", "locus-nfu-dots",
+              "locus-teleost-igm-exons", "locus-nfu-sashimi",
+              "locus-nfu-ch-aln", "locus-nfu-vh-families",
+              "locus-nfu-dj-aln", "locus-nfu-rss-seqlogo-all",
+              "locus-xma-map", "locus-species-phenotypes",
+              "locus-xma-sashimi", "locus-xma-rss-seqlogo-all",
+              "locus-xma-vh-families-tree", "locus-comp-vh-tree",
+              "locus-multispecies-ch-regions", "locus-species-cladogram-ighz",
+              "locus-comp-cz-tree", "locus-species-cladogram-cz-subclasses",
+              "locus-ppl-cz-aln"]
+
+locus_tables = ["locus-nfu-ch-aln", "locus-xma-cz-aln"]
+
+#-----------------------------------------------------------------------------
+# Collate all supplementary material
+#-----------------------------------------------------------------------------
+
 locus_figures_si = ["locus-nfu-rss-seqlogo-sep", "locus-xma-rss-seqlogo-sep",
             "locus-xma-vh-families-map", "locus-comp-ch-tree", "locus-xma-cz-aln"]
 
-locus_figures_raw = ["locus-teleost-igm-exons", "locus-multispecies-ch-regions"] # Handmade
+locus_tables_si = [
+            "locus-nfu-ch-coords",
+            "locus-nfu-vh-coords",
+            "locus-nfu-dh-coords-seg",
+            "locus-nfu-dh-coords-rss5",
+            "locus-nfu-dh-coords-rss3",
+            "locus-nfu-jh-coords-seg",
+            "locus-nfu-jh-coords-rss",
+            "locus-xma-ch-coords",
+            "locus-xma-vh-coords-1",
+            "locus-xma-vh-coords-2",
+            "locus-xma-vh-coords-3",
+            "locus-xma-vh-coords-4",
+            "locus-xma-vh-coords-5",
+            "locus-xma-dh-coords-seg",
+            "locus-xma-dh-coords-rss5",
+            "locus-xma-dh-coords-rss3",
+            "locus-xma-jh-coords-seg",
+            "locus-xma-jh-coords-rss",
+]
+
+#-----------------------------------------------------------------------------
+# Generate files
+#-----------------------------------------------------------------------------
 
 rule locus_figures_all:
     """Collate all figures for locus chapter."""
     input:
-        expand("output_files/figures/svg/{name}.svg", name=locus_figures_new),
-        expand("output_files/figures/svg/{name}.svg", name=locus_figures_si),
-        expand("output_files/figures/pdf/{name}.pdf", name=locus_figures_new),
+        expand("output_files/figures/pdf/{name}.pdf", name=locus_figures),
         expand("output_files/figures/pdf/{name}.pdf", name=locus_figures_si),
-        expand("output_files/figures/pdf/{name}.pdf", name=locus_figures_raw),
+        expand("output_files/tables/{name}.tex", name=locus_tables),
+        expand("output_files/tables/{name}.tex", name=locus_tables_si),

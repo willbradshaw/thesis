@@ -1,0 +1,55 @@
+##############################################################################
+## FINAL THESIS ASSEMBLY SNAKEFILES                                         ##
+##############################################################################
+
+# TEX input files
+tex_cls = "thesis" # or "thesis2"; make sure to change in thesis.tex too
+tex_inputs = ["A1_preamble.tex", "A2_thesis-info.tex", "B1_dedication.tex",
+            "B2_abstract-de.tex", "B3_abstract-en.tex", "B4_acknowledgements.tex",
+            "B5_abbreviations.tex", "C1_Introduction.tex", "C2_Methods.tex",
+            "C3_Locus.tex", "C4_IgSeq.tex", "C5_Conclusion.tex",
+            "D1_Solutions.tex", "D2_Primers.tex", "D3_Diversity.tex",
+            "D4_Figures.tex", "D5_Tables.tex", "E1_Declaration.tex",
+            "E2_Lebenslauf.tex", "thesis.tex"]
+
+# Figures
+intro_figures = ["intro-antibody-structure", "intro-primary-diversity",
+            "intro-teleost-loci", "intro-bcell-repertoire-primary-secondary",
+            "intro-turquoise-killifish"]
+
+
+
+#-----------------------------------------------------------------------------
+# Generate files
+#-----------------------------------------------------------------------------
+
+rule convert_svg_pdf:
+    """Convert SVG figures to PDF for display."""
+    input: "output_files/figures/svg/{name}.svg"
+    output: "output_files/figures/pdf/{name}.pdf"
+    shell:
+        "rsvg-convert -f pdf -o {output} {input}"
+
+rule convert_svg_pdf_raw:
+    """Convert handmade SVG figures to PDF for display."""
+    input: "input_files/figures_raw/{name}.svg"
+    output: "output_files/figures/pdf/{name}.pdf"
+    shell:
+        "rsvg-convert -f pdf -o {output} {input}"
+
+rule compile_thesis:
+    """Assemble all input files and compile thesis."""
+    input:
+        expand("input_files/tex/{name}.tex", name=tex_inputs),
+        expand("input_files/cls/{name}.cls, name=tex_cls),
+        "input_files/References.bib",
+        expand("output_files/figures/pdf/{name}.pdf", name=intro_figures),
+        expand("output_files/figures/pdf/{name}.pdf", name=locus_figures),
+        expand("output_files/figures/pdf/{name}.pdf", name=locus_figures_si),
+        expand("output_files/tables/{name}.tex", name=locus_tables),
+        expand("output_files/tables/{name}.tex", name=locus_tables_si),
+        expand("output_files/figures/pdf/{name}.pdf", name=igseq_figures),
+        expand("output_files/figures/pdf/{name}.pdf", name=igseq_figures_si),
+        expand("output_files/tables/{name}.tex", name=igseq_tables),
+        expand("output_files/tables/{name}.tex", name=igseq_tables_si),
+        expand("output_files/txt/{name}.txt", name=igseq_text_embeds),

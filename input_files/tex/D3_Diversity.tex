@@ -1,0 +1,317 @@
+\chapter{Hill numbers and antibody repertoire diversity}
+\label{app:diversity}
+
+\normalsize
+
+The question of how to measure the diversity of clones or sequences within an antibody repertoire, as well as the degree of divergence in composition between pairs or groups of repertoires, closely parallels related questions in ecology, information theory, and other fields. Over time, a great many different conceptions of diversity have been developed in these fields \citep{peet1974diversity}, each with its own cohort of measurement and approximation methods. Many of these diversity indices, however, can be unified into a common framework of so-called ``true diversities'' based on Hill numbers \citep{hill1973diversity, jost2006entropy}, providing a more intuitive and comprehensive insight into the diversity structure of a population. In this appendix, I describe the concepts and motivations underlying this conception of population of diversity, both for individual (unitary) populations (\Cref{app:diversity-unitary}) and for more complex populations with internal subpopulation structure (\Cref{app:diversity-structured}).
+
+\section{Diversity in unitary populations}
+\label{app:diversity-unitary}
+
+\subsection{Terminology}
+\label{app:diversity-unitary-terminology}
+
+Though in this appendix I use terminology derived from the ecological literature, the concepts and measures discussed here can be applied to any situation in which a set (or \textit{population}) of elements (or \textit{individuals}) is partitioned among some number of mutually-exclusive categories (or \textit{species}). Considered abstractly, these terms could be used to refer to coloured balls in an urn, species in a rainforest, or sequences in a repertoire.
+
+Let $X$ be a unitary population of individuals, each of which is assigned to some species $s$ from a set of possible species $S$. The term ``unitary'' here denotes that $X$ is considered to have no internal structure except the species identity of its constitutent individuals. Let $n_s$ denote the number of individuals in $X$ belonging to $s$, and $N$ denote the total number of individuals in $X$. Then 
+
+\begin{equation}
+p_s = \frac{n_s}{N}
+\label{eq:species_proportion}
+\end{equation}
+
+\noindent denotes the proportion (or \textit{relative frequency}) of individuals in $X$ belonging to $s$, or equivalently the probability that a randomly-selected individual from $X$ belongs to $s$. The \textit{species richness} of $P$ is the total number of species $|S|$, while the \textit{evenness} of $P$ is the degree to which different species are similar in their $p_s$ values: a population containing one very abundant species and $n-1$ very rare species, for example, is much less even than a population containing $n$ equally-abundant species.
+
+\subsection{Simple diversity indices}
+\label{app:diversity-unitary-simple}
+
+The diversity of a unitary population $X$ of some total size $N$ is generally considered to increase with both the richness and evenness of $X$. Different measures of within-population diversity, however, place different amounts of weight on the richness of $X$ compared to its evenness when evaluating its diversity. At one extreme, the species richness itself is used as a measure of diversity, albeit one that entirely ignores evenness; other commonly-used diversity measures, such as Simpson's index, Shannon entropy, and the Berger-Parker index are affected to varying degrees by both richness and evenness \parencite{peet1974diversity,berger1970diversity}. In addition to their relative emphasis on richness vs evenness, different indices will also place different amounts of weight on common vs rare species when computing diversity: at the extremes, species richness gives the same amount of weight to all species regardless of frequency, while the Berger-Parker index gives zero weight to all species except the most common. As a result, any given diversity index captures a different aspect of the diversity structure of any population of interest.
+
+\subsubsection{Simpson's index}
+
+One of the oldest diversity indices incorporating both species richness and evenness is Simpson's index, which measures the probability that two randomly selected individuals from a population are from the same species \citep{simpson1949diversity}. For a finite population (or sample) $X$ with a set of possible species $S$, Simpson's index is calculated as follows:
+
+\begin{equation}
+L(X) = \frac{\sum_{s \in S} n_s(n_s-1)}{N(N-1)}
+\label{eq:simpson_finite}
+\end{equation} 
+
+\noindent As the population size tends to infinity, this simplifies to
+
+\begin{equation}
+L^*(X) = \frac{\sum_{s \in S} n_s^2}{N^2} = \sum_{s \in S} p_s^2
+\label{eq:simpson_infinite}
+\end{equation} 
+
+\noindent As originally formulated, Simpson's index can be considered a \textit{dominance index} (also known as a concentration  index \citep{simpson1949diversity}), measuring the degree to which a population is dominated by a small number of species; as such, a higher Simpson's index indicates a less-diverse population. Conversely, the complement $1-L(X)$ of Simpson's index, known as the Gini-Simpson index \citep{jost2006entropy}, represents the ``probability of interspecific encounter'' \citep{peet1974diversity}, and is also widely used as a diversity index in the literature.
+
+\subsubsection{The Berger-Parker index}
+\label{app:diversity-unitary-simple-berger}
+
+The Berger-Parker index is a very simple measure of diversity, given by the relative frequency $p_x$ of the most abundant species $x$ in the population \parencite{berger1970diversity,caruso2008bergerparker}. Like Simpson's index, the Berger-Parker index is a dominance index, measuring the degree to which the population is dominated by the single largest species. Despite its simplicity, the Berger-Parker is a true diversity index, responding to both the richness and the evenness of a population, and can be used to distinguish different diversity structures in real populations \parencite{caruso2008bergerparker}. As it focuses only on the most common species in each population, it also has the particular advantage of being much less vulnerable to sampling bias than other diversity metrics, especially compared to the species richness itself \parencite{berger1970diversity}.
+
+\subsubsection{Entropic diversity indices}
+\label{app:diversity-unitary-simple-entropy}
+
+In information theory, the Shannon entropy $H(Y)$ of a random variable $Y$ provides a measure of the unpredictability of that variable, and therefore of the degree to which its value can be predicted in advance \citep{shannon1948communication1}. A variable which can take only a single value has zero entropy (it is perfectly predictable), while one which can take all values in its state space with equal probability has maximum entropy (it is maximally unpredictable) for that state space. All else being equal, a variable which can take a larger number of possible values has greater entropy than one which can take fewer values; hence, the entropy of a variable increases with both the richness and evenness of its state space \citep{shannon1948communication1}.
+
+Although the concept of Shannon entropy was developed in the context of electronic communication, it can be extended quite naturally to ecology, where the process of sampling individuals from a population represents an information source and the species identity of each sampled individual represents an output. In this case, the Shannon entropy represents  ``the amount of uncertainty that exists regarding the species of an individual selected at random from the population'' \citep{peet1974diversity}. The Shannon entropy of a population $X$ is given by
+
+\begin{equation}
+H(X) = -\sum_{s \in S} p_s \cdot \log p_s
+\label{eq:shannon_infinite}
+\end{equation}
+
+\noindent Any base of logarithm can be used, though bases $2$ and $e$ are most common; in these bases, the units of Shannon entropy are the bit (``binary digit'') and nat (``natural unit''), respectively.
+
+A generalisation of the Shannon entropy, also used as a diversity measure, is the R\'{e}nyi entropy \parencite{mora2016renyi}:
+
+\begin{equation}
+H_q(X) = \frac{1}{1-q}\,\log\left[\sum_{s \in S} p_i^q\right]
+\label{eq:renyi}
+\end{equation}
+
+\noindent where $q$ is denoted the \textit{order} of the entropy measure. The R\'{e}nyi entropy is undefined at $q = 1$, but reduces to the Shannon entropy (with the same base of logarithm) in the limit as $q \to 1$ \parencite{mora2016renyi}. As $p_i$ is always between 0 and 1, raising the relative frequencies to a power greater than 1 downweights rarer species (with smaller $p_i$) relative to more common ones; as a result, higher-order R\'{e}nyi entropies put more emphasis on the most common species compared to Shannon entropy when computing population diversity, while R\'{e}nyi entropies with order less than 1 put more weight on rarer species; at $q = 0$, $H_0$ is simply the logarithm of the species richness $|S|$.
+
+\subsection{Effective species richness and true diversity}
+\label{app:diversity-unitary-hill}
+
+\Cref{app:diversity-unitary-simple} discusses several commonly-used diversity indices, including Simpson's index, the Gini-Simpson index, Shannon entropy (\& other R\'{e}nyi entropies), and the Berger-Parker index; many other diversity indices are possible. These indices differ importantly in their forms, numeric ranges and biological interpretation, as well as their response behaviours to different changes in population composition \citep{peet1974diversity, jost2006entropy}. For example, Simpson's index and the Berger-Parker index range from 0 to 1, with lower values indicating greater population diversity, while Shannon- and R\'{e}nyi-entropy measures range from 0 to infinity, with higher values indicating greater diversity (in log-scale). The use of different diversity indices can therefore yield importantly different results when used to compare different populations: comparing two populations using only one such measure will capture only a small part of the diversity structure of those populations, while comparing them using two or more raw indices will often yield results that are difficult to accurately interpret \citep{peet1974diversity, jost2006entropy}.
+
+Fortunately, different diversity indices can be transformed into a common framework by considering, for each index, the number $D$ of \textit{equally-common} species that would be needed to produce the same diversity value using that index. This transformation gives an estimation, for each index, of the \textit{effective species richness} of the population: if we corrected for differences in species abundance while holding the diversity index constant, how rich would the resulting population be? This effective richness can itself be considered a diversity measure; one that is comparable across diversity indices in a way the raw indices are not \citep{jost2006entropy}.
+
+For many important diversity indices, the equation for the effective richness $D$ takes a common form, known as the Hill number or ``true diversity'' for some parameter $q$ \citep{hill1973diversity, jost2006entropy}:
+
+\begin{equation}
+^qD(X) = \left(\sum_{s \in S} p_s^q \right)^{\frac{1}{1-q}}
+\label{eq:hill_index}
+\end{equation}
+
+\noindent Indices whose effective richnesses take this form (\Cref{tab:diversity}) include species richness ($q=0$), R\'{e}nyi entropy in base $e$ ($q=q$), Shannon entropy in base $e$ ($q \to 1$), Simpson's index ($q = 2$) and the Berger-Parker index ($q \to \infty$) among others \citep{peet1974diversity, hill1973diversity, jost2006entropy, miho2018computational}. As with the R\'{e}nyi entropy, the parameter $q$, known here as the \textit{diversity order}, describes the degree to which rare species are downweighted compared to common ones when calculating the Hill number: at one extreme ($q=0$, the species richness), all species are given equal weight regardless of their frequency, while at the other ($q \to \infty$, the reciprocal Berger-Parker index) only the most common species in the sample is considered. As a result of this downweighting, higher-order indices are also less sensitive to undersampling than lower-order ones; this is particularly important to keep in mind in cases, like immune repertoires, where the number of rare species is extremely large and undersampling of rare species is pervasive \parencite{mora2016diversity}.
+
+The use of Hill numbers in diversity estimation enables many different, widely-used diversity measurements to be considered and compared in a common framework, giving a description of population diversity that is easy to interpret biologically and compare across different populations \parencite{jost2006entropy}. Typically, the limit at $q \to 1$ is substituted for the (undefined) value at $q = 1$, giving a function that is both continuous and monotonically decreasing:
+
+\begin{equation}
+^qD(X) = \begin{cases} \left(\displaystyle\sum_{s \in S} p_s^q \right)^{\frac{1}{1-q}} & q \neq 1\\
+\exp\left(-\displaystyle\sum_{s \in S}p_s \cdot \ln p_s\right) & q = 1 \end{cases}
+\label{eq:hill_index_continuous}
+\end{equation}
+
+\noindent This equation can then be easily used to construct diversity profiles (or \textit{spectra}) spanning many different orders of diversity \citep{miho2018computational}; since each value of $q$ captures a different aspect of a population's diversity structure, these profiles can be much more informative than any single metric when analysing and comparing the diversity structure of populations.
+
+\begin{table}
+\centering
+\caption[Summary of effective-richness measures for some common diversity indices]{Summary of effective-richness measures for some common diversity indices (adapted and expanded from \citep{jost2006entropy}).}
+\begin{tabular}{lll}\toprule
+Diversity index, $f(X)$ & Effective species richness,~$^qD(X)$ & Diversity order, $q$\\\midrule
+Species richness & $^0D(X) = f(X)$ & 0 \\
+Shannon entropy (base $e$) & $\lim_{q \to 1}~^qD(X) = \exp\,f(X)$ & 1\\
+Simpson index & $^2D(X) = \frac{1}{f(X)}$ & 2\\
+Gini-Simpson index & $^2D(X) = \frac{1}{1-f(X)}$ & 2\\
+Renyi entropy (base $e$, order $q$) & $^qD(X) = \exp\,f(X)$ & $q$\\
+Berger-Parker index & $\lim_{q \to \infty}~^qD(X) = \frac{1}{f(X)}$ & $\infty$\\
+\bottomrule
+\end{tabular}
+\label{tab:diversity}
+\end{table}
+
+\section{Diversity in structured populations}
+\label{app:diversity-structured}
+
+Section \ref{app:diversity-unitary} discusses methods for analysing the diversity of a single, unitary population. In many cases, however, we are interested in groups of related populations, and the relative amount of variability within and between the populations in each group. In order to extend the mathematical framework of diversity measurement, and especially that of true diversities and Hill spectra, to this more complex case, some additional clarification of terminology is needed.
+
+\subsection{Terminology}
+\label{app:diversity-structured-terminology}
+
+In a \textit{structured} population $C$, the individuals in $C$ can be partitioned into some number $M$ of disjoint unitary subpopulations $X_1, X_2, \dots$, such that:
+
+\begin{itemize} % Itemize or enumerate?
+\item Each subpopulation $X$ has size $N_X$, with the total size of the whole population given by $N = \sum_{X \in C}~N_X$.
+\item Each individual in a subpopulation $X$ is assigned to a species $s$ drawn from a set of possible species $S_X$, with the total species set for the population given by $S = \bigcup_{X \in C}~S_X$.
+\item Each subpopulation can be assigned a relative statistical weight $w_X$; this could be equal for all populations ($w_X = 1/M$), proportional to each population's relative size $w_X = \frac{N_X}{N}$, or proportional to some other measure of each population's ``importance'' to the system.
+\item The relative frequency of a species $s$ in a subpopulation $X$ is given by $p_{X,\,s} = \frac{n_{X,\,s}}{N_X}$, where $n_{X,\,s}$ is the number of individuals in $X$ belonging to $s$.
+\end{itemize}
+
+\noindent What is the diversity of $C$? There are several possible answers, depending on which features of the makeup of $C$ are most salient:
+
+\begin{enumerate}
+\item The \textbf{gamma diversity} of $C$ is the \textit{total} diversity of the population when its subpopulations are pooled according to their weights; it represents the species diversity across the whole population, ignoring the subpopulation membership of individuals.
+\item The \textbf{alpha diversity} of $C$ is the diversity arising from differences in species identity among individuals \textit{within} each subpopulation, and is given by a weighted \textit{average} of the unitary diversities of those subpopulations; the appropriate weighting function depends on the order of diversity under consideration. In some sense, the alpha diversity of $C$ can be thought of as the expected diversity of a single population drawn from $C$.
+\item The \textbf{beta diversity} of $C$ is the diversity arising from variability in species composition \textit{among} the subpopulations in $C$; it is lowest when all subpopulations have identical species compositions and highest when they have no species in common.
+\end{enumerate}
+
+\noindent The alpha and beta diversities of a population are independent; two different structured populations can have identical alpha and very different beta diversities, or vice versa, depending on the exact species compositions of their subpopulations. The alpha and beta diversity of a structured population also completely determine its gamma diversity \citep{jost2007partitioning}:
+
+\begin{equation}
+D_\gamma(C) = D_\alpha(C) \times D_\beta(C)
+\label{eq:diversity_relationship_gamma}
+\end{equation}
+
+\noindent and therefore 
+
+\begin{equation}
+D_\beta(C) = \frac{D_\gamma(C)}{D_\alpha(C)}
+\label{eq:diversity_relationship_beta}
+\end{equation}
+
+\noindent This (\autoref{eq:diversity_relationship_beta}) is typically the easiest way of computing the beta diversity of a given collection of populations.
+
+In the rest of this section, I will primarily consider only subpopulations with equal sizes $N_X = \frac{N}{M}$ and equal weights $w = \frac{1}{M}$, as this is how they are used in the repertoire-diversity methods discussed in \Cref{sec:methods_comp_igdownstream_spectra} and \Cref{chap:igseq}. Equal-sized and -weighted populations can be produced by downsampling each subpopulation to the same number of individuals (in the \igseq case, by downsampling each repertoire to the same number of unique sequences) prior to calculating the diversity of the population.
+ 
+\subsection{Calculating alpha, beta, and gamma diversity}
+\label{app:diversity-structured-calc}
+
+The alpha, beta and gamma diversities of structured populations can be calculated analogously to the unitary true diversities discussed in \Cref{app:diversity-unitary-hill}. In this framework, the alpha diversity represents the effective number of equally-abundant species present in the ``average'' subpopulation drawn from $C$, while the gamma diversity represents the effective number of species present in the population as a whole (ignoring subpopulation membership). The beta diversity also represents an effective number of groupings, but in this case the unit is subpopulations rather than species: given an alpha diversity value for $C$, the beta diversity gives the number of equally-weighted subpopulations, with no species in common, that would give rise to the gamma diversity of $C$.
+
+Under this framework, the diversities of order $q$ for a structured population $C$ are given \parencite{jost2007partitioning} by
+
+\begin{equation}
+^qD_\gamma(C)
+= \left[\sum_{s \in S} \left(\frac{\displaystyle\sum_{X \in C} w_Xp_{X,\,s}}{\displaystyle\sum_{X \in C} w_X}\right)^q\right]^\frac{1}{1-q}
+= \left[\frac{\displaystyle\sum_{s \in S}\left(\sum_{X \in C} w_Xp_{X,\,s}\right)^q}{\displaystyle\left(\sum_{X \in C} w_X\right)^q}\right]^\frac{1}{1-q}
+\label{eq:diversity_gamma}
+\end{equation}
+
+\begin{equation}
+^qD_\alpha(C)
+= \left[\frac{\displaystyle\sum_{X \in C} w_X^q \left(\sum_{s \in S_X} p_{X,\,s}^q\right)}{\displaystyle\sum_{X \in C} w_X^q}\right]^\frac{1}{1-q}
+= \left[\frac{\displaystyle\sum_{X \in C}\sum_{s \in S_X} (w_Xp_{X,\,s})^q}{\displaystyle\sum_{X \in C} w_X^q}\right]^\frac{1}{1-q}
+\label{eq:diversity_alpha}
+\end{equation}
+
+\begin{equation}
+^qD_\beta(C) = \frac{^qD_\gamma(C)}{^qD_\alpha(C)}
+= \left[
+\frac{\displaystyle\sum_{s \in S}\left(\sum_{X \in C} w_Xp_{X,\,s}\right)^q}
+{\displaystyle\sum_{X \in C}\sum_{s \in S_X} (w_Xp_{X,\,s})^q}
+\times
+\frac{\displaystyle\sum_{X \in C} w_X^q}
+{\displaystyle\left(\sum_{X \in C} w_X\right)^q}
+\right]^\frac{1}{1-q}
+\label{eq:diversity_beta}
+\end{equation}
+
+\noindent When all the subpopulations are equally-weighted (i.e. $w_X = w = \frac{1}{M}$ for all subpopulations), these formulae simplify considerably:
+
+\begin{equation}
+^qD_\gamma(C)
+= \left[\frac{\displaystyle\sum_{s \in S}\left(\sum_{X \in C} wp_{X,\,s}\right)^q}{\displaystyle\left(\sum_{X \in C} w\right)^q}\right]^\frac{1}{1-q}
+= \left[\frac{\displaystyle w^q\sum_{s \in S}\left(\sum_{X \in C} p_{X,\,s}\right)^q}{\displaystyle M^qw^q}\right]^\frac{1}{1-q}
+= \left[\frac{\displaystyle\sum_{s \in S}\left(\sum_{X \in C} p_{X,\,s}\right)^q}{\displaystyle M^q}\right]^\frac{1}{1-q}
+\label{eq:diversity_gamma_even}
+\end{equation}
+
+\begin{equation}
+^qD_\alpha(C)
+= \left[\frac{\displaystyle\sum_{X \in C}\sum_{s \in S_X} (wp_{X,\,s})^q}{\displaystyle\sum_{X \in C} w^q}\right]^\frac{1}{1-q}
+= \left[\frac{\displaystyle w^q\sum_{X \in C}\sum_{s \in S_X} (p_{X,\,s})^q}{\displaystyle M w^q}\right]^\frac{1}{1-q}
+= \left[\frac{\displaystyle \sum_{X \in C}\sum_{s \in S_X} (p_{X,\,s})^q}{\displaystyle M}\right]^\frac{1}{1-q}
+\label{eq:diversity_alpha_even}
+\end{equation}
+
+\begin{equation}
+^qD_\beta(C) = \frac{^qD_\gamma(C)}{^qD_\alpha(C)}
+= \left[
+\frac{\displaystyle\sum_{s \in S}\left(\sum_{X \in C} p_{X,\,s}\right)^q}{\displaystyle \sum_{X \in C}\sum_{s \in S_X} (p_{X,\,s})^q}
+\times
+\frac{\displaystyle M}{\displaystyle M^q}
+\right]^\frac{1}{1-q}
+= \left[
+\frac{\displaystyle\sum_{s \in S}\left(\sum_{X \in C} p_{X,\,s}\right)^q}{\displaystyle M^{q-1} \sum_{X \in C}\sum_{s \in S_X} (p_{X,\,s})^q}
+\right]^\frac{1}{1-q}
+\label{eq:diversity_beta_even}
+\end{equation}
+
+\noindent These equations are valid for all values of $q \in \mathbb{R}$ except 1, providing a spectrum of alpha-, beta- or gamma-diversity measures analogous to the diversity spectra provided for unitary populations in \Cref{app:diversity-unitary-hill}. As in the unitary case, a special case needs to be made for $q = 1$ in order to make these functions continuous\footnote{Note that, when $w = \frac{1}{M}$ and $N_X = \frac{N}{M}$ for all populations, $\displaystyle\sum_{X \in C}wp_{X,\,s} = \sum_{X \in C}\frac{1}{M}\frac{n_{X,\,s}}{N_X} = \frac{1}{M}\frac{M \sum_{X \in C} n_{X,\,s}}{N} = \frac{n_{s}}{N} = p_s$} \parencite{jost2007partitioning}:
+
+\begin{equation}
+\begin{split}
+^1D_\gamma(C) & = \lim_{q \to 1} {^qD}_\gamma(C)
+= \exp\left[-\sum_{s \in S}\left(\left[\sum_{X \in C}wp_{X,\,s}\right]\cdot\ln \left[\sum_{X \in C}wp_{X,\,s}\right]\right)\right]\\
+& = \exp\left(-\sum_{s \in S}p_s \cdot\ln p_s\right) =\:^1D(C)
+\end{split}
+\label{eq:diversity_gamma_q1}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+^1D_\alpha(C) & = \lim_{q \to 1} {^qD}_\alpha(C)
+= \exp\left[-\sum_{X \in C}w\sum_{s \in S_X}(p_{X,\,s}\cdot\ln p_{X,\,s})\right]\\
+ & = \exp\left[\frac{1}{M}\sum_{X \in C}\left(-\sum_{s \in S_X}(p_{X,\,s}\cdot\ln p_{X,\,s})\right)\right] = \exp\left[\frac{1}{M}\sum_{X \in C}\ln\,^1D(X)\right]
+\end{split}
+\label{eq:diversity_alpha_q1}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+^1D_\beta(C) & = \frac{^1D_\gamma(C)}{^1D_\alpha(C)} = \frac{\exp\left[-\sum_{s \in S}p_s \cdot\ln p_s\right]}{\exp\left[\frac{1}{M}\sum_{X \in C}\left(-\sum_{s \in S_X}(p_{X,\,s}\cdot\ln p_{X,\,s})\right)\right]} = \frac{^1D(C)}{\exp\left[\frac{1}{M}\sum_{X \in C}\ln\,^1D(X)\right]}
+\end{split}
+\label{eq:diversity_beta_q1}
+\end{equation}
+
+\subsection{Rescaling beta diversity}
+\label{app:diversity-structured-rescaling}
+
+As discussed in \Cref{app:diversity-structured-calc}, while alpha  and gamma diversity are expressed in terms of an effective number of species (in an average subpopulation and the entire structured population, respectively), beta diversity is expressed in terms of an effective number of subpopulations. Since the effective number of subpopulations is determined in part by the actual number of subpopulations, this means that the beta diversity, unlike alpha and gamma diversity, is directly dependent on the number of subpopulations $M$. If two different structured populations contain different numbers of subpopulations, it is therefore not possible to compare their beta diversity values directly; rather, the beta diversity spectra of the populations must be \textit{rescaled} to a common range before such a comparison is performed.
+
+The \textit{minimum} beta diversity of a structured population obtains when all subpopulations have identical species composition (i.e. $p_{X,\,s} = p_{s}$ for all species $s$ and subpopulations $X$). In this case, the beta diversity for the structured population is given by:
+
+\begin{equation}
+^qD_{\beta\min}(C) = \left[
+\frac{\displaystyle\sum_{s \in S}\left(\sum_{X \in C} p_{X,\,s}\right)^q}{\displaystyle M^{q-1} \sum_{X \in C}\sum_{s \in S_X} (p_{X,\,s})^q}
+\right]^\frac{1}{1-q}
+= \left[
+\frac{\displaystyle\sum_{s \in S}\left(Mp_s\right)^q}{\displaystyle M^{q-1}\sum_{s \in S_X} Mp_s^q}
+\right]^\frac{1}{1-q}
+= \left[
+\frac{M^q\displaystyle\sum_{s \in S}p_s^q}{M^q\displaystyle\sum_{s \in S_X} p_s^q}
+\right]^\frac{1}{1-q} = 1
+\label{eq:diversity_beta_min}
+\end{equation}
+
+\noindent The \textit{maximum} beta diversity, meanwhile, obtains when there is no overlap in species between populations. In this case, for any given species, $n_{X,\,s}$ is equal to $n_s$ for one subpopulation and $0$ for all others, and therefore $\left(\sum_{X \in C} p_{X,\,s}\right)^q = \sum_{X \in C} (p_{X,\,s})^q = p_s^q$~~and~~$\sum_{X \in C}\sum_{s \in S_X} (p_{X,\,s})^q = \sum_{s \in S} p_s^q$. The beta diversity is therefore given by:
+
+\begin{equation}\begin{split}
+^qD_{\beta\max}(C) &
+= \left[\frac{\displaystyle\sum_{s \in S}\left(\sum_{X \in C} p_{X,\,s}\right)^q}{\displaystyle M^{q-1} \sum_{X \in C}\sum_{s \in S_X} (p_{X,\,s})^q}\right]^\frac{1}{1-q}
+= \left[\frac{\displaystyle\sum_{s \in S} p_s^q}{\displaystyle M^{q-1} \sum_{s \in S} p_s^q}\right]^\frac{1}{1-q}
+= \left[\frac{1}{M^{q-1}}\right]^\frac{1}{1-q} = \boldsymbol{M}
+\end{split}
+\label{eq:diversity_beta_max}
+\end{equation}
+
+\noindent The same identities hold for the special case when $q = 1$:
+
+\begin{equation}
+\begin{split}
+^1D_{\beta\min}(C) & = \frac{\exp\left[-\sum_{s \in S}p_s \cdot\ln p_s\right]}{\exp\left[\frac{1}{M}\sum_{X \in C}\left(-\sum_{s \in S_X}(p_{X,\,s}\cdot\ln p_{X,\,s})\right)\right]} = \frac{\exp\left[-\sum_{s \in S}p_s \cdot\ln p_s\right]}{\exp\left[\frac{1}{M}\sum_{X \in C}\left(-\sum_{s \in S}(p_{s}\cdot\ln p_{s})\right)\right]}\\
+& = \frac{\exp\left[-\sum_{s \in S}p_s \cdot\ln p_s\right]}{\exp\left[\frac{M}{M}\left(-\sum_{s \in S}p_{s}\cdot\ln p_{s}\right)\right]} = \boldsymbol{1}
+\end{split}
+\label{eq:diversity_beta_q1_min}
+\end{equation}
+
+\begin{equation}\begin{split}
+^1D_{\beta\max}(C)
+& = \frac{\exp\left[-\sum_{s \in S}p_s \cdot\ln p_s\right]}{\exp\left[\frac{1}{M}\sum_{X \in C}\left(-\sum_{s \in S_X}(p_{X,\,s}\cdot\ln p_{X,\,s})\right)\right]}\\
+& = \exp\left[-\sum_{s \in S}p_s \cdot\ln p_s - \frac{1}{M}\sum_{X \in C}\left(-\sum_{s \in S_X}(p_{X,\,s}\cdot\ln p_{X,\,s})\right)\right]\\
+& = \exp\left[H(C) + \frac{1}{M}\sum_{X \in C}\left(\sum_{s \in S_X}\frac{n_{X,\,s}}{N_X}\cdot\ln \frac{n_{X,\,s}}{N_X}\right)\right]\\
+& = \exp\left[H(C) + \frac{1}{M}\sum_{X \in C}\left(\sum_{s \in S_X}\frac{Mn_{X,\,s}}{N}\cdot\ln \frac{Mn_{X,\,s}}{N}\right)\right]\\
+& = \exp\left[H(C) + \sum_{X \in C}\left(\sum_{s \in S_X}\frac{n_{X,\,s}}{N}\cdot\ln \frac{Mn_{X,\,s}}{N}\right)\right]\\
+& = \exp\left[H(C) + \left(\sum_{s \in S}\frac{n_{s}}{N}\cdot\ln \frac{Mn_{s}}{N}\right)\right]
+ = \exp\left[H(C) + \left(\sum_{s \in S}p_s\cdot\ln (Mp_s)\right)\right]\\
+& = \exp\left[H(C) + \left(\sum_{s \in S}p_s\cdot\left[\ln M + \ln p_s\right]\right)\right]\\
+& = \exp\left[H(C) + \left(\sum_{s \in S}p_s\cdot\ln p_s\right)+ \ln M \cdot \sum_{s \in S}p_s\right]
+= \exp\left[H(C) - H(C) + \ln M\right]\\
+& = \exp(\ln M) = \boldsymbol{M}
+\end{split}
+\label{eq:diversity_beta_q1_max}
+\end{equation}
+
+\noindent The beta diversity for a structured population with $M$ subpopulations therefore ranges between $1$ (identical composition) and $M$ (maximally-divergent composition). The beta diversities of such a population can thus be transformed onto a new scale from $0$ to $1$ as follows:
+
+\begin{equation}
+^qD_{\beta\,\mathrm{rescaled}}(C) = \frac{^qD_\beta(C) -\:^qD_{\beta\min}(C)}{^qD_{\beta\max}(C) -\: ^qD_{\beta\min}(C)} = \frac{^qD_\beta(C) - 1}{M - 1}
+\label{eq:diversity_beta_rescale}
+\end{equation}
+
+\noindent By transforming the beta-diversity spectra of different structured populations onto this common scale, the inter-subpopulation variability of those populations can be meaningfully compared, even if they differ in the number of subpopulations they contain.

@@ -267,10 +267,6 @@ rule igseq_pilot_igor_seqs:
     log: "log_files/igseq-pilot-igor-seqs.dbg"
     script: os.path.join(script_dir, "igseq-pilot-igor-seqs.R")
 
-igseq_pilot_figures_si = ["igseq-pilot-read-survival-all",
-            "igseq-pilot-clone-expansions-rep",
-            "igseq-pilot-clone-diversity-solo", "igseq-pilot-vj-diversity-solo"]
-
 #-----------------------------------------------------------------------------
 # Ageing dataset
 #-----------------------------------------------------------------------------
@@ -446,15 +442,6 @@ rule igseq_ageing_rdi:
     log: "log_files/igseq-ageing-rdi.dbg"
     script: os.path.join(script_dir, "igseq-ageing-rdi.R")
 
-igseq_ageing_figures_si = ["igseq-ageing-clone-diversity-solo",
-            "igseq-ageing-clone-diversity-solo-fit-linear",
-            "igseq-ageing-clone-diversity-solo-fit-igauss",
-            "igseq-ageing-vj-diversity-all-solo", "igseq-ageing-functional-prop",
-            "igseq-ageing-igor-segments", "igseq-ageing-igor-indels",
-            "igseq-ageing-nclones", "igseq-ageing-clone-proportions",
-            "igseq-ageing-clone-sizes"
-]
-
 #-----------------------------------------------------------------------------
 # Gut dataset
 #-----------------------------------------------------------------------------
@@ -577,11 +564,6 @@ rule igseq_gut_rdi:
         aux = aux_dir
     log: "log_files/igseq-gut-rdi.dbg"
     script: os.path.join(script_dir, "igseq-gut-rdi.R")
-
-igseq_gut_figures_si = ["igseq-gut-read-survival-rin",
-            "igseq-gut-clone-diversity-solo", "igseq-gut-vj-diversity-solo",
-            "igseq-gut-functional-prop"
-            ]
 
 #-----------------------------------------------------------------------------
 # Cross-study rarefied clone plots
@@ -728,6 +710,24 @@ igseq_text_embeds = ["igseq-pilot-nreads-raw-total",
 #-----------------------------------------------------------------------------
 # Collate all supplementary material
 #-----------------------------------------------------------------------------
+
+igseq_pilot_figures_si = ["igseq-pilot-read-survival-all",
+            "igseq-pilot-clone-expansions-rep",
+            "igseq-pilot-clone-diversity-solo", "igseq-pilot-vj-diversity-solo"]
+
+igseq_ageing_figures_si = ["igseq-ageing-clone-diversity-solo",
+            "igseq-ageing-clone-diversity-solo-fit-linear",
+            "igseq-ageing-clone-diversity-solo-fit-igauss",
+            "igseq-ageing-vj-diversity-all-solo", "igseq-ageing-functional-prop",
+            "igseq-ageing-igor-segments", "igseq-ageing-igor-indels",
+            "igseq-ageing-nclones", "igseq-ageing-clone-proportions",
+            "igseq-ageing-clone-sizes"
+]
+
+igseq_gut_figures_si = ["igseq-gut-read-survival-rin",
+            "igseq-gut-clone-diversity-solo", "igseq-gut-vj-diversity-solo",
+            "igseq-gut-functional-prop"
+            ]
 
 igseq_figures_si = igseq_pilot_figures_si + igseq_ageing_figures_si + \
             igseq_gut_figures_si
