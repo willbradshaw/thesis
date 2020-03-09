@@ -47,7 +47,8 @@ plot_segments <- function(segments, grouped = FALSE){
       axis.title.x = element_blank(),
       axis.text.x = element_text(size = fontsize_base * fontscale_title,
                                  angle = 45, hjust = 1),
-      legend.title = element_text(margin = margin(r = 0.5, unit = "cm"))
+      legend.title = element_text(margin = margin(r = 0.8, unit = "cm")),
+      legend.text = element_text(margin = margin(r = 0.3, unit = "cm"))
     )
   if (!grouped) return(g_base + geom_line(data = indiv))
   group <- segments_group %>% filter(SEGMENT_TYPES == segments)
@@ -63,7 +64,8 @@ plot_indels <- function(ev, grouped = FALSE){
     scale_y_continuous(name = "Probability (%)",
                        labels = function(y) y * 100, expand = c(0,0)) +
     theme_classic() + theme_base + theme(
-      legend.title = element_text(margin = margin(r = 0.5, unit = "cm"))
+      legend.title = element_text(margin = margin(r = 0.8, unit = "cm")),
+      legend.text = element_text(margin = margin(r = 0.3, unit = "cm"))
     )
   if (!grouped) return(g_base + geom_line(data = indiv))
   group <- indels_group %>% filter(event == ev)

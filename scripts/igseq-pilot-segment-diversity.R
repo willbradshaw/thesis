@@ -38,7 +38,8 @@ tab_solo <- import_div(inpath_solo)
 
 g_alpha <- plot_diversity_alpha(tab_grouped, "INDIVIDUAL") +
   scale_colour_manual(values = palette, name = "Individual") +
-  scale_fill_manual(values = palette, name = "Individual")
+  scale_fill_manual(values = palette, name = "Individual") +
+  theme(legend.title = element_text(margin=margin(r=0.5, unit="cm")))
 g_beta <- plot_diversity_beta_scaled(tab_grouped, "INDIVIDUAL") +
   scale_colour_manual(values = palette, name = "Individual") +
   scale_fill_manual(values = palette, name = "Individual")

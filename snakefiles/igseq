@@ -15,7 +15,19 @@ rule igseq_cohorts_table:
     params:
         aux = aux_dir
     log: "log_files/igseq-cohorts-table.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-cohorts-table.R")
+
+rule igseq_edit_fish_table:
+    """Edit fish data table for thesis."""
+    input: "output_files/tables/igseq-cohorts-fish.tex"
+    output: "output_files/tables/igseq-cohorts-fish_edited.tex"
+    log: "log_files/igseq-edit-fish-table.dbg"
+    shell:
+        "cat {input} | sed 's/{rrlrllll}/{rrrrllrr}/' 2> {log} | "
+        "sed 's/Fish ID/Fish ID\\tnote{1}/' 2> {log} | "
+        "sed -e '/\W[1234] & 10/s/\\\\/\\\\\\midrule/' 2> {log} > {output} "
+
 
 #-----------------------------------------------------------------------------
 # Pilot study
@@ -43,6 +55,7 @@ rule igseq_pilot_read_survival:
     params:
         aux = aux_dir
     log: "log_files/igseq-pilot-read-survival.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-pilot-read-survival.R")
 
 rule igseq_pilot_functional:
@@ -80,6 +93,7 @@ rule igseq_pilot_functional:
     params:
         aux = aux_dir
     log: "log_files/igseq-pilot-functional.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-pilot-functional.R")
 
 rule igseq_pilot_clone_sizes:
@@ -100,6 +114,7 @@ rule igseq_pilot_clone_sizes:
     params:
         aux = aux_dir
     log: "log_files/igseq-pilot-clone-sizes.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-pilot-clone-sizes.R")
 
 rule igseq_pilot_clone_zipf:
@@ -121,6 +136,7 @@ rule igseq_pilot_clone_zipf:
     params:
         aux = aux_dir
     log: "log_files/igseq-pilot-clone-zipf.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-pilot-clone-zipf.R")
 
 rule igseq_pilot_clone_expansions:
@@ -131,6 +147,7 @@ rule igseq_pilot_clone_expansions:
     params:
         aux = aux_dir
     log: "log_files/igseq-pilot-clone-expansions.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-pilot-clone-expansions.R")
 
 rule igseq_pilot_clone_diversity:
@@ -156,6 +173,7 @@ rule igseq_pilot_clone_diversity:
     params:
         aux = aux_dir
     log: "log_files/igseq-pilot-clone-diversity.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-pilot-clone-diversity.R")
 
 rule igseq_pilot_segment_metrics:
@@ -186,6 +204,7 @@ rule igseq_pilot_segment_metrics:
     params:
         aux = aux_dir
     log: "log_files/igseq-pilot-segment-metrics.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-pilot-segment-metrics.R")
 
 rule igseq_pilot_segment_diversity:
@@ -199,14 +218,17 @@ rule igseq_pilot_segment_diversity:
     params:
         aux = aux_dir
     log: "log_files/igseq-pilot-segment-diversity.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-pilot-segment-diversity.R")
 
 rule igseq_pilot_rdi:
     input: "input_files/data/changeo/db/pilot-final.tab"
     output: "output_files/figures/svg/igseq-pilot-rdi.svg"
     params:
-        aux = aux_dir
+        aux = aux_dir,
+        rdi = config["rdi_path"],
     log: "log_files/igseq-pilot-rdi.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-pilot-rdi.R")
 
 rule igseq_pilot_igor_distributions:
@@ -224,6 +246,7 @@ rule igseq_pilot_igor_distributions:
     params:
         aux = aux_dir
     log: "log_files/igseq-pilot-igor-distributions.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-pilot-igor-distributions.R")
 
 rule igseq_pilot_igor_entropies:
@@ -242,6 +265,7 @@ rule igseq_pilot_igor_entropies:
     params:
         aux = aux_dir
     log: "log_files/igseq-pilot-igor-entropies.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-pilot-igor-entropies.R")
 
 rule igseq_pilot_junctional_nn:
@@ -254,6 +278,7 @@ rule igseq_pilot_junctional_nn:
     params:
         aux = aux_dir
     log: "log_files/igseq-pilot-junctional-n.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-pilot-junctional-n.R")
 
 rule igseq_pilot_igor_seqs:
@@ -265,6 +290,7 @@ rule igseq_pilot_igor_seqs:
     params:
         aux = aux_dir
     log: "log_files/igseq-pilot-igor-seqs.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-pilot-igor-seqs.R")
 
 #-----------------------------------------------------------------------------
@@ -289,6 +315,7 @@ rule igseq_ageing_read_survival:
     params:
         aux = aux_dir
     log: "log_files/igseq-ageing-read-survival.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-ageing-read-survival.R")
 
 rule igseq_ageing_functional:
@@ -318,6 +345,7 @@ rule igseq_ageing_functional:
     params:
         aux = aux_dir
     log: "log_files/igseq-ageing-functional.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-ageing-functional.R")
 
 rule igseq_ageing_clone_counts:
@@ -339,11 +367,10 @@ rule igseq_ageing_clone_counts:
         seq_small_kruskal = "output_files/txt/igseq-ageing-pc-seq-in-small-clones-kruskal-p.txt",
         nclones_1rep = "output_files/txt/igseq-ageing-nclones-pc-1rep.txt",
         nclones_2rep = "output_files/txt/igseq-ageing-nclones-pc-2rep.txt",
-        
-        
     params:
         aux = aux_dir
     log: "log_files/igseq-ageing-clone-counts.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-ageing-clone-counts.R")
 
 rule igseq_ageing_clone_diversity:
@@ -359,6 +386,7 @@ rule igseq_ageing_clone_diversity:
     params:
         aux = aux_dir
     log: "log_files/igseq-ageing-clone-diversity.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-ageing-clone-diversity.R")
 
 rule igseq_ageing_segment_diversity_all:
@@ -376,24 +404,25 @@ rule igseq_ageing_segment_diversity_all:
     params:
         aux = aux_dir
     log: "log_files/igseq-ageing-segment-diversity-all.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-ageing-segment-diversity.R")
 
-rule igseq_ageing_segment_diversity_large:
+rule igseq_ageing_segment_diversity_5plus:
     """Compute V/J diversity spectra across age for expanded clones."""
     input:
-        grouped = "input_files/data/changeo/spectra/ageing-vj-diversity-grouped-large.tsv",
-        solo = "input_files/data/changeo/spectra/ageing-vj-diversity-solo-large.tsv",
+        grouped = "input_files/data/changeo/spectra/ageing-vj-diversity-grouped-5plus.tsv",
+        solo = "input_files/data/changeo/spectra/ageing-vj-diversity-solo-5plus.tsv",
     output:
-        alpha_beta = "output_files/figures/svg/igseq-ageing-vj-diversity-large-alpha-beta.svg",
-        spectra_grouped = "output_files/figures/svg/igseq-ageing-vj-diversity-large.svg",
-        spectra_solo = "output_files/figures/svg/igseq-ageing-vj-diversity-large-solo.svg",
-        solofit_gamma = "output_files/figures/svg/igseq-ageing-vj-diversity-large-solo-fit-gamma.svg",
-        solofit_linear = "output_files/figures/svg/igseq-ageing-vj-diversity-large-solo-fit-linear.svg",
-        solofit_igauss = "output_files/figures/svg/igseq-ageing-vj-diversity-large-solo-fit-igauss.svg",
+        alpha_beta = "output_files/figures/svg/igseq-ageing-vj-diversity-5plus-alpha-beta.svg",
+        spectra_grouped = "output_files/figures/svg/igseq-ageing-vj-diversity-5plus.svg",
+        solofit_gamma = "output_files/figures/svg/igseq-ageing-vj-diversity-5plus-solo-fit-gamma.svg",
+        solofit_linear = "output_files/figures/svg/igseq-ageing-vj-diversity-5plus-solo-fit-linear.svg",
+        solofit_igauss = "output_files/figures/svg/igseq-ageing-vj-diversity-5plus-solo-fit-igauss.svg",
     params:
         aux = aux_dir
-    log: "log_files/igseq-ageing-segment-diversity-large.dbg"
-    script: os.path.join(script_dir, "igseq-ageing-segment-diversity.R")
+    log: "log_files/igseq-ageing-segment-diversity-5plus.dbg"
+    conda: env_main
+    script: os.path.join(script_dir, "igseq-ageing-segment-diversity-5plus.R")
 
 rule igseq_ageing_igor_entropies:
     input:
@@ -404,6 +433,7 @@ rule igseq_ageing_igor_entropies:
     params:
         aux = aux_dir
     log: "log_files/igseq-ageing-igor-entropies.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-ageing-igor-entropies.R")
 
 rule igseq_ageing_igor_distributions:
@@ -421,6 +451,7 @@ rule igseq_ageing_igor_distributions:
     params:
         aux = aux_dir
     log: "log_files/igseq-ageing-igor-distributions.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-ageing-igor-distributions.R")
 
 rule igseq_ageing_igor_seqs:
@@ -432,14 +463,17 @@ rule igseq_ageing_igor_seqs:
     params:
         aux = aux_dir
     log: "log_files/igseq-ageing-igor-seqs.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-ageing-igor-seqs.R")
 
 rule igseq_ageing_rdi:
     input: "input_files/data/changeo/db/ageing-final.tab"
     output: "output_files/figures/svg/igseq-ageing-rdi.svg"
     params:
-        aux = aux_dir
+        aux = aux_dir,
+        rdi = config["rdi_path"],
     log: "log_files/igseq-ageing-rdi.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-ageing-rdi.R")
 
 #-----------------------------------------------------------------------------
@@ -455,6 +489,7 @@ rule igseq_gut_cohorts_table:
     params:
         aux = aux_dir
     log: "log_files/igseq-gut-cohorts-table.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-gut-cohorts-table.R")
 
 rule igseq_gut_read_survival:
@@ -476,6 +511,7 @@ rule igseq_gut_read_survival:
     params:
         aux = aux_dir
     log: "log_files/igseq-gut-read-survival.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-gut-read-survival.R")
 
 rule igseq_gut_functional:
@@ -499,6 +535,7 @@ rule igseq_gut_functional:
     params:
         aux = aux_dir
     log: "log_files/igseq-gut-functional.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-gut-functional.R")
 
 rule igseq_gut_clone_counts:
@@ -520,6 +557,7 @@ rule igseq_gut_clone_counts:
     params:
         aux = aux_dir
     log: "log_files/igseq-gut-clone-counts.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-gut-clone-counts.R")
 
 rule igseq_gut_clone_diversity:
@@ -537,6 +575,7 @@ rule igseq_gut_clone_diversity:
     params:
         aux = aux_dir
     log: "log_files/igseq-gut-clone-diversity.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-gut-clone-diversity.R")
 
 rule igseq_gut_segment_diversity:
@@ -553,6 +592,7 @@ rule igseq_gut_segment_diversity:
     params:
         aux = aux_dir
     log: "log_files/igseq-gut-segment-diversity.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-gut-segment-diversity.R")
 
 rule igseq_gut_rdi:
@@ -561,8 +601,10 @@ rule igseq_gut_rdi:
         age = "output_files/figures/svg/igseq-gut-rdi-age.svg",
         group = "output_files/figures/svg/igseq-gut-rdi-group.svg",
     params:
-        aux = aux_dir
+        aux = aux_dir,
+        rdi = config["rdi_path"],
     log: "log_files/igseq-gut-rdi.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "igseq-gut-rdi.R")
 
 #-----------------------------------------------------------------------------
@@ -584,6 +626,7 @@ rule igseq_rarefy_clones:
         individuals_excluded = ["1274", "1309"],
         scale = "DUPCOUNT", # scale by UMI groups
         p = 20, # Compute P20 statistic
+    conda: env_main
     script: os.path.join(script_dir, "igseq-rarefy-clones.R")
 
 rule igseq_plot_rarefied_clones:
@@ -597,6 +640,7 @@ rule igseq_plot_rarefied_clones:
         aux = aux_dir,
         P = 20, # P-statistic computed in previous rule
         scale = "DUPCOUNT", # scale by UMI groups
+    conda: env_main
     script: os.path.join(script_dir, "igseq-plot-rarefied-clones.R")
 
 #-----------------------------------------------------------------------------
@@ -620,8 +664,8 @@ igseq_figures = ["igseq-umi-consensus", "igseq-template-switch",
             "igseq-ageing-clone-diversity", "igseq-ageing-clone-diversity-solo-fit-gamma",
             "igseq-ageing-vj-diversity-all-alpha-beta",
             "igseq-ageing-vj-diversity-all-solo-fit-gamma",
-            "igseq-ageing-vj-diversity-large-alpha-beta",
-            "igseq-ageing-vj-diversity-large-solo-fit-gamma",
+            "igseq-ageing-vj-diversity-5plus-alpha-beta",
+            "igseq-ageing-vj-diversity-5plus-solo-fit-gamma",
             "igseq-ageing-igor-entropies", "igseq-ageing-rdi",
             "igseq-gut-design", "igseq-gut-read-survival-all",
             "igseq-gut-nclones", "igseq-nclones-comparative",
@@ -731,7 +775,7 @@ igseq_gut_figures_si = ["igseq-gut-read-survival-rin",
 
 igseq_figures_si = igseq_pilot_figures_si + igseq_ageing_figures_si + \
             igseq_gut_figures_si
-igseq_tables_si = ["igseq-cohorts-fish", "igseq-gut-cohorts-fish"]
+igseq_tables_si = ["igseq-cohorts-fish_edited", "igseq-gut-cohorts-fish"]
 
 #-----------------------------------------------------------------------------
 # Generate files

@@ -3,10 +3,6 @@
 ## Packages                                                                  ##
 ###############################################################################
 
-# Make sure installation packages are available
-if (!("BiocManager" %in% installed.packages())) install.packages("BiocManager")
-if (!("devtools" %in% installed.packages())) install.packages("devtools")
-
 # List desired packages
 packages <- c("plyr", # Database manipulation
               "xtable", # Export tables to LaTeX
@@ -21,21 +17,21 @@ packages <- c("plyr", # Database manipulation
               "reshape2", # Melt tibbles and data.frames
               "BSgenome", # Extra sequence-manipulation functionality
               "DECIPHER", # Synteny analysis
-              "ggdendro", # Improved dendrogram visualisation with ggplot2
+              #"ggdendro", # Improved dendrogram visualisation with ggplot2
               "cowplot", # More themes and annotation functionality for ggplot2
               "ggseqlogo", # Sequence logos with ggplot2
               "ape", # Phylogenetics functionality
               "tidytree", # Tidyverse/phylo integration
               "ggtree", # Plotting phylo trees with ggplot2
-              "genoPlotR", # For chromosome synteny plot
+              #"genoPlotR", # For chromosome synteny plot
               "DescTools", # For colour mixing
               "stringi", # String manipulations
               "alakazam", # Change-O functions 1
-              "rdi", # Repertoire Dissimilarity Index
+              #"rdi", # Repertoire Dissimilarity Index
               "shazam", # Change-O functions 2
-              "rlang", # := helper
-              "survival", # Survival curves for intro
-              "survminer" # More survival curves
+              #"survival", # Survival curves for intro
+              #"survminer" # More survival curves
+              "rlang" # := helper
               )
 
 # Define auxiliary functions
@@ -45,18 +41,13 @@ silentRequire <- function(packageName){
     require(packageName, character.only = TRUE, quietly = TRUE)
   )
 }
-quietPackage <- function(packageName){
-  # Load a package silently if possible, otherwise install it quietly
-  if (!silentRequire(packageName)){
-    BiocManager::install(packageName, dep = TRUE, quietly = TRUE)
-    if(!silentRequire(packageName)){
-      stop("Could not install package", packageName) 
-    }
-  }
-}
 
 # Load/install packages as appropriate
-for (p in packages) quietPackage(p)
+for (p in packages) silentRequire(p)
 
-# Clear namespace
-rm(list = c("p", "packages"))
+# Install RDI from local source if needed
+if ("rdi" %in% names(snakemake@params)){
+    suppressMessages(install.packages(snakemake@params[["rdi"]],
+                                      repos=NULL, type="source"))
+    silentRequire("rdi")
+}

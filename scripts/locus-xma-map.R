@@ -11,16 +11,6 @@ write_log("Parsed global Snakemake properties.")
 write_log("Loaded packages and auxiliary functions.")
 
 #------------------------------------------------------------------------------
-# PREAMBLE
-#------------------------------------------------------------------------------
-
-## Install Gviz version with tick-decreasing option
-#gvizV1 <- packageVersion("Gviz")
-#install.packages("http://bioconductor.org/packages/devel/bioc/src/contrib/Gviz_1.27.6.tar.gz", repos=NULL)
-#library(Gviz)
-#if (packageVersion("Gviz") != "1.27.6") stop("Wrong Gviz version loaded.")
-
-#------------------------------------------------------------------------------
 # LOCUS IDEOGRAM
 #------------------------------------------------------------------------------
 
@@ -408,20 +398,20 @@ gpoly <- function(x1, x2, y1, y2, col, alpha=0.1,
 }
 
 # Define zoom regions
-lower_track_y <- rep(12.20, 2)
-lower_hilight_y <- rep(13.42, 2)
-cz1_track_x <- c(2.230, 8.22)
-cz1_hilight_x <- c(2.162, 2.961)
-cz2_track_x <- c(10.05, 14.88)
-cz2_hilight_x <- c(27.79, 28.45)
-cmd_track_x <- c(16.585, 31.935)
-cmd_hilight_x <- c(30.08, 31.84)
+lower_track_y <- rep(12.20, 2) - 0.06
+lower_hilight_y <- rep(13.42, 2) + 0.04
+cz1_track_x <- c(2.230+0.09, 8.22-0.07)
+cz1_hilight_x <- c(2.162+0.03, 2.961+0.03)
+cz2_track_x <- c(10.05-0.06, 14.88-0.06)
+cz2_hilight_x <- c(27.79-0.06, 28.45-0.03)
+cmd_track_x <- c(16.585+0.06, 31.935-0.06)
+cmd_hilight_x <- c(30.08-0.09, 31.84-0.07)
 
-higher_track_y <- lower_track_y + 19.8
-higher_hilight_y <- lower_hilight_y + 20.15
+higher_track_y <- lower_track_y + 19.8 - 0.030 + 0.09
+higher_hilight_y <- lower_hilight_y + 20.15 + 0.050 - 0.035
 higher_mid_y <- (higher_track_y + 2*higher_hilight_y)/3
-higher_track_x <- c(2.24, 31.925)
-higher_hilight_x <- c(21.648, 21.949)
+higher_track_x <- c(2.24+0.09+0.03, 31.925-0.05)
+higher_hilight_x <- c(21.648, 21.949) - 0.639 - 0.16 - 0.05
 higher_mid_x <- rep(mean(higher_hilight_x), 2)
 
 # Add lower zoom lines

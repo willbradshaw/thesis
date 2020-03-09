@@ -152,10 +152,11 @@ plot_proportions <- ggplot(tab_countfunc_melt) +
   scale_x_discrete(breaks = c("CONSCOUNT", "DUPCOUNT", "N"), 
                    labels = c("Reads", "UMI groups", "Unique sequences")) + 
   scale_fill_discrete(name = "State") + ylab("%") + 
-  theme_base + theme(axis.title.x = element_blank(), 
+  theme_classic() + theme_base + theme(axis.title.x = element_blank(), 
                      axis.text.x = element_text(size = fontsize_base * fontscale_title,
                                                 angle = 45, hjust = 1),
-                     legend.justification = "center")
+                     legend.justification = "center",
+                     legend.text = element_text(margin=margin(r=0.5, unit="cm")))
 
 plot_vscores <- ggplot(tab_countfunc) +
   geom_density(aes(x=V_SCORE, 
@@ -192,10 +193,11 @@ plot_proportions_filtered <- ggplot(tab_countfunc_filtered_melt) +
   scale_x_discrete(breaks = c("CONSCOUNT", "DUPCOUNT", "N"), 
                    labels = c("Reads", "UMI groups", "Unique sequences")) + 
   scale_fill_discrete(name = "State") + ylab("%") + 
-  theme_base + theme(axis.title.x = element_blank(), 
+  theme_classic() + theme_base + theme(axis.title.x = element_blank(), 
                      axis.text.x = element_text(size = fontsize_base * fontscale_title,
                                                 angle = 45, hjust = 1),
-                     legend.justification = "center")
+                     legend.justification = "center",
+                     legend.text = element_text(margin=margin(r=0.5, unit="cm")))
 
 #------------------------------------------------------------------------------
 # COUNT SEQUENCES REMOVED IN THIS WAY

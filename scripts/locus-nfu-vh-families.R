@@ -41,14 +41,14 @@ vh_clust_nt <- hclust(vh_dist_nt, method = clust_method)
 #------------------------------------------------------------------------------
 
 # Auxiliary functions (TODO: move to aux file?)
-grepl_tips <- function(pattern, tree_object){
-  tree_object$tip.label[grepl(pattern, tree_object$tip.label)]
-}
-get_mrca <- function(pattern, tree_object){
-      nodes <- grepl_tips(pattern, tree_object)
-  if (length(nodes) <= 1) return(NA)
-  return(MRCA(tree_object, nodes))
-}
+#grepl_tips <- function(pattern, tree_object){
+#  tree_object$tip.label[grepl(pattern, tree_object$tip.label)]
+#}
+#get_mrca <- function(pattern, tree_object){
+#      nodes <- grepl_tips(pattern, tree_object)
+#  if (length(nodes) <= 1) return(NA)
+#  return(MRCA(tree_object, nodes))
+#}
 gg_color_hue <- function(n) {
   hues = seq(15, 375, length = n + 1)
   hcl(h = hues, l = 65, c = 100)[1:n]

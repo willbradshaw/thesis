@@ -33,7 +33,9 @@ import_counts <- function(path){
 # Define plotting components
 theme_countplot <- theme_classic() + theme_base + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1, family = font),
-        axis.title.x = element_blank())
+        axis.title.x = element_blank(),
+        legend.title = element_text(margin=margin(r=1, unit="cm")),
+        legend.text = element_text(margin=margin(r=0.4, unit="cm")))
 
 # Set up plotting components
 countplot_base <- function(colour = "REPLICATE", group = "REPLICATE", 

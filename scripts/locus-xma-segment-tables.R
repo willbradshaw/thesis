@@ -16,9 +16,9 @@ write_log("Loaded packages and auxiliary functions.")
 twostrand_match <- function(query, subject){
   # Check for exact matches of a pattern and its reverse complement in a sequence
   match_fwd <- vmatchPattern(query, subject)
-  if (length(match_fwd[[1]])>0) return(match_fwd[[1]] %>% as_tibble %>% mutate(strand="+"))
+  if (length(match_fwd[[1]])>0) return(match_fwd[[1]] %>% as.data.frame %>% mutate(strand="+"))
   match_rev <- vmatchPattern(reverseComplement(query), subject)
-  if (length(match_rev[[1]])>0) return(match_rev[[1]] %>% as_tibble %>% mutate(strand="-"))
+  if (length(match_rev[[1]])>0) return(match_rev[[1]] %>% as.data.frame %>% mutate(strand="-"))
   return(tibble())
 }
 
@@ -56,7 +56,7 @@ get_unmatched <- function(stringset){
 
 aln_to_range_tbl <- function(aln, strand){
   # Convert an alignment (plus strand info) to a range tibble
-  aln@subject@range %>% as_tibble %>%
+  aln@subject@range %>% as.data.frame %>%
     mutate(strand = strand,
            seqnames = names(aln@subject@unaligned)[1],
            label = names(aln@pattern@unaligned)[1])

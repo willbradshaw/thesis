@@ -33,16 +33,19 @@ tab_solo <- tab_solo %>% mutate(AGE_DAYS = factor(AGE_DAYS, levels = age_groups)
 g_alpha <- plot_diversity_alpha(tab_grouped, "AGE_DAYS") +
   scale_colour_manual(values = palette, name = "Age group (days)") +
   scale_fill_manual(values = palette, name = "Age group (days)") +
-  theme(legend.title = element_text(margin = margin(r = 1, unit = "cm")))
+  theme(legend.title = element_text(margin = margin(r = 1, unit = "cm")),
+        legend.text = element_text(margin=margin(r = 0.3, unit="cm")))
 g_beta_unscaled <- plot_diversity_beta(tab_grouped, "AGE_DAYS") +
   scale_colour_manual(values = palette, name = "Age group (days)") +
   scale_fill_manual(values = palette, name = "Age group (days)") +
-  theme(legend.title = element_text(margin = margin(r = 1, unit = "cm")))
+  theme(legend.title = element_text(margin = margin(r = 1, unit = "cm")),
+        legend.text = element_text(margin=margin(r = 0.3, unit="cm")))
 g_beta_scaled <- plot_diversity_beta_scaled(tab_grouped, "AGE_DAYS") +
   scale_colour_manual(values = palette, name = "Age group (days)") +
   scale_fill_manual(values = palette, name = "Age group (days)") +
   ylim(c(0,0.25)) +
-  theme(legend.title = element_text(margin = margin(r = 1, unit = "cm")))
+  theme(legend.title = element_text(margin = margin(r = 1, unit = "cm")),
+        legend.text = element_text(margin=margin(r = 0.3, unit="cm")))
 
 
 g_solo <-  ggplot(tab_solo) + 

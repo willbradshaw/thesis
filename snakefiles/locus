@@ -10,6 +10,7 @@ rule locus_species_cladogram:
     params:
         aux = aux_dir
     log: "log_files/locus_species_cladogram.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "locus-species-cladogram.R")
 
 rule locus_species_phenotypes:
@@ -20,6 +21,7 @@ rule locus_species_phenotypes:
     params:
         aux = aux_dir
     log: "log_files/locus_species_phenotypes.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "locus-species-phenotypes.R")
 
 rule locus_species_cladogram_ighz:
@@ -31,6 +33,7 @@ rule locus_species_cladogram_ighz:
     params:
         aux = aux_dir
     log: "log_files/locus_species_cladogram_ighz.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "locus-species-cladogram-ighz.R")
 
 rule locus_species_cladogram_cz_subclasses:
@@ -42,6 +45,7 @@ rule locus_species_cladogram_cz_subclasses:
     params:
         aux = aux_dir
     log: "log_files/locus_species_cladogram_cz_subclasses.dbg"
+    conda: env_main
     script: os.path.join(script_dir, "locus-species-cladogram-cz-subclasses.R")
 
 #-----------------------------------------------------------------------------
@@ -58,6 +62,7 @@ rule locus_nfu_aln:
     log: "log_files/locus_nfu_aln.dbg"
     params:
         aux = aux_dir
+    conda: env_main
     script: os.path.join(script_dir, "locus-nfu-aln.R")
 
 rule locus_nfu_map:
@@ -71,6 +76,7 @@ rule locus_nfu_map:
     log: "log_files/locus-nfu-map.dbg"
     params:
         aux = aux_dir
+    conda: env_main
     script: os.path.join(script_dir, "locus-nfu-map.R")
 
 rule locus_nfu_dots:
@@ -85,17 +91,19 @@ rule locus_nfu_dots:
     log: "log_files/locus-nfu-dots.dbg"
     params:
         aux = aux_dir
+    conda: env_main
     script: os.path.join(script_dir, "locus-nfu-dots.R")
 
 rule locus_nfu_sashimi:
     """Create Sashimi plot of Nfu IgM splicing."""
     input:
         ch  = "input_files/data/ranges/nfu/nfu-ch-ranges.tsv",
-        bam = "input_files/data/bam/nfu_igh2_c_098.sorted.bam",
+        bam = "input_files/data/bam/nfu_igh1_c.sorted.bam",
     output: "output_files/figures/svg/locus-nfu-sashimi.svg"
     log: "log_files/locus-nfu-sashimi.dbg"
     params:
         aux = aux_dir
+    conda: env_main
     script: os.path.join(script_dir, "locus-nfu-sashimi.R")
 
 rule locus_nfu_ch_aln:
@@ -109,6 +117,7 @@ rule locus_nfu_ch_aln:
     log: "log_files/locus-nfu-ch-aln.dbg"
     params:
         aux = aux_dir
+    conda: env_main
     script: os.path.join(script_dir, "locus-nfu-ch-aln.R")
 
 rule locus_nfu_vh_families:
@@ -122,6 +131,7 @@ rule locus_nfu_vh_families:
         id_threshold = 80,
         fontscale_small_label = 0.5,
         aux = aux_dir,
+    conda: env_main
     script: os.path.join(script_dir, "locus-nfu-vh-families.R")
 
 rule locus_nfu_dj_aln:
@@ -133,6 +143,7 @@ rule locus_nfu_dj_aln:
     log: "log_files/locus-nfu-dj-aln.dbg"
     params:
         aux = aux_dir
+    conda: env_main
     script: os.path.join(script_dir, "locus-nfu-dj-aln.R")
 
 rule locus_nfu_rss_seqlogo:
@@ -147,6 +158,7 @@ rule locus_nfu_rss_seqlogo:
     log: "log_files/locus-nfu-rss-seqlogo.dbg"
     params:
         aux = aux_dir
+    conda: env_main
     script: os.path.join(script_dir, "locus-nfu-rss-seqlogo.R")
 
 #-----------------------------------------------------------------------------
@@ -164,19 +176,21 @@ rule locus_xma_map:
     log: "log_files/locus-xma-map.dbg"
     params:
         aux = aux_dir
+    conda: env_main
     script: os.path.join(script_dir, "locus-xma-map.R")
 
 rule locus_xma_sashimi:
     """Create Sashimi plot of xma IgM splicing."""
     input:
         ranges  = "input_files/data/ranges/xma/xma-ch-ranges.tsv",
-        bam_cmd = "input_files/data/bam/xma_cmd_098.sorted.bam",
-        bam_cz1 = "input_files/data/bam/xma_cz1_098.sorted.bam",
-        bam_cz2 = "input_files/data/bam/xma_cz2_098.sorted.bam",
+        bam_cmd = "input_files/data/bam/xma_cmd.sorted.bam",
+        bam_cz1 = "input_files/data/bam/xma_cz1.sorted.bam",
+        bam_cz2 = "input_files/data/bam/xma_cz2.sorted.bam",
     output: "output_files/figures/svg/locus-xma-sashimi.svg"
     log: "log_files/locus-xma-sashimi.dbg"
     params:
         aux = aux_dir
+    conda: env_main
     script: os.path.join(script_dir, "locus-xma-sashimi.R")
 
 rule locus_xma_rss_seqlogo:
@@ -191,6 +205,7 @@ rule locus_xma_rss_seqlogo:
     log: "log_files/locus-xma-rss-seqlogo.dbg"
     params:
         aux = aux_dir
+    conda: env_main
     script: os.path.join(script_dir, "locus-xma-rss-seqlogo.R")
 
 rule locus_xma_vh_families:
@@ -206,6 +221,7 @@ rule locus_xma_vh_families:
         id_threshold = 80,
         fontscale_small_label = 0.4,
         aux = aux_dir,
+    conda: env_main
     script: os.path.join(script_dir, "locus-xma-vh-families.R")
 
 rule locus_xma_cz_aln:
@@ -221,6 +237,7 @@ rule locus_xma_cz_aln:
         pid_type = "PID2",
         clust_method = "single",
         aux = aux_dir,
+    conda: env_main
     script: os.path.join(script_dir, "locus-xma-cz-aln.R")
 
 #-----------------------------------------------------------------------------
@@ -235,6 +252,7 @@ rule locus_comp_vh_tree:
     params:
         aux = aux_dir,
         fontscale_small_label = 0.5,
+    conda: env_main
     script: os.path.join(script_dir, "locus-comp-vh-tree.R")
 
 rule locus_comp_cz_tree:
@@ -249,6 +267,7 @@ rule locus_comp_cz_tree:
         rootedge_length = 0.1,
         treeline_width = 1.1,
         tiplab_offset = 0.035,
+    conda: env_main
     script: os.path.join(script_dir, "locus-comp-cz-tree.R")
 
 rule locus_ppl_cz_aln:
@@ -261,17 +280,19 @@ rule locus_ppl_cz_aln:
         aux = aux_dir,
         significance_level = 0.05,
         species = ["xma","pre","pfo","fhe","cva","kma","ppl","cto"], # Should match input list
+    conda: env_main
     script: os.path.join(script_dir, "locus-ppl-cz-aln.R")
 
-rule locus_comp_ch_tree:
-    """Visualise multispecies CH exon tree."""
-    input: "input_files/data/trees/ch-nt.tre"
-    output: "output_files/figures/svg/locus-comp-ch-tree.svg"
-    log: "log_files/locus-comp-ch-tree.dbg"
-    params:
-        aux = aux_dir,
-        fontscale_small_label = 0.5,
-    script: os.path.join(script_dir, "locus-comp-ch-tree.R")
+#rule locus_comp_ch_tree:
+#    """Visualise multispecies CH exon tree."""
+#    input: "input_files/data/trees/ch-nt.tre"
+#    output: "output_files/figures/svg/locus-comp-ch-tree.svg"
+#    log: "log_files/locus-comp-ch-tree.dbg"
+#    params:
+#        aux = aux_dir,
+#        fontscale_small_label = 0.5,
+#    conda: env_main
+#    script: os.path.join(script_dir, "locus-comp-ch-tree.R")
 
 #-----------------------------------------------------------------------------
 # Co-ordinate tables etc
@@ -300,6 +321,7 @@ rule locus_nfu_segment_tables:
     log: "log_files/locus-nfu-segment-tables.dbg"
     params:
         aux = aux_dir
+    conda: env_main
     script: os.path.join(script_dir, "locus-nfu-segment-tables.R")
 
 rule locus_xma_segment_tables:
@@ -329,7 +351,15 @@ rule locus_xma_segment_tables:
     log: "log_files/locus-xma-segment-tables.dbg"
     params:
         aux = aux_dir
+    conda: env_main
     script: os.path.join(script_dir, "locus-xma-segment-tables.R")
+
+rule locus_edit_xma_vh_table:
+    """Edit final Xma VH table."""
+    input: "output_files/tables/locus-xma-vh-coords-5.tex"
+    output: "output_files/tables/locus-xma-vh-coords-5_edited.tex"
+    log: "log_files/locus-edit-xma-vh-table.dbg"
+    shell: "sed 's/l}/p{4cm}}/' {input} > {output} 2> {log}"
 
 #-----------------------------------------------------------------------------
 # Collate all figures and tables (main chapter)
@@ -369,7 +399,7 @@ locus_tables_si = [
             "locus-xma-vh-coords-2",
             "locus-xma-vh-coords-3",
             "locus-xma-vh-coords-4",
-            "locus-xma-vh-coords-5",
+            "locus-xma-vh-coords-5_edited",
             "locus-xma-dh-coords-seg",
             "locus-xma-dh-coords-rss5",
             "locus-xma-dh-coords-rss3",

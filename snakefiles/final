@@ -3,10 +3,10 @@
 ##############################################################################
 
 # TEX input files
-tex_cls = "thesis" # or "thesis2"; make sure to change in thesis.tex too
-tex_inputs = ["A1_preamble", "A2_thesis-info", "B1_dedication",
+tex_cls = "thesis2"
+tex_inputs = ["A1_preamble", "A2_thesis-info", "A3_abbreviations", "B1_dedication",
             "B2_abstract-de", "B3_abstract-en", "B4_acknowledgements",
-            "B5_abbreviations", "C1_Introduction", "C2_Methods",
+            "C1_Introduction", "C2_Methods",
             "C3_Locus", "C4_IgSeq", "C5_Conclusion",
             "D1_Solutions", "D2_Primers", "D3_Diversity",
             "D4_Figures", "D5_Tables", "E1_Declaration",
@@ -23,17 +23,21 @@ intro_figures = ["intro-antibody-structure", "intro-primary-diversity",
 
 rule convert_svg_pdf:
     """Convert SVG figures to PDF for display."""
-    input: "output_files/figures/svg/{name}.svg"
+    input:
+        svg = "output_files/figures/svg/{name}.svg",
+        bin = "bin/rsvg-convert",
     output: "output_files/figures/pdf/{name}.pdf"
     shell:
-        "rsvg-convert -f pdf -o {output} {input}"
+        "{input.bin} -f pdf -o {output} {input.svg}"
 
 rule convert_svg_pdf_raw:
     """Convert handmade SVG figures to PDF for display."""
-    input: "input_files/figures_raw/{name}.svg"
+    input:
+        svg = "input_files/figures_raw/{name}.svg",
+        bin = "bin/rsvg-convert",
     output: "output_files/figures/pdf/{name}.pdf"
     shell:
-        "rsvg-convert -f pdf -o {output} {input}"
+        "{input.bin} -f pdf -o {output} {input.svg}"
 
 rule compile_thesis:
     """Assemble all input files and compile thesis."""
@@ -52,6 +56,8 @@ rule compile_thesis:
         expand("output_files/tables/{name}.tex", name=igseq_tables_si),
         expand("output_files/txt/{name}.txt", name=igseq_text_embeds),
         thesis = "input_files/tex/thesis.tex",
+        pdflatex = "bin/pdflatex", biber = "bin/biber",
+        makeglossaries = "bin/makeglossaries",
     output:
         "thesis.pdf",
         temp("thesis.aux"), temp("thesis.bbl"), temp("thesis.blg"),
@@ -62,25 +68,23 @@ rule compile_thesis:
         temp("thesis.gls"),
         temp("thesis.run.xml"),
     log: "log_files/compile_thesis.dbg"
-    params:
-        texdir = config["texdir"],
     shell:
         "cp {input.thesis} thesis.tex;"
         "echo 'Compiling thesis...\n' > {log}; "
-        "{params.texdir}/pdflatex -interaction=nonstopmode -halt-on-error thesis.tex &>> {log}; "
+        "{input.pdflatex} -interaction=nonstopmode -halt-on-error thesis.tex &>> {log}; "
         "echo '\n...done.\n' >> {log}; "
         "echo '\nCompiling bibliography...\n' >> {log}; "
-        "{params.texdir}/biber thesis &>> {log}; "
+        "{input.biber} thesis &>> {log}; "
         "echo '\n...done.\n' >> {log}; "
         "echo '\nCompiling glossaries...\n' >> {log}; "
-        "{params.texdir}/makeglossaries thesis &>> {log}; "
+        "{input.makeglossaries} thesis &>> {log}; "
         "echo '\n...done.\n' >> {log}; "
         "echo '\nRecompiling thesis...\n' >> {log}; "
-        "{params.texdir}/pdflatex -interaction=nonstopmode -halt-on-error thesis.tex &>> {log}; "
+        "{input.pdflatex} -interaction=nonstopmode -halt-on-error thesis.tex &>> {log}; "
         "echo '\n...done.\n' >> {log}; "
         "echo '\nRecompiling glossaries...\n' >> {log}; "
-        "{params.texdir}/makeglossaries thesis &>> {log}; "
+        "{input.makeglossaries} thesis &>> {log}; "
         "echo '\n...done.\n' >> {log}; "
         "echo '\nRecompiling thesis...\n' >> {log}; "
-        "{params.texdir}/pdflatex -interaction=nonstopmode -halt-on-error thesis.tex &>> {log}; "
+        "{input.pdflatex} -interaction=nonstopmode -halt-on-error thesis.tex &>> {log}; "
         "echo '\n...done.' >> {log}; "

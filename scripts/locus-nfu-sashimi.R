@@ -15,7 +15,7 @@ write_log("Loaded packages and auxiliary functions.")
 #------------------------------------------------------------------------------
 
 # Configure Gviz with locus info
-chromosome_id <- "igh1_nfu_constant"
+chromosome_id <- "locus"
 locus_width <- 306408
 subloci_labels <- c("IGH1", "IGH2")
 subloci_seqnames <- c("locus", "locus")
@@ -76,7 +76,7 @@ cd_introns_tab <- cd_tab_subloci_cut %>%
 cd_introns <- cd_introns_tab %>% as("GRanges")
 
 # Greate GenomeAxisTrack
-xtrack <- GenomeAxisTrack(from=1, to=locus_width, chromosome="locus", 
+xtrack <- GenomeAxisTrack(from=1, to=locus_width, chromosome=chromosome_id,
                            col=colours[["GR"]], fontcolor=colours[["GR"]],
                            size = 8, add35 = FALSE, add53 = FALSE,
                            scale = 2000, labelPos = "beside")
@@ -90,7 +90,7 @@ title.width <- 1.3
 altrack_cut <- AlignmentsTrack(inpath_bam,
                                ispaired = TRUE,
                                type = c("coverage", "sashimi"),
-                               chromosome = "locus",
+                               chromosome = chromosome_id,
                                from = 1,
                                to = cut_width,
                                name = "Reads",
@@ -105,7 +105,7 @@ grtrack_cut_cm <- GeneRegionTrack(cm_tab_subloci_cut,
                                name = "A",
                                rotation.title = 0,
                                col.title = "black",
-                               chromosome = "locus",
+                               chromosome = chromosome_id,,
                                stacking = "squish",
                                from = 1,
                                to = cut_width,
@@ -134,7 +134,7 @@ grtrack_cut_cd <- GeneRegionTrack(cd_tab_subloci_cut,
                                   cex.title = 3.5,
                                   col.title = "black",
                                   fontface.title = 1,
-                                  chromosome = "locus",
+                                  chromosome = chromosome_id,
                                   stacking = "squish",
                                   from = 1,
                                   to = cut_width,

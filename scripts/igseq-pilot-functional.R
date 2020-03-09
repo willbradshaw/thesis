@@ -143,7 +143,8 @@ plot_proportions <- ggplot(tab_countfunc_melt) +
                      axis.text.x = element_text(size = fontsize_base * fontscale_title,
                                                 angle = 45, hjust = 1),
                      legend.justification = "center",
-                     legend.spacing.x = unit(0.5, 'cm'))
+                     legend.text = element_text(margin=margin(r=0.5, unit="cm")))
+                     #legend.spacing.x = unit(0.5, 'cm'))
 
 plot_vscores <- ggplot(tab_countfunc) +
   geom_density(aes(x=V_SCORE, 

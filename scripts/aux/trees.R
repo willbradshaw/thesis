@@ -11,11 +11,27 @@ grepl_tips <- function(pattern, tree_object){
   tree_object$tip.label[grepl(pattern, tree_object$tip.label)]
 }
 
+mrca_vec <- function(tree_object, tips){
+  # Find the MRCA of a vector of tip IDs
+    if (length(tips) <= 1) return(NA)
+    # Convert to numeric IDs
+    if (!is.integer(tips)) tips <- nodeid(tree_object, tips)
+    # Iterate through nodes to find overall MRCA
+    node1 <- tips[1]
+    node2 <- tips[2]
+    mrca <- MRCA(tree_object, node1, node2)
+    tips <- tips[! tips %in% offspring(tree_object, mrca)]
+    while (length(tips) > 0){
+        mrca <- MRCA(tree_object, mrca, tips[1])
+        tips <- tips[! tips %in% offspring(tree_object, mrca)]
+    }
+    return(mrca)
+}
+
 get_mrca <- function(pattern, tree_object){
   # Find the MRCA of all tips matching a string pattern
   nodes <- grepl_tips(pattern, tree_object)
-  if (length(nodes) <= 1) return(NA)
-  return(MRCA(tree_object, nodes))
+  return(mrca_vec(tree_object, nodes))
 }
 
 check_monophyly <- function(pattern, tree_object, 

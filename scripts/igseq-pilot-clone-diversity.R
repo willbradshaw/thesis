@@ -45,7 +45,8 @@ palette <- c(colours_igseq[["pilot_rep1"]], colours_igseq[["pilot_rep2"]],
 
 g_alpha <- plot_diversity_alpha(tab_grouped, "INDIVIDUAL") +
   scale_colour_manual(values = palette, name = "Individual") +
-  scale_fill_manual(values = palette, name = "Individual")
+  scale_fill_manual(values = palette, name = "Individual") +
+  theme(legend.title = element_text(margin=margin(r=0.5, unit="cm")))
 g_beta <- plot_diversity_beta_scaled(tab_grouped, "INDIVIDUAL") +
   scale_colour_manual(values = palette, name = "Individual") +
   scale_fill_manual(values = palette, name = "Individual")
@@ -212,9 +213,11 @@ plot_rtab <- function(rtab_melt, ylabel) ggplot(rtab_melt) +
   geom_line(aes(x=Q, y=r, colour = variable), size = 1.5) +
   xlab("Diversity order (q)") + ylim(c(-1,0)) + ylab(ylabel) +
   scale_colour_discrete(name = "Metric",
-                        labels = c("P20", "Zipf exponent (all)", 
+                        labels = c("P20", "Zipf exponent (all)    ",
                                    "Zipf exponent (filtered)")) +
-  theme_classic() + theme_base
+  theme_classic() + theme_base +
+  theme(legend.text = element_text(margin=margin(r=0.3, unit="cm")))
+  #      legend.spacing.x = unit(0.3, "cm"))
 
 rplot_indiv <- plot_rtab(rtab_indiv_melt,
   expression("Pearson correlation with"~scriptstyle(""[q]*D^alpha)))

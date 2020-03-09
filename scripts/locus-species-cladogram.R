@@ -37,7 +37,7 @@ t <- t + geom_tiplab(aes(label = paste(Genus, Species),
                      family = font)
 
 # Label Atherinomorpha
-mrca_atherinomorpha <- MRCA(tree, 
+mrca_atherinomorpha <- mrca_vec(tree, 
                                     which(annotation$Atherinomorpha == 1))
 t <- t + geom_cladelabel(mrca_atherinomorpha, "Atherinomorpha",
                          offset = 18, offset.text = 0.75, fontsize=7,
@@ -45,7 +45,7 @@ t <- t + geom_cladelabel(mrca_atherinomorpha, "Atherinomorpha",
                          angle = 270, hjust = 0.5)
 
 # Label Cyprinidontiformes
-mrca_cyprinidontiformes <- MRCA(tree, 
+mrca_cyprinidontiformes <- mrca_vec(tree, 
                                       which(annotation$Cyprinodontiformes == 1))
 t <- t + geom_cladelabel(mrca_cyprinidontiformes, "Cyprinidontiformes",
                          offset = 15, offset.text = 0.75, fontsize=7,
@@ -53,7 +53,7 @@ t <- t + geom_cladelabel(mrca_cyprinidontiformes, "Cyprinidontiformes",
                          angle = 270, hjust = 0.5)
 
 # Label Nothobranchiidae
-mrca_nothobranchiidae <- MRCA(tree, 
+mrca_nothobranchiidae <- mrca_vec(tree, 
                                       which(annotation$Nothobranchiidae == 1))
 t <- t + geom_cladelabel(mrca_nothobranchiidae, "Nothobranchiidae",
                          offset = 12, offset.text = 0.75, fontsize=7,

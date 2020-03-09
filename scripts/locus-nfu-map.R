@@ -254,15 +254,15 @@ gpoly <- function(x1, x2, y1, y2, col, alpha=0.1,
 }
 
 # Define zoom regions
-lower_track_y <- rep(12.20, 2)
-lower_hilight_y <- rep(13.42, 2)
-cmd_track_x <- c(2.26, 31.935)
-cmd_hilight_x <- c(14.38, 16.74)
+lower_track_y <- rep(12.20, 2) - 0.04
+lower_hilight_y <- rep(13.42, 2) + 0.04
+cmd_track_x <- c(2.26 + 0.09, 31.935 - 0.08)
+cmd_hilight_x <- c(14.38 + 0.015, 16.74 + 0.015)
 
-higher_track_y <- lower_track_y + 19.8
-higher_hilight_y <- lower_hilight_y + 20.15
-higher_track_x <- c(2.24, 31.925)
-higher_hilight_x <- c(23.88, 24.02)
+higher_track_y <- lower_track_y + 19.8 + 0.02
+higher_hilight_y <- lower_hilight_y + 20.15 + 0.03
+higher_track_x <- c(2.24 + 0.23 + 0.08, 31.925 - 0.18 - 0.08)
+higher_hilight_x <- c(23.88, 24.02) - 0.52 - 0.15
 
 # Add lower zoom lines
 pushViewport(viewport(layout.pos.col = 1:length(map_layout$widths),
