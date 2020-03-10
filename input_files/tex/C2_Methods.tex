@@ -664,7 +664,7 @@ In order to compute the appropriate distance threshold for clonotype assignment,
 \begin{lstlisting}[language=R]
 tab <- readChangeoDb(<named_db_path>) %>% mutate(ROW = seq(n()))
 dist_pass <- distToNearest(tab, model = "ham", normalize = "len", fields = "INDIVIDUAL", first = FALSE)
-dist_fail <- tab %>% filter(! ROW %in% dist_pass$ROW) %>% mutate(DIST_NEAREST = NA) 
+dist_fail <- tab %>% filter(! ROW %in% dist_pass$ROW) %>% mutate(DIST_NEAREST = NA)
 writeChangeoDb(bind_rows(dist_pass, dist_fail), <db_output_path>)
 \end{lstlisting}
 

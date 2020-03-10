@@ -359,7 +359,7 @@ rule locus_edit_xma_vh_table:
     input: "output_files/tables/locus-xma-vh-coords-5.tex"
     output: "output_files/tables/locus-xma-vh-coords-5_edited.tex"
     log: "log_files/locus-edit-xma-vh-table.dbg"
-    shell: "sed 's/l}/p{4cm}}/' {input} > {output} 2> {log}"
+    shell: "sed 's/l}}/p{{4cm}}}}/' {input} > {output} 2> {log}"
 
 #-----------------------------------------------------------------------------
 # Collate all figures and tables (main chapter)

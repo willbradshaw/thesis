@@ -14,12 +14,19 @@ tex_inputs = ["A1_preamble", "A2_thesis-info", "A3_abbreviations", "B1_dedicatio
 
 # Figures
 intro_figures = ["intro-antibody-structure", "intro-primary-diversity",
-            "intro-teleost-loci", "intro-bcell-repertoire-primary-secondary",
-            "intro-turquoise-killifish"]
+            "intro-teleost-loci", "intro-bcell-repertoire-primary-secondary"]
+intro_figures_png = ["intro-turquoise-killifish"]
 
 #-----------------------------------------------------------------------------
 # Generate files
 #-----------------------------------------------------------------------------
+
+rule copy_png_figure:
+    """Copy a raw PNG figure to output directory."""
+    input: "input_files/figures_raw/{name}.png"
+    output: "output_files/figures/png/{name}.png"
+    log: "log_files/copy_png_figure_{name}.dbg"
+    shell: "cp {input} {output} &> {log}"
 
 rule convert_svg_pdf:
     """Convert SVG figures to PDF for display."""
@@ -46,6 +53,7 @@ rule compile_thesis:
         expand("input_files/cls/{name}.cls", name=tex_cls),
         "input_files/References.bib",
         expand("output_files/figures/pdf/{name}.pdf", name=intro_figures),
+        expand("output_files/figures/png/{name}.png", name=intro_figures_png),
         expand("output_files/figures/pdf/{name}.pdf", name=locus_figures),
         expand("output_files/figures/pdf/{name}.pdf", name=locus_figures_si),
         expand("output_files/tables/{name}.tex", name=locus_tables),

@@ -18,15 +18,23 @@ rule igseq_cohorts_table:
     conda: env_main
     script: os.path.join(script_dir, "igseq-cohorts-table.R")
 
-rule igseq_edit_fish_table:
-    """Edit fish data table for thesis."""
+rule igseq_edit_fish_table_1:
+    """Edit columns and headers for fish data table for thesis."""
     input: "output_files/tables/igseq-cohorts-fish.tex"
-    output: "output_files/tables/igseq-cohorts-fish_edited.tex"
+    output: "output_files/tables/igseq-cohorts-fish_edited-1.tex"
     log: "log_files/igseq-edit-fish-table.dbg"
     shell:
-        "cat {input} | sed 's/{rrlrllll}/{rrrrllrr}/' 2> {log} | "
-        "sed 's/Fish ID/Fish ID\\tnote{1}/' 2> {log} | "
-        "sed -e '/\W[1234] & 10/s/\\\\/\\\\\\midrule/' 2> {log} > {output} "
+        "cat {input} | sed 's/{{rrlrllll}}/{{rrrrllrr}}/' 2> {log} | "
+        "sed 's/Fish ID/Fish ID\\\\tnote{{1}}/' 2> {log} > {output} "
+
+rule igseq_edit_fish_table_2:
+    """Add midrules to fish data table for thesis."""
+    input: "output_files/tables/igseq-cohorts-fish_edited-1.tex"
+    output: "output_files/tables/igseq-cohorts-fish_edited-2.tex"
+    log: "log_files/igseq-edit-fish-table.dbg"
+    shell:
+        "cat {input} | "
+        "sed -e '/\W[1234] & 10/s/\\\\\\\\/\\\\\\\\\\\\midrule/' 2> {log} > {output} "
 
 
 #-----------------------------------------------------------------------------
@@ -775,7 +783,7 @@ igseq_gut_figures_si = ["igseq-gut-read-survival-rin",
 
 igseq_figures_si = igseq_pilot_figures_si + igseq_ageing_figures_si + \
             igseq_gut_figures_si
-igseq_tables_si = ["igseq-cohorts-fish_edited", "igseq-gut-cohorts-fish"]
+igseq_tables_si = ["igseq-cohorts-fish_edited-2", "igseq-gut-cohorts-fish"]
 
 #-----------------------------------------------------------------------------
 # Generate files
