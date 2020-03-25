@@ -2,6 +2,13 @@
 ## LOCUS ASSEMBLY FIGURES SNAKEFILE                                         ##
 ##############################################################################
 
+rule igseq_unzip_changeo_db:
+    input: "input_files/data/changeo/db/{name}.tab.gz"
+    output: "output_files/data/changeo-{name}.tab"
+    log: "log_files/igseq-unzip-db-{name}.dbg"
+    shell:
+        "gunzip -kc {input} > {output} 2> {log}"
+
 #-----------------------------------------------------------------------------
 # Overall cohort summary
 #-----------------------------------------------------------------------------
@@ -67,7 +74,7 @@ rule igseq_pilot_read_survival:
     script: os.path.join(script_dir, "igseq-pilot-read-survival.R")
 
 rule igseq_pilot_functional:
-    input: "input_files/data/changeo/db/pilot-named.tab"
+    input: "output_files/data/changeo-pilot-named.tab"
     output:
         prop = "output_files/figures/svg/igseq-pilot-functional-prop.svg",
         vscores = "output_files/figures/svg/igseq-pilot-functional-vscores.svg",
@@ -105,7 +112,7 @@ rule igseq_pilot_functional:
     script: os.path.join(script_dir, "igseq-pilot-functional.R")
 
 rule igseq_pilot_clone_sizes:
-    input: "input_files/data/changeo/db/pilot-final.tab"
+    input: "output_files/data/changeo-pilot-final.tab"
     output:
         sizes = "output_files/figures/svg/igseq-pilot-clone-sizes.svg",
         cor = "output_files/figures/svg/igseq-pilot-clone-sizes-cor.svg",
@@ -126,7 +133,7 @@ rule igseq_pilot_clone_sizes:
     script: os.path.join(script_dir, "igseq-pilot-clone-sizes.R")
 
 rule igseq_pilot_clone_zipf:
-    input: "input_files/data/changeo/db/pilot-final.tab"
+    input: "output_files/data/changeo-pilot-final.tab"
     output:
         lines = "output_files/figures/svg/igseq-pilot-clone-zipf-lines.svg",
         grad = "output_files/figures/svg/igseq-pilot-clone-zipf-grad.svg",
@@ -148,7 +155,7 @@ rule igseq_pilot_clone_zipf:
     script: os.path.join(script_dir, "igseq-pilot-clone-zipf.R")
 
 rule igseq_pilot_clone_expansions:
-    input: "input_files/data/changeo/db/pilot-final.tab"
+    input: "output_files/data/changeo-pilot-final.tab"
     output:
         all = "output_files/figures/svg/igseq-pilot-clone-expansions.svg",
         rep = "output_files/figures/svg/igseq-pilot-clone-expansions-rep.svg",
@@ -186,7 +193,7 @@ rule igseq_pilot_clone_diversity:
 
 rule igseq_pilot_segment_metrics:
     input: 
-        tab = "input_files/data/changeo/db/pilot-final.tab",
+        tab = "output_files/data/changeo-pilot-final.tab",
         vnames = "input_files/data/segments/nfu/nfu_vh_name_conversion.csv",
         dnames = "input_files/data/segments/nfu/nfu_dh_name_conversion.csv",
         jnames = "input_files/data/segments/nfu/nfu_jh_name_conversion.csv",
@@ -230,7 +237,7 @@ rule igseq_pilot_segment_diversity:
     script: os.path.join(script_dir, "igseq-pilot-segment-diversity.R")
 
 rule igseq_pilot_rdi:
-    input: "input_files/data/changeo/db/pilot-final.tab"
+    input: "output_files/data/changeo-pilot-final.tab"
     output: "output_files/figures/svg/igseq-pilot-rdi.svg"
     params:
         aux = aux_dir,
@@ -277,7 +284,7 @@ rule igseq_pilot_igor_entropies:
     script: os.path.join(script_dir, "igseq-pilot-igor-entropies.R")
 
 rule igseq_pilot_junctional_nn:
-    input: "input_files/data/changeo/db/pilot-final.tab"
+    input: "output_files/data/changeo-pilot-final.tab"
     output:
         tab = "output_files/tables/igseq-pilot-filtered-nn.tex",
         nn_any = "output_files/txt/igseq-pilot-filtered-nn-any.txt",
@@ -290,7 +297,7 @@ rule igseq_pilot_junctional_nn:
     script: os.path.join(script_dir, "igseq-pilot-junctional-n.R")
 
 rule igseq_pilot_igor_seqs:
-    input: "input_files/data/changeo/db/pilot-igor.tab"
+    input: "output_files/data/changeo-pilot-igor.tab"
     output:
         min = "output_files/txt/igseq-pilot-igor-seqs-min.txt",
         max = "output_files/txt/igseq-pilot-igor-seqs-max.txt",
@@ -327,7 +334,7 @@ rule igseq_ageing_read_survival:
     script: os.path.join(script_dir, "igseq-ageing-read-survival.R")
 
 rule igseq_ageing_functional:
-    input: "input_files/data/changeo/db/ageing-named.tab"
+    input: "output_files/data/changeo-ageing-named.tab"
     output:
         prop = "output_files/figures/svg/igseq-ageing-functional-prop.svg",
         vscores = "output_files/figures/svg/igseq-ageing-functional-vscores.svg",
@@ -357,7 +364,7 @@ rule igseq_ageing_functional:
     script: os.path.join(script_dir, "igseq-ageing-functional.R")
 
 rule igseq_ageing_clone_counts:
-    input: "input_files/data/changeo/db/ageing-final.tab",
+    input: "output_files/data/changeo-ageing-final.tab",
     output:
         nclones = "output_files/figures/svg/igseq-ageing-nclones.svg",
         prop = "output_files/figures/svg/igseq-ageing-clone-proportions.svg",
@@ -463,7 +470,7 @@ rule igseq_ageing_igor_distributions:
     script: os.path.join(script_dir, "igseq-ageing-igor-distributions.R")
 
 rule igseq_ageing_igor_seqs:
-    input: "input_files/data/changeo/db/ageing-igor.tab"
+    input: "output_files/data/changeo-ageing-igor.tab"
     output:
         tab = "output_files/tables/igseq-ageing-igor-seqs.tex",
         min = "output_files/txt/igseq-ageing-igor-seqs-min.txt",
@@ -475,7 +482,7 @@ rule igseq_ageing_igor_seqs:
     script: os.path.join(script_dir, "igseq-ageing-igor-seqs.R")
 
 rule igseq_ageing_rdi:
-    input: "input_files/data/changeo/db/ageing-final.tab"
+    input: "output_files/data/changeo-ageing-final.tab"
     output: "output_files/figures/svg/igseq-ageing-rdi.svg"
     params:
         aux = aux_dir,
@@ -523,7 +530,7 @@ rule igseq_gut_read_survival:
     script: os.path.join(script_dir, "igseq-gut-read-survival.R")
 
 rule igseq_gut_functional:
-    input: "input_files/data/changeo/db/gut-named.tab"
+    input: "output_files/data/changeo-gut-named.tab"
     output:
         prop = "output_files/figures/svg/igseq-gut-functional-prop.svg",
         vscores = "output_files/figures/svg/igseq-gut-functional-vscores.svg",
@@ -548,9 +555,9 @@ rule igseq_gut_functional:
 
 rule igseq_gut_clone_counts:
     input:
-        pilot = "input_files/data/changeo/db/pilot-final.tab",
-        age = "input_files/data/changeo/db/ageing-final.tab",
-        gut = "input_files/data/changeo/db/gut-final.tab",
+        pilot = "output_files/data/changeo-pilot-final.tab",
+        age = "output_files/data/changeo-ageing-final.tab",
+        gut = "output_files/data/changeo-gut-final.tab",
         survival = "input_files/data/changeo/survival/gut-survival.tsv",
         metadata = "input_files/data/fish_data/gut-samples.csv",
     output:
@@ -604,7 +611,7 @@ rule igseq_gut_segment_diversity:
     script: os.path.join(script_dir, "igseq-gut-segment-diversity.R")
 
 rule igseq_gut_rdi:
-    input: "input_files/data/changeo/db/gut-final.tab"
+    input: "output_files/data/changeo-gut-final.tab"
     output:
         age = "output_files/figures/svg/igseq-gut-rdi-age.svg",
         group = "output_files/figures/svg/igseq-gut-rdi-group.svg",
@@ -622,9 +629,9 @@ rule igseq_gut_rdi:
 rule igseq_rarefy_clones:
     """Perform rarefaction analysis of clone counts from IgSeq datasets."""
     input:
-        pilot = "input_files/data/changeo/db/pilot-final.tab",
-        age = "input_files/data/changeo/db/ageing-final.tab",
-        gut = "input_files/data/changeo/db/gut-final.tab",
+        pilot = "output_files/data/changeo-pilot-final.tab",
+        age = "output_files/data/changeo-ageing-final.tab",
+        gut = "output_files/data/changeo-gut-final.tab",
     output: "output_files/data/igseq-rarefied-clones.tsv"
     log: "log_files/igseq-rarefy-clones.dbg"
     params:
