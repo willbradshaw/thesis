@@ -1,5 +1,5 @@
 This repository contains all the scripts, TeX files and other resources required to 
-compile my PhD thesis from processed data, including *de novo* generation of most
+compile [my PhD thesis](https://kups.ub.uni-koeln.de/10826/) from processed data, including *de novo* generation of most
 figures and tables. To do this, you'll need to [install Conda][] and [Snakemake][]. Then run:
 
 > snakemake --use-conda compile_thesis
